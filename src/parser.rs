@@ -1575,23 +1575,25 @@ fn signal_groups(s: &str) -> IResult<&str, SignalGroups> {
 fn deduplicate_value_description_names(
     mut value_descriptions: Vec<ValueDescription>,
 ) -> Vec<ValueDescription> {
-    let mut name_count = HashMap::<String, i32>::new();
-
     for desc in &mut value_descriptions {
         if let ValueDescription::Signal {
             message_id: _,
-            signal_name,
-            value_descriptions: _,
+            signal_name: _,
+            value_descriptions,
         } = desc
         {
-            let count_entry = name_count.entry(signal_name.clone()).or_default();
-            *count_entry += 1;
+            let mut name_count = HashMap::<String, i32>::new();
 
-            if *count_entry > 1 {
-                let mut old_name = String::new();
-                std::mem::swap(signal_name, &mut old_name);
+            for val_desc in value_descriptions {
+                let count_entry = name_count.entry(val_desc.b.clone()).or_default();
+                *count_entry += 1;
 
-                *signal_name = format!("{old_name}{count_entry}")
+                if *count_entry > 1 {
+                    let mut old_name = String::new();
+                    std::mem::swap(&mut val_desc.b, &mut old_name);
+
+                    val_desc.b = format!("{old_name}{count_entry}")
+                }
             }
         }
     }
