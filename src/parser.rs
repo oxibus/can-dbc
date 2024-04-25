@@ -2,7 +2,7 @@
 //! Module containing nom parser combinators
 //!
 
-use std::str;
+use std::{collections::HashMap, str};
 
 use nom::{
     branch::{alt, permutation},
@@ -1572,6 +1572,33 @@ fn signal_groups(s: &str) -> IResult<&str, SignalGroups> {
     ))
 }
 
+fn deduplicate_value_description_names(
+    mut value_descriptions: Vec<ValueDescription>,
+) -> Vec<ValueDescription> {
+    let mut name_count = HashMap::<String, i32>::new();
+
+    for desc in &mut value_descriptions {
+        if let ValueDescription::Signal {
+            message_id: _,
+            signal_name,
+            value_descriptions: _,
+        } = desc
+        {
+            let count_entry = name_count.entry(signal_name.clone()).or_default();
+            *count_entry += 1;
+
+            if *count_entry > 1 {
+                let mut old_name = String::new();
+                std::mem::swap(signal_name, &mut old_name);
+
+                *signal_name = format!("{old_name}{count_entry}")
+            }
+        }
+    }
+
+    value_descriptions
+}
+
 pub fn dbc(s: &str) -> IResult<&str, DBC> {
     let (
         s,
@@ -1635,7 +1662,7 @@ pub fn dbc(s: &str) -> IResult<&str, DBC> {
             attribute_definitions,
             attribute_defaults,
             attribute_values,
-            value_descriptions,
+            value_descriptions: deduplicate_value_description_names(value_descriptions),
             signal_type_refs,
             signal_groups,
             signal_extended_value_type_list,
