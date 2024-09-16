@@ -10,6 +10,17 @@ use derive_getters::Getters;
 use crate::DBCString;
 use crate::message::MessageId;
 
+use crate::parser;
+use nom::{
+    branch::alt,
+    bytes::complete::tag,
+    character::complete::{self, multispace0, char, line_ending},
+    combinator::{map, value, opt},
+    number::complete::double,
+    multi::separated_list0,
+    IResult,
+};
+
 /// One or multiple signals are the payload of a CAN frame.
 /// To determine the actual value of a signal the following fn applies:
 /// `let fnvalue = |can_signal_value| -> can_signal_value * factor + offset;`
@@ -52,6 +63,58 @@ impl DBCString for Signal {
             receivers
         )
     }
+
+    fn parse(s: &str) -> nom::IResult<&str, Self>
+        where
+            Self: Sized {
+        let (s, _) = multispace0(s)?;
+        let (s, _) = tag("SG_")(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, name) = parser::c_ident(s)?;
+        let (s, multiplexer_indicator) = MultiplexIndicator::parse(s)?;
+        let (s, _) = parser::colon(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, start_bit) = complete::u64(s)?;
+        let (s, _) = parser::pipe(s)?;
+        let (s, signal_size) = complete::u64(s)?;
+        let (s, _) = parser::at(s)?;
+        let (s, byte_order) = ByteOrder::parse(s)?;
+        let (s, value_type) = ValueType::parse(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, _) = parser::brc_open(s)?;
+        let (s, factor) = double(s)?;
+        let (s, _) = parser::comma(s)?;
+        let (s, offset) = double(s)?;
+        let (s, _) = parser::brc_close(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, _) = parser::brk_open(s)?;
+        let (s, min) = double(s)?;
+        let (s, _) = parser::pipe(s)?;
+        let (s, max) = double(s)?;
+        let (s, _) = parser::brk_close(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, unit) = parser::char_string(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, receivers) = parser::c_ident_vec(s)?;
+        let (s, _) = line_ending(s)?;
+        Ok((
+            s,
+            Signal {
+                name,
+                multiplexer_indicator,
+                start_bit,
+                signal_size,
+                byte_order,
+                value_type,
+                factor,
+                offset,
+                min,
+                max,
+                unit: unit.to_string(),
+                receivers,
+            },
+        ))
+    }
 }
 
 
@@ -68,6 +131,39 @@ pub enum MultiplexIndicator {
     Plain,
 }
 
+impl MultiplexIndicator {
+
+    fn multiplexer(s: &str) -> IResult<&str, MultiplexIndicator> {
+        let (s, _) = parser::ms1(s)?;
+        let (s, _) = char('m')(s)?;
+        let (s, d) = complete::u64(s)?;
+        let (s, _) = parser::ms1(s)?;
+        Ok((s, MultiplexIndicator::MultiplexedSignal(d)))
+    }
+
+    fn multiplexor(s: &str) -> IResult<&str, MultiplexIndicator> {
+        let (s, _) = parser::ms1(s)?;
+        let (s, _) = char('M')(s)?;
+        let (s, _) = parser::ms1(s)?;
+        Ok((s, MultiplexIndicator::Multiplexor))
+    }
+
+    fn multiplexor_and_multiplexed(s: &str) -> IResult<&str, MultiplexIndicator> {
+        let (s, _) = parser::ms1(s)?;
+        let (s, _) = char('m')(s)?;
+        let (s, d) = complete::u64(s)?;
+        let (s, _) = char('M')(s)?;
+        let (s, _) = parser::ms1(s)?;
+        Ok((s, MultiplexIndicator::MultiplexorAndMultiplexedSignal(d)))
+    }
+
+    fn plain(s: &str) -> IResult<&str, MultiplexIndicator> {
+        let (s, _) = parser::ms1(s)?;
+        Ok((s, MultiplexIndicator::Plain))
+    }
+
+}
+
 impl DBCString for MultiplexIndicator {
     fn dbc_string(&self) -> String {
         return match self {
@@ -76,6 +172,19 @@ impl DBCString for MultiplexIndicator {
             Self::MultiplexorAndMultiplexedSignal(m) => format!("M{m}").to_string(),
             Self::Plain => "".to_string(),
         }
+    }
+
+    fn parse(s: &str) -> IResult<&str, Self>
+        where
+            Self: Sized {
+        alt(
+            (
+                Self::multiplexer,
+                Self::multiplexor,
+                Self::multiplexor_and_multiplexed,
+                Self::plain,
+            )
+        )(s)
     }
 }
 
@@ -86,12 +195,28 @@ pub enum ByteOrder {
     BigEndian,
 }
 
+impl ByteOrder {
+    pub (crate) fn little_endian(s: &str) -> IResult<&str, ByteOrder> {
+        map(char('1'), |_| ByteOrder::LittleEndian)(s)
+    }
+
+    pub (crate) fn big_endian(s: &str) -> IResult<&str, ByteOrder> {
+        map(char('0'), |_| ByteOrder::BigEndian)(s)
+    }
+}
+
 impl DBCString for ByteOrder {
     fn dbc_string(&self) -> String {
         return match self {
             Self::LittleEndian => "1".to_string(),
             Self::BigEndian => "0".to_string(),
         }
+    }
+
+    fn parse(s: &str) -> nom::IResult<&str, Self>
+        where
+            Self: Sized {
+        alt((Self::little_endian, Self::big_endian))(s)
     }
 }
 
@@ -103,12 +228,29 @@ pub enum ValueType {
     Unsigned,
 }
 
+impl ValueType {
+    fn signed(s: &str) -> IResult<&str, ValueType> {
+        map(char('-'), |_| ValueType::Signed)(s)
+    }
+    
+    fn unsigned(s: &str) -> IResult<&str, ValueType> {
+        map(char('+'), |_| ValueType::Unsigned)(s)
+    }
+    
+}
+
 impl DBCString for ValueType {
     fn dbc_string(&self) -> String {
         return match self {
             Self::Signed => "-".to_string(),
             Self::Unsigned => "+".to_string(),
         }
+    }
+
+    fn parse(s: &str) -> IResult<&str, Self>
+        where
+            Self: Sized {
+        alt((Self::signed, Self::unsigned))(s)
     }
 }
 
@@ -146,6 +288,57 @@ impl DBCString for SignalType {
           self.value_table,
         )
     }
+
+    fn parse(s: &str) -> IResult<&str, Self>
+        where
+            Self: Sized {
+        let (s, _) = multispace0(s)?;
+        let (s, _) = tag("SGTYPE_")(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, signal_type_name) = parser::c_ident(s)?;
+        let (s, _) = parser::colon(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, signal_size) = complete::u64(s)?;
+        let (s, _) = parser::at(s)?;
+        let (s, byte_order) = ByteOrder::parse(s)?;
+        let (s, value_type) = ValueType::parse(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, _) = parser::brc_open(s)?;
+        let (s, factor) = double(s)?;
+        let (s, _) = parser::comma(s)?;
+        let (s, offset) = double(s)?;
+        let (s, _) = parser::brc_close(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, _) = parser::brk_open(s)?;
+        let (s, min) = double(s)?;
+        let (s, _) = parser::pipe(s)?;
+        let (s, max) = double(s)?;
+        let (s, _) = parser::brk_close(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, unit) = parser::char_string(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, default_value) = double(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, value_table) = parser::c_ident(s)?;
+        let (s, _) = parser::semi_colon(s)?;
+        let (s, _) = line_ending(s)?;
+        Ok((
+            s,
+            SignalType {
+                signal_type_name,
+                signal_size,
+                byte_order,
+                value_type,
+                factor,
+                offset,
+                min,
+                max,
+                unit: unit.to_string(),
+                default_value,
+                value_table,
+            },
+        ))
+    }
 }
 
 #[derive(Clone, Debug, PartialEq, Getters)]
@@ -158,6 +351,22 @@ pub struct ExtendedMultiplexMapping {
 impl DBCString for ExtendedMultiplexMapping {
     fn dbc_string(&self) -> String {
         return format!("{}-{}", self.min_value, self.max_value)
+    }
+
+    fn parse(s: &str) -> IResult<&str, Self>
+        where
+            Self: Sized {
+        let (s, _) = parser::ms0(s)?;
+        let (s, min_value) = complete::u64(s)?;
+        let (s, _) = char('-')(s)?;
+        let (s, max_value) = complete::u64(s)?;
+        Ok((
+            s,
+            ExtendedMultiplexMapping {
+                min_value,
+                max_value,
+            },
+        ))
     }
 }
 
@@ -185,6 +394,32 @@ impl DBCString for ExtendedMultiplex {
                 .join(";")
         )
     }
+
+    fn parse(s: &str) -> IResult<&str, Self>
+        where
+            Self: Sized {
+        let (s, _) = multispace0(s)?;
+        let (s, _) = tag("SG_MUL_VAL_")(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, message_id) = MessageId::parse(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, signal_name) = parser::c_ident(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, multiplexor_signal_name) = parser::c_ident(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, mappings) = separated_list0(tag(","), ExtendedMultiplexMapping::parse)(s)?;
+        let (s, _) = parser::semi_colon(s)?;
+        let (s, _) = line_ending(s)?;
+        Ok((
+            s,
+            ExtendedMultiplex {
+                message_id,
+                signal_name,
+                multiplexor_signal_name,
+                mappings,
+            },
+        ))
+    }
 }
 
 
@@ -208,6 +443,34 @@ impl DBCString for SignalGroups {
                 .join(" ")
         )
     }
+
+    fn parse(s: &str) -> IResult<&str, Self>
+        where
+            Self: Sized {
+        let (s, _) = multispace0(s)?;
+        let (s, _) = tag("SIG_GROUP_")(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, message_id) = MessageId::parse(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, signal_group_name) = parser::c_ident(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, repetitions) = complete::u64(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, _) = parser::colon(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, signal_names) = separated_list0(parser::ms1, parser::c_ident)(s)?;
+        let (s, _) = parser::semi_colon(s)?;
+        let (s, _) = line_ending(s)?;
+        Ok((
+            s,
+            SignalGroups {
+                message_id,
+                signal_group_name,
+                repetitions,
+                signal_names,
+            },
+        ))
+    }
 }
 
 #[derive(Copy, Clone, Debug, PartialEq)]
@@ -218,6 +481,18 @@ pub enum SignalExtendedValueType {
     IEEEdouble64bit,
 }
 
+impl SignalExtendedValueType {
+    fn signed_or_unsigned_integer(s: &str) -> IResult<&str, SignalExtendedValueType> {
+        value(SignalExtendedValueType::SignedOrUnsignedInteger, tag("0"))(s)
+    }
+    fn ieee_float_32bit(s: &str) -> IResult<&str, SignalExtendedValueType> {
+        value(SignalExtendedValueType::IEEEfloat32Bit, tag("1"))(s)
+    }
+    fn ieee_double_64bit(s: &str) -> IResult<&str, SignalExtendedValueType> {
+        value(SignalExtendedValueType::IEEEdouble64bit, tag("2"))(s)
+    }
+}
+
 impl DBCString for SignalExtendedValueType {
     fn dbc_string(&self) -> String {
         return match self {
@@ -225,6 +500,16 @@ impl DBCString for SignalExtendedValueType {
             Self::IEEEfloat32Bit => "1",
             Self::IEEEdouble64bit => "2",
         }.to_string()
+    }
+
+    fn parse(s: &str) -> IResult<&str, Self>
+        where
+            Self: Sized {
+        alt((
+            Self::signed_or_unsigned_integer,
+            Self::ieee_float_32bit,
+            Self::ieee_double_64bit,
+        ))(s)
     }
 }
 
@@ -244,6 +529,31 @@ impl DBCString for SignalExtendedValueTypeList {
             self.signal_extended_value_type.dbc_string(),
         )
     }
+
+    fn parse(s: &str) -> IResult<&str, Self>
+        where
+            Self: Sized {
+        let (s, _) = multispace0(s)?;
+        let (s, _) = tag("SIG_VALTYPE_")(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, message_id) = MessageId::parse(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, signal_name) = parser::c_ident(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, _) = opt(parser::colon)(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, signal_extended_value_type) = SignalExtendedValueType::parse(s)?;
+        let (s, _) = parser::semi_colon(s)?;
+        let (s, _) = line_ending(s)?;
+        Ok((
+            s,
+            SignalExtendedValueTypeList {
+                message_id,
+                signal_name,
+                signal_extended_value_type,
+            },
+        ))
+    }
 }
 
 
@@ -262,5 +572,30 @@ impl DBCString for SignalTypeRef {
             self.signal_name,
             self.signal_type_name,
         )
+    }
+
+    fn parse(s: &str) -> IResult<&str, Self>
+        where
+            Self: Sized {
+        let (s, _) = multispace0(s)?;
+        let (s, _) = tag("SGTYPE_")(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, message_id) = MessageId::parse(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, signal_name) = parser::c_ident(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, _) = parser::colon(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, signal_type_name) = parser::c_ident(s)?;
+        let (s, _) = parser::semi_colon(s)?;
+        let (s, _) = line_ending(s)?;
+        Ok((
+            s,
+            SignalTypeRef {
+                message_id,
+                signal_name,
+                signal_type_name,
+            },
+        ))
     }
 }

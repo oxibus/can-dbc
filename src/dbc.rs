@@ -18,6 +18,18 @@ use crate::attributes::*;
 
 use crate::parser;
 
+use nom::{
+    branch::{alt, permutation},
+    bytes::complete::{tag, take_till, take_while, take_while1},
+    character::complete::{self, char, line_ending, multispace0, space0, space1},
+    combinator::{map, opt, value},
+    error::{ErrorKind, ParseError},
+    multi::{many0, many_till, separated_list0},
+    number::complete::double,
+    sequence::preceded,
+    AsChar, IResult, InputTakeAtPosition,
+};
+
 /// Baudrate of network in kbit/s
 #[derive(Copy, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize))]
@@ -26,6 +38,11 @@ pub struct Baudrate(pub (crate) u64);
 impl DBCString for Baudrate {
     fn dbc_string(&self) -> String {
         return self.0.to_string()
+    }
+
+    fn parse(s: &str) -> nom::IResult<&str, Self> {
+        let bd = Baudrate(500000);
+        return IResult::Ok(("rest", bd))
     }
 }
 
@@ -38,6 +55,17 @@ impl DBCString for Version {
     fn dbc_string(&self) -> String {
         return format!("VERSION {}", self.0)
     }
+
+    fn parse(s: &str) -> IResult<&str, Self>
+        where
+            Self: Sized {
+        let (s, _) = multispace0(s)?;
+        let (s, _) = tag("VERSION")(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, v) = parser::char_string(s)?;
+        let (s, _) = line_ending(s)?;
+        Ok((s, Version(v.to_string())))
+    }
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -47,6 +75,15 @@ pub struct Symbol(pub String);
 impl DBCString for Symbol {
     fn dbc_string(&self) -> String {
         return self.0.to_string()
+    }
+
+    fn parse(s: &str) -> IResult<&str, Self>
+        where
+            Self: Sized {
+        let (s, _) = space1(s)?;
+        let (s, symbol) = parser::c_ident(s)?;
+        let (s, _) = line_ending(s)?;
+        Ok((s, Symbol(symbol)))
     }
 }
 
@@ -157,6 +194,80 @@ impl DBCString for DBC {
         file_str += &dbc_vec_to_string::<ExtendedMultiplex>(&self.extended_multiplex, "\n");
 
         return file_str
+    }
+
+    fn parse(s: &str) -> IResult<&str, Self>
+        where
+            Self: Sized {
+        let (
+            s,
+            (
+                version,
+                new_symbols,
+                bit_timing,
+                nodes,
+                value_tables,
+                messages,
+                message_transmitters,
+                environment_variables,
+                environment_variable_data,
+                signal_types,
+                comments,
+                attribute_definitions,
+                attribute_defaults,
+                attribute_values,
+                value_descriptions,
+                signal_type_refs,
+                signal_groups,
+                signal_extended_value_type_list,
+                extended_multiplex,
+            ),
+        ) = permutation((
+            Version::parse,
+            new_symbols,
+            opt(bit_timing),
+            many0(Node::parse),
+            many0(ValueTable::parse),
+            many0(Message::parse),
+            many0(MessageTransmitter::parse),
+            many0(EnvironmentVariable::parse),
+            many0(EnvironmentVariableData::parse),
+            many0(SignalType::parse),
+            many0(Comment::parse),
+            many0(AttributeDefinition::parse),
+            many0(AttributeDefault::parse),
+            many0(AttributeValueForObject::parse),
+            many0(value_descriptions),
+            many0(signal_type_ref),
+            many0(signal_groups),
+            many0(signal_extended_value_type_list),
+            many0(extended_multiplex),
+        ))(s)?;
+        let (s, _) = multispace0(s)?;
+        Ok((
+            s,
+            DBC {
+                version,
+                new_symbols,
+                bit_timing,
+                nodes,
+                value_tables,
+                messages,
+                message_transmitters,
+                environment_variables,
+                environment_variable_data,
+                signal_types,
+                comments,
+                attribute_definitions,
+                attribute_defaults,
+                attribute_values,
+                value_descriptions,
+                signal_type_refs,
+                signal_groups,
+                signal_extended_value_type_list,
+                extended_multiplex,
+            },
+        ))
     }
 }
 
@@ -352,6 +463,84 @@ pub enum Comment {
     },
 }
 
+impl Comment {
+    fn node_comment(s: &str) -> IResult<&str, Comment> {
+        let (s, _) = tag("BU_")(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, node_name) = parser::c_ident(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, comment) = parser::char_string(s)?;
+
+        Ok((
+            s,
+            Comment::Node {
+                node_name,
+                comment: comment.to_string(),
+            },
+        ))
+    }
+
+    fn message_comment(s: &str) -> IResult<&str, Comment> {
+        let (s, _) = tag("BO_")(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, message_id) = MessageId::parse(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, comment) = parser::char_string(s)?;
+
+        Ok((
+            s,
+            Comment::Message {
+                message_id,
+                comment: comment.to_string(),
+            },
+        ))
+    }
+
+    fn signal_comment(s: &str) -> IResult<&str, Comment> {
+        let (s, _) = tag("SG_")(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, message_id) = MessageId::parse(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, signal_name) = parser::c_ident(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, comment) = parser::char_string(s)?;
+        Ok((
+            s,
+            Comment::Signal {
+                message_id,
+                signal_name,
+                comment: comment.to_string(),
+            },
+        ))
+    }
+
+    fn env_var_comment(s: &str) -> IResult<&str, Comment> {
+        let (s, _) = parser::ms0(s)?;
+        let (s, _) = tag("EV_")(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, env_var_name) = parser::c_ident(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, comment) = parser::char_string(s)?;
+        Ok((
+            s,
+            Comment::EnvVar {
+                env_var_name,
+                comment: comment.to_string(),
+            },
+        ))
+    }
+
+    fn comment_plain(s: &str) -> IResult<&str, Comment> {
+        let (s, comment) = parser::char_string(s)?;
+        Ok((
+            s,
+            Comment::Plain {
+                comment: comment.to_string(),
+            },
+        ))
+    }
+}
+
 impl DBCString for Comment {
     fn dbc_string(&self) -> String {
         return match self {
@@ -382,6 +571,24 @@ impl DBCString for Comment {
             },
             Self::Plain{comment} => format!("\"{}\"", comment),
         }
+    }
+
+    fn parse(s: &str) -> IResult<&str, Self>
+        where
+            Self: Sized {
+        let (s, _) = multispace0(s)?;
+        let (s, _) = tag("CM_")(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, comment) = alt((
+            Self::node_comment,
+            Self::message_comment,
+            Self::env_var_comment,
+            Self::signal_comment,
+            Self::comment_plain,
+        ))(s)?;
+        let (s, _) = parser::semi_colon(s)?;
+        let (s, _) = line_ending(s)?;
+        Ok((s, comment))
     }
 }
 

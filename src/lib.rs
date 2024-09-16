@@ -51,8 +51,16 @@ pub mod attributes;
 
 pub use crate::dbc::DBC;
 
+use nom::IResult;
+
 trait DBCString {
     fn dbc_string(&self) -> String;
+
+    // fn parse<T: DBCString>(s: &str) -> IResult<&str, T>;
+
+    fn parse(s: &str) -> IResult<&str, Self>
+    where
+        Self: Sized;
 }
 
 /// Possible error cases for `can-dbc`

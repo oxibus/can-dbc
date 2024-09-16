@@ -9,6 +9,13 @@ use derive_getters::Getters;
 use crate::DBCString;
 use crate::nodes::Transmitter;
 use crate::signal::Signal;
+use crate::parser;
+
+use nom::{
+    bytes::complete::tag,
+    character::complete::{self, multispace0},
+    multi::many0,
+};
 
 /// CAN id in header of CAN frame.
 /// Must be unique in DBC file.
@@ -36,6 +43,18 @@ impl DBCString for MessageId {
         return match self {
             Self::Standard(id) => id.to_string(),
             Self::Extended(id) => id.to_string(),
+        }
+    }
+
+    fn parse(s: &str) -> nom::IResult<&str, Self>
+        where
+            Self: Sized {
+        let (s, parsed_value) = complete::u32(s)?;
+
+        if parsed_value & (1 << 31) != 0 {
+            Ok((s, MessageId::Extended(parsed_value & 0x1FFFFFFF)))
+        } else {
+            Ok((s, MessageId::Standard(parsed_value as u16)))
         }
     }
 }
@@ -68,5 +87,32 @@ impl DBCString for Message {
                 .collect::<Vec<String>>()
                 .join("\n  ")
         )
+    }
+
+    fn parse(s: &str) -> nom::IResult<&str, Self>
+        where
+            Self: Sized {
+        let (s, _) = multispace0(s)?;
+        let (s, _) = tag("BO_")(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, message_id) = MessageId::parse(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, message_name) = parser::c_ident(s)?;
+        let (s, _) = parser::colon(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, message_size) = complete::u64(s)?;
+        let (s, _) = parser::ms1(s)?;
+        let (s, transmitter) = Transmitter::parse(s)?;
+        let (s, signals) = many0(Signal::parse)(s)?;
+        Ok((
+            s,
+            (Message {
+                message_id,
+                message_name,
+                message_size,
+                transmitter,
+                signals,
+            }),
+        ))
     }
 }
