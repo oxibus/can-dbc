@@ -16,14 +16,12 @@ use nom::{
     AsChar, IResult, InputTakeAtPosition,
 };
 
-use crate::{
-    AccessNode, AccessType, AttributeDefault, AttributeDefinition, AttributeValue,
-    AttributeValueForObject, AttributeValuedForObjectType, Baudrate, ByteOrder, Comment, EnvType,
-    EnvironmentVariable, EnvironmentVariableData, ExtendedMultiplex, ExtendedMultiplexMapping,
-    Message, MessageId, MessageTransmitter, MultiplexIndicator, Node, Signal,
-    SignalExtendedValueType, SignalExtendedValueTypeList, SignalGroups, SignalType, SignalTypeRef,
-    Symbol, Transmitter, ValDescription, ValueDescription, ValueTable, ValueType, Version, DBC,
-};
+use crate::message::{Message, MessageId};
+use crate::signal::{Signal, SignalType, MultiplexIndicator, ByteOrder, ValueType, ExtendedMultiplexMapping, ExtendedMultiplex, SignalGroups, SignalExtendedValueType, SignalExtendedValueTypeList, SignalTypeRef};
+use crate::nodes::{Node, AccessNode, AccessType, Transmitter, MessageTransmitter};
+use crate::dbc::{Version, Baudrate, Symbol, DBC, Comment};
+use crate::attributes::{AttrDefault, AttributeDefault, AttributeValueForObject, AttributeDefinition, AttributeValue, ValueDescription, SignalAttributeValue, AttributeValuedForObjectType, AttributeValueType, ValDescription, ValueTable};
+use crate::env_variables::{EnvironmentVariable, EnvType, EnvironmentVariableData};
 
 #[cfg(test)]
 mod tests {
