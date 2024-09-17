@@ -6,10 +6,10 @@ extern crate serde_derive;
 
 use derive_getters::Getters;
 
-use crate::nodes::Transmitter;
-use crate::parser;
-use crate::signal::Signal;
+use crate::Transmitter;
+use crate::Signal;
 use crate::DBCString;
+use crate::parser;
 
 use nom::{
     bytes::complete::tag,

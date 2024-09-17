@@ -8,15 +8,7 @@ use std::convert::TryFrom;
 
 use derive_getters::Getters;
 
-use crate::attributes::*;
-use crate::env_variables::*;
-use crate::message::*;
-use crate::nodes::*;
-use crate::signal::*;
-use crate::DBCString;
-use crate::Error;
-
-use crate::parser;
+use crate::*;
 
 use nom::{
     branch::{alt, permutation},

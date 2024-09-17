@@ -5,7 +5,7 @@ mod tests {
 
     // use super::*;
     use crate::{
-        attributes::ValDescription, message::MessageId, signal::SignalExtendedValueType, Error, DBC,
+        ValDescription, MessageId, SignalExtendedValueType, Error, DBC,
     };
 
     const SAMPLE_DBC: &str = r#"

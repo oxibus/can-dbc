@@ -6,9 +6,8 @@ extern crate serde_derive;
 
 use derive_getters::Getters;
 
-use crate::message::MessageId;
+use crate::MessageId;
 use crate::DBCString;
-
 use crate::parser;
 
 use nom::{

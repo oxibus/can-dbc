@@ -42,19 +42,24 @@ extern crate serde;
 extern crate serde_derive;
 
 pub mod attributes;
+pub use attributes::*;
 pub mod dbc;
+pub use dbc::*;
 pub mod env_variables;
+pub use env_variables::*;
 pub mod message;
+pub use message::*;
 pub mod nodes;
-pub mod parser;
+pub use nodes::*;
 pub mod signal;
-pub mod tests;
+pub use signal::*;
 
-pub use crate::dbc::DBC;
+pub mod tests;
+pub mod parser;
 
 use nom::IResult;
 
-trait DBCString {
+pub (crate) trait DBCString {
     fn dbc_string(&self) -> String;
 
     // fn parse<T: DBCString>(s: &str) -> IResult<&str, T>;
