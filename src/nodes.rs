@@ -6,18 +6,18 @@ extern crate serde_derive;
 
 use derive_getters::Getters;
 
-use crate::DBCString;
 use crate::message::MessageId;
+use crate::DBCString;
 
 use crate::parser;
 use nom::{
     branch::alt,
-    bytes::complete::{tag},
-    character::complete::{multispace0, char, line_ending},
+    bytes::complete::tag,
+    character::complete::space0,
+    character::complete::{char, line_ending, multispace0},
     combinator::{map, opt, value},
-    sequence::preceded,
-    character::complete::{self, space0},
     multi::separated_list0,
+    sequence::preceded,
     IResult,
 };
 
@@ -28,21 +28,46 @@ pub struct Node(pub Vec<String>);
 
 impl DBCString for Node {
     fn dbc_string(&self) -> String {
-        return format!("BU_: {}",
-            self.0.clone().join(" ")
-        )
+        return format!("BU_: {}", self.0.clone().join(" "));
     }
 
     fn parse(s: &str) -> nom::IResult<&str, Self>
-        where
-            Self: Sized {
+    where
+        Self: Sized,
+    {
         let (s, _) = multispace0(s)?;
         let (s, _) = tag("BU_:")(s)?;
-        let (s, li) = opt(preceded(parser::ms1, separated_list0(parser::ms1, parser::c_ident)))(s)?;
+        let (s, li) = opt(preceded(
+            parser::ms1,
+            separated_list0(parser::ms1, parser::c_ident),
+        ))(s)?;
         let (s, _) = space0(s)?;
         let (s, _) = line_ending(s)?;
-        Ok((s, Node(li.unwrap_or_default())))   
+        Ok((s, Node(li.unwrap_or_default())))
     }
+}
+
+#[test]
+fn network_node_test() {
+    let def = "BU_: ZU XYZ ABC OIU\n";
+    let nodes = vec![
+        "ZU".to_string(),
+        "XYZ".to_string(),
+        "ABC".to_string(),
+        "OIU".to_string(),
+    ];
+    let (_, node) = Node::parse(def).unwrap();
+    let node_exp = Node(nodes);
+    assert_eq!(node_exp, node);
+}
+
+#[test]
+fn empty_network_node_test() {
+    let def = "BU_: \n";
+    let nodes = vec![];
+    let (_, node) = Node::parse(def).unwrap();
+    let node_exp = Node(nodes);
+    assert_eq!(node_exp, node);
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -67,12 +92,13 @@ impl DBCString for AccessNode {
         return match self {
             Self::AccessNodeName(s) => s.to_string(),
             Self::AccessNodeVectorXXX => "Vector__XXX".to_string(),
-        }
+        };
     }
 
     fn parse(s: &str) -> nom::IResult<&str, Self>
-        where
-            Self: Sized {
+    where
+        Self: Sized,
+    {
         alt((Self::access_node_vector_xxx, Self::access_node_name))(s)
     }
 }
@@ -105,19 +131,21 @@ impl AccessType {
 
 impl DBCString for AccessType {
     fn dbc_string(&self) -> String {
-        return format!("DUMMY_NODE_VECTOR{}",
-          match self {
-            Self::DummyNodeVector0 => "0",
-            Self::DummyNodeVector1 => "1",
-            Self::DummyNodeVector2 => "2",
-            Self::DummyNodeVector3 => "3",
-          }
-        )
+        return format!(
+            "DUMMY_NODE_VECTOR{}",
+            match self {
+                Self::DummyNodeVector0 => "0",
+                Self::DummyNodeVector1 => "1",
+                Self::DummyNodeVector2 => "2",
+                Self::DummyNodeVector3 => "3",
+            }
+        );
     }
 
     fn parse(s: &str) -> IResult<&str, Self>
-        where
-            Self: Sized {
+    where
+        Self: Sized,
+    {
         let (s, _) = tag("DUMMY_NODE_VECTOR")(s)?;
         let (s, node) = alt((
             Self::dummy_node_vector_0,
@@ -139,7 +167,6 @@ pub enum Transmitter {
 }
 
 impl Transmitter {
-
     fn transmitter_vector_xxx(s: &str) -> IResult<&str, Transmitter> {
         value(Transmitter::VectorXXX, tag("Vector__XXX"))(s)
     }
@@ -154,12 +181,13 @@ impl DBCString for Transmitter {
         return match self {
             Self::NodeName(s) => s.to_string(),
             Self::VectorXXX => "Vector__XXX".to_string(),
-        }
+        };
     }
 
     fn parse(s: &str) -> IResult<&str, Self>
-        where
-            Self: Sized {
+    where
+        Self: Sized,
+    {
         alt((Self::transmitter_vector_xxx, Self::transmitter_node_name))(s)
     }
 }
@@ -167,8 +195,8 @@ impl DBCString for Transmitter {
 #[derive(Clone, Debug, PartialEq, Getters)]
 #[cfg_attr(feature = "serde", derive(Serialize))]
 pub struct MessageTransmitter {
-    pub (crate) message_id: MessageId,
-    pub (crate) transmitter: Vec<Transmitter>,
+    pub(crate) message_id: MessageId,
+    pub(crate) transmitter: Vec<Transmitter>,
 }
 
 impl MessageTransmitter {
@@ -179,21 +207,23 @@ impl MessageTransmitter {
 
 impl DBCString for MessageTransmitter {
     fn dbc_string(&self) -> String {
-        return format!("BO_TX_BU_ {} : {}",
-          self.message_id.dbc_string(),
-          self.transmitter
-            .clone()
-            .into_iter()
-            .map(|t| t.dbc_string())
-            .collect::<Vec<String>>()
-            .join(","),
+        return format!(
+            "BO_TX_BU_ {} : {}",
+            self.message_id.dbc_string(),
+            self.transmitter
+                .clone()
+                .into_iter()
+                .map(|t| t.dbc_string())
+                .collect::<Vec<String>>()
+                .join(","),
             // TODO determine if it will be a problem to kick out Vector__XXX if no transmitter is defined
-        )
+        );
     }
 
     fn parse(s: &str) -> IResult<&str, Self>
-        where
-            Self: Sized {
+    where
+        Self: Sized,
+    {
         let (s, _) = multispace0(s)?;
         let (s, _) = tag("BO_TX_BU_")(s)?;
         let (s, _) = parser::ms1(s)?;
@@ -212,4 +242,18 @@ impl DBCString for MessageTransmitter {
             },
         ))
     }
+}
+
+#[test]
+fn message_transmitters_test() {
+    let def = "BO_TX_BU_ 12345 : XZY,ABC;\n";
+    let exp = MessageTransmitter {
+        message_id: MessageId::Standard(12345),
+        transmitter: vec![
+            Transmitter::NodeName("XZY".to_string()),
+            Transmitter::NodeName("ABC".to_string()),
+        ],
+    };
+    let (_, transmitter) = MessageTransmitter::parse(def).unwrap();
+    assert_eq!(exp, transmitter);
 }

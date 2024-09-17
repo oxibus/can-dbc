@@ -1,8 +1,12 @@
-
 #[cfg(test)]
 mod tests {
 
-    use super::*;
+    use std::convert::TryFrom;
+
+    // use super::*;
+    use crate::{
+        attributes::ValDescription, message::MessageId, signal::SignalExtendedValueType, Error, DBC,
+    };
 
     const SAMPLE_DBC: &str = r#"
 VERSION "0.1"

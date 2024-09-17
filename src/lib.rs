@@ -41,13 +41,14 @@ extern crate serde;
 #[macro_use]
 extern crate serde_derive;
 
-pub mod parser;
-pub mod dbc;
-pub mod message;
-pub mod signal;
-pub mod nodes;
-pub mod env_variables;
 pub mod attributes;
+pub mod dbc;
+pub mod env_variables;
+pub mod message;
+pub mod nodes;
+pub mod parser;
+pub mod signal;
+pub mod tests;
 
 pub use crate::dbc::DBC;
 

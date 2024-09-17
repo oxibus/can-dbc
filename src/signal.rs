@@ -4,20 +4,19 @@ extern crate serde;
 #[macro_use]
 extern crate serde_derive;
 
-
 use derive_getters::Getters;
 
-use crate::DBCString;
 use crate::message::MessageId;
+use crate::DBCString;
 
 use crate::parser;
 use nom::{
     branch::alt,
     bytes::complete::tag,
-    character::complete::{self, multispace0, char, line_ending},
-    combinator::{map, value, opt},
-    number::complete::double,
+    character::complete::{self, char, line_ending, multispace0},
+    combinator::{map, opt, value},
     multi::separated_list0,
+    number::complete::double,
     IResult,
 };
 
@@ -27,18 +26,18 @@ use nom::{
 #[derive(Clone, Debug, PartialEq, Getters)]
 #[cfg_attr(feature = "serde", derive(Serialize))]
 pub struct Signal {
-    pub (crate) name: String,
-    pub (crate) multiplexer_indicator: MultiplexIndicator,
+    pub(crate) name: String,
+    pub(crate) multiplexer_indicator: MultiplexIndicator,
     pub start_bit: u64,
     pub signal_size: u64,
-    pub (crate) byte_order: ByteOrder,
-    pub (crate) value_type: ValueType,
+    pub(crate) byte_order: ByteOrder,
+    pub(crate) value_type: ValueType,
     pub factor: f64,
     pub offset: f64,
     pub min: f64,
     pub max: f64,
-    pub (crate) unit: String,
-    pub (crate) receivers: Vec<String>,
+    pub(crate) unit: String,
+    pub(crate) receivers: Vec<String>,
 }
 
 impl DBCString for Signal {
@@ -48,7 +47,8 @@ impl DBCString for Signal {
             _ => self.receivers.join(", "),
         };
         // format! macro doesn't support direct field access inline with the string
-        return format!(r##"SG {} {}: {}|{}@{}{} ({},{}) [{}|{}] "{}" {}"##,
+        return format!(
+            r##"SG {} {}: {}|{}@{}{} ({},{}) [{}|{}] "{}" {}"##,
             self.name,
             self.multiplexer_indicator.dbc_string(), // TODO handle the trailing space?
             self.start_bit,
@@ -61,12 +61,13 @@ impl DBCString for Signal {
             self.max,
             self.unit,
             receivers
-        )
+        );
     }
 
     fn parse(s: &str) -> nom::IResult<&str, Self>
-        where
-            Self: Sized {
+    where
+        Self: Sized,
+    {
         let (s, _) = multispace0(s)?;
         let (s, _) = tag("SG_")(s)?;
         let (s, _) = parser::ms1(s)?;
@@ -117,6 +118,11 @@ impl DBCString for Signal {
     }
 }
 
+#[test]
+fn signal_test() {
+    let signal_line = "SG_ NAME : 3|2@1- (1,0) [0|0] \"x\" UFA\r\n";
+    let _signal = Signal::parse(signal_line).unwrap();
+}
 
 #[derive(Copy, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize))]
@@ -132,7 +138,6 @@ pub enum MultiplexIndicator {
 }
 
 impl MultiplexIndicator {
-
     fn multiplexer(s: &str) -> IResult<&str, MultiplexIndicator> {
         let (s, _) = parser::ms1(s)?;
         let (s, _) = char('m')(s)?;
@@ -161,7 +166,6 @@ impl MultiplexIndicator {
         let (s, _) = parser::ms1(s)?;
         Ok((s, MultiplexIndicator::Plain))
     }
-
 }
 
 impl DBCString for MultiplexIndicator {
@@ -171,21 +175,41 @@ impl DBCString for MultiplexIndicator {
             Self::MultiplexedSignal(m) => format!("m{m}").to_string(),
             Self::MultiplexorAndMultiplexedSignal(m) => format!("M{m}").to_string(),
             Self::Plain => "".to_string(),
-        }
+        };
     }
 
     fn parse(s: &str) -> IResult<&str, Self>
-        where
-            Self: Sized {
-        alt(
-            (
-                Self::multiplexer,
-                Self::multiplexor,
-                Self::multiplexor_and_multiplexed,
-                Self::plain,
-            )
-        )(s)
+    where
+        Self: Sized,
+    {
+        alt((
+            Self::multiplexer,
+            Self::multiplexor,
+            Self::multiplexor_and_multiplexed,
+            Self::plain,
+        ))(s)
     }
+}
+
+#[test]
+fn multiplexer_indicator_parse_test() {
+    let (_, multiplexer) =
+        MultiplexIndicator::parse(" m34920 eol").expect("Failed to parse multiplexer");
+    assert_eq!(MultiplexIndicator::MultiplexedSignal(34920), multiplexer);
+
+    let (_, multiplexor) =
+        MultiplexIndicator::parse(" M eol").expect("Failed to parse multiplexor");
+    assert_eq!(MultiplexIndicator::Multiplexor, multiplexor);
+
+    let (_, plain) = MultiplexIndicator::parse(" eol").expect("Failed to parse plain");
+    assert_eq!(MultiplexIndicator::Plain, plain);
+
+    let (_, multiplexer) =
+        MultiplexIndicator::parse(" m8M eol").expect("Failed to parse multiplexer");
+    assert_eq!(
+        MultiplexIndicator::MultiplexorAndMultiplexedSignal(8),
+        multiplexer
+    );
 }
 
 #[derive(Copy, Clone, Debug, PartialEq)]
@@ -196,11 +220,11 @@ pub enum ByteOrder {
 }
 
 impl ByteOrder {
-    pub (crate) fn little_endian(s: &str) -> IResult<&str, ByteOrder> {
+    pub(crate) fn little_endian(s: &str) -> IResult<&str, ByteOrder> {
         map(char('1'), |_| ByteOrder::LittleEndian)(s)
     }
 
-    pub (crate) fn big_endian(s: &str) -> IResult<&str, ByteOrder> {
+    pub(crate) fn big_endian(s: &str) -> IResult<&str, ByteOrder> {
         map(char('0'), |_| ByteOrder::BigEndian)(s)
     }
 }
@@ -210,16 +234,25 @@ impl DBCString for ByteOrder {
         return match self {
             Self::LittleEndian => "1".to_string(),
             Self::BigEndian => "0".to_string(),
-        }
+        };
     }
 
     fn parse(s: &str) -> nom::IResult<&str, Self>
-        where
-            Self: Sized {
+    where
+        Self: Sized,
+    {
         alt((Self::little_endian, Self::big_endian))(s)
     }
 }
 
+#[test]
+fn byte_order_test() {
+    let (_, big_endian) = ByteOrder::parse("0").expect("Failed to parse big endian");
+    assert_eq!(ByteOrder::BigEndian, big_endian);
+
+    let (_, little_endian) = ByteOrder::parse("1").expect("Failed to parse little endian");
+    assert_eq!(ByteOrder::LittleEndian, little_endian);
+}
 
 #[derive(Copy, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize))]
@@ -232,11 +265,10 @@ impl ValueType {
     fn signed(s: &str) -> IResult<&str, ValueType> {
         map(char('-'), |_| ValueType::Signed)(s)
     }
-    
+
     fn unsigned(s: &str) -> IResult<&str, ValueType> {
         map(char('+'), |_| ValueType::Unsigned)(s)
     }
-    
 }
 
 impl DBCString for ValueType {
@@ -244,54 +276,65 @@ impl DBCString for ValueType {
         return match self {
             Self::Signed => "-".to_string(),
             Self::Unsigned => "+".to_string(),
-        }
+        };
     }
 
     fn parse(s: &str) -> IResult<&str, Self>
-        where
-            Self: Sized {
+    where
+        Self: Sized,
+    {
         alt((Self::signed, Self::unsigned))(s)
     }
 }
 
+#[test]
+fn value_type_test() {
+    let (_, vt) = ValueType::parse("- ").expect("Failed to parse value type");
+    assert_eq!(ValueType::Signed, vt);
+
+    let (_, vt) = ValueType::parse("+ ").expect("Failed to parse value type");
+    assert_eq!(ValueType::Unsigned, vt);
+}
 
 #[derive(Clone, Debug, PartialEq, Getters)]
 #[cfg_attr(feature = "serde", derive(Serialize))]
 pub struct SignalType {
-    pub (crate) signal_type_name: String,
-    pub (crate) signal_size: u64,
-    pub (crate) byte_order: ByteOrder,
-    pub (crate) value_type: ValueType,
-    pub (crate) factor: f64,
-    pub (crate) offset: f64,
-    pub (crate) min: f64,
-    pub (crate) max: f64,
-    pub (crate) unit: String,
-    pub (crate) default_value: f64,
-    pub (crate) value_table: String,
+    pub(crate) signal_type_name: String,
+    pub(crate) signal_size: u64,
+    pub(crate) byte_order: ByteOrder,
+    pub(crate) value_type: ValueType,
+    pub(crate) factor: f64,
+    pub(crate) offset: f64,
+    pub(crate) min: f64,
+    pub(crate) max: f64,
+    pub(crate) unit: String,
+    pub(crate) default_value: f64,
+    pub(crate) value_table: String,
 }
 
 impl DBCString for SignalType {
     fn dbc_string(&self) -> String {
         // TODO this is difficult to test since CANdb++ doesn't seem to have this feature implemented
-        return format!("SGTYPE_ {}: {}@{}{} ({},{}) [{}|{}] {} {} {};",
-          self.signal_type_name,
-          self.signal_size,
-          self.byte_order.dbc_string(),
-          self.value_type.dbc_string(),
-          self.factor,
-          self.offset,
-          self.min,
-          self.max,
-          self.unit, // TODO figure out if I need to escape the unit quotes with backslashes
-          self.default_value,
-          self.value_table,
-        )
+        return format!(
+            "SGTYPE_ {}: {}@{}{} ({},{}) [{}|{}] {} {} {};",
+            self.signal_type_name,
+            self.signal_size,
+            self.byte_order.dbc_string(),
+            self.value_type.dbc_string(),
+            self.factor,
+            self.offset,
+            self.min,
+            self.max,
+            self.unit, // TODO figure out if I need to escape the unit quotes with backslashes
+            self.default_value,
+            self.value_table,
+        );
     }
 
     fn parse(s: &str) -> IResult<&str, Self>
-        where
-            Self: Sized {
+    where
+        Self: Sized,
+    {
         let (s, _) = multispace0(s)?;
         let (s, _) = tag("SGTYPE_")(s)?;
         let (s, _) = parser::ms1(s)?;
@@ -341,21 +384,44 @@ impl DBCString for SignalType {
     }
 }
 
+#[test]
+fn signal_type_test() {
+    let def = "SGTYPE_ signal_type_name: 1024@1+ (5,2) [1|3] \"unit\" 2.0 val_table;\n";
+
+    let exp = SignalType {
+        signal_type_name: "signal_type_name".to_string(),
+        signal_size: 1024,
+        byte_order: ByteOrder::LittleEndian,
+        value_type: ValueType::Unsigned,
+        factor: 5.0,
+        offset: 2.0,
+        min: 1.0,
+        max: 3.0,
+        unit: "unit".to_string(),
+        default_value: 2.0,
+        value_table: "val_table".to_string(),
+    };
+
+    let (_, signal_type) = SignalType::parse(def).unwrap();
+    assert_eq!(exp, signal_type);
+}
+
 #[derive(Clone, Debug, PartialEq, Getters)]
 #[cfg_attr(feature = "serde", derive(Serialize))]
 pub struct ExtendedMultiplexMapping {
-    pub (crate) min_value: u64,
-    pub (crate) max_value: u64,
+    pub(crate) min_value: u64,
+    pub(crate) max_value: u64,
 }
 
 impl DBCString for ExtendedMultiplexMapping {
     fn dbc_string(&self) -> String {
-        return format!("{}-{}", self.min_value, self.max_value)
+        return format!("{}-{}", self.min_value, self.max_value);
     }
 
     fn parse(s: &str) -> IResult<&str, Self>
-        where
-            Self: Sized {
+    where
+        Self: Sized,
+    {
         let (s, _) = parser::ms0(s)?;
         let (s, min_value) = complete::u64(s)?;
         let (s, _) = char('-')(s)?;
@@ -382,7 +448,8 @@ pub struct ExtendedMultiplex {
 
 impl DBCString for ExtendedMultiplex {
     fn dbc_string(&self) -> String {
-        return format!("SG_MUL_VAL_ {} {} {} {}",
+        return format!(
+            "SG_MUL_VAL_ {} {} {} {}",
             self.message_id.dbc_string(),
             self.signal_name,
             self.multiplexor_signal_name,
@@ -392,12 +459,13 @@ impl DBCString for ExtendedMultiplex {
                 .map(|m| m.dbc_string())
                 .collect::<Vec<String>>()
                 .join(";")
-        )
+        );
     }
 
     fn parse(s: &str) -> IResult<&str, Self>
-        where
-            Self: Sized {
+    where
+        Self: Sized,
+    {
         let (s, _) = multispace0(s)?;
         let (s, _) = tag("SG_MUL_VAL_")(s)?;
         let (s, _) = parser::ms1(s)?;
@@ -422,31 +490,82 @@ impl DBCString for ExtendedMultiplex {
     }
 }
 
+#[test]
+fn extended_multiplex_test() {
+    // simple mapping
+    let def = "SG_MUL_VAL_ 2147483650 muxed_A_1 MUX_A 1-1;\n";
+    let exp = ExtendedMultiplex {
+        message_id: MessageId::Extended(2),
+        signal_name: "muxed_A_1".to_string(),
+        multiplexor_signal_name: "MUX_A".to_string(),
+        mappings: vec![ExtendedMultiplexMapping {
+            min_value: 1,
+            max_value: 1,
+        }],
+    };
+    let (_, ext_multiplex) = ExtendedMultiplex::parse(def).unwrap();
+    assert_eq!(exp, ext_multiplex);
+
+    // range mapping
+    let def = "SG_MUL_VAL_ 2147483650 muxed_A_1 MUX_A 1568-2568;\n";
+    let exp = ExtendedMultiplex {
+        message_id: MessageId::Extended(2),
+        signal_name: "muxed_A_1".to_string(),
+        multiplexor_signal_name: "MUX_A".to_string(),
+        mappings: vec![ExtendedMultiplexMapping {
+            min_value: 1568,
+            max_value: 2568,
+        }],
+    };
+    let (_, ext_multiplex) = ExtendedMultiplex::parse(def).unwrap();
+    assert_eq!(exp, ext_multiplex);
+
+    // multiple mappings
+    let def = "SG_MUL_VAL_ 2147483650 muxed_B_5 MUX_B 5-5, 16-24;\n";
+    let exp = ExtendedMultiplex {
+        message_id: MessageId::Extended(2),
+        signal_name: "muxed_B_5".to_string(),
+        multiplexor_signal_name: "MUX_B".to_string(),
+        mappings: vec![
+            ExtendedMultiplexMapping {
+                min_value: 5,
+                max_value: 5,
+            },
+            ExtendedMultiplexMapping {
+                min_value: 16,
+                max_value: 24,
+            },
+        ],
+    };
+    let (_, ext_multiplex) = ExtendedMultiplex::parse(def).unwrap();
+    assert_eq!(exp, ext_multiplex);
+}
 
 /// Signal groups define a group of signals within a message
 #[derive(Clone, Debug, PartialEq, Getters)]
 #[cfg_attr(feature = "serde", derive(Serialize))]
 pub struct SignalGroups {
-    pub (crate) message_id: MessageId,
-    pub (crate) signal_group_name: String,
-    pub (crate) repetitions: u64,
-    pub (crate) signal_names: Vec<String>,
+    pub(crate) message_id: MessageId,
+    pub(crate) signal_group_name: String,
+    pub(crate) repetitions: u64,
+    pub(crate) signal_names: Vec<String>,
 }
 
 impl DBCString for SignalGroups {
     fn dbc_string(&self) -> String {
-        return format!("SIG_GROUP_ {} {} {} : {};",
+        return format!(
+            "SIG_GROUP_ {} {} {} : {};",
             self.message_id.dbc_string(),
             self.signal_group_name,
             self.repetitions,
-            self.signal_names
-                .join(" ")
-        )
+            self.signal_names.join(" ")
+        );
     }
 
     fn parse(s: &str) -> IResult<&str, Self>
-        where
-            Self: Sized {
+    where
+        Self: Sized,
+    {
         let (s, _) = multispace0(s)?;
         let (s, _) = tag("SIG_GROUP_")(s)?;
         let (s, _) = parser::ms1(s)?;
@@ -471,6 +590,21 @@ impl DBCString for SignalGroups {
             },
         ))
     }
+}
+
+#[test]
+fn signal_groups_test() {
+    let def = "SIG_GROUP_ 23 X_3290 1 : A_b XY_Z;\n";
+
+    let exp = SignalGroups {
+        message_id: MessageId::Standard(23),
+        signal_group_name: "X_3290".to_string(),
+        repetitions: 1,
+        signal_names: vec!["A_b".to_string(), "XY_Z".to_string()],
+    };
+
+    let (_, signal_groups) = SignalGroups::parse(def).unwrap();
+    assert_eq!(exp, signal_groups);
 }
 
 #[derive(Copy, Clone, Debug, PartialEq)]
@@ -499,18 +633,33 @@ impl DBCString for SignalExtendedValueType {
             Self::SignedOrUnsignedInteger => "0",
             Self::IEEEfloat32Bit => "1",
             Self::IEEEdouble64bit => "2",
-        }.to_string()
+        }
+        .to_string();
     }
 
     fn parse(s: &str) -> IResult<&str, Self>
-        where
-            Self: Sized {
+    where
+        Self: Sized,
+    {
         alt((
             Self::signed_or_unsigned_integer,
             Self::ieee_float_32bit,
             Self::ieee_double_64bit,
         ))(s)
     }
+}
+
+#[test]
+fn sig_val_type_test() {
+    let def = "SIG_VALTYPE_ 2000 Signal_8 : 1;\n";
+    let exp = SignalExtendedValueTypeList {
+        message_id: MessageId::Standard(2000),
+        signal_name: "Signal_8".to_string(),
+        signal_extended_value_type: SignalExtendedValueType::IEEEfloat32Bit,
+    };
+
+    let (_, extended_value_type_list) = SignalExtendedValueTypeList::parse(def).unwrap();
+    assert_eq!(extended_value_type_list, exp);
 }
 
 #[derive(Clone, Debug, PartialEq, Getters)]
@@ -523,16 +672,18 @@ pub struct SignalExtendedValueTypeList {
 
 impl DBCString for SignalExtendedValueTypeList {
     fn dbc_string(&self) -> String {
-        return format!("SIG_VALTYPE_ {} {}: {}",
+        return format!(
+            "SIG_VALTYPE_ {} {}: {}",
             self.message_id.dbc_string(),
             self.signal_name,
             self.signal_extended_value_type.dbc_string(),
-        )
+        );
     }
 
     fn parse(s: &str) -> IResult<&str, Self>
-        where
-            Self: Sized {
+    where
+        Self: Sized,
+    {
         let (s, _) = multispace0(s)?;
         let (s, _) = tag("SIG_VALTYPE_")(s)?;
         let (s, _) = parser::ms1(s)?;
@@ -556,27 +707,28 @@ impl DBCString for SignalExtendedValueTypeList {
     }
 }
 
-
 #[derive(Clone, Debug, PartialEq, Getters)]
 #[cfg_attr(feature = "serde", derive(Serialize))]
 pub struct SignalTypeRef {
-    pub (crate) message_id: MessageId,
-    pub (crate) signal_name: String,
-    pub (crate) signal_type_name: String,
+    pub(crate) message_id: MessageId,
+    pub(crate) signal_name: String,
+    pub(crate) signal_type_name: String,
 }
 
 impl DBCString for SignalTypeRef {
     fn dbc_string(&self) -> String {
-        return format!("SGTYPE_ {} {} : {};",
+        return format!(
+            "SGTYPE_ {} {} : {};",
             self.message_id.dbc_string(),
             self.signal_name,
             self.signal_type_name,
-        )
+        );
     }
 
     fn parse(s: &str) -> IResult<&str, Self>
-        where
-            Self: Sized {
+    where
+        Self: Sized,
+    {
         let (s, _) = multispace0(s)?;
         let (s, _) = tag("SGTYPE_")(s)?;
         let (s, _) = parser::ms1(s)?;
