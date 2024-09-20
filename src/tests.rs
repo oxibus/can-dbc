@@ -5,7 +5,7 @@ mod tests {
 
     // use super::*;
     use crate::{
-        ValDescription, MessageId, SignalExtendedValueType, Error, DBC,
+        ValDescription, MessageId, SignalExtendedValueType, Error, DBC, DBCObject,
     };
 
     const SAMPLE_DBC: &str = r#"
@@ -41,11 +41,13 @@ NS_ :
     SG_MUL_VAL_
 BS_:
 BU_: PC
+
 BO_ 2000 WebData_2000: 4 Vector__XXX
     SG_ Signal_8 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
     SG_ Signal_7 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
     SG_ Signal_6 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
     SG_ Signal_5 : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+
 BO_ 1840 WebData_1840: 4 PC
     SG_ Signal_4 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
     SG_ Signal_3 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
@@ -63,6 +65,7 @@ BO_ 3040 WebData_3040: 8 Vector__XXX
 
 EV_ Environment1: 0 [0|220] "" 0 6 DUMMY_NODE_VECTOR0 DUMMY_NODE_VECTOR2;
 EV_ Environment2: 0 [0|177] "" 0 7 DUMMY_NODE_VECTOR1 DUMMY_NODE_VECTOR2;
+
 ENVVAR_DATA_ SomeEnvVarData: 399;
 
 CM_ BO_ 1840 "Some Message comment";
@@ -79,6 +82,7 @@ BA_ "Attr" BO_ 56949545 344;
 VAL_ 2000 Signal_3 255 "NOP";
 
 SIG_VALTYPE_ 2000 Signal_8 : 1;
+
 "#;
 
     #[test]
@@ -103,6 +107,12 @@ SIG_VALTYPE_ 2000 Signal_8 : 1;
                 panic!("Failed to read DBC");
             }
         }
+    }
+
+    #[test]
+    fn dbc_write_test() {
+        let dbc_content = DBC::try_from(SAMPLE_DBC).expect("Failed to parse DBC");
+        assert_eq!(SAMPLE_DBC, dbc_content.dbc_string());
     }
 
     #[test]

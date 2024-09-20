@@ -177,24 +177,29 @@ pub struct DBC {
 
 #[allow(dead_code)]
 fn dbc_vec_to_string<T: DBCObject>(dbc_objects: &Vec<T>, delimiter: &str) -> String {
-    dbc_objects
-        .into_iter()
-        .map(|sym| sym.dbc_string())
-        .collect::<Vec<String>>()
-        .join(delimiter)
+    if dbc_objects.len() > 0 {
+        dbc_objects
+            .into_iter()
+            .map(|sym| sym.dbc_string())
+            .collect::<Vec<String>>()
+            .join(delimiter) + "\n"
+    } else {
+        "".to_string()
+    }
 }
 
 impl DBCObject for DBC {
     fn dbc_string(&self) -> String {
-        let mut file_str = String::new();
+        let mut file_str = "\n".to_string();
         // Version
         file_str += &self.version.dbc_string();
 
         // Symbols
-        file_str += "NS_ :\n";
+        file_str += "NS_ :\n    ";
         file_str += &dbc_vec_to_string::<Symbol>(&self.new_symbols, "\n    ");
 
         // Baudrates
+        file_str += "BS_:\n";
         match &self.bit_timing {
             Some(bauds) => {
                 // confirm delineator
@@ -214,34 +219,34 @@ impl DBCObject for DBC {
         file_str += &dbc_vec_to_string::<MessageTransmitter>(&self.message_transmitters, " ");
 
         // Environment Variables
-        file_str += &dbc_vec_to_string::<EnvironmentVariable>(&self.environment_variables, "\n");
+        file_str += &dbc_vec_to_string::<EnvironmentVariable>(&self.environment_variables, "");
         file_str +=
-            &dbc_vec_to_string::<EnvironmentVariableData>(&self.environment_variable_data, "\n");
+            &dbc_vec_to_string::<EnvironmentVariableData>(&self.environment_variable_data, "");
 
         // Signal Types
         file_str += &dbc_vec_to_string::<SignalType>(&self.signal_types, " ");
 
         // Comments
-        file_str += &dbc_vec_to_string::<Comment>(&self.comments, "\n");
+        file_str += &dbc_vec_to_string::<Comment>(&self.comments, "");
 
         // Attributes
-        file_str += &dbc_vec_to_string::<AttributeDefinition>(&self.attribute_definitions, "\n");
-        file_str += &dbc_vec_to_string::<AttributeValueForObject>(&self.attribute_values, "\n");
-        file_str += &dbc_vec_to_string::<AttributeDefault>(&self.attribute_defaults, "\n");
+        file_str += &dbc_vec_to_string::<AttributeDefault>(&self.attribute_defaults, "");
+        file_str += &dbc_vec_to_string::<AttributeDefinition>(&self.attribute_definitions, "");
+        file_str += &dbc_vec_to_string::<AttributeValueForObject>(&self.attribute_values, "");
 
         // Value Descriptions
-        file_str += &dbc_vec_to_string::<ValueDescription>(&self.value_descriptions, "\n");
+        file_str += &dbc_vec_to_string::<ValueDescription>(&self.value_descriptions, "");
 
         // Signal Attributes
-        file_str += &dbc_vec_to_string::<SignalTypeRef>(&self.signal_type_refs, "\n");
-        file_str += &dbc_vec_to_string::<SignalGroups>(&self.signal_groups, "\n");
+        file_str += &dbc_vec_to_string::<SignalTypeRef>(&self.signal_type_refs, "");
+        file_str += &dbc_vec_to_string::<SignalGroups>(&self.signal_groups, "");
         file_str += &dbc_vec_to_string::<SignalExtendedValueTypeList>(
             &self.signal_extended_value_type_list,
             "\n",
         );
 
         // Multiplex
-        file_str += &dbc_vec_to_string::<ExtendedMultiplex>(&self.extended_multiplex, "\n");
+        file_str += &dbc_vec_to_string::<ExtendedMultiplex>(&self.extended_multiplex, "");
 
         return file_str;
     }

@@ -137,7 +137,7 @@ impl DBCObject for Message {
                 .into_iter()
                 .map(|sg| sg.dbc_string())
                 .collect::<Vec<String>>()
-                .join("\n  ")
+                .join("  ")
         );
     }
 

@@ -165,9 +165,9 @@ impl MultiplexIndicator {
 impl DBCObject for MultiplexIndicator {
     fn dbc_string(&self) -> String {
         return match self {
-            Self::Multiplexor => "M".to_string(),
-            Self::MultiplexedSignal(m) => format!("m{m}").to_string(),
-            Self::MultiplexorAndMultiplexedSignal(m) => format!("M{m}").to_string(),
+            Self::Multiplexor => "M ".to_string(),
+            Self::MultiplexedSignal(m) => format!("m{m} ").to_string(),
+            Self::MultiplexorAndMultiplexedSignal(m) => format!("M{m} ").to_string(),
             Self::Plain => "".to_string(),
         };
     }
