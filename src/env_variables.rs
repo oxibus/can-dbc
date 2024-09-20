@@ -7,7 +7,7 @@ extern crate serde_derive;
 use derive_getters::Getters;
 
 use crate::{AccessNode, AccessType};
-use crate::DBCString;
+use crate::DBCObject;
 use crate::parser;
 
 use nom::{
@@ -35,10 +35,10 @@ pub struct EnvironmentVariable {
     pub(crate) access_nodes: Vec<AccessNode>,
 }
 
-impl DBCString for EnvironmentVariable {
+impl DBCObject for EnvironmentVariable {
     fn dbc_string(&self) -> String {
         return format!(
-            "EV_ {}: {} [{}|{}] \"{}\" {} {} {} {};",
+            "EV_ {}: {} [{}|{}] \"{}\" {} {} {} {};\n",
             self.env_var_name,
             self.env_var_type.dbc_string(),
             self.min,
@@ -118,7 +118,12 @@ fn environment_variable_test() {
     };
     let (_, env_var) =
         EnvironmentVariable::parse(def1).expect("Failed to parse environment variable");
+
+    // Test parsing
     assert_eq!(env_var1, env_var);
+
+    // Test generation
+    assert_eq!(def1, env_var.dbc_string());
 }
 
 #[derive(Clone, Debug, PartialEq, Getters)]
@@ -128,9 +133,9 @@ pub struct EnvironmentVariableData {
     pub(crate) data_size: u64,
 }
 
-impl DBCString for EnvironmentVariableData {
+impl DBCObject for EnvironmentVariableData {
     fn dbc_string(&self) -> String {
-        return format!("ENVVAR_DATA_ {}: {};", self.env_var_name, self.data_size,);
+        return format!("ENVVAR_DATA_ {}: {};\n", self.env_var_name, self.data_size,);
     }
 
     fn parse(s: &str) -> IResult<&str, Self>
@@ -164,7 +169,12 @@ fn envvar_data_test() {
         env_var_name: "SomeEnvVarData".to_string(),
         data_size: 399,
     };
+
+    // Test parsing
     assert_eq!(envvar_data_exp, envvar_data);
+
+    // Test generation
+    assert_eq!(def, envvar_data.dbc_string());
 }
 
 #[derive(Copy, Clone, Debug, PartialEq)]
@@ -189,7 +199,7 @@ impl EnvType {
     }
 }
 
-impl DBCString for EnvType {
+impl DBCObject for EnvType {
     fn dbc_string(&self) -> String {
         return match self {
             Self::EnvTypeFloat => "0".to_string(),

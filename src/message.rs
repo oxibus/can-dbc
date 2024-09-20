@@ -8,7 +8,7 @@ use derive_getters::Getters;
 
 use crate::Transmitter;
 use crate::Signal;
-use crate::DBCString;
+use crate::DBCObject;
 use crate::parser;
 
 use nom::{
@@ -38,11 +38,11 @@ impl MessageId {
     }
 }
 
-impl DBCString for MessageId {
+impl DBCObject for MessageId {
     fn dbc_string(&self) -> String {
         return match self {
-            Self::Standard(id) => id.to_string(),
-            Self::Extended(id) => id.to_string(),
+            Self::Standard(id) => (*id as u32).to_string(),
+            Self::Extended(id) => (*id as u32 + (1 << 31)).to_string(),
         };
     }
 
@@ -62,29 +62,53 @@ impl DBCString for MessageId {
 
 #[test]
 fn standard_message_id_test() {
-    let (_, extended_message_id) = MessageId::parse("2").unwrap();
+    let s = "2";
+    let (_, extended_message_id) = MessageId::parse(s).unwrap();
+    
+    // Test parsing
     assert_eq!(extended_message_id, MessageId::Standard(2));
+
+    // Test generation
+    assert_eq!(s, extended_message_id.dbc_string());
 }
 
 #[test]
 fn extended_low_message_id_test() {
     let s = (2u32 | 1 << 31).to_string();
     let (_, extended_message_id) = MessageId::parse(&s).unwrap();
+
+    // Test parsing
     assert_eq!(extended_message_id, MessageId::Extended(2));
+    
+    // Test generation
+    assert_eq!(s, extended_message_id.dbc_string());
 }
 
 #[test]
 fn extended_message_id_test() {
     let s = (0x1FFFFFFFu32 | 1 << 31).to_string();
     let (_, extended_message_id) = MessageId::parse(&s).unwrap();
+
+    // Test parsing
     assert_eq!(extended_message_id, MessageId::Extended(0x1FFFFFFF));
+
+    // Test generation
+    assert_eq!(s, extended_message_id.dbc_string());
 }
 
 #[test]
 fn extended_message_id_test_max_29bit() {
     let s = u32::MAX.to_string();
     let (_, extended_message_id) = MessageId::parse(&s).unwrap();
+
+    // Test parsing
     assert_eq!(extended_message_id, MessageId::Extended(0x1FFFFFFF));
+
+    // Test generation
+    assert_eq!(0x9FFFFFFFu32.to_string(), extended_message_id.dbc_string());
+    // This is not the same value we passed in as the maximum value of an extended ID is
+    // 0x1FFFFFFF and it will also return the leftmost bit set high to indicate that it's
+    // an extended ID.
 }
 
 /// CAN message (frame) details including signal details
@@ -100,7 +124,7 @@ pub struct Message {
     pub(crate) signals: Vec<Signal>,
 }
 
-impl DBCString for Message {
+impl DBCObject for Message {
     fn dbc_string(&self) -> String {
         return format!(
             "BO_ {} {}: {} {}\n  {}",
@@ -151,4 +175,7 @@ fn message_definition_test() {
     let def = "BO_ 1 MCA_A1: 6 MFA\r\nSG_ ABC_1 : 9|2@1+ (1,0) [0|0] \"x\" XYZ_OUS\r\nSG_ BasL2 : 3|2@0- (1,0) [0|0] \"x\" DFA_FUS\r\n x";
     Signal::parse("\r\n\r\nSG_ BasL2 : 3|2@0- (1,0) [0|0] \"x\" DFA_FUS\r\n").expect("Failed");
     let (_, _message_def) = Message::parse(def).expect("Failed to parse message definition");
+
+    // todo!("test a correct definition");
 }
+

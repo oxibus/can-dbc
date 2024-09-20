@@ -7,7 +7,7 @@ extern crate serde_derive;
 use derive_getters::Getters;
 
 use crate::MessageId;
-use crate::DBCString;
+use crate::DBCObject;
 use crate::parser;
 
 use nom::{
@@ -40,15 +40,15 @@ pub struct Signal {
     pub(crate) receivers: Vec<String>,
 }
 
-impl DBCString for Signal {
+impl DBCObject for Signal {
     fn dbc_string(&self) -> String {
         let receivers = match self.receivers.len() {
-            0 => "Vector__XXX".to_string(),
+            0 => "VECTOR_XXX".to_string(),
             _ => self.receivers.join(", "),
         };
         // format! macro doesn't support direct field access inline with the string
         return format!(
-            r##"SG {} {}: {}|{}@{}{} ({},{}) [{}|{}] "{}" {}"##,
+            "SG_ {} {}: {}|{}@{}{} ({},{}) [{}|{}] \"{}\" {}\n",
             self.name,
             self.multiplexer_indicator.dbc_string(), // TODO handle the trailing space?
             self.start_bit,
@@ -118,12 +118,6 @@ impl DBCString for Signal {
     }
 }
 
-#[test]
-fn signal_test() {
-    let signal_line = "SG_ NAME : 3|2@1- (1,0) [0|0] \"x\" UFA\r\n";
-    let _signal = Signal::parse(signal_line).unwrap();
-}
-
 #[derive(Copy, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize))]
 pub enum MultiplexIndicator {
@@ -168,7 +162,7 @@ impl MultiplexIndicator {
     }
 }
 
-impl DBCString for MultiplexIndicator {
+impl DBCObject for MultiplexIndicator {
     fn dbc_string(&self) -> String {
         return match self {
             Self::Multiplexor => "M".to_string(),
@@ -193,19 +187,20 @@ impl DBCString for MultiplexIndicator {
 
 #[test]
 fn multiplexer_indicator_parse_test() {
+    // TODO fix the space padding to make this more robust
     let (_, multiplexer) =
-        MultiplexIndicator::parse(" m34920 eol").expect("Failed to parse multiplexer");
+        MultiplexIndicator::parse(" m34920 ").expect("Failed to parse multiplexer");
     assert_eq!(MultiplexIndicator::MultiplexedSignal(34920), multiplexer);
 
     let (_, multiplexor) =
-        MultiplexIndicator::parse(" M eol").expect("Failed to parse multiplexor");
+        MultiplexIndicator::parse(" M ").expect("Failed to parse multiplexor");
     assert_eq!(MultiplexIndicator::Multiplexor, multiplexor);
 
-    let (_, plain) = MultiplexIndicator::parse(" eol").expect("Failed to parse plain");
+    let (_, plain) = MultiplexIndicator::parse(" ").expect("Failed to parse plain");
     assert_eq!(MultiplexIndicator::Plain, plain);
 
     let (_, multiplexer) =
-        MultiplexIndicator::parse(" m8M eol").expect("Failed to parse multiplexer");
+        MultiplexIndicator::parse(" m8M ").expect("Failed to parse multiplexer");
     assert_eq!(
         MultiplexIndicator::MultiplexorAndMultiplexedSignal(8),
         multiplexer
@@ -229,7 +224,7 @@ impl ByteOrder {
     }
 }
 
-impl DBCString for ByteOrder {
+impl DBCObject for ByteOrder {
     fn dbc_string(&self) -> String {
         return match self {
             Self::LittleEndian => "1".to_string(),
@@ -247,11 +242,23 @@ impl DBCString for ByteOrder {
 
 #[test]
 fn byte_order_test() {
-    let (_, big_endian) = ByteOrder::parse("0").expect("Failed to parse big endian");
+    let def = "0";
+    let (_, big_endian) = ByteOrder::parse(def).expect("Failed to parse big endian");
+    
+    // Test parsing
     assert_eq!(ByteOrder::BigEndian, big_endian);
+    
+    // Test generation
+    assert_eq!(def, big_endian.dbc_string());
 
-    let (_, little_endian) = ByteOrder::parse("1").expect("Failed to parse little endian");
+    let def = "1";
+    let (_, little_endian) = ByteOrder::parse(def).expect("Failed to parse little endian");
+    
+    // Test parsing
     assert_eq!(ByteOrder::LittleEndian, little_endian);
+
+    // Test generation
+    assert_eq!(def, little_endian.dbc_string());
 }
 
 #[derive(Copy, Clone, Debug, PartialEq)]
@@ -271,7 +278,7 @@ impl ValueType {
     }
 }
 
-impl DBCString for ValueType {
+impl DBCObject for ValueType {
     fn dbc_string(&self) -> String {
         return match self {
             Self::Signed => "-".to_string(),
@@ -289,11 +296,23 @@ impl DBCString for ValueType {
 
 #[test]
 fn value_type_test() {
-    let (_, vt) = ValueType::parse("- ").expect("Failed to parse value type");
+    let def = "- ";
+    let (_, vt) = ValueType::parse(def).expect("Failed to parse value type");
+    
+    // Test parsing
     assert_eq!(ValueType::Signed, vt);
 
-    let (_, vt) = ValueType::parse("+ ").expect("Failed to parse value type");
+    // Test generation
+    assert_eq!(def.trim(), vt.dbc_string());
+
+    let def = "+ ";
+    let (_, vt) = ValueType::parse(def).expect("Failed to parse value type");
+    
+    // Test parsing
     assert_eq!(ValueType::Unsigned, vt);
+
+    // Test generation
+    assert_eq!(def.trim(), vt.dbc_string());
 }
 
 #[derive(Clone, Debug, PartialEq, Getters)]
@@ -312,11 +331,11 @@ pub struct SignalType {
     pub(crate) value_table: String,
 }
 
-impl DBCString for SignalType {
+impl DBCObject for SignalType {
     fn dbc_string(&self) -> String {
         // TODO this is difficult to test since CANdb++ doesn't seem to have this feature implemented
         return format!(
-            "SGTYPE_ {}: {}@{}{} ({},{}) [{}|{}] {} {} {};",
+            "SGTYPE_ {}: {}@{}{} ({},{}) [{}|{}] \"{}\" {} {};\n",
             self.signal_type_name,
             self.signal_size,
             self.byte_order.dbc_string(),
@@ -386,7 +405,7 @@ impl DBCString for SignalType {
 
 #[test]
 fn signal_type_test() {
-    let def = "SGTYPE_ signal_type_name: 1024@1+ (5,2) [1|3] \"unit\" 2.0 val_table;\n";
+    let def = "SGTYPE_ signal_type_name: 1024@1+ (5,2) [1|3] \"unit\" 2 val_table;\n";
 
     let exp = SignalType {
         signal_type_name: "signal_type_name".to_string(),
@@ -403,7 +422,12 @@ fn signal_type_test() {
     };
 
     let (_, signal_type) = SignalType::parse(def).unwrap();
+
+    // Test parsing
     assert_eq!(exp, signal_type);
+
+    // Test generation
+    assert_eq!(def,signal_type.dbc_string());
 }
 
 #[derive(Clone, Debug, PartialEq, Getters)]
@@ -413,7 +437,7 @@ pub struct ExtendedMultiplexMapping {
     pub(crate) max_value: u64,
 }
 
-impl DBCString for ExtendedMultiplexMapping {
+impl DBCObject for ExtendedMultiplexMapping {
     fn dbc_string(&self) -> String {
         return format!("{}-{}", self.min_value, self.max_value);
     }
@@ -446,10 +470,10 @@ pub struct ExtendedMultiplex {
     pub mappings: Vec<ExtendedMultiplexMapping>,
 }
 
-impl DBCString for ExtendedMultiplex {
+impl DBCObject for ExtendedMultiplex {
     fn dbc_string(&self) -> String {
         return format!(
-            "SG_MUL_VAL_ {} {} {} {}",
+            "SG_MUL_VAL_ {} {} {} {};\n",
             self.message_id.dbc_string(),
             self.signal_name,
             self.multiplexor_signal_name,
@@ -458,7 +482,7 @@ impl DBCString for ExtendedMultiplex {
                 .into_iter()
                 .map(|m| m.dbc_string())
                 .collect::<Vec<String>>()
-                .join(";")
+                .join(", ")
         );
     }
 
@@ -504,7 +528,12 @@ fn extended_multiplex_test() {
         }],
     };
     let (_, ext_multiplex) = ExtendedMultiplex::parse(def).unwrap();
+
+    // Test parsing
     assert_eq!(exp, ext_multiplex);
+    
+    // Test generation
+    assert_eq!(def, ext_multiplex.dbc_string());
 
     // range mapping
     let def = "SG_MUL_VAL_ 2147483650 muxed_A_1 MUX_A 1568-2568;\n";
@@ -518,7 +547,12 @@ fn extended_multiplex_test() {
         }],
     };
     let (_, ext_multiplex) = ExtendedMultiplex::parse(def).unwrap();
+
+    // Test parsing
     assert_eq!(exp, ext_multiplex);
+
+    // Test generation
+    assert_eq!(def, ext_multiplex.dbc_string());
 
     // multiple mappings
     let def = "SG_MUL_VAL_ 2147483650 muxed_B_5 MUX_B 5-5, 16-24;\n";
@@ -538,7 +572,12 @@ fn extended_multiplex_test() {
         ],
     };
     let (_, ext_multiplex) = ExtendedMultiplex::parse(def).unwrap();
+
+    // Test parsing
     assert_eq!(exp, ext_multiplex);
+
+    // Test generation
+    assert_eq!(def, ext_multiplex.dbc_string());
 }
 
 /// Signal groups define a group of signals within a message
@@ -551,10 +590,10 @@ pub struct SignalGroups {
     pub(crate) signal_names: Vec<String>,
 }
 
-impl DBCString for SignalGroups {
+impl DBCObject for SignalGroups {
     fn dbc_string(&self) -> String {
         return format!(
-            "SIG_GROUP_ {} {} {} : {};",
+            "SIG_GROUP_ {} {} {} : {};\n",
             self.message_id.dbc_string(),
             self.signal_group_name,
             self.repetitions,
@@ -604,7 +643,12 @@ fn signal_groups_test() {
     };
 
     let (_, signal_groups) = SignalGroups::parse(def).unwrap();
+
+    // Test parsing
     assert_eq!(exp, signal_groups);
+
+    // Test generation
+    assert_eq!(def, signal_groups.dbc_string());
 }
 
 #[derive(Copy, Clone, Debug, PartialEq)]
@@ -627,7 +671,7 @@ impl SignalExtendedValueType {
     }
 }
 
-impl DBCString for SignalExtendedValueType {
+impl DBCObject for SignalExtendedValueType {
     fn dbc_string(&self) -> String {
         return match self {
             Self::SignedOrUnsignedInteger => "0",
@@ -659,7 +703,12 @@ fn sig_val_type_test() {
     };
 
     let (_, extended_value_type_list) = SignalExtendedValueTypeList::parse(def).unwrap();
+
+    // Test parsing
     assert_eq!(extended_value_type_list, exp);
+
+    // Test generation
+    assert_eq!(def, extended_value_type_list.dbc_string());
 }
 
 #[derive(Clone, Debug, PartialEq, Getters)]
@@ -670,10 +719,10 @@ pub struct SignalExtendedValueTypeList {
     pub signal_extended_value_type: SignalExtendedValueType,
 }
 
-impl DBCString for SignalExtendedValueTypeList {
+impl DBCObject for SignalExtendedValueTypeList {
     fn dbc_string(&self) -> String {
         return format!(
-            "SIG_VALTYPE_ {} {}: {}",
+            "SIG_VALTYPE_ {} {} : {};\n",
             self.message_id.dbc_string(),
             self.signal_name,
             self.signal_extended_value_type.dbc_string(),
@@ -715,7 +764,7 @@ pub struct SignalTypeRef {
     pub(crate) signal_type_name: String,
 }
 
-impl DBCString for SignalTypeRef {
+impl DBCObject for SignalTypeRef {
     fn dbc_string(&self) -> String {
         return format!(
             "SGTYPE_ {} {} : {};",

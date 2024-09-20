@@ -59,10 +59,8 @@ pub mod parser;
 
 use nom::IResult;
 
-pub (crate) trait DBCString {
+pub (crate) trait DBCObject {
     fn dbc_string(&self) -> String;
-
-    // fn parse<T: DBCString>(s: &str) -> IResult<&str, T>;
 
     fn parse(s: &str) -> IResult<&str, Self>
     where

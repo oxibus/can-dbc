@@ -7,7 +7,7 @@ extern crate serde_derive;
 use derive_getters::Getters;
 
 use crate::MessageId;
-use crate::DBCString;
+use crate::DBCObject;
 use crate::parser;
 
 use nom::{
@@ -28,10 +28,10 @@ pub struct AttributeDefault {
     pub(crate) attribute_value: AttributeValue,
 }
 
-impl DBCString for AttributeDefault {
+impl DBCObject for AttributeDefault {
     fn dbc_string(&self) -> String {
         return format!(
-            "BA_DEF_DEF_ \"{}\" {};",
+            "BA_DEF_DEF_ \"{}\" \"{}\";\n",
             self.attribute_name,
             self.attribute_value.dbc_string(),
         );
@@ -62,13 +62,18 @@ impl DBCString for AttributeDefault {
 
 #[test]
 fn attribute_default_test() {
-    let def = "BA_DEF_DEF_  \"ZUV\" \"OAL\";\n";
+    let def = "BA_DEF_DEF_ \"ZUV\" \"OAL\";\n";
     let (_, attr_default) = AttributeDefault::parse(def).unwrap();
     let attr_default_exp = AttributeDefault {
         attribute_name: "ZUV".to_string(),
         attribute_value: AttributeValue::AttributeValueCharString("OAL".to_string()),
     };
+
+    // Test Parsing
     assert_eq!(attr_default_exp, attr_default);
+
+    // Test Generation
+    assert_eq!(def, attr_default_exp.dbc_string());
 }
 
 #[derive(Clone, Debug, PartialEq, Getters)]
@@ -78,10 +83,10 @@ pub struct AttributeValueForObject {
     pub(crate) attribute_value: AttributeValuedForObjectType,
 }
 
-impl DBCString for AttributeValueForObject {
+impl DBCObject for AttributeValueForObject {
     fn dbc_string(&self) -> String {
         return format!(
-            "BA_ \"{}\" {};",
+            "BA_ \"{}\" {};\n",
             self.attribute_name,
             self.attribute_value.dbc_string(),
         );
@@ -129,7 +134,12 @@ fn network_node_attribute_value_test() {
         attribute_value,
     };
     let (_, attr_val) = AttributeValueForObject::parse(def).unwrap();
+
+    // Test parsing
     assert_eq!(attr_val_exp, attr_val);
+
+    // Test generation
+    assert_eq!(def, attr_val.dbc_string());
 }
 
 #[test]
@@ -144,7 +154,12 @@ fn message_definition_attribute_value_test() {
         attribute_value,
     };
     let (_, attr_val) = AttributeValueForObject::parse(def).unwrap();
+    
+    // Test parsing
     assert_eq!(attr_val_exp, attr_val);
+
+    // Test generation
+    assert_eq!(def, attr_val.dbc_string());
 }
 
 #[test]
@@ -160,7 +175,12 @@ fn signal_attribute_value_test() {
         attribute_value,
     };
     let (_, attr_val) = AttributeValueForObject::parse(def).unwrap();
+    
+    // Test parsing
     assert_eq!(attr_val_exp, attr_val);
+    
+    // Test generation
+    assert_eq!(def, attr_val.dbc_string());
 }
 
 #[test]
@@ -175,7 +195,31 @@ fn env_var_attribute_value_test() {
         attribute_value,
     };
     let (_, attr_val) = AttributeValueForObject::parse(def).unwrap();
+    
+    // Test parsing
     assert_eq!(attr_val_exp, attr_val);
+    
+    // Test generation
+    assert_eq!(def, attr_val.dbc_string());
+}
+
+#[test]
+fn raw_attribute_value_test() {
+    let def = "BA_ \"AttrName\" \"RAW\";\n";
+    let attribute_value = AttributeValuedForObjectType::RawAttributeValue(
+        AttributeValue::AttributeValueCharString("RAW".to_string()),
+    );
+    let attr_val_exp = AttributeValueForObject {
+        attribute_name: "AttrName".to_string(),
+        attribute_value,
+    };
+    let (_, attr_val) = AttributeValueForObject::parse(def).unwrap();
+
+    // Test parser
+    assert_eq!(attr_val_exp, attr_val);
+
+    // Test generation
+    assert_eq!(def, attr_val.dbc_string());
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -235,13 +279,13 @@ impl AttributeDefinition {
     }
 }
 
-impl DBCString for AttributeDefinition {
+impl DBCObject for AttributeDefinition {
     fn dbc_string(&self) -> String {
         return match self {
-            Self::Message(msg) => format!("BO_ {};", msg),
-            Self::Node(node) => format!("BU_ {};", node),
-            Self::Signal(sig) => format!("SG_ {};", sig),
-            Self::EnvironmentVariable(ev) => format!("EV_ {};", ev),
+            Self::Message(msg) => format!("BA_DEF_ BO_ {};\n", msg),
+            Self::Node(node) => format!("BA_DEF_ BU_ {};\n", node),
+            Self::Signal(sig) => format!("BA_DEF_ SG_ {};\n", sig),
+            Self::EnvironmentVariable(ev) => format!("BA_DEF_ EV_ {};\n", ev),
             Self::Plain(s) => format!("{};", s),
         };
     }
@@ -272,23 +316,43 @@ fn attribute_definition_test() {
     let def_bo = "BA_DEF_ BO_ \"BaDef1BO\" INT 0 1000000;\n";
     let (_, bo_def) = AttributeDefinition::parse(def_bo).unwrap();
     let bo_def_exp = AttributeDefinition::Message("\"BaDef1BO\" INT 0 1000000".to_string());
+    
+    // Test parsing
     assert_eq!(bo_def_exp, bo_def);
+
+    // Test generation
+    assert_eq!(def_bo, bo_def.dbc_string());
 
     let def_bu = "BA_DEF_ BU_ \"BuDef1BO\" INT 0 1000000;\n";
     let (_, bu_def) = AttributeDefinition::parse(def_bu).unwrap();
     let bu_def_exp = AttributeDefinition::Node("\"BuDef1BO\" INT 0 1000000".to_string());
+    
+    // Test parsing
     assert_eq!(bu_def_exp, bu_def);
+
+    // Test generation
+    assert_eq!(def_bo, bo_def.dbc_string());
 
     let def_signal = "BA_DEF_ SG_ \"SgDef1BO\" INT 0 1000000;\n";
     let (_, signal_def) = AttributeDefinition::parse(def_signal).unwrap();
     let signal_def_exp = AttributeDefinition::Signal("\"SgDef1BO\" INT 0 1000000".to_string());
+    
+    // Test parsing
     assert_eq!(signal_def_exp, signal_def);
+
+    // Test generation
+    assert_eq!(def_signal, signal_def.dbc_string());
 
     let def_env_var = "BA_DEF_ EV_ \"EvDef1BO\" INT 0 1000000;\n";
     let (_, env_var_def) = AttributeDefinition::parse(def_env_var).unwrap();
     let env_var_def_exp =
         AttributeDefinition::EnvironmentVariable("\"EvDef1BO\" INT 0 1000000".to_string());
+    
+        // Test parsing
     assert_eq!(env_var_def_exp, env_var_def);
+
+    // Test generation
+    assert_eq!(def_env_var, env_var_def.dbc_string());
 }
 
 /// Encoding for signal raw values.
@@ -347,7 +411,7 @@ impl ValueDescription {
     }
 }
 
-impl DBCString for ValueDescription {
+impl DBCObject for ValueDescription {
     fn dbc_string(&self) -> String {
         return match self {
             Self::Signal {
@@ -356,7 +420,7 @@ impl DBCString for ValueDescription {
                 value_descriptions,
             } => {
                 format!(
-                    "VAL_ {} {} \"{}\";",
+                    "VAL_ {} {} {};\n",
                     message_id.dbc_string(),
                     signal_name,
                     value_descriptions
@@ -372,7 +436,7 @@ impl DBCString for ValueDescription {
                 value_descriptions,
             } => {
                 format!(
-                    "VAL_ {} \"{}\";",
+                    "VAL_ {} {};\n",
                     env_var_name,
                     value_descriptions
                         .clone()
@@ -415,7 +479,12 @@ fn value_description_for_signal_test() {
     };
     let (_, value_signal_def) =
         ValueDescription::parse(def1).expect("Failed to parse value desc for signal");
+
+    // Test parse
     assert_eq!(value_description_for_signal1, value_signal_def);
+
+    // Test generation
+    assert_eq!(def1, value_signal_def.dbc_string());
 }
 
 #[test]
@@ -432,7 +501,12 @@ fn value_description_for_env_var_test() {
     };
     let (_, value_env_var) =
         ValueDescription::parse(def1).expect("Failed to parse value desc for env var");
+
+    // Test parse
     assert_eq!(value_env_var1, value_env_var);
+
+    // Test generation
+    assert_eq!(def1, value_env_var.dbc_string());
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -511,12 +585,12 @@ impl AttributeValuedForObjectType {
     }
 }
 
-impl DBCString for AttributeValuedForObjectType {
+impl DBCObject for AttributeValuedForObjectType {
     fn dbc_string(&self) -> String {
         return match self {
-            Self::RawAttributeValue(av) => av.dbc_string(),
+            Self::RawAttributeValue(av) => format!("\"{}\"", av.dbc_string()),
             Self::NetworkNodeAttributeValue(node_name, av) => {
-                format!("BU_ {} {} ", node_name, av.dbc_string())
+                format!("BU_ {} {}", node_name, av.dbc_string())
             }
             Self::MessageDefinitionAttributeValue(m_id, av) => {
                 format!(
@@ -532,7 +606,7 @@ impl DBCString for AttributeValuedForObjectType {
                 format!("SG_ {} {} {}", m_id.dbc_string(), s, av.dbc_string())
             }
             Self::EnvVariableAttributeValue(s, av) => {
-                format!("EV_ {} {}", s, av.dbc_string())
+                format!("EV_ {} \"{}\"", s, av.dbc_string())
             }
         };
     }
@@ -549,20 +623,6 @@ impl DBCString for AttributeValuedForObjectType {
             Self::raw_attribute_value,
         ))(s)
     }
-}
-
-#[test]
-fn raw_attribute_value_test() {
-    let def = "BA_ \"AttrName\" \"RAW\";\n";
-    let attribute_value = AttributeValuedForObjectType::RawAttributeValue(
-        AttributeValue::AttributeValueCharString("RAW".to_string()),
-    );
-    let attr_val_exp = AttributeValueForObject {
-        attribute_name: "AttrName".to_string(),
-        attribute_value,
-    };
-    let (_, attr_val) = AttributeValueForObject::parse(def).unwrap();
-    assert_eq!(attr_val_exp, attr_val);
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -606,7 +666,7 @@ impl AttributeValue {
     }
 }
 
-impl DBCString for AttributeValue {
+impl DBCObject for AttributeValue {
     fn dbc_string(&self) -> String {
         return match self {
             Self::AttributeValueU64(val) => val.to_string(),
@@ -631,9 +691,26 @@ impl DBCString for AttributeValue {
 
 #[test]
 fn attribute_value_f64_test() {
-    let def = "80.0";
+    let def = "-80.5";
     let (_, val) = AttributeValue::parse(def).unwrap();
+
+    // Test parse
+    assert_eq!(AttributeValue::AttributeValueF64(-80.5), val);
+
+    // Test generation
+    assert_eq!(def, val.dbc_string());
+}
+
+#[test]
+fn attribute_value_u64_test() {
+    let def = "80";
+    let (_, val) = AttributeValue::parse(def).unwrap();
+
+    // Test parse
     assert_eq!(AttributeValue::AttributeValueF64(80.0), val);
+
+    // Test generation
+    assert_eq!(def, val.dbc_string());
 }
 
 #[derive(Clone, Debug, PartialEq, Getters)]
@@ -650,7 +727,7 @@ pub struct ValDescription {
     pub(crate) b: String,
 }
 
-impl DBCString for ValDescription {
+impl DBCObject for ValDescription {
     fn dbc_string(&self) -> String {
         return format!("{} \"{}\"", self.a, self.b);
     }
@@ -674,13 +751,18 @@ impl DBCString for ValDescription {
 
 #[test]
 fn value_description_test() {
-    let def = "2 \"ABC\"\n";
+    let def = "2 \"ABC\"";
     let exp = ValDescription {
         a: 2f64,
         b: "ABC".to_string(),
     };
     let (_, val_desc) = ValDescription::parse(def).unwrap();
+
+    // Test parse
     assert_eq!(exp, val_desc);
+
+    // Test generation
+    assert_eq!(def, val_desc.dbc_string());
 }
 
 /// Global value table
@@ -691,17 +773,17 @@ pub struct ValueTable {
     pub(crate) value_descriptions: Vec<ValDescription>,
 }
 
-impl DBCString for ValueTable {
+impl DBCObject for ValueTable {
     fn dbc_string(&self) -> String {
         return format!(
-            "VAL_TABLE_ {} {}",
+            "VAL_TABLE_ {} {};\n",
             self.value_table_name,
             self.value_descriptions
                 .clone()
                 .into_iter()
                 .map(|vd| vd.dbc_string())
                 .collect::<Vec<String>>()
-                .join(";")
+                .join(" ")
         );
     }
 
@@ -730,7 +812,7 @@ impl DBCString for ValueTable {
 
 #[test]
 fn val_table_test() {
-    let def = "VAL_TABLE_ Tst 2 \"ABC\" 1 \"Test A\" ;\n";
+    let def = "VAL_TABLE_ Tst 2 \"ABC\" 1 \"Test A\";\n";
     let exp = ValueTable {
         value_table_name: "Tst".to_string(),
         value_descriptions: vec![
@@ -745,7 +827,12 @@ fn val_table_test() {
         ],
     };
     let (_, val_table) = ValueTable::parse(def).unwrap();
+
+    // Test parse
     assert_eq!(exp, val_table);
+
+    // Test generation
+    assert_eq!(def, val_table.dbc_string());
 }
 
 #[test]
@@ -759,5 +846,10 @@ fn val_table_no_space_preceding_comma_test() {
         }],
     };
     let (_, val_table) = ValueTable::parse(def).unwrap();
+
+    // Test parse
     assert_eq!(exp, val_table);
+
+    // Test generation
+    assert_eq!(def, val_table.dbc_string());
 }

@@ -25,7 +25,7 @@ use nom::{
 #[cfg_attr(feature = "serde", derive(Serialize))]
 pub struct Baudrate(pub(crate) u64);
 
-impl DBCString for Baudrate {
+impl DBCObject for Baudrate {
     fn dbc_string(&self) -> String {
         return self.0.to_string();
     }
@@ -51,9 +51,9 @@ fn bit_timing(s: &str) -> IResult<&str, Vec<Baudrate>> {
 #[cfg_attr(feature = "serde", derive(Serialize))]
 pub struct Version(pub String);
 
-impl DBCString for Version {
+impl DBCObject for Version {
     fn dbc_string(&self) -> String {
-        return format!("VERSION {}", self.0);
+        return format!("VERSION \"{}\"\n", self.0);
     }
 
     fn parse(s: &str) -> IResult<&str, Self>
@@ -75,14 +75,19 @@ fn version_test() {
     let version_exp =
         Version("HNPBNNNYNNNNNNNNNNNNNNNNNNNNNNNNYNYYYYYYYY>4>%%%/4>'%**4YYY///".to_string());
     let (_, version) = Version::parse(def).unwrap();
+
+    // Test parsing
     assert_eq!(version_exp, version);
+
+    // Test generation
+    assert_eq!(def, version.dbc_string());
 }
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize))]
 pub struct Symbol(pub String);
 
-impl DBCString for Symbol {
+impl DBCObject for Symbol {
     fn dbc_string(&self) -> String {
         return self.0.to_string();
     }
@@ -112,7 +117,12 @@ fn new_symbols_test() {
         Symbol("BA_DEF_".to_string()),
     ];
     let (_, symbols) = new_symbols(def).unwrap();
+
+    // Test parsing
     assert_eq!(symbols_exp, symbols);
+
+    // Test generation
+    // assert_eq!(def, symbols.dbc_string());
 }
 
 pub(crate) fn new_symbols(s: &str) -> IResult<&str, Vec<Symbol>> {
@@ -166,7 +176,7 @@ pub struct DBC {
 }
 
 #[allow(dead_code)]
-fn dbc_vec_to_string<T: DBCString>(dbc_objects: &Vec<T>, delimiter: &str) -> String {
+fn dbc_vec_to_string<T: DBCObject>(dbc_objects: &Vec<T>, delimiter: &str) -> String {
     dbc_objects
         .into_iter()
         .map(|sym| sym.dbc_string())
@@ -174,7 +184,7 @@ fn dbc_vec_to_string<T: DBCString>(dbc_objects: &Vec<T>, delimiter: &str) -> Str
         .join(delimiter)
 }
 
-impl DBCString for DBC {
+impl DBCObject for DBC {
     fn dbc_string(&self) -> String {
         let mut file_str = String::new();
         // Version
@@ -582,17 +592,17 @@ impl Comment {
     }
 }
 
-impl DBCString for Comment {
+impl DBCObject for Comment {
     fn dbc_string(&self) -> String {
         return match self {
             Self::Node { node_name, comment } => {
-                format!("BU_ {} \"{}\"", node_name, comment)
+                format!("CM_ BU_ {} \"{}\";\n", node_name, comment)
             }
             Self::Message {
                 message_id,
                 comment,
             } => {
-                format!("BO_ {} \"{}\"", message_id.dbc_string(), comment,)
+                format!("CM_ BO_ {} \"{}\";\n", message_id.dbc_string(), comment,)
             }
             Self::Signal {
                 message_id,
@@ -600,7 +610,7 @@ impl DBCString for Comment {
                 comment,
             } => {
                 format!(
-                    "SG_ {} {} \"{}\"",
+                    "CM_ SG_ {} {} \"{}\";\n",
                     message_id.dbc_string(),
                     signal_name,
                     comment
@@ -610,7 +620,7 @@ impl DBCString for Comment {
                 env_var_name,
                 comment,
             } => {
-                format!("EV_ {} \"{}\"", env_var_name, comment,)
+                format!("CM_ EV_ {} \"{}\";\n", env_var_name, comment,)
             }
             Self::Plain { comment } => format!("\"{}\"", comment),
         };
@@ -647,7 +657,12 @@ fn signal_comment_test() {
     };
     let (_, comment1_def) =
         Comment::parse(def1).expect("Failed to parse signal comment definition");
+
+    // Test parsing
     assert_eq!(comment1, comment1_def);
+
+    // Test generation
+    assert_eq!(def1, comment1.dbc_string());
 }
 
 #[test]
@@ -660,7 +675,12 @@ fn message_definition_comment_test() {
     };
     let (_, comment1_def) =
         Comment::parse(def1).expect("Failed to parse message definition comment definition");
+
+    // Test parsing
     assert_eq!(comment1, comment1_def);
+
+    // Test generation
+    assert_eq!(def1, comment1.dbc_string());
 }
 
 #[test]
@@ -671,7 +691,12 @@ fn node_comment_test() {
         comment: "Some network node comment".to_string(),
     };
     let (_, comment1_def) = Comment::parse(def1).expect("Failed to parse node comment definition");
+
+    // Test parsing
     assert_eq!(comment1, comment1_def);
+
+    // Test generation
+    assert_eq!(def1, comment1.dbc_string());
 }
 
 #[test]
@@ -683,5 +708,10 @@ fn env_var_comment_test() {
     };
     let (_, comment1_def) =
         Comment::parse(def1).expect("Failed to parse env var comment definition");
+
+    // Test parsing
     assert_eq!(comment1, comment1_def);
+
+    // Test generation
+    assert_eq!(def1, comment1.dbc_string());
 }

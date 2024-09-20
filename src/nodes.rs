@@ -7,7 +7,7 @@ extern crate serde_derive;
 use derive_getters::Getters;
 
 use crate::MessageId;
-use crate::DBCString;
+use crate::DBCObject;
 use crate::parser;
 
 use nom::{
@@ -26,9 +26,9 @@ use nom::{
 #[cfg_attr(feature = "serde", derive(Serialize))]
 pub struct Node(pub Vec<String>);
 
-impl DBCString for Node {
+impl DBCObject for Node {
     fn dbc_string(&self) -> String {
-        return format!("BU_: {}", self.0.clone().join(" "));
+        return format!("BU_: {}\n", self.0.clone().join(" "));
     }
 
     fn parse(s: &str) -> nom::IResult<&str, Self>
@@ -46,7 +46,6 @@ impl DBCString for Node {
         Ok((s, Node(li.unwrap_or_default())))
     }
 }
-
 #[test]
 fn network_node_test() {
     let def = "BU_: ZU XYZ ABC OIU\n";
@@ -58,8 +57,14 @@ fn network_node_test() {
     ];
     let (_, node) = Node::parse(def).unwrap();
     let node_exp = Node(nodes);
+
+    // Test parse
     assert_eq!(node_exp, node);
+
+    // Test generation
+    assert_eq!(def, node.dbc_string());
 }
+
 
 #[test]
 fn empty_network_node_test() {
@@ -67,7 +72,12 @@ fn empty_network_node_test() {
     let nodes = vec![];
     let (_, node) = Node::parse(def).unwrap();
     let node_exp = Node(nodes);
+
+    // Test parser
     assert_eq!(node_exp, node);
+
+    // Test generation
+    assert_eq!(def, node.dbc_string());
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -87,11 +97,11 @@ impl AccessNode {
     }
 }
 
-impl DBCString for AccessNode {
+impl DBCObject for AccessNode {
     fn dbc_string(&self) -> String {
         return match self {
             Self::AccessNodeName(s) => s.to_string(),
-            Self::AccessNodeVectorXXX => "Vector__XXX".to_string(),
+            Self::AccessNodeVectorXXX => "VECTOR_XXX".to_string(),
         };
     }
 
@@ -129,7 +139,7 @@ impl AccessType {
     }
 }
 
-impl DBCString for AccessType {
+impl DBCObject for AccessType {
     fn dbc_string(&self) -> String {
         return format!(
             "DUMMY_NODE_VECTOR{}",
@@ -176,7 +186,7 @@ impl Transmitter {
     }
 }
 
-impl DBCString for Transmitter {
+impl DBCObject for Transmitter {
     fn dbc_string(&self) -> String {
         return match self {
             Self::NodeName(s) => s.to_string(),
@@ -205,10 +215,10 @@ impl MessageTransmitter {
     }
 }
 
-impl DBCString for MessageTransmitter {
+impl DBCObject for MessageTransmitter {
     fn dbc_string(&self) -> String {
         return format!(
-            "BO_TX_BU_ {} : {}",
+            "BO_TX_BU_ {} : {};\n",
             self.message_id.dbc_string(),
             self.transmitter
                 .clone()
@@ -255,5 +265,10 @@ fn message_transmitters_test() {
         ],
     };
     let (_, transmitter) = MessageTransmitter::parse(def).unwrap();
+    
+    // Test parsing
     assert_eq!(exp, transmitter);
+
+    // Test generation
+    assert_eq!(def, transmitter.dbc_string());
 }
