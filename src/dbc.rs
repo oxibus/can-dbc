@@ -329,6 +329,20 @@ impl DBCObject for DBC {
 }
 
 impl DBC {
+    pub fn write_to_file(&self, file: &'static str) -> std::io::Result<()> {
+        let mut file = File::create(file)?;
+        file.write_all(&self.dbc_string().as_bytes())?;
+        Ok(())
+    }
+
+    pub fn read_from_file(file: &'static str) -> std::io::Result<Self> {
+        let mut f = File::open(file)?;
+        let mut buffer = Vec::new();
+        f.read_to_end(&mut buffer)?;
+
+        Ok(Self::from_slice(&buffer).expect("Failed to parse dbc file"))
+    }
+
     /// Read a DBC from a buffer
     #[allow(clippy::result_large_err)]
     pub fn from_slice(buffer: &[u8]) -> Result<DBC, Error> {
