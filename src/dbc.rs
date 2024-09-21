@@ -195,8 +195,8 @@ impl DBCObject for DBC {
         file_str += &self.version.dbc_string();
 
         // Symbols
-        file_str += "NS_ :\n    ";
-        file_str += &dbc_vec_to_string::<Symbol>(&self.new_symbols, "\n    ");
+        file_str += "NS_ :\n	";
+        file_str += &dbc_vec_to_string::<Symbol>(&self.new_symbols, "\n	");
 
         // Baudrates
         file_str += "BS_:\n";

@@ -11,57 +11,57 @@ mod tests {
     const SAMPLE_DBC: &str = r#"
 VERSION "0.1"
 NS_ :
-    NS_DESC_
-    CM_
-    BA_DEF_
-    BA_
-    VAL_
-    CAT_DEF_
-    CAT_
-    FILTER
-    BA_DEF_DEF_
-    EV_DATA_
-    ENVVAR_DATA_
-    SGTYPE_
-    SGTYPE_VAL_
-    BA_DEF_SGTYPE_
-    BA_SGTYPE_
-    SIG_TYPE_REF_
-    VAL_TABLE_
-    SIG_GROUP_
-    SIG_VALTYPE_
-    SIGTYPE_VALTYPE_
-    BO_TX_BU_
-    BA_DEF_REL_
-    BA_REL_
-    BA_DEF_DEF_REL_
-    BU_SG_REL_
-    BU_EV_REL_
-    BU_BO_REL_
-    SG_MUL_VAL_
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
 BS_:
 BU_: PC
 
 BO_ 2000 WebData_2000: 4 Vector__XXX
-    SG_ Signal_8 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
-    SG_ Signal_7 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
-    SG_ Signal_6 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
-    SG_ Signal_5 : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Signal_8 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Signal_7 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Signal_6 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Signal_5 : 0|8@1+ (1,0) [0|255] "" Vector__XXX
 
 BO_ 1840 WebData_1840: 4 PC
-    SG_ Signal_4 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
-    SG_ Signal_3 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
-    SG_ Signal_2 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
-    SG_ Signal_1 : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Signal_4 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Signal_3 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Signal_2 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Signal_1 : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 3040 WebData_3040: 8 Vector__XXX
-    SG_ Signal_6 m2 : 0|4@1+ (1,0) [0|15] "" Vector__XXX
-    SG_ Signal_5 m3 : 16|8@1+ (1,0) [0|255] "kmh" Vector__XXX
-    SG_ Signal_4 m3 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
-    SG_ Signal_3 m3 : 0|4@1+ (1,0) [0|3] "" Vector__XXX
-    SG_ Signal_2 m1 : 3|12@0+ (1,0) [0|4095] "Byte" Vector__XXX
-    SG_ Signal_1 m0 : 0|4@1+ (1,0) [0|7] "Byte" Vector__XXX
-    SG_ Switch M : 4|4@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ Signal_6 m2 : 0|4@1+ (1,0) [0|15] "" Vector__XXX
+ SG_ Signal_5 m3 : 16|8@1+ (1,0) [0|255] "kmh" Vector__XXX
+ SG_ Signal_4 m3 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Signal_3 m3 : 0|4@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ Signal_2 m1 : 3|12@0+ (1,0) [0|4095] "Byte" Vector__XXX
+ SG_ Signal_1 m0 : 0|4@1+ (1,0) [0|7] "Byte" Vector__XXX
+ SG_ Switch M : 4|4@1+ (1,0) [0|3] "" Vector__XXX
 
 EV_ Environment1: 0 [0|220] "" 0 6 DUMMY_NODE_VECTOR0 DUMMY_NODE_VECTOR2;
 EV_ Environment2: 0 [0|177] "" 0 7 DUMMY_NODE_VECTOR1 DUMMY_NODE_VECTOR2;
@@ -76,8 +76,8 @@ CM_ SG_ 5 TestSigLittleUnsigned1 "asaklfjlsdfjlsdfgls
 
 BA_DEF_DEF_ "BusType" "AS";
 
-BA_ "Attr" BO_ 4358435 283;
-BA_ "Attr" BO_ 56949545 344;
+BA_ "Attr" BO_ 2684354559 283;
+BA_ "Attr" BO_ 2204433193 344;
 
 VAL_ 2000 Signal_3 255 "NOP";
 

@@ -97,6 +97,29 @@ fn extended_message_id_test() {
 }
 
 #[test]
+fn extended_message_id_test2() {
+    let id = 2684354559;
+    let s = "2684354559";
+    let (_, extended_message_id) = MessageId::parse(&s).unwrap();
+
+    // Test parsing
+    assert_eq!(extended_message_id, MessageId::Extended(id & 0x1FFFFFFFu32));
+
+    // Test generation
+    assert_eq!(s, extended_message_id.dbc_string());
+
+    let id = 2204433193;
+    let s = "2204433193";
+    let (_, extended_message_id) = MessageId::parse(&s).unwrap();
+
+    // Test parsing
+    assert_eq!(extended_message_id, MessageId::Extended(id & 0x1FFFFFFFu32));
+
+    // Test generation
+    assert_eq!(s, extended_message_id.dbc_string());
+}
+
+#[test]
 fn extended_message_id_test_max_29bit() {
     let s = u32::MAX.to_string();
     let (_, extended_message_id) = MessageId::parse(&s).unwrap();
@@ -127,7 +150,7 @@ pub struct Message {
 impl DBCObject for Message {
     fn dbc_string(&self) -> String {
         return format!(
-            "BO_ {} {}: {} {}\n  {}",
+            "BO_ {} {}: {} {}\n {}",
             self.message_id.dbc_string(),
             self.message_name,
             self.message_size,
@@ -137,7 +160,7 @@ impl DBCObject for Message {
                 .into_iter()
                 .map(|sg| sg.dbc_string())
                 .collect::<Vec<String>>()
-                .join("  ")
+                .join(" ")
         );
     }
 
