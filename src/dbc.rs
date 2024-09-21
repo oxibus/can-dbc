@@ -4,7 +4,7 @@ extern crate serde;
 #[macro_use]
 extern crate serde_derive;
 
-use std::convert::TryFrom;
+use std::{convert::TryFrom, fs::File, io::prelude::*};
 
 use derive_getters::Getters;
 
@@ -182,7 +182,8 @@ fn dbc_vec_to_string<T: DBCObject>(dbc_objects: &Vec<T>, delimiter: &str) -> Str
             .into_iter()
             .map(|sym| sym.dbc_string())
             .collect::<Vec<String>>()
-            .join(delimiter) + "\n"
+            .join(delimiter)
+            + "\n"
     } else {
         "".to_string()
     }

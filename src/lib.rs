@@ -54,12 +54,12 @@ pub use nodes::*;
 pub mod signal;
 pub use signal::*;
 
-pub mod tests;
 pub mod parser;
+pub mod tests;
 
 use nom::IResult;
 
-pub (crate) trait DBCObject {
+pub(crate) trait DBCObject {
     fn dbc_string(&self) -> String;
 
     fn parse(s: &str) -> IResult<&str, Self>

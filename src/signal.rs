@@ -6,9 +6,9 @@ extern crate serde_derive;
 
 use derive_getters::Getters;
 
-use crate::MessageId;
-use crate::DBCObject;
 use crate::parser;
+use crate::DBCObject;
+use crate::MessageId;
 
 use nom::{
     branch::alt,
@@ -192,15 +192,13 @@ fn multiplexer_indicator_parse_test() {
         MultiplexIndicator::parse(" m34920 ").expect("Failed to parse multiplexer");
     assert_eq!(MultiplexIndicator::MultiplexedSignal(34920), multiplexer);
 
-    let (_, multiplexor) =
-        MultiplexIndicator::parse(" M ").expect("Failed to parse multiplexor");
+    let (_, multiplexor) = MultiplexIndicator::parse(" M ").expect("Failed to parse multiplexor");
     assert_eq!(MultiplexIndicator::Multiplexor, multiplexor);
 
     let (_, plain) = MultiplexIndicator::parse(" ").expect("Failed to parse plain");
     assert_eq!(MultiplexIndicator::Plain, plain);
 
-    let (_, multiplexer) =
-        MultiplexIndicator::parse(" m8M ").expect("Failed to parse multiplexer");
+    let (_, multiplexer) = MultiplexIndicator::parse(" m8M ").expect("Failed to parse multiplexer");
     assert_eq!(
         MultiplexIndicator::MultiplexorAndMultiplexedSignal(8),
         multiplexer
@@ -244,16 +242,16 @@ impl DBCObject for ByteOrder {
 fn byte_order_test() {
     let def = "0";
     let (_, big_endian) = ByteOrder::parse(def).expect("Failed to parse big endian");
-    
+
     // Test parsing
     assert_eq!(ByteOrder::BigEndian, big_endian);
-    
+
     // Test generation
     assert_eq!(def, big_endian.dbc_string());
 
     let def = "1";
     let (_, little_endian) = ByteOrder::parse(def).expect("Failed to parse little endian");
-    
+
     // Test parsing
     assert_eq!(ByteOrder::LittleEndian, little_endian);
 
@@ -298,7 +296,7 @@ impl DBCObject for ValueType {
 fn value_type_test() {
     let def = "- ";
     let (_, vt) = ValueType::parse(def).expect("Failed to parse value type");
-    
+
     // Test parsing
     assert_eq!(ValueType::Signed, vt);
 
@@ -307,7 +305,7 @@ fn value_type_test() {
 
     let def = "+ ";
     let (_, vt) = ValueType::parse(def).expect("Failed to parse value type");
-    
+
     // Test parsing
     assert_eq!(ValueType::Unsigned, vt);
 
@@ -427,7 +425,7 @@ fn signal_type_test() {
     assert_eq!(exp, signal_type);
 
     // Test generation
-    assert_eq!(def,signal_type.dbc_string());
+    assert_eq!(def, signal_type.dbc_string());
 }
 
 #[derive(Clone, Debug, PartialEq, Getters)]
@@ -531,7 +529,7 @@ fn extended_multiplex_test() {
 
     // Test parsing
     assert_eq!(exp, ext_multiplex);
-    
+
     // Test generation
     assert_eq!(def, ext_multiplex.dbc_string());
 

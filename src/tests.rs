@@ -4,9 +4,7 @@ mod tests {
     use std::convert::TryFrom;
 
     // use super::*;
-    use crate::{
-        ValDescription, MessageId, SignalExtendedValueType, Error, DBC, DBCObject,
-    };
+    use crate::{DBCObject, Error, MessageId, SignalExtendedValueType, ValDescription, DBC};
 
     const SAMPLE_DBC: &str = r#"
 VERSION "0.1"

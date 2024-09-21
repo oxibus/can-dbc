@@ -6,9 +6,9 @@ extern crate serde_derive;
 
 use derive_getters::Getters;
 
-use crate::MessageId;
-use crate::DBCObject;
 use crate::parser;
+use crate::DBCObject;
+use crate::MessageId;
 
 use nom::{
     branch::alt,
@@ -154,7 +154,7 @@ fn message_definition_attribute_value_test() {
         attribute_value,
     };
     let (_, attr_val) = AttributeValueForObject::parse(def).unwrap();
-    
+
     // Test parsing
     assert_eq!(attr_val_exp, attr_val);
 
@@ -175,10 +175,10 @@ fn signal_attribute_value_test() {
         attribute_value,
     };
     let (_, attr_val) = AttributeValueForObject::parse(def).unwrap();
-    
+
     // Test parsing
     assert_eq!(attr_val_exp, attr_val);
-    
+
     // Test generation
     assert_eq!(def, attr_val.dbc_string());
 }
@@ -195,10 +195,10 @@ fn env_var_attribute_value_test() {
         attribute_value,
     };
     let (_, attr_val) = AttributeValueForObject::parse(def).unwrap();
-    
+
     // Test parsing
     assert_eq!(attr_val_exp, attr_val);
-    
+
     // Test generation
     assert_eq!(def, attr_val.dbc_string());
 }
@@ -316,7 +316,7 @@ fn attribute_definition_test() {
     let def_bo = "BA_DEF_ BO_ \"BaDef1BO\" INT 0 1000000;\n";
     let (_, bo_def) = AttributeDefinition::parse(def_bo).unwrap();
     let bo_def_exp = AttributeDefinition::Message("\"BaDef1BO\" INT 0 1000000".to_string());
-    
+
     // Test parsing
     assert_eq!(bo_def_exp, bo_def);
 
@@ -326,7 +326,7 @@ fn attribute_definition_test() {
     let def_bu = "BA_DEF_ BU_ \"BuDef1BO\" INT 0 1000000;\n";
     let (_, bu_def) = AttributeDefinition::parse(def_bu).unwrap();
     let bu_def_exp = AttributeDefinition::Node("\"BuDef1BO\" INT 0 1000000".to_string());
-    
+
     // Test parsing
     assert_eq!(bu_def_exp, bu_def);
 
@@ -336,7 +336,7 @@ fn attribute_definition_test() {
     let def_signal = "BA_DEF_ SG_ \"SgDef1BO\" INT 0 1000000;\n";
     let (_, signal_def) = AttributeDefinition::parse(def_signal).unwrap();
     let signal_def_exp = AttributeDefinition::Signal("\"SgDef1BO\" INT 0 1000000".to_string());
-    
+
     // Test parsing
     assert_eq!(signal_def_exp, signal_def);
 
@@ -347,8 +347,8 @@ fn attribute_definition_test() {
     let (_, env_var_def) = AttributeDefinition::parse(def_env_var).unwrap();
     let env_var_def_exp =
         AttributeDefinition::EnvironmentVariable("\"EvDef1BO\" INT 0 1000000".to_string());
-    
-        // Test parsing
+
+    // Test parsing
     assert_eq!(env_var_def_exp, env_var_def);
 
     // Test generation

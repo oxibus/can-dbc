@@ -6,9 +6,9 @@ extern crate serde_derive;
 
 use derive_getters::Getters;
 
-use crate::{AccessNode, AccessType};
-use crate::DBCObject;
 use crate::parser;
+use crate::DBCObject;
+use crate::{AccessNode, AccessType};
 
 use nom::{
     branch::alt,

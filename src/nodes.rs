@@ -6,9 +6,9 @@ extern crate serde_derive;
 
 use derive_getters::Getters;
 
-use crate::MessageId;
-use crate::DBCObject;
 use crate::parser;
+use crate::DBCObject;
+use crate::MessageId;
 
 use nom::{
     branch::alt,
@@ -64,7 +64,6 @@ fn network_node_test() {
     // Test generation
     assert_eq!(def, node.dbc_string());
 }
-
 
 #[test]
 fn empty_network_node_test() {
@@ -265,7 +264,7 @@ fn message_transmitters_test() {
         ],
     };
     let (_, transmitter) = MessageTransmitter::parse(def).unwrap();
-    
+
     // Test parsing
     assert_eq!(exp, transmitter);
 

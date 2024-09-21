@@ -6,10 +6,10 @@ extern crate serde_derive;
 
 use derive_getters::Getters;
 
-use crate::Transmitter;
-use crate::Signal;
-use crate::DBCObject;
 use crate::parser;
+use crate::DBCObject;
+use crate::Signal;
+use crate::Transmitter;
 
 use nom::{
     bytes::complete::tag,
@@ -64,7 +64,7 @@ impl DBCObject for MessageId {
 fn standard_message_id_test() {
     let s = "2";
     let (_, extended_message_id) = MessageId::parse(s).unwrap();
-    
+
     // Test parsing
     assert_eq!(extended_message_id, MessageId::Standard(2));
 
@@ -79,7 +79,7 @@ fn extended_low_message_id_test() {
 
     // Test parsing
     assert_eq!(extended_message_id, MessageId::Extended(2));
-    
+
     // Test generation
     assert_eq!(s, extended_message_id.dbc_string());
 }
@@ -201,4 +201,3 @@ fn message_definition_test() {
 
     // todo!("test a correct definition");
 }
-
