@@ -16,6 +16,9 @@ pub struct Value {
     pub(crate) unit: String,
 }
 
+unsafe impl Send for Value {}
+unsafe impl Sync for Value {}
+
 impl Value {
     /// Get the value of the signal
     #[inline]
