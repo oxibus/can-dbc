@@ -47,6 +47,7 @@ use derive_getters::Getters;
 
 pub mod parser;
 mod extend;
+pub use extend::*;
 
 #[cfg(test)]
 mod tests {

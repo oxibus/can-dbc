@@ -1,6 +1,27 @@
 use crate::{ByteOrder, Signal, ValueType};
+use super::Value;
 
 impl Signal {
+    /// Decodes/Extracts a signal from the message data as a [`Value`]
+    ///
+    /// # Params
+    ///
+    ///   * data: source data
+    ///
+    /// # Return
+    ///
+    ///   [`Value`] if the size of signal is not zero
+    pub fn decode_value(&self, data: &[u8]) -> Option<Value> {
+        self.decode(data)
+            .map(|v| Value {
+                name: self.name.clone(),
+                raw: v,
+                offset: self.offset,
+                factor: self.factor,
+                unit: self.unit.clone(),
+            })
+    }
+
     /// Decodes/Extracts a signal from the message data
     ///
     /// # Params
@@ -9,10 +30,10 @@ impl Signal {
     ///
     /// # Return
     ///
-    ///   Raw signal value
-    pub fn decode(&self, data: &[u8]) -> u64 {
+    ///   Raw signal value if the size of signal is not zero
+    pub fn decode(&self, data: &[u8]) -> Option<u64> {
         if self.signal_size == 0 {
-            return 0;
+            return None;
         }
 
         let mut result = 0;
@@ -63,7 +84,7 @@ impl Signal {
             ValueType::Unsigned => {}
         }
 
-        result
+        Some(result)
     }
 
     /// Encodes a signal into the message data
