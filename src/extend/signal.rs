@@ -36,6 +36,7 @@ impl Signal {
             return None;
         }
 
+        let len = data.len();
         let mut result = 0;
         match self.byte_order {
             ByteOrder::LittleEndian => {
@@ -43,7 +44,11 @@ impl Signal {
                 let mut dst_bit = 0;
                 for _ in 0..self.signal_size {
                     /* copy bit */
-                    if (data[src_bit / 8] & (1 << (src_bit % 8))) > 0 {
+                    let index = src_bit / 8;
+                    if index >= len {
+                        return None;
+                    }
+                    if (data[index] & (1 << (src_bit % 8))) > 0 {
                         result |= 1 << dst_bit;
                     }
 
@@ -57,7 +62,11 @@ impl Signal {
                 let mut dst_bit = self.signal_size - 1;
                 for _ in 0..self.signal_size {
                     /* copy bit */
-                    if (data[src_bit / 8] & (1 << (src_bit % 8))) > 0 {
+                    let index = src_bit / 8;
+                    if index >= len {
+                        return None;
+                    }
+                    if (data[index] & (1 << (src_bit % 8))) > 0 {
                         result |= 1 << dst_bit;
                     }
 
@@ -105,11 +114,15 @@ impl Signal {
                 let mut dst_bit = 0;
                 for _ in 0..self.signal_size {
                     /* copy bit */
+                    let index = src_bit / 8;
+                    if index >= data.len() {
+                        data.resize(index + 1, 0);
+                    }
                     if (value & 1 << dst_bit) > 0 {
-                        data[src_bit / 8] |= 1 << (src_bit % 8);
+                        data[index] |= 1 << (src_bit % 8);
                     }
                     else {
-                        data[src_bit / 8] &= !(1 << (src_bit % 8));
+                        data[index] &= !(1 << (src_bit % 8));
                     }
 
                     /* calculate next position */
@@ -122,11 +135,15 @@ impl Signal {
                 let mut dst_bit = self.signal_size - 1;
                 for _ in 0..self.signal_size {
                     /* copy bit */
+                    let index = src_bit / 8;
+                    if index >= data.len() {
+                        data.resize(index + 1, 0);
+                    }
                     if (value & 1 << dst_bit) > 0 {
-                        data[src_bit / 8] |= 1 << (dst_bit % 8);
+                        data[index] |= 1 << (dst_bit % 8);
                     }
                     else {
-                        data[src_bit / 8] &= !(1 << (src_bit % 8));
+                        data[index] &= !(1 << (src_bit % 8));
                     }
 
                     /* calculate next position */
