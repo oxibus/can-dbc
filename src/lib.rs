@@ -578,14 +578,14 @@ pub struct AttributeValueForObject {
 #[cfg_attr(feature = "serde", derive(Serialize))]
 pub enum AttributeDefinition {
     // TODO add properties
-    Message(String),
+    Message(String,AttributeValueType),
     // TODO add properties
-    Node(String),
+    Node(String,AttributeValueType),
     // TODO add properties
-    Signal(String),
-    EnvironmentVariable(String),
+    Signal(String,AttributeValueType),
+    EnvironmentVariable(String,AttributeValueType),
     // TODO figure out name
-    Plain(String),
+    Plain(String, AttributeValueType),
 }
 
 /// Encoding for signal raw values.
