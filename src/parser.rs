@@ -1351,7 +1351,6 @@ fn attribute_definition_signal(s: &str) -> IResult<&str, AttributeDefinition> {
     Ok((s, AttributeDefinition::Signal(name.to_string(),val)))
 }
 
-// TODO add properties
 fn attribute_definition_environment_variable(s: &str) -> IResult<&str, AttributeDefinition> {
     let (s, _) = tag("EV_")(s)?;
     let (s, _) = ms1(s)?;
@@ -1362,7 +1361,6 @@ fn attribute_definition_environment_variable(s: &str) -> IResult<&str, Attribute
     Ok((s, AttributeDefinition::EnvironmentVariable(name.to_string(),val)))
 }
 
-// TODO add properties
 fn attribute_definition_message(s: &str) -> IResult<&str, AttributeDefinition> {
     let (s, _) = tag("BO_")(s)?;
     let (s,_) = ms1(s)?;
@@ -1373,7 +1371,6 @@ fn attribute_definition_message(s: &str) -> IResult<&str, AttributeDefinition> {
     Ok((s, AttributeDefinition::Message(name.to_string(),val)))
 }
 
-// TODO add properties
 fn attribute_definition_plain(s: &str) -> IResult<&str, AttributeDefinition> {
     let (s, name) = char_string(s)?;
     let (s, val) = attribute_value_type(s)?;
