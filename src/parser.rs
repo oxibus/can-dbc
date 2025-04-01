@@ -17,7 +17,13 @@ use nom::{
 };
 
 use crate::{
-    AccessNode, AccessType, AttributeDefault, AttributeDefinition, AttributeValue, AttributeValueForObject, AttributeValueType, AttributeValuedForObjectType, Baudrate, ByteOrder, Comment, EnvType, EnvironmentVariable, EnvironmentVariableData, ExtendedMultiplex, ExtendedMultiplexMapping, Message, MessageId, MessageTransmitter, MultiplexIndicator, Node, Signal, SignalExtendedValueType, SignalExtendedValueTypeList, SignalGroups, SignalType, SignalTypeRef, Symbol, Transmitter, ValDescription, ValueDescription, ValueTable, ValueType, Version, DBC
+    AccessNode, AccessType, AttributeDefault, AttributeDefinition, AttributeValue,
+    AttributeValueForObject, AttributeValueType, AttributeValuedForObjectType, Baudrate, ByteOrder,
+    Comment, EnvType, EnvironmentVariable, EnvironmentVariableData, ExtendedMultiplex,
+    ExtendedMultiplexMapping, Message, MessageId, MessageTransmitter, MultiplexIndicator, Node,
+    Signal, SignalExtendedValueType, SignalExtendedValueTypeList, SignalGroups, SignalType,
+    SignalTypeRef, Symbol, Transmitter, ValDescription, ValueDescription, ValueTable, ValueType,
+    Version, DBC,
 };
 
 #[cfg(test)]
@@ -26,31 +32,54 @@ mod tests {
 
     #[test]
     fn attribute_value_type_int_test() {
-        let (_,attr_val) = attribute_value_type_int("INT -1 100").expect("Parsing INT attr definition failed");
-        assert_eq!( attr_val ,AttributeValueType::AttributeValueTypeInt(-1, 100));
+        let (_, attr_val) =
+            attribute_value_type_int("INT -1 100").expect("Parsing INT attr definition failed");
+        assert_eq!(attr_val, AttributeValueType::AttributeValueTypeInt(-1, 100));
     }
     #[test]
     fn attribute_value_type_test() {
-        let (_,attr_val) = attribute_value_type("INT -1 100 ;\n").expect("Parsing INT attr definition failed");
-        assert_eq!( attr_val ,AttributeValueType::AttributeValueTypeInt(-1, 100));
+        let (_, attr_val) =
+            attribute_value_type("INT -1 100 ;\n").expect("Parsing INT attr definition failed");
+        assert_eq!(attr_val, AttributeValueType::AttributeValueTypeInt(-1, 100));
 
-        let (_,attr_val) = attribute_value_type("HEX -1 100 ;\n").expect("Parsing HEX attr definition failed");
-        assert_eq!( attr_val ,AttributeValueType::AttributeValueTypeHex(-1, 100));
+        let (_, attr_val) =
+            attribute_value_type("HEX -1 100 ;\n").expect("Parsing HEX attr definition failed");
+        assert_eq!(attr_val, AttributeValueType::AttributeValueTypeHex(-1, 100));
 
-        let (_,attr_val) = attribute_value_type("STRING ;\n").expect("Parsing STRING attr definition failed");
-        assert_eq!( attr_val ,AttributeValueType::AttributeValueTypeString);
+        let (_, attr_val) =
+            attribute_value_type("STRING ;\n").expect("Parsing STRING attr definition failed");
+        assert_eq!(attr_val, AttributeValueType::AttributeValueTypeString);
 
-        let (_,attr_val) = attribute_value_type("FLOAT 0.2 1.7;\n").expect("Parsing FLOAT attr definition failed");
-        assert_eq!( attr_val ,AttributeValueType::AttributeValueTypeFloat(0.2f64, 1.7f64));
+        let (_, attr_val) =
+            attribute_value_type("FLOAT 0.2 1.7;\n").expect("Parsing FLOAT attr definition failed");
+        assert_eq!(
+            attr_val,
+            AttributeValueType::AttributeValueTypeFloat(0.2f64, 1.7f64)
+        );
 
-        let (_,attr_val) = attribute_value_type("ENUM \"NEE\" , \"OCH\",  \"MENSCH\" , \"DOCH\";\n").expect("Parsing ENUM attr definition failed");
-        assert_eq!( attr_val ,AttributeValueType::AttributeValueTypeEnum(vec!["NEE".to_string(),"OCH".to_string(),"MENSCH".to_string(),"DOCH".to_string()]));
+        let (_, attr_val) =
+            attribute_value_type("ENUM \"NEE\" , \"OCH\",  \"MENSCH\" , \"DOCH\";\n")
+                .expect("Parsing ENUM attr definition failed");
+        assert_eq!(
+            attr_val,
+            AttributeValueType::AttributeValueTypeEnum(vec![
+                "NEE".to_string(),
+                "OCH".to_string(),
+                "MENSCH".to_string(),
+                "DOCH".to_string()
+            ])
+        );
 
-        let (_,attr_val) = attribute_value_type("ENUM \"NEE\";\n").expect("Parsing ENUM attr definition failed");
-        assert_eq!( attr_val ,AttributeValueType::AttributeValueTypeEnum(vec!["NEE".to_string()]));
+        let (_, attr_val) =
+            attribute_value_type("ENUM \"NEE\";\n").expect("Parsing ENUM attr definition failed");
+        assert_eq!(
+            attr_val,
+            AttributeValueType::AttributeValueTypeEnum(vec!["NEE".to_string()])
+        );
 
-        let (_,attr_val) = attribute_value_type("ENUM;\n").expect("Parsing ENUM attr definition failed");
-        assert_eq!( attr_val ,AttributeValueType::AttributeValueTypeEnum(vec![]));
+        let (_, attr_val) =
+            attribute_value_type("ENUM;\n").expect("Parsing ENUM attr definition failed");
+        assert_eq!(attr_val, AttributeValueType::AttributeValueTypeEnum(vec![]));
     }
 
     #[test]
@@ -433,23 +462,34 @@ mod tests {
     fn attribute_definition_test() {
         let def_bo = "BA_DEF_ BO_ \"BaDef1BO\" INT 0 1000000;\n";
         let (_, bo_def) = attribute_definition(def_bo).unwrap();
-        let bo_def_exp = AttributeDefinition::Message("BaDef1BO".to_string(), AttributeValueType::AttributeValueTypeInt(0 ,1000000));
+        let bo_def_exp = AttributeDefinition::Message(
+            "BaDef1BO".to_string(),
+            AttributeValueType::AttributeValueTypeInt(0, 1000000),
+        );
         assert_eq!(bo_def_exp, bo_def);
 
         let def_bu = "BA_DEF_ BU_ \"BuDef1BO\" INT 0 1000000;\n";
         let (_, bu_def) = attribute_definition(def_bu).unwrap();
-        let bu_def_exp = AttributeDefinition::Node("BuDef1BO".to_string(), AttributeValueType::AttributeValueTypeInt(0 ,1000000));
+        let bu_def_exp = AttributeDefinition::Node(
+            "BuDef1BO".to_string(),
+            AttributeValueType::AttributeValueTypeInt(0, 1000000),
+        );
         assert_eq!(bu_def_exp, bu_def);
 
         let def_signal = "BA_DEF_ SG_ \"SgDef1BO\" INT 0 1000000;\n";
         let (_, signal_def) = attribute_definition(def_signal).unwrap();
-        let signal_def_exp = AttributeDefinition::Signal("SgDef1BO".to_string(),AttributeValueType::AttributeValueTypeInt(0 ,1000000));
+        let signal_def_exp = AttributeDefinition::Signal(
+            "SgDef1BO".to_string(),
+            AttributeValueType::AttributeValueTypeInt(0, 1000000),
+        );
         assert_eq!(signal_def_exp, signal_def);
 
         let def_env_var = "BA_DEF_ EV_ \"EvDef1BO\" INT 0 1000000;\n";
         let (_, env_var_def) = attribute_definition(def_env_var).unwrap();
-        let env_var_def_exp =
-            AttributeDefinition::EnvironmentVariable("EvDef1BO".to_string(),AttributeValueType::AttributeValueTypeInt(0 ,1000000));
+        let env_var_def_exp = AttributeDefinition::EnvironmentVariable(
+            "EvDef1BO".to_string(),
+            AttributeValueType::AttributeValueTypeInt(0, 1000000),
+        );
         assert_eq!(env_var_def_exp, env_var_def);
     }
 
@@ -1335,46 +1375,49 @@ fn attribute_definition_node(s: &str) -> IResult<&str, AttributeDefinition> {
     let (s, _) = tag("BU_")(s)?;
     let (s, _) = ms1(s)?;
     let (s, name) = char_string(s)?;
-    
+
     let (s, _) = ms0(s)?;
     let (s, val) = attribute_value_type(s)?;
-    Ok((s, AttributeDefinition::Node(name.to_string(),val)))
+    Ok((s, AttributeDefinition::Node(name.to_string(), val)))
 }
 
 fn attribute_definition_signal(s: &str) -> IResult<&str, AttributeDefinition> {
     let (s, _) = tag("SG_")(s)?;
     let (s, _) = ms1(s)?;
     let (s, name) = char_string(s)?;
-    
+
     let (s, _) = ms0(s)?;
     let (s, val) = attribute_value_type(s)?;
-    Ok((s, AttributeDefinition::Signal(name.to_string(),val)))
+    Ok((s, AttributeDefinition::Signal(name.to_string(), val)))
 }
 
 fn attribute_definition_environment_variable(s: &str) -> IResult<&str, AttributeDefinition> {
     let (s, _) = tag("EV_")(s)?;
     let (s, _) = ms1(s)?;
     let (s, name) = char_string(s)?;
-    
+
     let (s, _) = ms0(s)?;
     let (s, val) = attribute_value_type(s)?;
-    Ok((s, AttributeDefinition::EnvironmentVariable(name.to_string(),val)))
+    Ok((
+        s,
+        AttributeDefinition::EnvironmentVariable(name.to_string(), val),
+    ))
 }
 
 fn attribute_definition_message(s: &str) -> IResult<&str, AttributeDefinition> {
     let (s, _) = tag("BO_")(s)?;
-    let (s,_) = ms1(s)?;
+    let (s, _) = ms1(s)?;
     let (s, name) = char_string(s)?;
-    
+
     let (s, _) = ms0(s)?;
     let (s, val) = attribute_value_type(s)?;
-    Ok((s, AttributeDefinition::Message(name.to_string(),val)))
+    Ok((s, AttributeDefinition::Message(name.to_string(), val)))
 }
 
 fn attribute_definition_plain(s: &str) -> IResult<&str, AttributeDefinition> {
     let (s, name) = char_string(s)?;
     let (s, val) = attribute_value_type(s)?;
-    Ok((s, AttributeDefinition::Plain(name.to_string(),val)))
+    Ok((s, AttributeDefinition::Plain(name.to_string(), val)))
 }
 
 fn attribute_value_type_int(s: &str) -> IResult<&str, AttributeValueType> {
@@ -1382,11 +1425,11 @@ fn attribute_value_type_int(s: &str) -> IResult<&str, AttributeValueType> {
     let (s, _) = tag("INT")(s)?;
     let (s, _) = ms1(s)?;
     let (s, first) = complete::i64(s)?;
-    let (s,_) = ms1(s)?;
+    let (s, _) = ms1(s)?;
     let (s, second) = complete::i64(s)?;
 
-    let (s,_) = ms0(s)?;
-    Ok((s,AttributeValueType::AttributeValueTypeInt(first, second)))
+    let (s, _) = ms0(s)?;
+    Ok((s, AttributeValueType::AttributeValueTypeInt(first, second)))
 }
 
 fn attribute_value_type_float(s: &str) -> IResult<&str, AttributeValueType> {
@@ -1394,11 +1437,14 @@ fn attribute_value_type_float(s: &str) -> IResult<&str, AttributeValueType> {
     let (s, _) = tag("FLOAT")(s)?;
     let (s, _) = ms1(s)?;
     let (s, first) = double(s)?;
-    let (s,_) = ms1(s)?;
+    let (s, _) = ms1(s)?;
     let (s, second) = double(s)?;
 
-    let (s,_) = ms0(s)?;
-    Ok((s,AttributeValueType::AttributeValueTypeFloat(first, second)))
+    let (s, _) = ms0(s)?;
+    Ok((
+        s,
+        AttributeValueType::AttributeValueTypeFloat(first, second),
+    ))
 }
 
 fn attribute_value_type_hex(s: &str) -> IResult<&str, AttributeValueType> {
@@ -1406,19 +1452,18 @@ fn attribute_value_type_hex(s: &str) -> IResult<&str, AttributeValueType> {
     let (s, _) = tag("HEX")(s)?;
     let (s, _) = ms1(s)?;
     let (s, first) = complete::i64(s)?;
-    let (s,_) = ms1(s)?;
+    let (s, _) = ms1(s)?;
     let (s, second) = complete::i64(s)?;
 
-    let (s,_) = ms0(s)?;
-    Ok((s,AttributeValueType::AttributeValueTypeHex(first, second)))
+    let (s, _) = ms0(s)?;
+    Ok((s, AttributeValueType::AttributeValueTypeHex(first, second)))
 }
-
 
 fn attribute_value_type_string(s: &str) -> IResult<&str, AttributeValueType> {
     let (s, _) = multispace0(s)?;
     let (s, _) = tag("STRING")(s)?;
-    let (s,_) = ms0(s)?;
-    Ok((s,AttributeValueType::AttributeValueTypeString))
+    let (s, _) = ms0(s)?;
+    Ok((s, AttributeValueType::AttributeValueTypeString))
 }
 
 fn attribute_value_type(s: &str) -> IResult<&str, AttributeValueType> {
@@ -1431,37 +1476,32 @@ fn attribute_value_type(s: &str) -> IResult<&str, AttributeValueType> {
         attribute_value_type_enum,
     ))(s)?;
 
-    Ok((s,val))
+    Ok((s, val))
 }
 
 fn comma_seperated_char_string(s: &str) -> IResult<&str, String> {
-    let (s,_) = ms0(s)?;
-    let (s,_) = comma(s)?; 
-    let (s,_) = ms0(s)?;
-    let (s,c_s) = char_string(s)?;
-    Ok((s,c_s.to_string()))
+    let (s, _) = ms0(s)?;
+    let (s, _) = comma(s)?;
+    let (s, _) = ms0(s)?;
+    let (s, c_s) = char_string(s)?;
+    Ok((s, c_s.to_string()))
 }
 fn attribute_value_type_enum(s: &str) -> IResult<&str, AttributeValueType> {
     let (s, _) = multispace0(s)?;
     let (s, _) = tag("ENUM")(s)?;
     let (s, _) = ms0(s)?;
-    let mut buffer:Vec<String> = vec!();
+    let mut buffer: Vec<String> = vec![];
 
-    if let (s,Some(value)) = opt(char_string)(s)? {
+    if let (s, Some(value)) = opt(char_string)(s)? {
         buffer.push(value.to_string());
-        let (s,mut tail) = many0(comma_seperated_char_string)(s)?;
-        buffer.append( &mut tail);
-        Ok((s,AttributeValueType::AttributeValueTypeEnum(buffer)))
+        let (s, mut tail) = many0(comma_seperated_char_string)(s)?;
+        buffer.append(&mut tail);
+        Ok((s, AttributeValueType::AttributeValueTypeEnum(buffer)))
     } else {
-        let (s,_) = ms0(s)?;
-        Ok((s,AttributeValueType::AttributeValueTypeEnum(buffer)))
+        let (s, _) = ms0(s)?;
+        Ok((s, AttributeValueType::AttributeValueTypeEnum(buffer)))
     }
 }
-
-
-
-
-
 
 fn attribute_definition(s: &str) -> IResult<&str, AttributeDefinition> {
     let (s, _) = multispace0(s)?;

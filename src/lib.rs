@@ -577,10 +577,10 @@ pub struct AttributeValueForObject {
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize))]
 pub enum AttributeDefinition {
-    Message(String,AttributeValueType),
-    Node(String,AttributeValueType),
-    Signal(String,AttributeValueType),
-    EnvironmentVariable(String,AttributeValueType),
+    Message(String, AttributeValueType),
+    Node(String, AttributeValueType),
+    Signal(String, AttributeValueType),
+    EnvironmentVariable(String, AttributeValueType),
     Plain(String, AttributeValueType),
 }
 
