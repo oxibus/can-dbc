@@ -15,7 +15,8 @@ use nom::{
     sequence::preceded,
     AsChar, IResult, InputTakeAtPosition,
 };
-
+use nom::bytes::complete::{escaped, take_till1};
+use nom::character::complete::one_of;
 use crate::{
     AccessNode, AccessType, AttributeDefault, AttributeDefinition, AttributeValue,
     AttributeValueForObject, AttributeValuedForObjectType, Baudrate, ByteOrder, Comment, EnvType,
@@ -166,6 +167,32 @@ mod tests {
             comment: "Some env var name comment".to_string(),
         };
         let (_, comment1_def) = comment(def1).expect("Failed to parse env var comment definition");
+        assert_eq!(comment1, comment1_def);
+    }
+
+    #[test]
+    fn signal_comment_with_escaped_quotation_marks_test() {
+        let def1 = "CM_ SG_ 2147548912 EngPTOAccelerateSwitch \"Switch signal of the PTO control activator which indicates that the activator is in the position \\\"accelerate\\\".\";\n";
+        let message_id = MessageId::Extended(65264);
+        let comment1 = Comment::Signal {
+            message_id,
+            signal_name: "EngPTOAccelerateSwitch".to_string(),
+            comment: "Switch signal of the PTO control activator which indicates that the activator is in the position \\\"accelerate\\\".".to_string(),
+        };
+        let (_, comment1_def) = comment(def1).expect("Failed to parse signal comment definition");
+        assert_eq!(comment1, comment1_def);
+    }
+
+    #[test]
+    fn empty_signal_comment_test() {
+        let def1 = "CM_ SG_ 2147548912 EngPTOAccelerateSwitch \"\";\n";
+        let message_id = MessageId::Extended(65264);
+        let comment1 = Comment::Signal {
+            message_id,
+            signal_name: "EngPTOAccelerateSwitch".to_string(),
+            comment: "".to_string(),
+        };
+        let (_, comment1_def) = comment(def1).expect("Failed to parse signal comment definition");
         assert_eq!(comment1, comment1_def);
     }
 
@@ -605,6 +632,10 @@ fn is_quote(chr: char) -> bool {
     chr == '"'
 }
 
+fn is_quote_or_escape_character(chr: char) -> bool {
+    chr == '"' || chr == '\\'
+}
+
 /// Multispace zero or more
 fn ms0<T, E: ParseError<T>>(input: T) -> IResult<T, T, E>
 where
@@ -696,8 +727,10 @@ fn c_ident_vec(s: &str) -> IResult<&str, Vec<String>> {
 
 fn char_string(s: &str) -> IResult<&str, &str> {
     let (s, _) = quote(s)?;
-    let (s, char_string_value) = take_till(is_quote)(s)?;
+    let (s, optional_char_string_value) =  opt(escaped(take_till1(is_quote_or_escape_character), '\\', one_of(r#""n\"#)))(s)?;
     let (s, _) = quote(s)?;
+
+    let char_string_value = optional_char_string_value.unwrap_or("");
     Ok((s, char_string_value))
 }
 
