@@ -171,13 +171,13 @@ mod tests {
     }
 
     #[test]
-    fn signal_comment_with_escaped_quotation_marks_test() {
-        let def1 = "CM_ SG_ 2147548912 EngPTOAccelerateSwitch \"Switch signal of the PTO control activator which indicates that the activator is in the position \\\"accelerate\\\".\";\n";
+    fn signal_comment_with_escaped_characters_test() {
+        let def1 = "CM_ SG_ 2147548912 FooBar \"Foo\\\\ \\n \\\"Bar\\\"\";\n";
         let message_id = MessageId::Extended(65264);
         let comment1 = Comment::Signal {
             message_id,
-            signal_name: "EngPTOAccelerateSwitch".to_string(),
-            comment: "Switch signal of the PTO control activator which indicates that the activator is in the position \\\"accelerate\\\".".to_string(),
+            signal_name: "FooBar".to_string(),
+            comment: "Foo\\\\ \\n \\\"Bar\\\"".to_string(),
         };
         let (_, comment1_def) = comment(def1).expect("Failed to parse signal comment definition");
         assert_eq!(comment1, comment1_def);
@@ -185,11 +185,11 @@ mod tests {
 
     #[test]
     fn empty_signal_comment_test() {
-        let def1 = "CM_ SG_ 2147548912 EngPTOAccelerateSwitch \"\";\n";
+        let def1 = "CM_ SG_ 2147548912 FooBar \"\";\n";
         let message_id = MessageId::Extended(65264);
         let comment1 = Comment::Signal {
             message_id,
-            signal_name: "EngPTOAccelerateSwitch".to_string(),
+            signal_name: "FooBar".to_string(),
             comment: "".to_string(),
         };
         let (_, comment1_def) = comment(def1).expect("Failed to parse signal comment definition");
