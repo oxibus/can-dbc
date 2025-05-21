@@ -628,10 +628,6 @@ fn is_c_ident_head(chr: char) -> bool {
     chr.is_alphabetic() || chr == '_'
 }
 
-fn is_quote(chr: char) -> bool {
-    chr == '"'
-}
-
 fn is_quote_or_escape_character(chr: char) -> bool {
     chr == '"' || chr == '\\'
 }
