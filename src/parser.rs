@@ -653,10 +653,6 @@ mod tests {
     }
 }
 
-fn is_semi_colon(chr: char) -> bool {
-    chr == ';'
-}
-
 fn is_c_string_char(chr: char) -> bool {
     chr.is_ascii_digit() || chr.is_alphabetic() || chr == '_'
 }
