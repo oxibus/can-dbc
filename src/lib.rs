@@ -713,41 +713,37 @@ impl DBC {
 
     /// Lookup a message comment
     pub fn message_comment(&self, message_id: MessageId) -> Option<&str> {
-        self.comments
-            .iter()
-            .find_map(|x| match x {
-                Comment::Message {
-                    message_id: ref x_message_id,
-                    ref comment,
-                } => {
-                    if *x_message_id == message_id {
-                        Some(comment.as_str())
-                    } else {
-                        None
-                    }
+        self.comments.iter().find_map(|x| match x {
+            Comment::Message {
+                message_id: ref x_message_id,
+                ref comment,
+            } => {
+                if *x_message_id == message_id {
+                    Some(comment.as_str())
+                } else {
+                    None
                 }
-                _ => None,
-            })
+            }
+            _ => None,
+        })
     }
 
     /// Lookup a signal comment
     pub fn signal_comment(&self, message_id: MessageId, signal_name: &str) -> Option<&str> {
-        self.comments
-            .iter()
-            .find_map(|x| match x {
-                Comment::Signal {
-                    message_id: ref x_message_id,
-                    signal_name: ref x_signal_name,
-                    comment,
-                } => {
-                    if *x_message_id == message_id && x_signal_name == signal_name {
-                        Some(comment.as_str())
-                    } else {
-                        None
-                    }
+        self.comments.iter().find_map(|x| match x {
+            Comment::Signal {
+                message_id: ref x_message_id,
+                signal_name: ref x_signal_name,
+                comment,
+            } => {
+                if *x_message_id == message_id && x_signal_name == signal_name {
+                    Some(comment.as_str())
+                } else {
+                    None
                 }
-                _ => None,
-            })
+            }
+            _ => None,
+        })
     }
 
     /// Lookup value descriptions for signal
@@ -756,22 +752,20 @@ impl DBC {
         message_id: MessageId,
         signal_name: &str,
     ) -> Option<&[ValDescription]> {
-        self.value_descriptions
-            .iter()
-            .find_map(|x| match x {
-                ValueDescription::Signal {
-                    message_id: ref x_message_id,
-                    signal_name: ref x_signal_name,
-                    ref value_descriptions,
-                } => {
-                    if *x_message_id == message_id && x_signal_name == signal_name {
-                        Some(value_descriptions.as_slice())
-                    } else {
-                        None
-                    }
+        self.value_descriptions.iter().find_map(|x| match x {
+            ValueDescription::Signal {
+                message_id: ref x_message_id,
+                signal_name: ref x_signal_name,
+                ref value_descriptions,
+            } => {
+                if *x_message_id == message_id && x_signal_name == signal_name {
+                    Some(value_descriptions.as_slice())
+                } else {
+                    None
                 }
-                _ => None,
-            })
+            }
+            _ => None,
+        })
     }
 
     /// Lookup the extended value for a given signal
@@ -780,20 +774,18 @@ impl DBC {
         message_id: MessageId,
         signal_name: &str,
     ) -> Option<&SignalExtendedValueType> {
-        self.signal_extended_value_type_list
-            .iter()
-            .find_map(|x| {
-                let SignalExtendedValueTypeList {
-                    message_id: ref x_message_id,
-                    signal_name: ref x_signal_name,
-                    ref signal_extended_value_type,
-                } = x;
-                if *x_message_id == message_id && x_signal_name == signal_name {
-                    Some(signal_extended_value_type)
-                } else {
-                    None
-                }
-            })
+        self.signal_extended_value_type_list.iter().find_map(|x| {
+            let SignalExtendedValueTypeList {
+                message_id: ref x_message_id,
+                signal_name: ref x_signal_name,
+                ref signal_extended_value_type,
+            } = x;
+            if *x_message_id == message_id && x_signal_name == signal_name {
+                Some(signal_extended_value_type)
+            } else {
+                None
+            }
+        })
     }
 
     /// Lookup the message multiplexor switch signal for a given message
