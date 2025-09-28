@@ -190,7 +190,7 @@ mod tests {
         let comment1 = Comment::Signal {
             message_id,
             signal_name: "FooBar".to_string(),
-            comment: "".to_string(),
+            comment: String::new(),
         };
         let (_, comment1_def) = comment(def1).expect("Failed to parse signal comment definition");
         assert_eq!(comment1, comment1_def);
@@ -603,16 +603,16 @@ mod tests {
 
     #[test]
     fn extended_message_id_test() {
-        let s = (0x1FFFFFFFu32 | 1 << 31).to_string();
+        let s = (0x1FFF_FFFF_u32 | 1 << 31).to_string();
         let (_, extended_message_id) = message_id(&s).unwrap();
-        assert_eq!(extended_message_id, MessageId::Extended(0x1FFFFFFF));
+        assert_eq!(extended_message_id, MessageId::Extended(0x1FFF_FFFF));
     }
 
     #[test]
     fn extended_message_id_test_max_29bit() {
         let s = u32::MAX.to_string();
         let (_, extended_message_id) = message_id(&s).unwrap();
-        assert_eq!(extended_message_id, MessageId::Extended(0x1FFFFFFF));
+        assert_eq!(extended_message_id, MessageId::Extended(0x1FFF_FFFF));
     }
 }
 
@@ -746,7 +746,7 @@ fn message_id(s: &str) -> IResult<&str, MessageId> {
     let (s, parsed_value) = complete::u32(s)?;
 
     if parsed_value & (1 << 31) != 0 {
-        Ok((s, MessageId::Extended(parsed_value & 0x1FFFFFFF)))
+        Ok((s, MessageId::Extended(parsed_value & 0x1FFF_FFFF)))
     } else {
         Ok((s, MessageId::Standard(parsed_value as u16)))
     }

@@ -29,13 +29,13 @@ fn main() -> io::Result<()> {
     let dbc_in = std::str::from_utf8(&buffer).unwrap();
 
     match can_dbc::DBC::try_from(dbc_in) {
-        Ok(dbc_content) => println!("DBC Content{:#?}", dbc_content),
+        Ok(dbc_content) => println!("DBC Content{dbc_content:#?}"),
         Err(e) => {
             match e {
-                can_dbc::Error::Nom(nom::Err::Error(e)) => eprintln!("{:?}", e),
-                can_dbc::Error::Nom(nom::Err::Failure(e)) => eprintln!("{:?}", e),
-                can_dbc::Error::Nom(nom::Err::Incomplete(needed)) => eprintln!("Nom incomplete needed: {:#?}", needed),
-                can_dbc::Error::Incomplete(dbc, remaining) => eprintln!("Not all data in buffer was read {:#?}, remaining unparsed (length: {}): {}\n...(truncated)", dbc, remaining.len(), remaining),
+                can_dbc::Error::Nom(nom::Err::Error(e)) => eprintln!("{e:?}"),
+                can_dbc::Error::Nom(nom::Err::Failure(e)) => eprintln!("{e:?}"),
+                can_dbc::Error::Nom(nom::Err::Incomplete(needed)) => eprintln!("Nom incomplete needed: {needed:#?}"),
+                can_dbc::Error::Incomplete(dbc, remaining) => eprintln!("Not all data in buffer was read {dbc:#?}, remaining unparsed (length: {}): {remaining}\n...(truncated)", remaining.len()),
                 can_dbc::Error::MultipleMultiplexors => eprintln!("Multiple multiplexors defined"),
             }
         }
