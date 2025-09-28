@@ -1,10 +1,8 @@
+use std::collections::HashSet;
+use std::fs::{self, File};
 use std::io;
 use std::io::prelude::*;
-use std::{
-    collections::HashSet,
-    fs::{self, File},
-    path::PathBuf,
-};
+use std::path::PathBuf;
 
 // #[test]
 fn main() -> io::Result<()> {

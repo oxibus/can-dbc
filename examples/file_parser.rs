@@ -1,12 +1,11 @@
 extern crate clap;
 
-use can_dbc::{self};
-use clap::{command, Arg};
-
 use std::convert::TryFrom;
 use std::fs::File;
 use std::io;
 use std::io::prelude::*;
+
+use clap::{command, Arg};
 
 fn main() -> io::Result<()> {
     let matches = command!()
