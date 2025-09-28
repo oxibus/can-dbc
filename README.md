@@ -104,3 +104,6 @@ This project uses [cargo-deny](https://github.com/EmbarkStudios/cargo-deny) for 
 cargo install cargo-deny
 cargo deny check
 ```
+
+# Development
+This project uses [insta](https://insta.rs) for snapshot testing. To update the snapshots run `cargo insta test --all-feature --accept`
