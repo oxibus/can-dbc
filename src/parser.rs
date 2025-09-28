@@ -4,16 +4,6 @@
 
 use std::str;
 
-use nom::branch::{alt, permutation};
-use nom::bytes::complete::{escaped, tag, take_till, take_till1, take_while, take_while1};
-use nom::character::complete::{self, char, line_ending, multispace0, one_of, space0, space1};
-use nom::combinator::{map, opt, value};
-use nom::error::{ErrorKind, ParseError};
-use nom::multi::{many0, many_till, separated_list0};
-use nom::number::complete::double;
-use nom::sequence::preceded;
-use nom::{AsChar, IResult, InputTakeAtPosition};
-
 use crate::{
     AccessNode, AccessType, AttributeDefault, AttributeDefinition, AttributeValue,
     AttributeValueForObject, AttributeValuedForObjectType, Baudrate, ByteOrder, Comment, EnvType,
@@ -21,6 +11,19 @@ use crate::{
     Message, MessageId, MessageTransmitter, MultiplexIndicator, Node, Signal,
     SignalExtendedValueType, SignalExtendedValueTypeList, SignalGroups, SignalType, SignalTypeRef,
     Symbol, Transmitter, ValDescription, ValueDescription, ValueTable, ValueType, Version, DBC,
+};
+use nom::bytes::complete::{escaped, take_till1};
+use nom::character::complete::one_of;
+use nom::{
+    branch::{alt, permutation},
+    bytes::complete::{tag, take_till, take_while, take_while1},
+    character::complete::{self, char, line_ending, multispace0, space0, space1},
+    combinator::{map, opt, value},
+    error::{ErrorKind, ParseError},
+    multi::{many0, many_till, separated_list0},
+    number::complete::double,
+    sequence::preceded,
+    AsChar, IResult, InputTakeAtPosition,
 };
 
 #[cfg(test)]

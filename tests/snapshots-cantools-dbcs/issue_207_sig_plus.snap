@@ -1,0 +1,87 @@
+---
+source: tests/cantool-dbcs.rs
+---
+version: ""
+new_symbols:
+  - NS_DESC_
+  - CM_
+  - BA_DEF_
+  - BA_
+  - VAL_
+  - CAT_DEF_
+  - CAT_
+  - FILTER
+  - BA_DEF_DEF_
+  - EV_DATA_
+  - ENVVAR_DATA_
+  - SGTYPE_
+  - SGTYPE_VAL_
+  - BA_DEF_SGTYPE_
+  - BA_SGTYPE_
+  - SIG_TYPE_REF_
+  - VAL_TABLE_
+  - SIG_GROUP_
+  - SIG_VALTYPE_
+  - SIGTYPE_VALTYPE_
+  - BO_TX_BU_
+  - BA_DEF_REL_
+  - BA_REL_
+  - BA_DEF_DEF_REL_
+  - BU_SG_REL_
+  - BU_EV_REL_
+  - BU_BO_REL_
+  - SG_MUL_VAL_
+bit_timing: []
+nodes:
+  - []
+value_tables: []
+messages:
+  - message_id:
+      Standard: 1
+    message_name: myMsg
+    message_size: 8
+    transmitter: VectorXXX
+    signals:
+      - name: myExtraSigWithPlus
+        multiplexer_indicator: Plain
+        start_bit: 8
+        signal_size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: -128
+        min: -128
+        max: 127
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: myNormalSig
+        multiplexer_indicator: Plain
+        start_bit: 0
+        signal_size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: -128
+        min: -128
+        max: 127
+        unit: ""
+        receivers:
+          - Vector__XXX
+message_transmitters: []
+environment_variables: []
+environment_variable_data: []
+signal_types: []
+comments: []
+attribute_definitions:
+  - Plain: "\"BusType\" STRING "
+attribute_defaults:
+  - attribute_name: BusType
+    attribute_value:
+      AttributeValueCharString: CAN
+attribute_values: []
+value_descriptions: []
+signal_type_refs: []
+signal_groups: []
+signal_extended_value_type_list: []
+extended_multiplex: []

@@ -142,6 +142,7 @@ SIG_VALTYPE_ 2000 Signal_8 : 1;
                         "Not all data in buffer was read {dbc:#?}, remaining unparsed: {remaining}",
                     ),
                     Error::MultipleMultiplexors => eprintln!("Multiple multiplexors defined"),
+                    Error::InvalidContent(e) => eprintln!("Invalid content: {e:?}"),
                 }
                 panic!("Failed to read DBC");
             }
@@ -280,6 +281,8 @@ pub enum Error<'a> {
     Nom(nom::Err<nom::error::Error<&'a str>>),
     /// Can't Lookup multiplexors because the message uses extended multiplexing.
     MultipleMultiplexors,
+    /// DBC file content is not valid UTF8
+    InvalidContent(std::str::Utf8Error),
 }
 
 /// Baudrate of network in kbit/s
@@ -681,7 +684,7 @@ impl DBC {
     /// Read a DBC from a buffer
     #[allow(clippy::result_large_err)]
     pub fn from_slice(buffer: &[u8]) -> Result<DBC, Error<'_>> {
-        let dbc_in = std::str::from_utf8(buffer).unwrap();
+        let dbc_in = std::str::from_utf8(buffer).map_err(Error::InvalidContent)?;
         Self::try_from(dbc_in)
     }
 

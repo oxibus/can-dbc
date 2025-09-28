@@ -1,0 +1,11 @@
+---
+source: tests/cantool-dbcs.rs
+---
+Nom(
+    Error(
+        Error {
+            input: "",
+            code: Tag,
+        },
+    ),
+)
