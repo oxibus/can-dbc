@@ -128,19 +128,18 @@ SIG_VALTYPE_ 2000 Signal_8 : 1;
     #[test]
     fn dbc_definition_test() {
         match DBC::try_from(SAMPLE_DBC) {
-            Ok(dbc_content) => println!("DBC Content{:#?}", dbc_content),
+            Ok(dbc_content) => println!("DBC Content{dbc_content:#?}"),
             Err(e) => {
                 match e {
                     Error::Nom(nom::Err::Incomplete(needed)) => {
-                        eprintln!("Error incomplete input, needed: {:?}", needed)
+                        eprintln!("Error incomplete input, needed: {needed:?}");
                     }
                     Error::Nom(nom::Err::Error(error)) => {
-                        eprintln!("Nom Error: {:?}", error);
+                        eprintln!("Nom Error: {error:?}");
                     }
-                    Error::Nom(nom::Err::Failure(ctx)) => eprintln!("Failure {:?}", ctx),
+                    Error::Nom(nom::Err::Failure(ctx)) => eprintln!("Failure {ctx:?}"),
                     Error::Incomplete(dbc, remaining) => eprintln!(
-                        "Not all data in buffer was read {:#?}, remaining unparsed: {}",
-                        dbc, remaining
+                        "Not all data in buffer was read {dbc:#?}, remaining unparsed: {remaining}",
                     ),
                     Error::MultipleMultiplexors => eprintln!("Multiple multiplexors defined"),
                 }
@@ -323,7 +322,7 @@ impl MessageId {
     /// Raw value of the message id including the bit for extended identifiers
     pub fn raw(&self) -> u32 {
         match self {
-            MessageId::Standard(id) => *id as u32,
+            MessageId::Standard(id) => u32::from(*id),
             MessageId::Extended(id) => *id | 1 << 31,
         }
     }
@@ -681,7 +680,7 @@ pub struct DBC {
 impl DBC {
     /// Read a DBC from a buffer
     #[allow(clippy::result_large_err)]
-    pub fn from_slice(buffer: &[u8]) -> Result<DBC, Error> {
+    pub fn from_slice(buffer: &[u8]) -> Result<DBC, Error<'_>> {
         let dbc_in = std::str::from_utf8(buffer).unwrap();
         Self::try_from(dbc_in)
     }
@@ -689,7 +688,7 @@ impl DBC {
     #[allow(clippy::should_implement_trait)]
     #[deprecated(since = "4.0.0", note = "please use `DBC::try_from` instead")]
     #[allow(clippy::result_large_err)]
-    pub fn from_str(dbc_in: &str) -> Result<DBC, Error> {
+    pub fn from_str(dbc_in: &str) -> Result<DBC, Error<'_>> {
         let (remaining, dbc) = parser::dbc(dbc_in).map_err(Error::Nom)?;
         if !remaining.is_empty() {
             return Err(Error::Incomplete(dbc, remaining));
@@ -716,7 +715,7 @@ impl DBC {
     pub fn message_comment(&self, message_id: MessageId) -> Option<&str> {
         self.comments
             .iter()
-            .filter_map(|x| match x {
+            .find_map(|x| match x {
                 Comment::Message {
                     message_id: ref x_message_id,
                     ref comment,
@@ -729,14 +728,13 @@ impl DBC {
                 }
                 _ => None,
             })
-            .next()
     }
 
     /// Lookup a signal comment
     pub fn signal_comment(&self, message_id: MessageId, signal_name: &str) -> Option<&str> {
         self.comments
             .iter()
-            .filter_map(|x| match x {
+            .find_map(|x| match x {
                 Comment::Signal {
                     message_id: ref x_message_id,
                     signal_name: ref x_signal_name,
@@ -750,7 +748,6 @@ impl DBC {
                 }
                 _ => None,
             })
-            .next()
     }
 
     /// Lookup value descriptions for signal
@@ -761,7 +758,7 @@ impl DBC {
     ) -> Option<&[ValDescription]> {
         self.value_descriptions
             .iter()
-            .filter_map(|x| match x {
+            .find_map(|x| match x {
                 ValueDescription::Signal {
                     message_id: ref x_message_id,
                     signal_name: ref x_signal_name,
@@ -775,7 +772,6 @@ impl DBC {
                 }
                 _ => None,
             })
-            .next()
     }
 
     /// Lookup the extended value for a given signal
@@ -786,7 +782,7 @@ impl DBC {
     ) -> Option<&SignalExtendedValueType> {
         self.signal_extended_value_type_list
             .iter()
-            .filter_map(|x| {
+            .find_map(|x| {
                 let SignalExtendedValueTypeList {
                     message_id: ref x_message_id,
                     signal_name: ref x_signal_name,
@@ -798,7 +794,6 @@ impl DBC {
                     None
                 }
             })
-            .next()
     }
 
     /// Lookup the message multiplexor switch signal for a given message
@@ -807,7 +802,7 @@ impl DBC {
     pub fn message_multiplexor_switch(
         &self,
         message_id: MessageId,
-    ) -> Result<Option<&Signal>, Error> {
+    ) -> Result<Option<&Signal>, Error<'_>> {
         let message = self
             .messages
             .iter()
