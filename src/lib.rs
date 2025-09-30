@@ -288,10 +288,10 @@ pub enum MessageId {
 
 impl MessageId {
     /// Raw value of the message id including the bit for extended identifiers
-    pub fn raw(&self) -> u32 {
+    pub fn raw(self) -> u32 {
         match self {
-            MessageId::Standard(id) => u32::from(*id),
-            MessageId::Extended(id) => *id | 1 << 31,
+            MessageId::Standard(id) => u32::from(id),
+            MessageId::Extended(id) => id | 1 << 31,
         }
     }
 }
@@ -732,7 +732,7 @@ impl DBC {
                     None
                 }
             }
-            _ => None,
+            ValueDescription::EnvironmentVariable { .. } => None,
         })
     }
 
