@@ -31,8 +31,7 @@ fn main() -> io::Result<()> {
         Ok(dbc_content) => println!("DBC Content{dbc_content:#?}"),
         Err(e) => {
             match e {
-                can_dbc::Error::Nom(nom::Err::Error(e)) => eprintln!("{e:?}"),
-                can_dbc::Error::Nom(nom::Err::Failure(e)) => eprintln!("{e:?}"),
+                can_dbc::Error::Nom(nom::Err::Error(e) | nom::Err::Failure(e)) => eprintln!("{e:?}"),
                 can_dbc::Error::Nom(nom::Err::Incomplete(needed)) => eprintln!("Nom incomplete needed: {needed:#?}"),
                 can_dbc::Error::Incomplete(dbc, remaining) => eprintln!("Not all data in buffer was read {dbc:#?}, remaining unparsed (length: {}): {remaining}\n...(truncated)", remaining.len()),
                 can_dbc::Error::MultipleMultiplexors => eprintln!("Multiple multiplexors defined"),

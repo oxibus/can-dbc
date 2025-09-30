@@ -1,10 +1,11 @@
 #![cfg(feature = "with-serde")]
 
-use insta::{assert_debug_snapshot, assert_yaml_snapshot, with_settings};
 use std::fs::File;
 use std::io::Read as _;
 use std::path::Path;
 use std::{fs, io};
+
+use insta::{assert_debug_snapshot, assert_yaml_snapshot, with_settings};
 
 /// Test parsing all DBC files in the `tests/cantools-dbcs` directory, using the `can_dbc` crate.
 #[test]
