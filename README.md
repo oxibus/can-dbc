@@ -6,13 +6,13 @@
 [![docs](https://docs.rs/can-dbc/badge.svg)](https://docs.rs/can-dbc)
 [![Cargo Deny Status](https://img.shields.io/badge/cargo--deny-license%20checked-green)](https://github.com/marcelbuesing/can-dbc/actions?query=workflow%3A"Continuous+integration")
 
-A CAN-dbc format parser written with Rust's [nom](https://github.com/Geal/nom) parser combinator library.
+A CAN-dbc format parser written with Rust's [nom](https://github.com/Geal/nom) parser combinator library. CAN databases are used to exchange details about a CAN network, e.g. what messages are being send over the CAN bus and what data do they contain.
 
 # 1. Example
 
 Read dbc file and generate Rust structs based on the messages/signals defined in the dbc.
 
-```rust
+```rust,no_run
 use can_dbc::DBC;
 use codegen::Scope;
 
@@ -49,7 +49,8 @@ For a proper implementation for reading or writing CAN frames according to the D
 # 2. Example
 
 The file parser simply parses a dbc input file and prints the parsed content.
-```
+
+```bash
 cargo test && ./target/debug/examples/file_parser -i examples/sample.dbc
 ```
 
@@ -100,7 +101,7 @@ Test dbcs files were copied from the [cantools](https://github.com/eerimoq/canto
 
 This project uses [cargo-deny](https://github.com/EmbarkStudios/cargo-deny) for checking the licenses of dependencies. To run the check locally run the following:
 
-```
+```bash
 cargo install cargo-deny
 cargo deny check
 ```
