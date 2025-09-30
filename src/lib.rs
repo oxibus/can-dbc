@@ -1,39 +1,4 @@
-//!
-//! A CAN database (dbc) format parser written with Rust's nom parser combinator library.
-//! CAN databases are used to exchange details about a CAN network.
-//! E.g. what messages are being send over the CAN bus and what data do they contain.
-//!
-//! ```rust
-//! use can_dbc::DBC;
-//! use codegen::Scope;
-//!
-//! use std::fs::File;
-//! use std::io;
-//! use std::io::prelude::*;
-//!
-//! fn main() -> io::Result<()> {
-//!     let mut f = File::open("./examples/sample.dbc")?;
-//!     let mut buffer = Vec::new();
-//!     f.read_to_end(&mut buffer)?;
-//!
-//!     let dbc = can_dbc::DBC::from_slice(&buffer).expect("Failed to parse dbc file");
-//!
-//!     let mut scope = Scope::new();
-//!     for message in dbc.messages() {
-//!         for signal in message.signals() {
-//!
-//!             let mut scope = Scope::new();
-//!             let message_struct = scope.new_struct(message.message_name());
-//!             for signal in message.signals() {
-//!                 message_struct.field(signal.name().to_lowercase().as_str(), "f64");
-//!             }
-//!         }
-//!     }
-//!
-//!     println!("{}", scope.to_string());
-//!     Ok(())
-//! }
-//! ```
+#![doc = include_str!("../README.md")]
 
 #[cfg(feature = "with-serde")]
 extern crate serde;
