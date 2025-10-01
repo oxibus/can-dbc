@@ -12,7 +12,7 @@ use nom::error::{ErrorKind, ParseError};
 use nom::multi::{many0, many_till, separated_list0};
 use nom::number::complete::double;
 use nom::sequence::preceded;
-use nom::{AsChar, IResult, InputTakeAtPosition};
+use nom::{AsChar, IResult, Input, Parser};
 
 use crate::{
     AccessNode, AccessType, AttributeDefault, AttributeDefinition, AttributeValue,
@@ -634,8 +634,8 @@ fn is_quote_or_escape_character(chr: char) -> bool {
 /// Multispace zero or more
 fn ms0<T, E: ParseError<T>>(input: T) -> IResult<T, T, E>
 where
-    T: InputTakeAtPosition,
-    <T as InputTakeAtPosition>::Item: AsChar + Clone,
+    T: Input,
+    <T as Input>::Item: AsChar + Clone,
 {
     input.split_at_position_complete(|item| {
         let c = item.as_char();
@@ -646,8 +646,8 @@ where
 /// Multi space one or more
 fn ms1<T, E: ParseError<T>>(input: T) -> IResult<T, T, E>
 where
-    T: InputTakeAtPosition,
-    <T as InputTakeAtPosition>::Item: AsChar + Clone,
+    T: Input,
+    <T as Input>::Item: AsChar + Clone,
 {
     input.split_at_position1_complete(
         |item| {
@@ -660,64 +660,64 @@ where
 
 /// Colon aka `:`
 fn colon(s: &str) -> IResult<&str, char> {
-    char(':')(s)
+    char(':').parse(s)
 }
 
 /// Comma aka ','
 fn comma(s: &str) -> IResult<&str, char> {
-    char(',')(s)
+    char(',').parse(s)
 }
 
 /// Comma aka ';'
 fn semi_colon(s: &str) -> IResult<&str, char> {
-    char(';')(s)
+    char(';').parse(s)
 }
 
 /// Quote aka '"'
 fn quote(s: &str) -> IResult<&str, char> {
-    char('"')(s)
+    char('"').parse(s)
 }
 
 /// Pipe character
 fn pipe(s: &str) -> IResult<&str, char> {
-    char('|')(s)
+    char('|').parse(s)
 }
 
 /// at character
 fn at(s: &str) -> IResult<&str, char> {
-    char('@')(s)
+    char('@').parse(s)
 }
 
 /// brace open aka '('
 fn brc_open(s: &str) -> IResult<&str, char> {
-    char('(')(s)
+    char('(').parse(s)
 }
 
 /// brace close aka ')'
 fn brc_close(s: &str) -> IResult<&str, char> {
-    char(')')(s)
+    char(')').parse(s)
 }
 
 /// bracket open aka '['
 fn brk_open(s: &str) -> IResult<&str, char> {
-    char('[')(s)
+    char('[').parse(s)
 }
 
 /// bracket close aka ']'
 fn brk_close(s: &str) -> IResult<&str, char> {
-    char(']')(s)
+    char(']').parse(s)
 }
 
 /// A valid C_identifier. C_identifiers start with a  alphacharacter or an underscore
 /// and may further consist of alpha­numeric, characters and underscore
 fn c_ident(s: &str) -> IResult<&str, String> {
-    let (s, head) = take_while1(is_c_ident_head)(s)?;
-    let (s, remaining) = take_while(is_c_string_char)(s)?;
+    let (s, head) = take_while1(is_c_ident_head).parse(s)?;
+    let (s, remaining) = take_while(is_c_string_char).parse(s)?;
     Ok((s, [head, remaining].concat()))
 }
 
 fn c_ident_vec(s: &str) -> IResult<&str, Vec<String>> {
-    separated_list0(comma, c_ident)(s)
+    separated_list0(comma, c_ident).parse(s)
 }
 
 fn char_string(s: &str) -> IResult<&str, &str> {
@@ -726,7 +726,8 @@ fn char_string(s: &str) -> IResult<&str, &str> {
         take_till1(is_quote_or_escape_character),
         '\\',
         one_of(r#""n\"#),
-    ))(s)?;
+    ))
+    .parse(s)?;
     let (s, _) = quote(s)?;
 
     let char_string_value = optional_char_string_value.unwrap_or("");
@@ -734,15 +735,15 @@ fn char_string(s: &str) -> IResult<&str, &str> {
 }
 
 fn little_endian(s: &str) -> IResult<&str, ByteOrder> {
-    map(char('1'), |_| ByteOrder::LittleEndian)(s)
+    map(char('1'), |_| ByteOrder::LittleEndian).parse(s)
 }
 
 fn big_endian(s: &str) -> IResult<&str, ByteOrder> {
-    map(char('0'), |_| ByteOrder::BigEndian)(s)
+    map(char('0'), |_| ByteOrder::BigEndian).parse(s)
 }
 
 fn byte_order(s: &str) -> IResult<&str, ByteOrder> {
-    alt((little_endian, big_endian))(s)
+    alt((little_endian, big_endian)).parse(s)
 }
 
 fn message_id(s: &str) -> IResult<&str, MessageId> {
@@ -758,20 +759,20 @@ fn message_id(s: &str) -> IResult<&str, MessageId> {
 }
 
 fn signed(s: &str) -> IResult<&str, ValueType> {
-    map(char('-'), |_| ValueType::Signed)(s)
+    map(char('-'), |_| ValueType::Signed).parse(s)
 }
 
 fn unsigned(s: &str) -> IResult<&str, ValueType> {
-    map(char('+'), |_| ValueType::Unsigned)(s)
+    map(char('+'), |_| ValueType::Unsigned).parse(s)
 }
 
 fn value_type(s: &str) -> IResult<&str, ValueType> {
-    alt((signed, unsigned))(s)
+    alt((signed, unsigned)).parse(s)
 }
 
 fn multiplexer(s: &str) -> IResult<&str, MultiplexIndicator> {
     let (s, _) = ms1(s)?;
-    let (s, _) = char('m')(s)?;
+    let (s, _) = char('m').parse(s)?;
     let (s, d) = complete::u64(s)?;
     let (s, _) = ms1(s)?;
     Ok((s, MultiplexIndicator::MultiplexedSignal(d)))
@@ -779,16 +780,16 @@ fn multiplexer(s: &str) -> IResult<&str, MultiplexIndicator> {
 
 fn multiplexor(s: &str) -> IResult<&str, MultiplexIndicator> {
     let (s, _) = ms1(s)?;
-    let (s, _) = char('M')(s)?;
+    let (s, _) = char('M').parse(s)?;
     let (s, _) = ms1(s)?;
     Ok((s, MultiplexIndicator::Multiplexor))
 }
 
 fn multiplexor_and_multiplexed(s: &str) -> IResult<&str, MultiplexIndicator> {
     let (s, _) = ms1(s)?;
-    let (s, _) = char('m')(s)?;
+    let (s, _) = char('m').parse(s)?;
     let (s, d) = complete::u64(s)?;
-    let (s, _) = char('M')(s)?;
+    let (s, _) = char('M').parse(s)?;
     let (s, _) = ms1(s)?;
     Ok((s, MultiplexIndicator::MultiplexorAndMultiplexedSignal(d)))
 }
@@ -799,12 +800,12 @@ fn plain(s: &str) -> IResult<&str, MultiplexIndicator> {
 }
 
 fn multiplexer_indicator(s: &str) -> IResult<&str, MultiplexIndicator> {
-    alt((multiplexer, multiplexor, multiplexor_and_multiplexed, plain))(s)
+    alt((multiplexer, multiplexor, multiplexor_and_multiplexed, plain)).parse(s)
 }
 
 fn version(s: &str) -> IResult<&str, Version> {
     let (s, _) = multispace0(s)?;
-    let (s, _) = tag("VERSION")(s)?;
+    let (s, _) = tag("VERSION").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, v) = char_string(s)?;
     let (s, _) = line_ending(s)?;
@@ -813,17 +814,18 @@ fn version(s: &str) -> IResult<&str, Version> {
 
 fn bit_timing(s: &str) -> IResult<&str, Vec<Baudrate>> {
     let (s, _) = multispace0(s)?;
-    let (s, _) = tag("BS_:")(s)?;
+    let (s, _) = tag("BS_:").parse(s)?;
     let (s, baudrates) = opt(preceded(
         ms1,
         separated_list0(comma, map(complete::u64, Baudrate)),
-    ))(s)?;
+    ))
+    .parse(s)?;
     Ok((s, baudrates.unwrap_or_default()))
 }
 
 fn signal(s: &str) -> IResult<&str, Signal> {
     let (s, _) = multispace0(s)?;
-    let (s, _) = tag("SG_")(s)?;
+    let (s, _) = tag("SG_").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, name) = c_ident(s)?;
     let (s, multiplexer_indicator) = multiplexer_indicator(s)?;
@@ -873,7 +875,7 @@ fn signal(s: &str) -> IResult<&str, Signal> {
 
 fn message(s: &str) -> IResult<&str, Message> {
     let (s, _) = multispace0(s)?;
-    let (s, _) = tag("BO_")(s)?;
+    let (s, _) = tag("BO_").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, message_id) = message_id(s)?;
     let (s, _) = ms1(s)?;
@@ -883,7 +885,7 @@ fn message(s: &str) -> IResult<&str, Message> {
     let (s, message_size) = complete::u64(s)?;
     let (s, _) = ms1(s)?;
     let (s, transmitter) = transmitter(s)?;
-    let (s, signals) = many0(signal)(s)?;
+    let (s, signals) = many0(signal).parse(s)?;
     Ok((
         s,
         (Message {
@@ -898,7 +900,7 @@ fn message(s: &str) -> IResult<&str, Message> {
 
 fn attribute_default(s: &str) -> IResult<&str, AttributeDefault> {
     let (s, _) = multispace0(s)?;
-    let (s, _) = tag("BA_DEF_DEF_")(s)?;
+    let (s, _) = tag("BA_DEF_DEF_").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, attribute_name) = char_string(s)?;
     let (s, _) = ms1(s)?;
@@ -916,7 +918,7 @@ fn attribute_default(s: &str) -> IResult<&str, AttributeDefault> {
 }
 
 fn node_comment(s: &str) -> IResult<&str, Comment> {
-    let (s, _) = tag("BU_")(s)?;
+    let (s, _) = tag("BU_").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, node_name) = c_ident(s)?;
     let (s, _) = ms1(s)?;
@@ -932,7 +934,7 @@ fn node_comment(s: &str) -> IResult<&str, Comment> {
 }
 
 fn message_comment(s: &str) -> IResult<&str, Comment> {
-    let (s, _) = tag("BO_")(s)?;
+    let (s, _) = tag("BO_").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, message_id) = message_id(s)?;
     let (s, _) = ms1(s)?;
@@ -948,7 +950,7 @@ fn message_comment(s: &str) -> IResult<&str, Comment> {
 }
 
 fn signal_comment(s: &str) -> IResult<&str, Comment> {
-    let (s, _) = tag("SG_")(s)?;
+    let (s, _) = tag("SG_").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, message_id) = message_id(s)?;
     let (s, _) = ms1(s)?;
@@ -967,7 +969,7 @@ fn signal_comment(s: &str) -> IResult<&str, Comment> {
 
 fn env_var_comment(s: &str) -> IResult<&str, Comment> {
     let (s, _) = ms0(s)?;
-    let (s, _) = tag("EV_")(s)?;
+    let (s, _) = tag("EV_").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, env_var_name) = c_ident(s)?;
     let (s, _) = ms1(s)?;
@@ -993,7 +995,7 @@ fn comment_plain(s: &str) -> IResult<&str, Comment> {
 
 fn comment(s: &str) -> IResult<&str, Comment> {
     let (s, _) = multispace0(s)?;
-    let (s, _) = tag("CM_")(s)?;
+    let (s, _) = tag("CM_").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, comment) = alt((
         node_comment,
@@ -1001,7 +1003,8 @@ fn comment(s: &str) -> IResult<&str, Comment> {
         env_var_comment,
         signal_comment,
         comment_plain,
-    ))(s)?;
+    ))
+    .parse(s)?;
     let (s, _) = semi_colon(s)?;
     let (s, _) = line_ending(s)?;
     Ok((s, comment))
@@ -1022,7 +1025,7 @@ fn value_description(s: &str) -> IResult<&str, ValDescription> {
 
 fn value_description_for_signal(s: &str) -> IResult<&str, ValueDescription> {
     let (s, _) = ms0(s)?;
-    let (s, _) = tag("VAL_")(s)?;
+    let (s, _) = tag("VAL_").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, message_id) = message_id(s)?;
     let (s, _) = ms1(s)?;
@@ -1030,7 +1033,8 @@ fn value_description_for_signal(s: &str) -> IResult<&str, ValueDescription> {
     let (s, value_descriptions) = many_till(
         preceded(ms1, value_description),
         preceded(opt(ms1), semi_colon),
-    )(s)?;
+    )
+    .parse(s)?;
     Ok((
         s,
         ValueDescription::Signal {
@@ -1043,13 +1047,14 @@ fn value_description_for_signal(s: &str) -> IResult<&str, ValueDescription> {
 
 fn value_description_for_env_var(s: &str) -> IResult<&str, ValueDescription> {
     let (s, _) = ms0(s)?;
-    let (s, _) = tag("VAL_")(s)?;
+    let (s, _) = tag("VAL_").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, env_var_name) = c_ident(s)?;
     let (s, value_descriptions) = many_till(
         preceded(ms1, value_description),
         preceded(opt(ms1), semi_colon),
-    )(s)?;
+    )
+    .parse(s)?;
     Ok((
         s,
         ValueDescription::EnvironmentVariable {
@@ -1061,69 +1066,70 @@ fn value_description_for_env_var(s: &str) -> IResult<&str, ValueDescription> {
 
 fn value_descriptions(s: &str) -> IResult<&str, ValueDescription> {
     let (s, _) = multispace0(s)?;
-    let (s, vd) = alt((value_description_for_signal, value_description_for_env_var))(s)?;
+    let (s, vd) = alt((value_description_for_signal, value_description_for_env_var)).parse(s)?;
     let (s, _) = line_ending(s)?;
     Ok((s, vd))
 }
 
 fn env_float(s: &str) -> IResult<&str, EnvType> {
-    value(EnvType::EnvTypeFloat, char('0'))(s)
+    value(EnvType::EnvTypeFloat, char('0')).parse(s)
 }
 
 fn env_int(s: &str) -> IResult<&str, EnvType> {
-    value(EnvType::EnvTypeu64, char('1'))(s)
+    value(EnvType::EnvTypeu64, char('1')).parse(s)
 }
 
 fn env_data(s: &str) -> IResult<&str, EnvType> {
-    value(EnvType::EnvTypeu64, char('2'))(s)
+    value(EnvType::EnvTypeu64, char('2')).parse(s)
 }
 
 fn env_var_type(s: &str) -> IResult<&str, EnvType> {
-    alt((env_float, env_int, env_data))(s)
+    alt((env_float, env_int, env_data)).parse(s)
 }
 
 fn dummy_node_vector_0(s: &str) -> IResult<&str, AccessType> {
-    value(AccessType::DummyNodeVector0, char('0'))(s)
+    value(AccessType::DummyNodeVector0, char('0')).parse(s)
 }
 
 fn dummy_node_vector_1(s: &str) -> IResult<&str, AccessType> {
-    value(AccessType::DummyNodeVector1, char('1'))(s)
+    value(AccessType::DummyNodeVector1, char('1')).parse(s)
 }
 
 fn dummy_node_vector_2(s: &str) -> IResult<&str, AccessType> {
-    value(AccessType::DummyNodeVector2, char('2'))(s)
+    value(AccessType::DummyNodeVector2, char('2')).parse(s)
 }
 fn dummy_node_vector_3(s: &str) -> IResult<&str, AccessType> {
-    value(AccessType::DummyNodeVector3, char('3'))(s)
+    value(AccessType::DummyNodeVector3, char('3')).parse(s)
 }
 
 fn access_type(s: &str) -> IResult<&str, AccessType> {
-    let (s, _) = tag("DUMMY_NODE_VECTOR")(s)?;
+    let (s, _) = tag("DUMMY_NODE_VECTOR").parse(s)?;
     let (s, node) = alt((
         dummy_node_vector_0,
         dummy_node_vector_1,
         dummy_node_vector_2,
         dummy_node_vector_3,
-    ))(s)?;
+    ))
+    .parse(s)?;
     Ok((s, node))
 }
 
 fn access_node_vector_xxx(s: &str) -> IResult<&str, AccessNode> {
-    value(AccessNode::AccessNodeVectorXXX, tag("VECTOR_XXX"))(s)
+    value(AccessNode::AccessNodeVectorXXX, tag("VECTOR_XXX")).parse(s)
 }
 
 fn access_node_name(s: &str) -> IResult<&str, AccessNode> {
-    map(c_ident, AccessNode::AccessNodeName)(s)
+    map(c_ident, AccessNode::AccessNodeName).parse(s)
 }
 
 fn access_node(s: &str) -> IResult<&str, AccessNode> {
-    alt((access_node_vector_xxx, access_node_name))(s)
+    alt((access_node_vector_xxx, access_node_name)).parse(s)
 }
 
 /// Environment Variable Definitions
 fn environment_variable(s: &str) -> IResult<&str, EnvironmentVariable> {
     let (s, _) = multispace0(s)?;
-    let (s, _) = tag("EV_")(s)?;
+    let (s, _) = tag("EV_").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, env_var_name) = c_ident(s)?;
     let (s, _) = colon(s)?;
@@ -1144,7 +1150,7 @@ fn environment_variable(s: &str) -> IResult<&str, EnvironmentVariable> {
     let (s, _) = ms1(s)?;
     let (s, access_type) = access_type(s)?;
     let (s, _) = ms1(s)?;
-    let (s, access_nodes) = separated_list0(comma, access_node)(s)?;
+    let (s, access_nodes) = separated_list0(comma, access_node).parse(s)?;
     let (s, _) = semi_colon(s)?;
     let (s, _) = line_ending(s)?;
     Ok((
@@ -1165,7 +1171,7 @@ fn environment_variable(s: &str) -> IResult<&str, EnvironmentVariable> {
 
 fn environment_variable_data(s: &str) -> IResult<&str, EnvironmentVariableData> {
     let (s, _) = multispace0(s)?;
-    let (s, _) = tag("ENVVAR_DATA_")(s)?;
+    let (s, _) = tag("ENVVAR_DATA_").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, env_var_name) = c_ident(s)?;
     let (s, _) = colon(s)?;
@@ -1184,7 +1190,7 @@ fn environment_variable_data(s: &str) -> IResult<&str, EnvironmentVariableData> 
 
 fn signal_type(s: &str) -> IResult<&str, SignalType> {
     let (s, _) = multispace0(s)?;
-    let (s, _) = tag("SGTYPE_")(s)?;
+    let (s, _) = tag("SGTYPE_").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, signal_type_name) = c_ident(s)?;
     let (s, _) = colon(s)?;
@@ -1233,22 +1239,23 @@ fn signal_type(s: &str) -> IResult<&str, SignalType> {
 
 #[allow(dead_code)]
 fn attribute_value_uint64(s: &str) -> IResult<&str, AttributeValue> {
-    map(complete::u64, AttributeValue::AttributeValueU64)(s)
+    map(complete::u64, AttributeValue::AttributeValueU64).parse(s)
 }
 
 #[allow(dead_code)]
 fn attribute_value_int64(s: &str) -> IResult<&str, AttributeValue> {
-    map(complete::i64, AttributeValue::AttributeValueI64)(s)
+    map(complete::i64, AttributeValue::AttributeValueI64).parse(s)
 }
 
 fn attribute_value_f64(s: &str) -> IResult<&str, AttributeValue> {
-    map(double, AttributeValue::AttributeValueF64)(s)
+    map(double, AttributeValue::AttributeValueF64).parse(s)
 }
 
 fn attribute_value_charstr(s: &str) -> IResult<&str, AttributeValue> {
     map(char_string, |x| {
         AttributeValue::AttributeValueCharString(x.to_string())
-    })(s)
+    })
+    .parse(s)
 }
 
 fn attribute_value(s: &str) -> IResult<&str, AttributeValue> {
@@ -1257,11 +1264,12 @@ fn attribute_value(s: &str) -> IResult<&str, AttributeValue> {
         // attribute_value_int64,
         attribute_value_f64,
         attribute_value_charstr,
-    ))(s)
+    ))
+    .parse(s)
 }
 
 fn network_node_attribute_value(s: &str) -> IResult<&str, AttributeValuedForObjectType> {
-    let (s, _) = tag("BU_")(s)?;
+    let (s, _) = tag("BU_").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, node_name) = c_ident(s)?;
     let (s, _) = ms1(s)?;
@@ -1273,11 +1281,11 @@ fn network_node_attribute_value(s: &str) -> IResult<&str, AttributeValuedForObje
 }
 
 fn message_definition_attribute_value(s: &str) -> IResult<&str, AttributeValuedForObjectType> {
-    let (s, _) = tag("BO_")(s)?;
+    let (s, _) = tag("BO_").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, message_id) = message_id(s)?;
     let (s, _) = ms1(s)?;
-    let (s, value) = opt(attribute_value)(s)?;
+    let (s, value) = opt(attribute_value).parse(s)?;
     Ok((
         s,
         AttributeValuedForObjectType::MessageDefinitionAttributeValue(message_id, value),
@@ -1285,7 +1293,7 @@ fn message_definition_attribute_value(s: &str) -> IResult<&str, AttributeValuedF
 }
 
 fn signal_attribute_value(s: &str) -> IResult<&str, AttributeValuedForObjectType> {
-    let (s, _) = tag("SG_")(s)?;
+    let (s, _) = tag("SG_").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, message_id) = message_id(s)?;
     let (s, _) = ms1(s)?;
@@ -1299,7 +1307,7 @@ fn signal_attribute_value(s: &str) -> IResult<&str, AttributeValuedForObjectType
 }
 
 fn env_variable_attribute_value(s: &str) -> IResult<&str, AttributeValuedForObjectType> {
-    let (s, _) = tag("EV_")(s)?;
+    let (s, _) = tag("EV_").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, env_var_name) = c_ident(s)?;
     let (s, _) = ms1(s)?;
@@ -1314,12 +1322,13 @@ fn raw_attribute_value(s: &str) -> IResult<&str, AttributeValuedForObjectType> {
     map(
         attribute_value,
         AttributeValuedForObjectType::RawAttributeValue,
-    )(s)
+    )
+    .parse(s)
 }
 
 fn attribute_value_for_object(s: &str) -> IResult<&str, AttributeValueForObject> {
     let (s, _) = multispace0(s)?;
-    let (s, _) = tag("BA_")(s)?;
+    let (s, _) = tag("BA_").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, attribute_name) = char_string(s)?;
     let (s, _) = ms1(s)?;
@@ -1329,7 +1338,8 @@ fn attribute_value_for_object(s: &str) -> IResult<&str, AttributeValueForObject>
         signal_attribute_value,
         env_variable_attribute_value,
         raw_attribute_value,
-    ))(s)?;
+    ))
+    .parse(s)?;
     let (s, _) = semi_colon(s)?;
     let (s, _) = line_ending(s)?;
     Ok((
@@ -1343,25 +1353,25 @@ fn attribute_value_for_object(s: &str) -> IResult<&str, AttributeValueForObject>
 
 // TODO add properties
 fn attribute_definition_node(s: &str) -> IResult<&str, AttributeDefinition> {
-    let (s, _) = tag("BU_")(s)?;
+    let (s, _) = tag("BU_").parse(s)?;
     let (s, _) = ms1(s)?;
-    let (s, node) = take_till(is_semi_colon)(s)?;
+    let (s, node) = take_till(is_semi_colon).parse(s)?;
     Ok((s, AttributeDefinition::Node(node.to_string())))
 }
 
 // TODO add properties
 fn attribute_definition_signal(s: &str) -> IResult<&str, AttributeDefinition> {
-    let (s, _) = tag("SG_")(s)?;
+    let (s, _) = tag("SG_").parse(s)?;
     let (s, _) = ms1(s)?;
-    let (s, signal) = take_till(is_semi_colon)(s)?;
+    let (s, signal) = take_till(is_semi_colon).parse(s)?;
     Ok((s, AttributeDefinition::Signal(signal.to_string())))
 }
 
 // TODO add properties
 fn attribute_definition_environment_variable(s: &str) -> IResult<&str, AttributeDefinition> {
-    let (s, _) = tag("EV_")(s)?;
+    let (s, _) = tag("EV_").parse(s)?;
     let (s, _) = ms1(s)?;
-    let (s, env_var) = take_till(is_semi_colon)(s)?;
+    let (s, env_var) = take_till(is_semi_colon).parse(s)?;
     Ok((
         s,
         AttributeDefinition::EnvironmentVariable(env_var.to_string()),
@@ -1370,21 +1380,21 @@ fn attribute_definition_environment_variable(s: &str) -> IResult<&str, Attribute
 
 // TODO add properties
 fn attribute_definition_message(s: &str) -> IResult<&str, AttributeDefinition> {
-    let (s, _) = tag("BO_")(s)?;
+    let (s, _) = tag("BO_").parse(s)?;
     let (s, _) = ms1(s)?;
-    let (s, message) = take_till(is_semi_colon)(s)?;
+    let (s, message) = take_till(is_semi_colon).parse(s)?;
     Ok((s, AttributeDefinition::Message(message.to_string())))
 }
 
 // TODO add properties
 fn attribute_definition_plain(s: &str) -> IResult<&str, AttributeDefinition> {
-    let (s, plain) = take_till(is_semi_colon)(s)?;
+    let (s, plain) = take_till(is_semi_colon).parse(s)?;
     Ok((s, AttributeDefinition::Plain(plain.to_string())))
 }
 
 fn attribute_definition(s: &str) -> IResult<&str, AttributeDefinition> {
     let (s, _) = multispace0(s)?;
-    let (s, _) = tag("BA_DEF_")(s)?;
+    let (s, _) = tag("BA_DEF_").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, def) = alt((
         attribute_definition_node,
@@ -1392,7 +1402,8 @@ fn attribute_definition(s: &str) -> IResult<&str, AttributeDefinition> {
         attribute_definition_environment_variable,
         attribute_definition_message,
         attribute_definition_plain,
-    ))(s)?;
+    ))
+    .parse(s)?;
 
     let (s, _) = semi_colon(s)?;
     let (s, _) = line_ending(s)?;
@@ -1408,18 +1419,18 @@ fn symbol(s: &str) -> IResult<&str, Symbol> {
 
 fn new_symbols(s: &str) -> IResult<&str, Vec<Symbol>> {
     let (s, _) = multispace0(s)?;
-    let (s, _) = tag("NS_ :")(s)?;
+    let (s, _) = tag("NS_ :").parse(s)?;
     let (s, _) = space0(s)?;
     let (s, _) = line_ending(s)?;
-    let (s, symbols) = many0(symbol)(s)?;
+    let (s, symbols) = many0(symbol).parse(s)?;
     Ok((s, symbols))
 }
 
 /// Network node
 fn node(s: &str) -> IResult<&str, Node> {
     let (s, _) = multispace0(s)?;
-    let (s, _) = tag("BU_:")(s)?;
-    let (s, li) = opt(preceded(ms1, separated_list0(ms1, c_ident)))(s)?;
+    let (s, _) = tag("BU_:").parse(s)?;
+    let (s, li) = opt(preceded(ms1, separated_list0(ms1, c_ident))).parse(s)?;
     let (s, _) = space0(s)?;
     let (s, _) = line_ending(s)?;
     Ok((s, Node(li.unwrap_or_default())))
@@ -1427,7 +1438,7 @@ fn node(s: &str) -> IResult<&str, Node> {
 
 fn signal_type_ref(s: &str) -> IResult<&str, SignalTypeRef> {
     let (s, _) = multispace0(s)?;
-    let (s, _) = tag("SGTYPE_")(s)?;
+    let (s, _) = tag("SGTYPE_").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, message_id) = message_id(s)?;
     let (s, _) = ms1(s)?;
@@ -1450,11 +1461,11 @@ fn signal_type_ref(s: &str) -> IResult<&str, SignalTypeRef> {
 
 fn value_table(s: &str) -> IResult<&str, ValueTable> {
     let (s, _) = multispace0(s)?;
-    let (s, _) = tag("VAL_TABLE_")(s)?;
+    let (s, _) = tag("VAL_TABLE_").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, value_table_name) = c_ident(s)?;
     let (s, value_descriptions) =
-        many_till(preceded(ms0, value_description), preceded(ms0, semi_colon))(s)?;
+        many_till(preceded(ms0, value_description), preceded(ms0, semi_colon)).parse(s)?;
     let (s, _) = line_ending(s)?;
     Ok((
         s,
@@ -1468,7 +1479,7 @@ fn value_table(s: &str) -> IResult<&str, ValueTable> {
 fn extended_multiplex_mapping(s: &str) -> IResult<&str, ExtendedMultiplexMapping> {
     let (s, _) = ms0(s)?;
     let (s, min_value) = complete::u64(s)?;
-    let (s, _) = char('-')(s)?;
+    let (s, _) = char('-').parse(s)?;
     let (s, max_value) = complete::u64(s)?;
     Ok((
         s,
@@ -1481,7 +1492,7 @@ fn extended_multiplex_mapping(s: &str) -> IResult<&str, ExtendedMultiplexMapping
 
 fn extended_multiplex(s: &str) -> IResult<&str, ExtendedMultiplex> {
     let (s, _) = multispace0(s)?;
-    let (s, _) = tag("SG_MUL_VAL_")(s)?;
+    let (s, _) = tag("SG_MUL_VAL_").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, message_id) = message_id(s)?;
     let (s, _) = ms1(s)?;
@@ -1489,7 +1500,7 @@ fn extended_multiplex(s: &str) -> IResult<&str, ExtendedMultiplex> {
     let (s, _) = ms1(s)?;
     let (s, multiplexor_signal_name) = c_ident(s)?;
     let (s, _) = ms1(s)?;
-    let (s, mappings) = separated_list0(tag(","), extended_multiplex_mapping)(s)?;
+    let (s, mappings) = separated_list0(tag(","), extended_multiplex_mapping).parse(s)?;
     let (s, _) = semi_colon(s)?;
     let (s, _) = line_ending(s)?;
     Ok((
@@ -1504,13 +1515,13 @@ fn extended_multiplex(s: &str) -> IResult<&str, ExtendedMultiplex> {
 }
 
 fn signed_or_unsigned_integer(s: &str) -> IResult<&str, SignalExtendedValueType> {
-    value(SignalExtendedValueType::SignedOrUnsignedInteger, tag("0"))(s)
+    value(SignalExtendedValueType::SignedOrUnsignedInteger, tag("0")).parse(s)
 }
 fn ieee_float_32bit(s: &str) -> IResult<&str, SignalExtendedValueType> {
-    value(SignalExtendedValueType::IEEEfloat32Bit, tag("1"))(s)
+    value(SignalExtendedValueType::IEEEfloat32Bit, tag("1")).parse(s)
 }
 fn ieee_double_64bit(s: &str) -> IResult<&str, SignalExtendedValueType> {
-    value(SignalExtendedValueType::IEEEdouble64bit, tag("2"))(s)
+    value(SignalExtendedValueType::IEEEdouble64bit, tag("2")).parse(s)
 }
 
 fn signal_extended_value_type(s: &str) -> IResult<&str, SignalExtendedValueType> {
@@ -1518,18 +1529,19 @@ fn signal_extended_value_type(s: &str) -> IResult<&str, SignalExtendedValueType>
         signed_or_unsigned_integer,
         ieee_float_32bit,
         ieee_double_64bit,
-    ))(s)
+    ))
+    .parse(s)
 }
 
 fn signal_extended_value_type_list(s: &str) -> IResult<&str, SignalExtendedValueTypeList> {
     let (s, _) = multispace0(s)?;
-    let (s, _) = tag("SIG_VALTYPE_")(s)?;
+    let (s, _) = tag("SIG_VALTYPE_").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, message_id) = message_id(s)?;
     let (s, _) = ms1(s)?;
     let (s, signal_name) = c_ident(s)?;
     let (s, _) = ms1(s)?;
-    let (s, _) = opt(colon)(s)?;
+    let (s, _) = opt(colon).parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, signal_extended_value_type) = signal_extended_value_type(s)?;
     let (s, _) = semi_colon(s)?;
@@ -1545,24 +1557,24 @@ fn signal_extended_value_type_list(s: &str) -> IResult<&str, SignalExtendedValue
 }
 
 fn transmitter_vector_xxx(s: &str) -> IResult<&str, Transmitter> {
-    value(Transmitter::VectorXXX, tag("Vector__XXX"))(s)
+    value(Transmitter::VectorXXX, tag("Vector__XXX")).parse(s)
 }
 
 fn transmitter_node_name(s: &str) -> IResult<&str, Transmitter> {
-    map(c_ident, Transmitter::NodeName)(s)
+    map(c_ident, Transmitter::NodeName).parse(s)
 }
 
 fn transmitter(s: &str) -> IResult<&str, Transmitter> {
-    alt((transmitter_vector_xxx, transmitter_node_name))(s)
+    alt((transmitter_vector_xxx, transmitter_node_name)).parse(s)
 }
 
 fn message_transmitters(s: &str) -> IResult<&str, Vec<Transmitter>> {
-    separated_list0(comma, transmitter)(s)
+    separated_list0(comma, transmitter).parse(s)
 }
 
 fn message_transmitter(s: &str) -> IResult<&str, MessageTransmitter> {
     let (s, _) = multispace0(s)?;
-    let (s, _) = tag("BO_TX_BU_")(s)?;
+    let (s, _) = tag("BO_TX_BU_").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, message_id) = message_id(s)?;
     let (s, _) = ms1(s)?;
@@ -1582,7 +1594,7 @@ fn message_transmitter(s: &str) -> IResult<&str, MessageTransmitter> {
 
 fn signal_groups(s: &str) -> IResult<&str, SignalGroups> {
     let (s, _) = multispace0(s)?;
-    let (s, _) = tag("SIG_GROUP_")(s)?;
+    let (s, _) = tag("SIG_GROUP_").parse(s)?;
     let (s, _) = ms1(s)?;
     let (s, message_id) = message_id(s)?;
     let (s, _) = ms1(s)?;
@@ -1592,7 +1604,7 @@ fn signal_groups(s: &str) -> IResult<&str, SignalGroups> {
     let (s, _) = ms1(s)?;
     let (s, _) = colon(s)?;
     let (s, _) = ms1(s)?;
-    let (s, signal_names) = separated_list0(ms1, c_ident)(s)?;
+    let (s, signal_names) = separated_list0(ms1, c_ident).parse(s)?;
     let (s, _) = semi_colon(s)?;
     let (s, _) = line_ending(s)?;
     Ok((
@@ -1650,7 +1662,8 @@ pub fn dbc(s: &str) -> IResult<&str, DBC> {
         many0(signal_groups),
         many0(signal_extended_value_type_list),
         many0(extended_multiplex),
-    ))(s)?;
+    ))
+    .parse(s)?;
     let (s, _) = multispace0(s)?;
     Ok((
         s,

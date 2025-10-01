@@ -15,7 +15,7 @@ codecov = { repository = "marcelbuesing/can-dbc", branch = "dev", service = "git
 
 [dependencies]
 derive-getters = "0.5"
-nom = { version = "7.1", features = ["alloc"] }
+nom = { version = "8.0", features = ["alloc"] }
 serde = { version = "1.0", optional = true }
 serde_derive = { version = "1.0", optional = true }
 
