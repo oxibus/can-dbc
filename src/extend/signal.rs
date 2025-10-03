@@ -1,5 +1,5 @@
-use crate::{ByteOrder, Signal, ValueType};
 use super::Value;
+use crate::{ByteOrder, Signal, ValueType};
 
 impl Signal {
     /// Decodes/Extracts a signal from the message data as a [`Value`]
@@ -12,14 +12,13 @@ impl Signal {
     ///
     ///   [`Value`] if the size of signal is not zero
     pub fn decode_value(&self, data: &[u8]) -> Option<Value> {
-        self.decode(data)
-            .map(|v| Value {
-                name: self.name.clone(),
-                raw: v,
-                offset: self.offset,
-                factor: self.factor,
-                unit: self.unit.clone(),
-            })
+        self.decode(data).map(|v| Value {
+            name: self.name.clone(),
+            raw: v,
+            offset: self.offset,
+            factor: self.factor,
+            unit: self.unit.clone(),
+        })
     }
 
     /// Decodes/Extracts a signal from the message data
@@ -56,7 +55,7 @@ impl Signal {
                     src_bit += 1;
                     dst_bit += 1;
                 }
-            },
+            }
             ByteOrder::BigEndian => {
                 let mut src_bit = self.start_bit as usize;
                 let mut dst_bit = self.signal_size - 1;
@@ -73,13 +72,12 @@ impl Signal {
                     /* calculate next position */
                     if (src_bit % 8) == 0 {
                         src_bit += 15;
-                    }
-                    else {
+                    } else {
                         src_bit -= 1;
                     }
                     dst_bit -= 1;
                 }
-            },
+            }
         }
 
         match self.value_type() {
@@ -89,7 +87,7 @@ impl Signal {
                         result |= 1 << i;
                     }
                 }
-            },
+            }
             ValueType::Unsigned => {}
         }
 
@@ -120,8 +118,7 @@ impl Signal {
                     }
                     if (value & 1 << dst_bit) > 0 {
                         data[index] |= 1 << (src_bit % 8);
-                    }
-                    else {
+                    } else {
                         data[index] &= !(1 << (src_bit % 8));
                     }
 
@@ -129,7 +126,7 @@ impl Signal {
                     src_bit += 1;
                     dst_bit += 1;
                 }
-            },
+            }
             ByteOrder::BigEndian => {
                 let mut src_bit = self.start_bit as usize;
                 let mut dst_bit = self.signal_size - 1;
@@ -141,22 +138,19 @@ impl Signal {
                     }
                     if (value & 1 << dst_bit) > 0 {
                         data[index] |= 1 << (dst_bit % 8);
-                    }
-                    else {
+                    } else {
                         data[index] &= !(1 << (src_bit % 8));
                     }
 
                     /* calculate next position */
                     if (src_bit % 8) == 0 {
                         src_bit += 15;
-                    }
-                    else {
+                    } else {
                         src_bit -= 1;
                     }
                     dst_bit -= 1;
                 }
-            },
+            }
         }
     }
 }
-

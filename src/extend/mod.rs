@@ -26,9 +26,7 @@ impl Value {
     where
         T: num::NumCast + Default,
     {
-        T::from(
-            self.raw as f64 * self.factor + self.offset
-        ).unwrap_or_default()
+        T::from(self.raw as f64 * self.factor + self.offset).unwrap_or_default()
     }
     /// Get the value and unit of the signal as a string
     #[inline]
