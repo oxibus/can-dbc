@@ -1584,7 +1584,7 @@ fn message_transmitter(s: &str) -> IResult<&str, MessageTransmitter> {
     let (s, message_id) = message_id(s)?;
     let (s, _) = ms1(s)?;
     let (s, _) = colon(s)?;
-    let (s, _) = opt(ms1)(s)?;
+    let (s, _) = opt(ms1).parse(s)?;
     let (s, transmitter) = message_transmitters(s)?;
     let (s, _) = semi_colon(s)?;
     let (s, _) = line_ending(s)?;
