@@ -1,5 +1,5 @@
 # can-dbc
-[![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![VERSION](https://img.shields.io/crates/v/can-dbc.svg)](https://crates.io/crates/can-dbc)
 [![Actions Status](https://github.com/marcelbuesing/can-dbc/workflows/Continuous%20integration/badge.svg)](https://github.com/marcelbuesing/can-dbc/actions?query=workflow%3A"Continuous+integration")
 [![codecov](https://codecov.io/gh/marcelbuesing/can-dbc/branch/dev/graph/badge.svg)](https://codecov.io/gh/marcelbuesing/can-dbc)
@@ -57,7 +57,7 @@ cargo test && ./target/debug/examples/file_parser -i examples/sample.dbc
 # Installation
 can-dbc is available on crates.io and can be included in your Cargo enabled project like this:
 
-```yml
+```toml
 [dependencies]
 can-dbc = "3.0"
 ```
@@ -107,4 +107,7 @@ cargo deny check
 ```
 
 # Development
-This project uses [insta](https://insta.rs) for snapshot testing. To update the snapshots run `cargo insta test --all-feature --accept`
+* This project is easier to develop with [just](https://just.systems/man/en/), a modern alternative to `make`.
+* To get a list of available commands, run `just`.
+* To run tests, use `just test`.
+* This project uses [insta](https://insta.rs) for snapshot testing. To update the snapshots run `just bless`
