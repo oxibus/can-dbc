@@ -753,7 +753,7 @@ fn message_id(s: &str) -> IResult<&str, MessageId> {
         Ok((s, MessageId::Extended(parsed_value & 0x1FFF_FFFF)))
     } else {
         // FIXME: use u16::try_from and handle error
-        #[expect(clippy::cast_possible_truncation)]
+        #[allow(clippy::cast_possible_truncation)]
         Ok((s, MessageId::Standard(parsed_value as u16)))
     }
 }
