@@ -476,6 +476,11 @@ mod tests {
         };
         let (_, transmitter) = message_transmitter(def).unwrap();
         assert_eq!(exp, transmitter);
+
+        // Same as above, but without space before the colon
+        let def = "BO_TX_BU_ 12345 :XZY,ABC;\n";
+        let (_, transmitter) = message_transmitter(def).unwrap();
+        assert_eq!(exp, transmitter);
     }
 
     #[test]
@@ -1579,7 +1584,7 @@ fn message_transmitter(s: &str) -> IResult<&str, MessageTransmitter> {
     let (s, message_id) = message_id(s)?;
     let (s, _) = ms1(s)?;
     let (s, _) = colon(s)?;
-    let (s, _) = ms1(s)?;
+    let (s, _) = opt(ms1).parse(s)?;
     let (s, transmitter) = message_transmitters(s)?;
     let (s, _) = semi_colon(s)?;
     let (s, _) = line_ending(s)?;
