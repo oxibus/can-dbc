@@ -1,0 +1,231 @@
+---
+source: tests/cantool-dbcs.rs
+---
+Incomplete(
+    DBC {
+        version: Version(
+            "HINBNYYYYYYYYYYYYYYYYYYYYYYYYYYYNNNNNNNNNN/4/%%%/4/'%**4NNN///",
+        ),
+        new_symbols: [
+            Symbol(
+                "NS_DESC_",
+            ),
+            Symbol(
+                "CM_",
+            ),
+            Symbol(
+                "BA_DEF_",
+            ),
+            Symbol(
+                "BA_",
+            ),
+            Symbol(
+                "VAL_",
+            ),
+            Symbol(
+                "CAT_DEF_",
+            ),
+            Symbol(
+                "CAT_",
+            ),
+            Symbol(
+                "FILTER",
+            ),
+            Symbol(
+                "BA_DEF_DEF_",
+            ),
+            Symbol(
+                "EV_DATA_",
+            ),
+            Symbol(
+                "ENVVAR_DATA_",
+            ),
+            Symbol(
+                "SGTYPE_",
+            ),
+            Symbol(
+                "SGTYPE_VAL_",
+            ),
+            Symbol(
+                "BA_DEF_SGTYPE_",
+            ),
+            Symbol(
+                "BA_SGTYPE_",
+            ),
+            Symbol(
+                "SIG_TYPE_REF_",
+            ),
+            Symbol(
+                "VAL_TABLE_",
+            ),
+            Symbol(
+                "SIG_GROUP_",
+            ),
+            Symbol(
+                "SIG_VALTYPE_",
+            ),
+            Symbol(
+                "SIGTYPE_VALTYPE_",
+            ),
+            Symbol(
+                "BO_TX_BU_",
+            ),
+            Symbol(
+                "BA_DEF_REL_",
+            ),
+            Symbol(
+                "BA_REL_",
+            ),
+            Symbol(
+                "BA_DEF_DEF_REL_",
+            ),
+            Symbol(
+                "BU_SG_REL_",
+            ),
+            Symbol(
+                "BU_EV_REL_",
+            ),
+            Symbol(
+                "BU_BO_REL_",
+            ),
+            Symbol(
+                "SG_MUL_VAL_",
+            ),
+        ],
+        bit_timing: Some(
+            [],
+        ),
+        nodes: [
+            Node(
+                [
+                    "EMV_Statusmeldungen",
+                ],
+            ),
+        ],
+        value_tables: [],
+        messages: [
+            Message {
+                message_id: Standard(
+                    546,
+                ),
+                message_name: "EMV_Stati",
+                message_size: 8,
+                transmitter: NodeName(
+                    "EMV_Statusmeldungen",
+                ),
+                signals: [
+                    Signal {
+                        name: "EMV_Aktion_Status_5",
+                        multiplexer_indicator: Plain,
+                        start_bit: 4,
+                        signal_size: 1,
+                        byte_order: LittleEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 1.0,
+                        unit: "",
+                        receivers: [
+                            "Vector__XXX",
+                        ],
+                    },
+                    Signal {
+                        name: "EMV_Aktion_Status_4",
+                        multiplexer_indicator: Plain,
+                        start_bit: 3,
+                        signal_size: 1,
+                        byte_order: LittleEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 1.0,
+                        unit: "",
+                        receivers: [
+                            "Vector__XXX",
+                        ],
+                    },
+                    Signal {
+                        name: "EMV_Aktion_Status_3",
+                        multiplexer_indicator: Plain,
+                        start_bit: 2,
+                        signal_size: 1,
+                        byte_order: LittleEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 1.0,
+                        unit: "",
+                        receivers: [
+                            "EMV_Statusmeldungen",
+                        ],
+                    },
+                    Signal {
+                        name: "EMV_Aktion_Status_2",
+                        multiplexer_indicator: Plain,
+                        start_bit: 6,
+                        signal_size: 1,
+                        byte_order: LittleEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 1.0,
+                        unit: "",
+                        receivers: [
+                            "Vector__XXX",
+                        ],
+                    },
+                    Signal {
+                        name: "EMV_Aktion_Status_1",
+                        multiplexer_indicator: Plain,
+                        start_bit: 5,
+                        signal_size: 1,
+                        byte_order: LittleEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 1.0,
+                        unit: "",
+                        receivers: [
+                            "Vector__XXX",
+                        ],
+                    },
+                ],
+            },
+        ],
+        message_transmitters: [],
+        environment_variables: [
+            EnvironmentVariable {
+                env_var_name: "EMC_TrdPower",
+                env_var_type: EnvTypeu64,
+                min: 0,
+                max: 20000,
+                unit: "W",
+                initial_value: 0.0,
+                ev_id: 1,
+                access_type: DummyNodeVector0,
+                access_nodes: [
+                    AccessNodeName(
+                        "Vector__XXX",
+                    ),
+                ],
+            },
+        ],
+        environment_variable_data: [],
+        signal_types: [],
+        comments: [],
+        attribute_definitions: [],
+        attribute_defaults: [],
+        attribute_values: [],
+        value_descriptions: [],
+        signal_type_refs: [],
+        signal_groups: [],
+        signal_extended_value_type_list: [],
+        extended_multiplex: [],
+    },
+    "EV_ EMC_Modulation: 0 [0|0] \"\" 0 2 DUMMY_NODE_VECTOR8000 Vector__XXX;\r\n\r\nEV_ EMC_NoGoInfo: 0 [0|0] \"\" 0 3 DUMMY_NODE_VECTOR8000 Vector__XXX;\r\n\r\nEV_ EMC_Test_Stop: 0 [0|1] \"\" 0 4 DUMMY_NODE_VECTOR0 Vector__XXX;\r\n\r\nEV_ EMC_Test_Start: 0 [0|1] \"\" 0 5 DUMMY_NODE_VECTOR0 Vector__XXX;\r\n\r\nEV_ EMC_Test_Clear: 0 [0|1] \"\" 0 6 DUMMY_NODE_VECTOR0 Vector__XXX;\r\n\r\nEV_ EMC_Synchronisation: 0 [0|1] \"\" 0 7 DUMMY_NODE_VECTOR0 Vector__XXX;\r\n\r\nEV_ EMC_Polarisation: 0 [0|0] \"\" 0 8 DUMMY_NODE_VECTOR8000 Vector__XXX;\r\n\r\nEV_ EMC_NoGo: 0 [0|1] \"\" 0 9 DUMMY_NODE_VECTOR0 Vector__XXX;\r\n\r\nEV_ EMC_Frequency: 1 [0|4000000000] \"Hz\" 0 10 DUMMY_NODE_VECTOR0 Vector__XXX;\r\n\r\nEV_ EMC_TestLevel: 1 [0|600] \"Level\" 0 11 DUMMY_NODE_VECTOR0 Vector__XXX;\r\n\r\nEV_ EMC_Azimuth: 1 [-180|400] \"deg\" 0 12 DUMMY_NODE_VECTOR0 Vector__XXX;\r\n\r\nEV_ EMC_Action_5: 0 [0|1] \"\" 0 13 DUMMY_NODE_VECTOR0 Vector__XXX;\r\n\r\nEV_ EMC_Action_4: 0 [0|1] \"\" 0 14 DUMMY_NODE_VECTOR0 Vector__XXX;\r\n\r\nEV_ EMC_Action_3: 0 [0|1] \"\" 0 15 DUMMY_NODE_VECTOR0 Vector__XXX;\r\n\r\nEV_ EMC_Action_2: 0 [0|1] \"\" 0 16 DUMMY_NODE_VECTOR0 Vector__XXX;\r\n\r\nEV_ EMC_Action_1: 0 [0|1] \"\" 0 17 DUMMY_NODE_VECTOR0 Vector__XXX;\r\n\r\n\r\nCM_ EV_ EMC_Azimuth \"Elevation Head\";\r\n\r\n",
+)

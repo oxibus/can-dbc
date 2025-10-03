@@ -7,7 +7,8 @@ homepage = "https://github.com/marcelbuesing/can-dbc"
 repository = "https://github.com/marcelbuesing/can-dbc.git"
 authors = ["marcelbuesing <buesing.marcel@googlemail.com>"]
 keywords = ["dbc", "can", "automotive", "ecu"]
-edition = "2018"
+edition = "2021"
+rust-version = "1.74"
 
 [badges]
 travis-ci = { repository = "marcelbuesing/can-dbc", branch = "dev" }
@@ -15,14 +16,39 @@ codecov = { repository = "marcelbuesing/can-dbc", branch = "dev", service = "git
 
 [dependencies]
 derive-getters = "0.5"
-nom = { version = "7.1", features = ["alloc"] }
-num = { version = "0.4", default-features = false }
+nom = { version = "8.0", features = ["alloc"] }
 serde = { version = "1.0", optional = true }
 serde_derive = { version = "1.0", optional = true }
 
 [dev-dependencies]
-clap = { version = "4.5.0", features = ["cargo"] }
+clap = { version = "4.5.0", features = ["cargo", "derive"] }
 codegen = "0.2"
+insta = { version = "1.39", features = ["yaml"] }
 
 [features]
 with-serde = ["serde", "serde_derive"]
+
+[lints.rust]
+unsafe_code = "forbid"
+unused_qualifications = "warn"
+
+[lints.clippy]
+cargo = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+# TODO: fix these if it makes sense
+doc_markdown = "allow"     # 36
+enum_variant_names = "allow"     # 20
+must_use_candidate = "allow"     # 12
+struct_field_names = "allow"     # 10
+missing_errors_doc = "allow"      # 8
+similar_names = "allow"      # 4
+redundant_feature_names = "allow"      # 4
+needless_pass_by_value = "allow"      # 4
+cargo_common_metadata = "allow"      # 4
+upper_case_acronyms = "allow"      # 2
+trivially_copy_pass_by_ref = "allow"      # 2
+ref_option = "allow"      # 2
+match_wildcard_for_single_variants = "allow"      # 2
+cast_possible_truncation = "allow"      # 2
+match_same_arms = "allow"      # 1
+items_after_test_module = "allow"      # 1

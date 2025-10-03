@@ -1,0 +1,925 @@
+---
+source: tests/cantool-dbcs.rs
+---
+Incomplete(
+    DBC {
+        version: Version(
+            "",
+        ),
+        new_symbols: [
+            Symbol(
+                "NS_DESC_",
+            ),
+            Symbol(
+                "CM_",
+            ),
+            Symbol(
+                "BA_DEF_",
+            ),
+            Symbol(
+                "BA_",
+            ),
+            Symbol(
+                "VAL_",
+            ),
+            Symbol(
+                "CAT_DEF_",
+            ),
+            Symbol(
+                "CAT_",
+            ),
+            Symbol(
+                "FILTER",
+            ),
+            Symbol(
+                "BA_DEF_DEF_",
+            ),
+            Symbol(
+                "EV_DATA_",
+            ),
+            Symbol(
+                "ENVVAR_DATA_",
+            ),
+            Symbol(
+                "SGTYPE_",
+            ),
+            Symbol(
+                "SGTYPE_VAL_",
+            ),
+            Symbol(
+                "BA_DEF_SGTYPE_",
+            ),
+            Symbol(
+                "BA_SGTYPE_",
+            ),
+            Symbol(
+                "SIG_TYPE_REF_",
+            ),
+            Symbol(
+                "VAL_TABLE_",
+            ),
+            Symbol(
+                "SIG_GROUP_",
+            ),
+            Symbol(
+                "SIG_VALTYPE_",
+            ),
+            Symbol(
+                "SIGTYPE_VALTYPE_",
+            ),
+            Symbol(
+                "BO_TX_BU_",
+            ),
+            Symbol(
+                "BA_DEF_REL_",
+            ),
+            Symbol(
+                "BA_REL_",
+            ),
+            Symbol(
+                "BA_DEF_DEF_REL_",
+            ),
+            Symbol(
+                "BU_SG_REL_",
+            ),
+            Symbol(
+                "BU_EV_REL_",
+            ),
+            Symbol(
+                "BU_BO_REL_",
+            ),
+            Symbol(
+                "SG_MUL_VAL_",
+            ),
+        ],
+        bit_timing: Some(
+            [],
+        ),
+        nodes: [
+            Node(
+                [
+                    "GMLAN",
+                    "NEO",
+                ],
+            ),
+        ],
+        value_tables: [
+            ValueTable {
+                value_table_name: "GearShifter",
+                value_descriptions: [
+                    ValDescription {
+                        a: 3.0,
+                        b: "Park",
+                    },
+                    ValDescription {
+                        a: 0.0,
+                        b: "Drive/Low",
+                    },
+                ],
+            },
+            ValueTable {
+                value_table_name: "DriverDoorStatus",
+                value_descriptions: [
+                    ValDescription {
+                        a: 1.0,
+                        b: "Opened",
+                    },
+                    ValDescription {
+                        a: 0.0,
+                        b: "Closed",
+                    },
+                ],
+            },
+            ValueTable {
+                value_table_name: "LKAGapButton",
+                value_descriptions: [
+                    ValDescription {
+                        a: 2.0,
+                        b: "???",
+                    },
+                    ValDescription {
+                        a: 1.0,
+                        b: "??",
+                    },
+                    ValDescription {
+                        a: 0.0,
+                        b: "None",
+                    },
+                ],
+            },
+            ValueTable {
+                value_table_name: "CruiseButtons",
+                value_descriptions: [
+                    ValDescription {
+                        a: 6.0,
+                        b: "Cancel",
+                    },
+                    ValDescription {
+                        a: 5.0,
+                        b: "Main",
+                    },
+                    ValDescription {
+                        a: 3.0,
+                        b: "Set",
+                    },
+                    ValDescription {
+                        a: 2.0,
+                        b: "Resume",
+                    },
+                    ValDescription {
+                        a: 1.0,
+                        b: "None",
+                    },
+                ],
+            },
+            ValueTable {
+                value_table_name: "CruiseControlActive",
+                value_descriptions: [
+                    ValDescription {
+                        a: 1.0,
+                        b: "Active",
+                    },
+                    ValDescription {
+                        a: 0.0,
+                        b: "Inactive",
+                    },
+                ],
+            },
+            ValueTable {
+                value_table_name: "BlinkerStatus",
+                value_descriptions: [
+                    ValDescription {
+                        a: 1.0,
+                        b: "Active",
+                    },
+                    ValDescription {
+                        a: 0.0,
+                        b: "Inactive",
+                    },
+                ],
+            },
+        ],
+        messages: [
+            Message {
+                message_id: Extended(
+                    536870911,
+                ),
+                message_name: "DriverDoorStatus",
+                message_size: 1,
+                transmitter: NodeName(
+                    "GMLAN",
+                ),
+                signals: [
+                    Signal {
+                        name: "DriverDoorOpened",
+                        multiplexer_indicator: Plain,
+                        start_bit: 0,
+                        signal_size: 1,
+                        byte_order: BigEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "NEO",
+                        ],
+                    },
+                ],
+            },
+            Message {
+                message_id: Standard(
+                    0,
+                ),
+                message_name: "Chime",
+                message_size: 5,
+                transmitter: NodeName(
+                    "NEO",
+                ),
+                signals: [
+                    Signal {
+                        name: "ChimeType",
+                        multiplexer_indicator: Plain,
+                        start_bit: 7,
+                        signal_size: 8,
+                        byte_order: BigEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "GMLAN",
+                        ],
+                    },
+                    Signal {
+                        name: "ChimeRepeat",
+                        multiplexer_indicator: Plain,
+                        start_bit: 23,
+                        signal_size: 8,
+                        byte_order: BigEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "GMLAN",
+                        ],
+                    },
+                    Signal {
+                        name: "ChimeDuration",
+                        multiplexer_indicator: Plain,
+                        start_bit: 15,
+                        signal_size: 8,
+                        byte_order: BigEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "GMLAN",
+                        ],
+                    },
+                    Signal {
+                        name: "ChimeByte5",
+                        multiplexer_indicator: Plain,
+                        start_bit: 39,
+                        signal_size: 8,
+                        byte_order: BigEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "GMLAN",
+                        ],
+                    },
+                    Signal {
+                        name: "ChimeByte4",
+                        multiplexer_indicator: Plain,
+                        start_bit: 31,
+                        signal_size: 8,
+                        byte_order: BigEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "GMLAN",
+                        ],
+                    },
+                ],
+            },
+            Message {
+                message_id: Standard(
+                    49152,
+                ),
+                message_name: "BlinkerStatus",
+                message_size: 5,
+                transmitter: NodeName(
+                    "GMLAN",
+                ),
+                signals: [
+                    Signal {
+                        name: "RightBlinker",
+                        multiplexer_indicator: Plain,
+                        start_bit: 6,
+                        signal_size: 1,
+                        byte_order: BigEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "NEO",
+                        ],
+                    },
+                    Signal {
+                        name: "LeftBlinker",
+                        multiplexer_indicator: Plain,
+                        start_bit: 7,
+                        signal_size: 1,
+                        byte_order: BigEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "NEO",
+                        ],
+                    },
+                    Signal {
+                        name: "BlinkerLight",
+                        multiplexer_indicator: Plain,
+                        start_bit: 25,
+                        signal_size: 1,
+                        byte_order: BigEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "NEO",
+                        ],
+                    },
+                ],
+            },
+            Message {
+                message_id: Standard(
+                    0,
+                ),
+                message_name: "SteeringWheelAngle",
+                message_size: 8,
+                transmitter: NodeName(
+                    "GMLAN",
+                ),
+                signals: [
+                    Signal {
+                        name: "SteeringWheelAngle",
+                        multiplexer_indicator: Plain,
+                        start_bit: 39,
+                        signal_size: 16,
+                        byte_order: BigEndian,
+                        value_type: Signed,
+                        factor: 0.0625,
+                        offset: 0.0,
+                        min: -540.0,
+                        max: 540.0,
+                        unit: "deg",
+                        receivers: [
+                            "NEO",
+                        ],
+                    },
+                ],
+            },
+            Message {
+                message_id: Standard(
+                    49152,
+                ),
+                message_name: "GearShifter",
+                message_size: 8,
+                transmitter: NodeName(
+                    "GMLAN",
+                ),
+                signals: [
+                    Signal {
+                        name: "GearShifter",
+                        multiplexer_indicator: Plain,
+                        start_bit: 17,
+                        signal_size: 2,
+                        byte_order: BigEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 3.0,
+                        unit: "",
+                        receivers: [
+                            "NEO",
+                        ],
+                    },
+                ],
+            },
+            Message {
+                message_id: Standard(
+                    40960,
+                ),
+                message_name: "GasPedalRegenCruise",
+                message_size: 8,
+                transmitter: NodeName(
+                    "GMLAN",
+                ),
+                signals: [
+                    Signal {
+                        name: "CruiseControlActive",
+                        multiplexer_indicator: Plain,
+                        start_bit: 56,
+                        signal_size: 1,
+                        byte_order: BigEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "GMLAN",
+                        ],
+                    },
+                    Signal {
+                        name: "MaxRegen",
+                        multiplexer_indicator: Plain,
+                        start_bit: 12,
+                        signal_size: 1,
+                        byte_order: BigEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 1.0,
+                        unit: "",
+                        receivers: [
+                            "GMLAN",
+                            "NEO",
+                        ],
+                    },
+                    Signal {
+                        name: "GasPedal",
+                        multiplexer_indicator: Plain,
+                        start_bit: 47,
+                        signal_size: 8,
+                        byte_order: BigEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 254.0,
+                        unit: "",
+                        receivers: [
+                            "GMLAN",
+                            "NEO",
+                        ],
+                    },
+                    Signal {
+                        name: "GearShifter2NotUsed",
+                        multiplexer_indicator: Plain,
+                        start_bit: 55,
+                        signal_size: 8,
+                        byte_order: BigEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 255.0,
+                        unit: "",
+                        receivers: [
+                            "GMLAN",
+                            "NEO",
+                        ],
+                    },
+                ],
+            },
+            Message {
+                message_id: Standard(
+                    0,
+                ),
+                message_name: "BrakePedal",
+                message_size: 2,
+                transmitter: NodeName(
+                    "GMLAN",
+                ),
+                signals: [
+                    Signal {
+                        name: "BrakeLevel",
+                        multiplexer_indicator: Plain,
+                        start_bit: 2,
+                        signal_size: 2,
+                        byte_order: BigEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 3.0,
+                        unit: "",
+                        receivers: [
+                            "NEO",
+                        ],
+                    },
+                    Signal {
+                        name: "BrakeSensor",
+                        multiplexer_indicator: Plain,
+                        start_bit: 15,
+                        signal_size: 8,
+                        byte_order: BigEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 255.0,
+                        unit: "",
+                        receivers: [
+                            "NEO",
+                        ],
+                    },
+                ],
+            },
+            Message {
+                message_id: Standard(
+                    32768,
+                ),
+                message_name: "WheelSpeed",
+                message_size: 8,
+                transmitter: NodeName(
+                    "GMLAN",
+                ),
+                signals: [
+                    Signal {
+                        name: "WheelSpeedFL",
+                        multiplexer_indicator: Plain,
+                        start_bit: 7,
+                        signal_size: 16,
+                        byte_order: BigEndian,
+                        value_type: Unsigned,
+                        factor: 0.01,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 70.0,
+                        unit: "yd/s",
+                        receivers: [
+                            "NEO",
+                        ],
+                    },
+                    Signal {
+                        name: "WheelSpeedFR",
+                        multiplexer_indicator: Plain,
+                        start_bit: 39,
+                        signal_size: 16,
+                        byte_order: BigEndian,
+                        value_type: Unsigned,
+                        factor: 0.01,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 70.0,
+                        unit: "yd/s",
+                        receivers: [
+                            "NEO",
+                        ],
+                    },
+                    Signal {
+                        name: "WheelSpeedRL",
+                        multiplexer_indicator: Plain,
+                        start_bit: 23,
+                        signal_size: 16,
+                        byte_order: BigEndian,
+                        value_type: Unsigned,
+                        factor: 0.01,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 70.0,
+                        unit: "yd/s",
+                        receivers: [
+                            "NEO",
+                        ],
+                    },
+                    Signal {
+                        name: "WheelSpeedRR",
+                        multiplexer_indicator: Plain,
+                        start_bit: 55,
+                        signal_size: 16,
+                        byte_order: BigEndian,
+                        value_type: Unsigned,
+                        factor: 0.01,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 70.0,
+                        unit: "yd/s",
+                        receivers: [
+                            "NEO",
+                        ],
+                    },
+                ],
+            },
+            Message {
+                message_id: Standard(
+                    0,
+                ),
+                message_name: "VehicleSpeed",
+                message_size: 8,
+                transmitter: NodeName(
+                    "GMLAN",
+                ),
+                signals: [
+                    Signal {
+                        name: "VehicleSpeed1",
+                        multiplexer_indicator: Plain,
+                        start_bit: 7,
+                        signal_size: 16,
+                        byte_order: BigEndian,
+                        value_type: Unsigned,
+                        factor: 0.01,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 100.0,
+                        unit: "mph",
+                        receivers: [
+                            "NEO",
+                        ],
+                    },
+                    Signal {
+                        name: "VehicleSpeed2",
+                        multiplexer_indicator: Plain,
+                        start_bit: 39,
+                        signal_size: 16,
+                        byte_order: BigEndian,
+                        value_type: Unsigned,
+                        factor: 0.01,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 100.0,
+                        unit: "mph",
+                        receivers: [
+                            "NEO",
+                        ],
+                    },
+                ],
+            },
+            Message {
+                message_id: Standard(
+                    32768,
+                ),
+                message_name: "CruiseButtons",
+                message_size: 3,
+                transmitter: NodeName(
+                    "GMLAN",
+                ),
+                signals: [
+                    Signal {
+                        name: "CruiseButtons",
+                        multiplexer_indicator: Plain,
+                        start_bit: 3,
+                        signal_size: 3,
+                        byte_order: BigEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 12.0,
+                        unit: "",
+                        receivers: [
+                            "NEO",
+                        ],
+                    },
+                ],
+            },
+            Message {
+                message_id: Standard(
+                    24576,
+                ),
+                message_name: "CruiseButtons2",
+                message_size: 1,
+                transmitter: NodeName(
+                    "GMLAN",
+                ),
+                signals: [
+                    Signal {
+                        name: "LKAGapButton",
+                        multiplexer_indicator: Plain,
+                        start_bit: 1,
+                        signal_size: 2,
+                        byte_order: BigEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 2.0,
+                        unit: "",
+                        receivers: [
+                            "NEO",
+                        ],
+                    },
+                ],
+            },
+        ],
+        message_transmitters: [],
+        environment_variables: [],
+        environment_variable_data: [],
+        signal_types: [],
+        comments: [],
+        attribute_definitions: [
+            Plain(
+                "\"UseGMParameterIDs\" INT 0 0",
+            ),
+            Plain(
+                "\"ProtocolType\" STRING ",
+            ),
+            Plain(
+                "\"BusType\" STRING ",
+            ),
+        ],
+        attribute_defaults: [
+            AttributeDefault {
+                attribute_name: "UseGMParameterIDs",
+                attribute_value: AttributeValueF64(
+                    1.0,
+                ),
+            },
+            AttributeDefault {
+                attribute_name: "ProtocolType",
+                attribute_value: AttributeValueCharString(
+                    "GMLAN",
+                ),
+            },
+            AttributeDefault {
+                attribute_name: "BusType",
+                attribute_value: AttributeValueCharString(
+                    "",
+                ),
+            },
+        ],
+        attribute_values: [
+            AttributeValueForObject {
+                attribute_name: "BusType",
+                attribute_value: RawAttributeValue(
+                    AttributeValueCharString(
+                        "CAN",
+                    ),
+                ),
+            },
+            AttributeValueForObject {
+                attribute_name: "ProtocolType",
+                attribute_value: RawAttributeValue(
+                    AttributeValueCharString(
+                        "GMLAN",
+                    ),
+                ),
+            },
+        ],
+        value_descriptions: [
+            Signal {
+                message_id: Extended(
+                    536870911,
+                ),
+                signal_name: "DriverDoorOpened",
+                value_descriptions: [
+                    ValDescription {
+                        a: 1.0,
+                        b: "Opened",
+                    },
+                    ValDescription {
+                        a: 0.0,
+                        b: "Closed",
+                    },
+                ],
+            },
+            Signal {
+                message_id: Standard(
+                    49152,
+                ),
+                signal_name: "RightBlinker",
+                value_descriptions: [
+                    ValDescription {
+                        a: 1.0,
+                        b: "Active",
+                    },
+                    ValDescription {
+                        a: 0.0,
+                        b: "Inactive",
+                    },
+                ],
+            },
+            Signal {
+                message_id: Standard(
+                    49152,
+                ),
+                signal_name: "LeftBlinker",
+                value_descriptions: [
+                    ValDescription {
+                        a: 1.0,
+                        b: "Active",
+                    },
+                    ValDescription {
+                        a: 0.0,
+                        b: "Inactive",
+                    },
+                ],
+            },
+            Signal {
+                message_id: Standard(
+                    49152,
+                ),
+                signal_name: "BlinkerLight",
+                value_descriptions: [
+                    ValDescription {
+                        a: 1.0,
+                        b: "Active",
+                    },
+                    ValDescription {
+                        a: 0.0,
+                        b: "Inactive",
+                    },
+                ],
+            },
+            Signal {
+                message_id: Standard(
+                    49152,
+                ),
+                signal_name: "GearShifter",
+                value_descriptions: [
+                    ValDescription {
+                        a: 3.0,
+                        b: "Park",
+                    },
+                    ValDescription {
+                        a: 0.0,
+                        b: "Drive/Low",
+                    },
+                ],
+            },
+            Signal {
+                message_id: Standard(
+                    40960,
+                ),
+                signal_name: "CruiseControlActive",
+                value_descriptions: [
+                    ValDescription {
+                        a: 1.0,
+                        b: "Active",
+                    },
+                    ValDescription {
+                        a: 0.0,
+                        b: "Inactive",
+                    },
+                ],
+            },
+            Signal {
+                message_id: Standard(
+                    32768,
+                ),
+                signal_name: "CruiseButtons",
+                value_descriptions: [
+                    ValDescription {
+                        a: 6.0,
+                        b: "Cancel",
+                    },
+                    ValDescription {
+                        a: 5.0,
+                        b: "Main",
+                    },
+                    ValDescription {
+                        a: 3.0,
+                        b: "Set",
+                    },
+                    ValDescription {
+                        a: 2.0,
+                        b: "Resume",
+                    },
+                    ValDescription {
+                        a: 1.0,
+                        b: "None",
+                    },
+                ],
+            },
+        ],
+        signal_type_refs: [],
+        signal_groups: [],
+        signal_extended_value_type_list: [],
+        extended_multiplex: [],
+    },
+    "VAL_ 276127744 LKAGapButton 2 \"???\" 1 \"??\" 0 \"None\" ;",
+)
