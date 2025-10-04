@@ -1,0 +1,11 @@
+---
+source: tests/test-snapshots.rs
+---
+Nom(
+    Error(
+        Error {
+            input: "",
+            code: Tag,
+        },
+    ),
+)

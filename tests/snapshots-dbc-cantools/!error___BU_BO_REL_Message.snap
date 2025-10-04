@@ -1,0 +1,156 @@
+---
+source: tests/test-snapshots.rs
+---
+Incomplete(
+    DBC {
+        version: Version(
+            "",
+        ),
+        new_symbols: [
+            Symbol(
+                "NS_DESC_",
+            ),
+            Symbol(
+                "CM_",
+            ),
+            Symbol(
+                "BA_DEF_",
+            ),
+            Symbol(
+                "BA_",
+            ),
+            Symbol(
+                "VAL_",
+            ),
+            Symbol(
+                "CAT_DEF_",
+            ),
+            Symbol(
+                "CAT_",
+            ),
+            Symbol(
+                "FILTER",
+            ),
+            Symbol(
+                "BA_DEF_DEF_",
+            ),
+            Symbol(
+                "EV_DATA_",
+            ),
+            Symbol(
+                "ENVVAR_DATA_",
+            ),
+            Symbol(
+                "SGTYPE_",
+            ),
+            Symbol(
+                "SGTYPE_VAL_",
+            ),
+            Symbol(
+                "BA_DEF_SGTYPE_",
+            ),
+            Symbol(
+                "BA_SGTYPE_",
+            ),
+            Symbol(
+                "SIG_TYPE_REF_",
+            ),
+            Symbol(
+                "VAL_TABLE_",
+            ),
+            Symbol(
+                "SIG_GROUP_",
+            ),
+            Symbol(
+                "SIG_VALTYPE_",
+            ),
+            Symbol(
+                "SIGTYPE_VALTYPE_",
+            ),
+            Symbol(
+                "BO_TX_BU_",
+            ),
+            Symbol(
+                "BA_DEF_REL_",
+            ),
+            Symbol(
+                "BA_REL_",
+            ),
+            Symbol(
+                "BA_DEF_DEF_REL_",
+            ),
+            Symbol(
+                "BU_SG_REL_",
+            ),
+            Symbol(
+                "BU_EV_REL_",
+            ),
+            Symbol(
+                "BU_BO_REL_",
+            ),
+            Symbol(
+                "SG_MUL_VAL_",
+            ),
+        ],
+        bit_timing: Some(
+            [],
+        ),
+        nodes: [
+            Node(
+                [
+                    "ECU1",
+                    "ECU2",
+                ],
+            ),
+        ],
+        value_tables: [],
+        messages: [
+            Message {
+                message_id: Standard(
+                    1,
+                ),
+                message_name: "message_1",
+                message_size: 7,
+                transmitter: NodeName(
+                    "ECU1",
+                ),
+                signals: [
+                    Signal {
+                        name: "signal_1",
+                        multiplexer_indicator: Plain,
+                        start_bit: 0,
+                        signal_size: 8,
+                        byte_order: LittleEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 100.0,
+                        unit: "",
+                        receivers: [
+                            "ECU2",
+                        ],
+                    },
+                ],
+            },
+        ],
+        message_transmitters: [],
+        environment_variables: [],
+        environment_variable_data: [],
+        signal_types: [],
+        comments: [],
+        attribute_definitions: [
+            Message(
+                "\"GenMsgCycleTime\" INT 0 65535",
+            ),
+        ],
+        attribute_defaults: [],
+        attribute_values: [],
+        value_descriptions: [],
+        signal_type_refs: [],
+        signal_groups: [],
+        signal_extended_value_type_list: [],
+        extended_multiplex: [],
+    },
+    "BA_DEF_REL_ BU_BO_REL_  \"MsgProject\" ENUM  \"A\",\"B\",\"C\";\nBA_DEF_DEF_  \"GenMsgCycleTime\" 0;\nBA_DEF_DEF_REL_ \"MsgProject\" \"A\";\n\nBA_REL_ \"MsgProject\" BU_BO_REL_ ECU1 1 2;\nVAL_ 1 signal_1 255 \"Invalid\" ;\n\n\n\n",
+)

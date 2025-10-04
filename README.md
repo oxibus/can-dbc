@@ -1,10 +1,12 @@
 # can-dbc
-[![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
-[![VERSION](https://img.shields.io/crates/v/can-dbc.svg)](https://crates.io/crates/can-dbc)
-[![Actions Status](https://github.com/marcelbuesing/can-dbc/workflows/Continuous%20integration/badge.svg)](https://github.com/marcelbuesing/can-dbc/actions?query=workflow%3A"Continuous+integration")
-[![codecov](https://codecov.io/gh/marcelbuesing/can-dbc/branch/dev/graph/badge.svg)](https://codecov.io/gh/marcelbuesing/can-dbc)
-[![docs](https://docs.rs/can-dbc/badge.svg)](https://docs.rs/can-dbc)
-[![Cargo Deny Status](https://img.shields.io/badge/cargo--deny-license%20checked-green)](https://github.com/marcelbuesing/can-dbc/actions?query=workflow%3A"Continuous+integration")
+
+[![GitHub repo](https://img.shields.io/badge/github-oxibus/can--dbc-8da0cb?logo=github)](https://github.com/oxibus/can-dbc)
+[![crates.io version](https://img.shields.io/crates/v/can-dbc)](https://crates.io/crates/can-dbc)
+[![crate usage](https://img.shields.io/crates/d/can-dbc)](https://crates.io/crates/can-dbc)
+[![docs.rs status](https://img.shields.io/docsrs/can-dbc)](https://docs.rs/can-dbc)
+[![crates.io license](https://img.shields.io/crates/l/can-dbc)](https://github.com/oxibus/can-dbc)
+[![CI build status](https://github.com/oxibus/can-dbc/actions/workflows/ci.yml/badge.svg)](https://github.com/oxibus/can-dbc/actions)
+[![Codecov](https://img.shields.io/codecov/c/github/oxibus/can-dbc)](https://app.codecov.io/gh/oxibus/can-dbc)
 
 A CAN-dbc format parser written with Rust's [nom](https://github.com/Geal/nom) parser combinator library. CAN databases are used to exchange details about a CAN network, e.g. what messages are being send over the CAN bus and what data do they contain.
 

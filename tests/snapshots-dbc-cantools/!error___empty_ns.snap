@@ -1,0 +1,11 @@
+---
+source: tests/test-snapshots.rs
+---
+Nom(
+    Error(
+        Error {
+            input: "NS_:\n\nBS_:\n\nBU_:\n",
+            code: Tag,
+        },
+    ),
+)
