@@ -1,0 +1,90 @@
+---
+source: tests/test-snapshots.rs
+---
+version: ""
+new_symbols:
+  - NS_DESC_
+  - CM_
+  - BA_DEF_
+  - BA_
+  - VAL_
+  - CAT_DEF_
+  - CAT_
+  - FILTER
+  - BA_DEF_DEF_
+  - EV_DATA_
+  - ENVVAR_DATA_
+  - SGTYPE_
+  - SGTYPE_VAL_
+  - BA_DEF_SGTYPE_
+  - BA_SGTYPE_
+  - SIG_TYPE_REF_
+  - VAL_TABLE_
+  - SIG_GROUP_
+  - SIG_VALTYPE_
+  - SIGTYPE_VALTYPE_
+  - BO_TX_BU_
+  - BA_DEF_REL_
+  - BA_REL_
+  - BA_DEF_DEF_REL_
+  - BU_SG_REL_
+  - BU_EV_REL_
+  - BU_BO_REL_
+  - SG_MUL_VAL_
+bit_timing: []
+nodes:
+  - - dummy_node
+value_tables: []
+messages:
+  - message_id:
+      Standard: 0
+    message_name: dummy_msg
+    message_size: 8
+    transmitter:
+      NodeName: dummy_node
+    signals: []
+message_transmitters: []
+environment_variables: []
+environment_variable_data: []
+signal_types: []
+comments: []
+attribute_definitions:
+  - Signal: "\"GenSigSendType\" ENUM  \"Cyclic\",\"OnWrite\",\"OnWriteWithRepetition\",\"OnChange\",\"OnChangeWithRepetition\",\"IfActive\",\"IfActiveWithRepetition\",\"NoSigSendType\""
+  - Signal: "\"GenSigInactiveValue\" INT 0 0"
+  - Message: "\"GenMsgCycleTime\" INT 0 0"
+  - Message: "\"GenMsgSendType\" ENUM  \"Cyclic\",\"not_used\",\"not_used\",\"not_used\",\"not_used\",\"Cyclic\",\"not_used\",\"IfActive\",\"NoMsgSendType\""
+  - Node: "\"NmStationAddress\" HEX 0 0"
+  - Plain: "\"DBName\" STRING "
+  - Plain: "\"BusType\" STRING "
+attribute_defaults:
+  - attribute_name: GenSigSendType
+    attribute_value:
+      AttributeValueCharString: Cyclic
+  - attribute_name: GenSigInactiveValue
+    attribute_value:
+      AttributeValueF64: 0
+  - attribute_name: GenMsgCycleTime
+    attribute_value:
+      AttributeValueF64: 0
+  - attribute_name: GenMsgSendType
+    attribute_value:
+      AttributeValueCharString: NoMsgSendType
+  - attribute_name: NmStationAddress
+    attribute_value:
+      AttributeValueF64: 0
+  - attribute_name: DBName
+    attribute_value:
+      AttributeValueCharString: ""
+  - attribute_name: BusType
+    attribute_value:
+      AttributeValueCharString: CAN
+attribute_values:
+  - attribute_name: DBName
+    attribute_value:
+      RawAttributeValue:
+        AttributeValueCharString: issue_165_newline
+value_descriptions: []
+signal_type_refs: []
+signal_groups: []
+signal_extended_value_type_list: []
+extended_multiplex: []

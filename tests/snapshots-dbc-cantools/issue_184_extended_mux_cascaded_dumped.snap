@@ -1,0 +1,290 @@
+---
+source: tests/test-snapshots.rs
+---
+version: ""
+new_symbols:
+  - NS_DESC_
+  - CM_
+  - BA_DEF_
+  - BA_
+  - VAL_
+  - CAT_DEF_
+  - CAT_
+  - FILTER
+  - BA_DEF_DEF_
+  - EV_DATA_
+  - ENVVAR_DATA_
+  - SGTYPE_
+  - SGTYPE_VAL_
+  - BA_DEF_SGTYPE_
+  - BA_SGTYPE_
+  - SIG_TYPE_REF_
+  - VAL_TABLE_
+  - SIG_GROUP_
+  - SIG_VALTYPE_
+  - SIGTYPE_VALTYPE_
+  - BO_TX_BU_
+  - BA_DEF_REL_
+  - BA_REL_
+  - BA_DEF_DEF_REL_
+  - BU_SG_REL_
+  - BU_EV_REL_
+  - BU_BO_REL_
+  - SG_MUL_VAL_
+bit_timing: []
+nodes:
+  - []
+value_tables: []
+messages:
+  - message_id:
+      Extended: 1
+    message_name: ext_MUX_cascaded
+    message_size: 8
+    transmitter: VectorXXX
+    signals:
+      - name: muxed_B_1
+        multiplexer_indicator:
+          MultiplexedSignal: 1
+        start_bit: 24
+        signal_size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: muxed_B_0
+        multiplexer_indicator:
+          MultiplexedSignal: 0
+        start_bit: 16
+        signal_size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: muxed_A_1
+        multiplexer_indicator:
+          MultiplexedSignal: 1
+        start_bit: 8
+        signal_size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: muxed_A_2_MUX_B
+        multiplexer_indicator: Multiplexor
+        start_bit: 8
+        signal_size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: MUX_A
+        multiplexer_indicator: Multiplexor
+        start_bit: 0
+        signal_size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+message_transmitters: []
+environment_variables: []
+environment_variable_data: []
+signal_types: []
+comments: []
+attribute_definitions:
+  - Signal: "\"SigType\" ENUM  \"Default\",\"Range\",\"RangeSigned\",\"ASCII\",\"Discrete\",\"Control\",\"ReferencePGN\",\"DTC\",\"StringDelimiter\",\"StringLength\",\"StringLengthControl\""
+  - Signal: "\"GenSigEVName\" STRING "
+  - Signal: "\"GenSigILSupport\" ENUM  \"No\",\"Yes\""
+  - Signal: "\"GenSigSendType\" ENUM  \"Cyclic\",\"OnWrite\",\"OnWriteWithRepetition\",\"OnChange\",\"OnChangeWithRepetition\",\"IfActive\",\"IfActiveWithRepetition\",\"NoSigSendType\""
+  - Message: "\"GenMsgFastOnStart\" INT 0 100000"
+  - Signal: "\"GenSigInactiveValue\" INT 0 0"
+  - Message: "\"GenMsgCycleTimeFast\" INT 0 3600000"
+  - Message: "\"GenMsgNrOfRepetition\" INT 0 1000000"
+  - Signal: "\"GenSigStartValue\" INT 0 10000"
+  - Message: "\"GenMsgDelayTime\" INT 0 1000"
+  - Message: "\"GenMsgILSupport\" ENUM  \"No\",\"Yes\""
+  - Message: "\"GenMsgStartDelayTime\" INT 0 100000"
+  - Node: "\"NodeLayerModules\" STRING "
+  - Node: "\"ECU\" STRING "
+  - Node: "\"NmJ1939SystemInstance\" INT 0 15"
+  - Node: "\"NmJ1939System\" INT 0 127"
+  - Node: "\"NmJ1939ManufacturerCode\" INT 0 2047"
+  - Node: "\"NmJ1939IndustryGroup\" INT 0 7"
+  - Node: "\"NmJ1939IdentityNumber\" INT 0 2097151"
+  - Node: "\"NmJ1939FunctionInstance\" INT 0 7"
+  - Node: "\"NmJ1939Function\" INT 0 255"
+  - Node: "\"NmJ1939ECUInstance\" INT 0 3"
+  - Node: "\"NmJ1939AAC\" INT 0 1"
+  - Node: "\"NmStationAddress\" INT 0 255"
+  - Message: "\"GenMsgSendType\" ENUM  \"cyclic\",\"NotUsed\",\"IfActive\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"noMsgSendType\""
+  - Message: "\"GenMsgRequestable\" INT 0 1"
+  - Message: "\"GenMsgCycleTime\" INT 0 3600000"
+  - Signal: "\"SPN\" INT 0 524287"
+  - Plain: "\"DBName\" STRING "
+  - Plain: "\"BusType\" STRING "
+  - Plain: "\"ProtocolType\" STRING "
+  - Message: "\"VFrameFormat\" ENUM  \"StandardCAN\",\"ExtendedCAN\",\"reserved\",\"J1939PG\""
+attribute_defaults:
+  - attribute_name: SigType
+    attribute_value:
+      AttributeValueCharString: Default
+  - attribute_name: GenSigEVName
+    attribute_value:
+      AttributeValueCharString: Env@Nodename_@Signame
+  - attribute_name: GenSigILSupport
+    attribute_value:
+      AttributeValueCharString: "Yes"
+  - attribute_name: GenSigSendType
+    attribute_value:
+      AttributeValueCharString: NoSigSendType
+  - attribute_name: GenMsgFastOnStart
+    attribute_value:
+      AttributeValueF64: 0
+  - attribute_name: GenSigInactiveValue
+    attribute_value:
+      AttributeValueF64: 0
+  - attribute_name: GenMsgCycleTimeFast
+    attribute_value:
+      AttributeValueF64: 0
+  - attribute_name: GenMsgNrOfRepetition
+    attribute_value:
+      AttributeValueF64: 0
+  - attribute_name: GenSigStartValue
+    attribute_value:
+      AttributeValueF64: 0
+  - attribute_name: GenMsgDelayTime
+    attribute_value:
+      AttributeValueF64: 0
+  - attribute_name: GenMsgILSupport
+    attribute_value:
+      AttributeValueCharString: "Yes"
+  - attribute_name: GenMsgStartDelayTime
+    attribute_value:
+      AttributeValueF64: 0
+  - attribute_name: NodeLayerModules
+    attribute_value:
+      AttributeValueCharString: ""
+  - attribute_name: ECU
+    attribute_value:
+      AttributeValueCharString: ""
+  - attribute_name: NmJ1939SystemInstance
+    attribute_value:
+      AttributeValueF64: 0
+  - attribute_name: NmJ1939System
+    attribute_value:
+      AttributeValueF64: 0
+  - attribute_name: NmJ1939ManufacturerCode
+    attribute_value:
+      AttributeValueF64: 0
+  - attribute_name: NmJ1939IndustryGroup
+    attribute_value:
+      AttributeValueF64: 0
+  - attribute_name: NmJ1939IdentityNumber
+    attribute_value:
+      AttributeValueF64: 0
+  - attribute_name: NmJ1939FunctionInstance
+    attribute_value:
+      AttributeValueF64: 0
+  - attribute_name: NmJ1939Function
+    attribute_value:
+      AttributeValueF64: 0
+  - attribute_name: NmJ1939ECUInstance
+    attribute_value:
+      AttributeValueF64: 0
+  - attribute_name: NmJ1939AAC
+    attribute_value:
+      AttributeValueF64: 0
+  - attribute_name: NmStationAddress
+    attribute_value:
+      AttributeValueF64: 254
+  - attribute_name: GenMsgSendType
+    attribute_value:
+      AttributeValueCharString: noMsgSendType
+  - attribute_name: GenMsgRequestable
+    attribute_value:
+      AttributeValueF64: 1
+  - attribute_name: GenMsgCycleTime
+    attribute_value:
+      AttributeValueF64: 0
+  - attribute_name: SPN
+    attribute_value:
+      AttributeValueF64: 0
+  - attribute_name: DBName
+    attribute_value:
+      AttributeValueCharString: ""
+  - attribute_name: BusType
+    attribute_value:
+      AttributeValueCharString: CAN
+  - attribute_name: ProtocolType
+    attribute_value:
+      AttributeValueCharString: J1939
+  - attribute_name: VFrameFormat
+    attribute_value:
+      AttributeValueCharString: J1939PG
+attribute_values:
+  - attribute_name: DBName
+    attribute_value:
+      RawAttributeValue:
+        AttributeValueCharString: ext_MUX_multiple_values
+  - attribute_name: VFrameFormat
+    attribute_value:
+      MessageDefinitionAttributeValue:
+        - Extended: 1
+        - AttributeValueF64: 1
+value_descriptions: []
+signal_type_refs: []
+signal_groups: []
+signal_extended_value_type_list: []
+extended_multiplex:
+  - message_id:
+      Extended: 1
+    signal_name: muxed_A_2_MUX_B
+    multiplexor_signal_name: MUX_A
+    mappings:
+      - min_value: 2
+        max_value: 2
+  - message_id:
+      Extended: 1
+    signal_name: muxed_A_1
+    multiplexor_signal_name: MUX_A
+    mappings:
+      - min_value: 1
+        max_value: 1
+  - message_id:
+      Extended: 1
+    signal_name: muxed_B_0
+    multiplexor_signal_name: muxed_A_2_MUX_B
+    mappings:
+      - min_value: 0
+        max_value: 0
+  - message_id:
+      Extended: 1
+    signal_name: muxed_B_1
+    multiplexor_signal_name: muxed_A_2_MUX_B
+    mappings:
+      - min_value: 1
+        max_value: 1

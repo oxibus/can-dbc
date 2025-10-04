@@ -1,0 +1,516 @@
+---
+source: tests/test-snapshots.rs
+---
+Incomplete(
+    DBC {
+        version: Version(
+            "",
+        ),
+        new_symbols: [
+            Symbol(
+                "NS_DESC_",
+            ),
+            Symbol(
+                "CM_",
+            ),
+            Symbol(
+                "BA_DEF_",
+            ),
+            Symbol(
+                "BA_",
+            ),
+            Symbol(
+                "VAL_",
+            ),
+            Symbol(
+                "CAT_DEF_",
+            ),
+            Symbol(
+                "CAT_",
+            ),
+            Symbol(
+                "FILTER",
+            ),
+            Symbol(
+                "BA_DEF_DEF_",
+            ),
+            Symbol(
+                "EV_DATA_",
+            ),
+            Symbol(
+                "ENVVAR_DATA_",
+            ),
+            Symbol(
+                "SGTYPE_",
+            ),
+            Symbol(
+                "SGTYPE_VAL_",
+            ),
+            Symbol(
+                "BA_DEF_SGTYPE_",
+            ),
+            Symbol(
+                "BA_SGTYPE_",
+            ),
+            Symbol(
+                "SIG_TYPE_REF_",
+            ),
+            Symbol(
+                "VAL_TABLE_",
+            ),
+            Symbol(
+                "SIG_GROUP_",
+            ),
+            Symbol(
+                "SIG_VALTYPE_",
+            ),
+            Symbol(
+                "SIGTYPE_VALTYPE_",
+            ),
+            Symbol(
+                "BO_TX_BU_",
+            ),
+            Symbol(
+                "BA_DEF_REL_",
+            ),
+            Symbol(
+                "BA_REL_",
+            ),
+            Symbol(
+                "BA_DEF_DEF_REL_",
+            ),
+            Symbol(
+                "BU_SG_REL_",
+            ),
+            Symbol(
+                "BU_EV_REL_",
+            ),
+            Symbol(
+                "BU_BO_REL_",
+            ),
+            Symbol(
+                "SG_MUL_VAL_",
+            ),
+        ],
+        bit_timing: Some(
+            [],
+        ),
+        nodes: [
+            Node(
+                [
+                    "DBG",
+                    "DRIVER",
+                    "IO",
+                    "MOTOR",
+                    "SENSOR",
+                ],
+            ),
+        ],
+        value_tables: [],
+        messages: [
+            Message {
+                message_id: Standard(
+                    100,
+                ),
+                message_name: "DRIVER_HEARTBEAT",
+                message_size: 1,
+                transmitter: NodeName(
+                    "DRIVER",
+                ),
+                signals: [
+                    Signal {
+                        name: "DRIVER_HEARTBEAT_cmd",
+                        multiplexer_indicator: Plain,
+                        start_bit: 0,
+                        signal_size: 8,
+                        byte_order: LittleEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "SENSOR",
+                            "MOTOR",
+                        ],
+                    },
+                ],
+            },
+            Message {
+                message_id: Standard(
+                    500,
+                ),
+                message_name: "IO_DEBUG",
+                message_size: 4,
+                transmitter: NodeName(
+                    "IO",
+                ),
+                signals: [
+                    Signal {
+                        name: "IO_DEBUG_test_unsigned",
+                        multiplexer_indicator: Plain,
+                        start_bit: 0,
+                        signal_size: 8,
+                        byte_order: LittleEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "DBG",
+                        ],
+                    },
+                    Signal {
+                        name: "IO_DEBUG_test_enum",
+                        multiplexer_indicator: Plain,
+                        start_bit: 8,
+                        signal_size: 8,
+                        byte_order: LittleEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "DBG",
+                        ],
+                    },
+                    Signal {
+                        name: "IO_DEBUG_test_signed",
+                        multiplexer_indicator: Plain,
+                        start_bit: 16,
+                        signal_size: 8,
+                        byte_order: LittleEndian,
+                        value_type: Signed,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "DBG",
+                        ],
+                    },
+                    Signal {
+                        name: "IO_DEBUG_test_float",
+                        multiplexer_indicator: Plain,
+                        start_bit: 24,
+                        signal_size: 8,
+                        byte_order: LittleEndian,
+                        value_type: Unsigned,
+                        factor: 0.5,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "DBG",
+                        ],
+                    },
+                ],
+            },
+            Message {
+                message_id: Standard(
+                    101,
+                ),
+                message_name: "MOTOR_CMD",
+                message_size: 1,
+                transmitter: NodeName(
+                    "DRIVER",
+                ),
+                signals: [
+                    Signal {
+                        name: "MOTOR_CMD_steer",
+                        multiplexer_indicator: Plain,
+                        start_bit: 0,
+                        signal_size: 4,
+                        byte_order: LittleEndian,
+                        value_type: Signed,
+                        factor: 1.0,
+                        offset: -5.0,
+                        min: -5.0,
+                        max: 5.0,
+                        unit: "",
+                        receivers: [
+                            "MOTOR",
+                        ],
+                    },
+                    Signal {
+                        name: "MOTOR_CMD_drive",
+                        multiplexer_indicator: Plain,
+                        start_bit: 4,
+                        signal_size: 4,
+                        byte_order: LittleEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 9.0,
+                        unit: "",
+                        receivers: [
+                            "MOTOR",
+                        ],
+                    },
+                ],
+            },
+            Message {
+                message_id: Standard(
+                    400,
+                ),
+                message_name: "MOTOR_STATUS",
+                message_size: 3,
+                transmitter: NodeName(
+                    "MOTOR",
+                ),
+                signals: [
+                    Signal {
+                        name: "MOTOR_STATUS_wheel_error",
+                        multiplexer_indicator: Plain,
+                        start_bit: 0,
+                        signal_size: 1,
+                        byte_order: LittleEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "DRIVER",
+                            "IO",
+                        ],
+                    },
+                    Signal {
+                        name: "MOTOR_STATUS_speed_kph",
+                        multiplexer_indicator: Plain,
+                        start_bit: 8,
+                        signal_size: 16,
+                        byte_order: LittleEndian,
+                        value_type: Unsigned,
+                        factor: 0.001,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "kph",
+                        receivers: [
+                            "DRIVER",
+                            "IO",
+                        ],
+                    },
+                ],
+            },
+            Message {
+                message_id: Standard(
+                    200,
+                ),
+                message_name: "SENSOR_SONARS",
+                message_size: 8,
+                transmitter: NodeName(
+                    "SENSOR",
+                ),
+                signals: [
+                    Signal {
+                        name: "SENSOR_SONARS_mux",
+                        multiplexer_indicator: Multiplexor,
+                        start_bit: 0,
+                        signal_size: 4,
+                        byte_order: LittleEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "DRIVER",
+                            "IO",
+                        ],
+                    },
+                    Signal {
+                        name: "SENSOR_SONARS_err_count",
+                        multiplexer_indicator: Plain,
+                        start_bit: 4,
+                        signal_size: 12,
+                        byte_order: LittleEndian,
+                        value_type: Unsigned,
+                        factor: 1.0,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "DRIVER",
+                            "IO",
+                        ],
+                    },
+                    Signal {
+                        name: "SENSOR_SONARS_left",
+                        multiplexer_indicator: MultiplexedSignal(
+                            0,
+                        ),
+                        start_bit: 16,
+                        signal_size: 12,
+                        byte_order: LittleEndian,
+                        value_type: Unsigned,
+                        factor: 0.1,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "DRIVER",
+                            "IO",
+                        ],
+                    },
+                    Signal {
+                        name: "SENSOR_SONARS_middle",
+                        multiplexer_indicator: MultiplexedSignal(
+                            0,
+                        ),
+                        start_bit: 28,
+                        signal_size: 12,
+                        byte_order: LittleEndian,
+                        value_type: Unsigned,
+                        factor: 0.1,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "DRIVER",
+                            "IO",
+                        ],
+                    },
+                    Signal {
+                        name: "SENSOR_SONARS_right",
+                        multiplexer_indicator: MultiplexedSignal(
+                            0,
+                        ),
+                        start_bit: 40,
+                        signal_size: 12,
+                        byte_order: LittleEndian,
+                        value_type: Unsigned,
+                        factor: 0.1,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "DRIVER",
+                            "IO",
+                        ],
+                    },
+                    Signal {
+                        name: "SENSOR_SONARS_rear",
+                        multiplexer_indicator: MultiplexedSignal(
+                            0,
+                        ),
+                        start_bit: 52,
+                        signal_size: 12,
+                        byte_order: LittleEndian,
+                        value_type: Unsigned,
+                        factor: 0.1,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "DRIVER",
+                            "IO",
+                        ],
+                    },
+                    Signal {
+                        name: "SENSOR_SONARS_no_filt_left",
+                        multiplexer_indicator: MultiplexedSignal(
+                            1,
+                        ),
+                        start_bit: 16,
+                        signal_size: 12,
+                        byte_order: LittleEndian,
+                        value_type: Unsigned,
+                        factor: 0.1,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "DBG",
+                        ],
+                    },
+                    Signal {
+                        name: "SENSOR_SONARS_no_filt_middle",
+                        multiplexer_indicator: MultiplexedSignal(
+                            1,
+                        ),
+                        start_bit: 28,
+                        signal_size: 12,
+                        byte_order: LittleEndian,
+                        value_type: Unsigned,
+                        factor: 0.1,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "DBG",
+                        ],
+                    },
+                    Signal {
+                        name: "SENSOR_SONARS_no_filt_right",
+                        multiplexer_indicator: MultiplexedSignal(
+                            1,
+                        ),
+                        start_bit: 40,
+                        signal_size: 12,
+                        byte_order: LittleEndian,
+                        value_type: Unsigned,
+                        factor: 0.1,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "DBG",
+                        ],
+                    },
+                    Signal {
+                        name: "SENSOR_SONARS_no_filt_rear",
+                        multiplexer_indicator: MultiplexedSignal(
+                            1,
+                        ),
+                        start_bit: 52,
+                        signal_size: 12,
+                        byte_order: LittleEndian,
+                        value_type: Unsigned,
+                        factor: 0.1,
+                        offset: 0.0,
+                        min: 0.0,
+                        max: 0.0,
+                        unit: "",
+                        receivers: [
+                            "DBG",
+                        ],
+                    },
+                ],
+            },
+        ],
+        message_transmitters: [],
+        environment_variables: [],
+        environment_variable_data: [],
+        signal_types: [],
+        comments: [],
+        attribute_definitions: [],
+        attribute_defaults: [],
+        attribute_values: [],
+        value_descriptions: [],
+        signal_type_refs: [],
+        signal_groups: [],
+        signal_extended_value_type_list: [],
+        extended_multiplex: [],
+    },
+    "// Hello, as ds d.\n// Foobar.\nCM_ BU_ DRIVER \"// The driver controller driving the car //\"; // Comment. // In.\nCM_ BU_ MOTOR \"The motor controller of the car\";\nCM_ BU_ SENSOR \"The sensor controller of the car\";\nCM_ BO_ 100 \"Sync message used to synchronize the controllers\";\nBA_DEF_  \"BusType\" STRING ;\nBA_DEF_ BO_  \"GenMsgCycleTime\" INT 0 0;\nBA_DEF_ SG_  \"FieldType\" STRING ;\nBA_DEF_DEF_  \"BusType\" \"CAN\";\nBA_DEF_DEF_  \"GenMsgCycleTime\" 0;\nBA_DEF_DEF_  \"FieldType\" \"\";\nBA_ \"GenMsgCycleTime\" BO_ 100 1000;\nBA_ \"GenMsgCycleTime\" BO_ 500 100;\nBA_ \"GenMsgCycleTime\" BO_ 101 100;\nBA_ \"GenMsgCycleTime\" BO_ 400 100;\nBA_ \"GenMsgCycleTime\" BO_ 200 100;\nBA_ \"FieldType\" SG_ 100 DRIVER_HEARTBEAT_cmd \"DRIVER_HEARTBEAT_cmd\";\nBA_ \"FieldType\" SG_ 500 IO_DEBUG_test_enum \"IO_DEBUG_test_enum\";\nVAL_ 100 DRIVER_HEARTBEAT_cmd 2 \"DRIVER_HEARTBEAT_cmd_REBOOT\" 1 \"DRIVER_HEARTBEAT_cmd_SYNC\" 0 \"DRIVER_HEARTBEAT_cmd_NOOP\" ;\nVAL_ 500 IO_DEBUG_test_enum 2 \"IO_DEBUG_test2_enum_two\" 1 \"IO_DEBUG_test2_enum_one\" ;\n\n",
+)
