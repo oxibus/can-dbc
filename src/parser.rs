@@ -116,8 +116,8 @@ fn brk_close(s: &str) -> IResult<&str, char> {
     char(']').parse(s)
 }
 
-/// A valid C_identifier. C_identifiers start with a  alphacharacter or an underscore
-/// and may further consist of alpha­numeric, characters and underscore
+/// A valid `C_identifier`. `C_identifier`s start with an alpha character or an underscore
+/// and may further consist of alphanumeric characters and underscore
 fn c_ident(s: &str) -> IResult<&str, String> {
     let (s, head) = take_while1(is_c_ident_head).parse(s)?;
     let (s, remaining) = take_while(is_c_string_char).parse(s)?;
@@ -1113,7 +1113,7 @@ mod tests {
         let (_, cid2) = c_ident(def2).unwrap();
         assert_eq!("_EALL_DUSasb18", cid2);
 
-        // identifiers must not start with digit1s
+        // identifiers must not start with digits
         let def3 = "3EALL_DUSasb18 ";
         let cid3_result = c_ident(def3);
         assert!(cid3_result.is_err());
