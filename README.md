@@ -15,34 +15,23 @@ A CAN-dbc format parser written with Rust's [nom](https://github.com/Geal/nom) p
 Read dbc file and generate Rust structs based on the messages/signals defined in the dbc.
 
 ```rust,no_run
+use std::fs;
 use can_dbc::Dbc;
 use codegen::Scope;
 
-use std::fs::File;
-use std::io;
-use std::io::prelude::*;
-
-fn main() -> io::Result<()> {
-    let mut f = File::open("./examples/sample.dbc")?;
-    let mut buffer = Vec::new();
-    f.read_to_end(&mut buffer)?;
-
-    let dbc = can_dbc::Dbc::from_slice(&buffer).expect("Failed to parse dbc file");
+fn main() {
+    let data = fs::read_to_string("./examples/sample.dbc").expect("Unable to read input file");
+    let dbc = Dbc::try_from(data.as_str()).expect("Failed to parse dbc file");
 
     let mut scope = Scope::new();
-    for message in dbc.messages() {
-        for signal in message.signals() {
-
-            let mut scope = Scope::new();
-            let message_struct = scope.new_struct(message.message_name());
-            for signal in message.signals() {
-                message_struct.field(signal.name().to_lowercase().as_str(), "f64");
-            }
+    for msg in dbc.messages() {
+        let msg_struct = scope.new_struct(msg.message_name());
+        for signal in msg.signals() {
+            msg_struct.field(signal.name().to_lowercase().as_str(), "f64");
         }
     }
 
     println!("{}", scope.to_string());
-    Ok(())
 }
 ```
 

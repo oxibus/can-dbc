@@ -11,13 +11,16 @@ edition = "2021"
 rust-version = "1.74"
 
 [features]
-default = ["with-serde"]
+default = ["with-serde", "encodings"]
+# Support decoding from all standard encodings, e.g. cp1251 commonly used for dbc
+encodings = ["dep:encoding_rs"]
 serde = ["dep:serde"]
 # This feature is deprecated per clippy::redundant_feature_names.  Use `serde` instead.
 with-serde = ["serde"]
 
 [dependencies]
 derive-getters = "0.5"
+encoding_rs = { version = "0.8", optional = true }
 nom = { version = "8.0", features = ["alloc"] }
 serde = { version = "1.0", features = ["derive"], optional = true }
 
@@ -36,6 +39,7 @@ pedantic = { level = "warn", priority = -1 }
 # Verified allows
 ref_option = "allow"  # required by derive-getters
 redundant_feature_names = "allow"  # remove once with-serde feature is removed
+needless_doctest_main = "allow" # README code block contains main function
 # TODO: fix these if it makes sense
 #doc_markdown = "allow"     # 36
 enum_variant_names = "allow"     # 20
