@@ -1,0 +1,112 @@
+---
+source: tests/test-snapshots.rs
+---
+version: ""
+new_symbols:
+  - NS_DESC_
+  - CM_
+  - BA_DEF_
+  - BA_
+  - VAL_
+  - CAT_DEF_
+  - CAT_
+  - FILTER
+  - BA_DEF_DEF_
+  - EV_DATA_
+  - ENVVAR_DATA_
+  - SGTYPE_
+  - SGTYPE_VAL_
+  - BA_DEF_SGTYPE_
+  - BA_SGTYPE_
+  - SIG_TYPE_REF_
+  - VAL_TABLE_
+  - SIG_GROUP_
+  - SIG_VALTYPE_
+  - SIGTYPE_VALTYPE_
+  - BO_TX_BU_
+  - BA_DEF_REL_
+  - BA_REL_
+  - BA_DEF_DEF_REL_
+  - BU_SG_REL_
+  - BU_EV_REL_
+  - BU_BO_REL_
+bit_timing: []
+nodes:
+  - []
+value_tables:
+  - value_table_name: Bar
+    value_descriptions:
+      - a: 6
+        b: reserved
+      - a: 5
+        b: reserved
+      - a: 4
+        b: unused 2
+      - a: 3
+        b: unused
+      - a: 2
+        b: unused
+      - a: 1
+        b: "#%=*ä'"
+      - a: 0
+        b: With space
+      - a: -5
+        b: A negative value
+messages:
+  - message_id:
+      Standard: 0
+    message_name: Foo
+    message_size: 8
+    transmitter: VectorXXX
+    signals:
+      - name: Foo
+        multiplexer_indicator: Plain
+        start_bit: 0
+        signal_size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: -128
+        max: 127
+        unit: ""
+        receivers:
+          - Vector__XXX
+message_transmitters: []
+environment_variables: []
+environment_variable_data: []
+signal_types: []
+comments: []
+attribute_definitions:
+  - Plain: "\"BusType\" STRING "
+attribute_defaults:
+  - attribute_name: BusType
+    attribute_value:
+      AttributeValueCharString: ""
+attribute_values: []
+value_descriptions:
+  - Signal:
+      message_id:
+        Standard: 0
+      signal_name: Foo
+      value_descriptions:
+        - a: 6
+          b: reserved
+        - a: 5
+          b: reserved
+        - a: 4
+          b: unused 2
+        - a: 3
+          b: unused
+        - a: 2
+          b: unused
+        - a: 1
+          b: "#%=*ä'"
+        - a: 0
+          b: With space
+        - a: -5
+          b: A negative value
+signal_type_refs: []
+signal_groups: []
+signal_extended_value_type_list: []
+extended_multiplex: []
