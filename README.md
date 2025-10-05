@@ -66,28 +66,28 @@ can-dbc = "3.0"
 
 # Implemented DBC parts
 
-- [x] version
-- [x] new_symbols
-- [x] bit_timing *(deprecated but mandatory)*
-- [x] nodes
-- [x] value_tables
-- [x] messages
-- [x] message_transmitters
-- [x] environment_variables
-- [x] environment_variables_data
-- [x] signal_types
-- [x] comments
-- [x] attribute_definitions
-- [ ] sigtype_attr_list *(format missing documentation)*
-- [x] attribute_defaults
-- [x] attribute_values
-- [x] value_descriptions
-- [ ] category_definitions *(deprecated)*
-- [ ] categories *(deprecated)*
-- [ ] filter *(deprecated)*
-- [x] signal_type_refs
-- [x] signal_groups
-- [x] signal_extended_value_type_list
+- [x] `version`
+- [x] `new_symbols`
+- [x] `bit_timing` *(deprecated but mandatory)*
+- [x] `nodes`
+- [x] `value_tables`
+- [x] `messages`
+- [x] `message_transmitters`
+- [x] `environment_variables`
+- [x] `environment_variables_data`
+- [x] `signal_types`
+- [x] `comments`
+- [x] `attribute_definitions`
+- [ ] `sigtype_attr_list` *(format missing documentation)*
+- [x] `attribute_defaults`
+- [x] `attribute_values`
+- [x] `value_descriptions`
+- [ ] `category_definitions` *(deprecated)*
+- [ ] `categories` *(deprecated)*
+- [ ] `filter` *(deprecated)*
+- [x] `signal_type_refs`
+- [x] `signal_groups`
+- [x] `signal_extended_value_type_list`
 
 # Deviating from standard
 - multispace between parsers instead of single space allowing e.g. (two spaces) `SIG_GROUP  13`.
