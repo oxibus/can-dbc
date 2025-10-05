@@ -36,16 +36,16 @@ nodes:
   - []
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Extended: 3
-    message_name: TestMsg_Ex
-    message_size: 8
+    name: TestMsg_Ex
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: TestSig_Copy_1
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -55,16 +55,16 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Standard: 2
-    message_name: TestMsg_Std
-    message_size: 8
+    name: TestMsg_Std
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: TestSig_Copy_3
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -74,16 +74,16 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Standard: 1
-    message_name: TestMsg_FDStd
-    message_size: 8
+    name: TestMsg_FDStd
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: TestSig_Copy_2
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -93,16 +93,16 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Extended: 0
-    message_name: TestMsg_FDEx
-    message_size: 8
+    name: TestMsg_FDEx
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: TestSig
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -129,60 +129,60 @@ attribute_definitions:
   - Node: "\"CANoeStartDelay\" INT 0 0"
   - Message: "\"VFrameFormat\" ENUM  \"StandardCAN\",\"ExtendedCAN\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"StandardCAN_FD\",\"ExtendedCAN_FD\""
 attribute_defaults:
-  - attribute_name: CANFD_BRS
-    attribute_value:
-      AttributeValueCharString: "1"
-  - attribute_name: DBName
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: BusType
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: NodeLayerModules
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: ECU
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: CANoeJitterMax
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: CANoeJitterMin
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: CANoeDrift
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: CANoeStartDelay
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: VFrameFormat
-    attribute_value:
-      AttributeValueCharString: StandardCAN
+  - name: CANFD_BRS
+    value:
+      String: "1"
+  - name: DBName
+    value:
+      String: ""
+  - name: BusType
+    value:
+      String: ""
+  - name: NodeLayerModules
+    value:
+      String: ""
+  - name: ECU
+    value:
+      String: ""
+  - name: CANoeJitterMax
+    value:
+      Double: 0
+  - name: CANoeJitterMin
+    value:
+      Double: 0
+  - name: CANoeDrift
+    value:
+      Double: 0
+  - name: CANoeStartDelay
+    value:
+      Double: 0
+  - name: VFrameFormat
+    value:
+      String: StandardCAN
 attribute_values:
-  - attribute_name: BusType
-    attribute_value:
-      RawAttributeValue:
-        AttributeValueCharString: CAN FD
-  - attribute_name: DBName
-    attribute_value:
-      RawAttributeValue:
-        AttributeValueCharString: fd_test
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+  - name: BusType
+    value:
+      Raw:
+        String: CAN FD
+  - name: DBName
+    value:
+      Raw:
+        String: fd_test
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Extended: 3
-        - AttributeValueF64: 1
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 1
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Standard: 1
-        - AttributeValueF64: 14
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 14
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Extended: 0
-        - AttributeValueF64: 15
+        - Double: 15
 value_descriptions: []
 signal_type_refs: []
 signal_groups: []

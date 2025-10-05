@@ -37,17 +37,17 @@ nodes:
     - FOO
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Standard: 496
-    message_name: ExampleMessage
-    message_size: 8
+    name: ExampleMessage
+    size: 8
     transmitter:
       NodeName: PCM1
     signals:
       - name: Temperature
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 12
+        size: 12
         byte_order: BigEndian
         value_type: Signed
         factor: 0.01
@@ -61,7 +61,7 @@ messages:
       - name: AverageRadius
         multiplexer_indicator: Plain
         start_bit: 6
-        signal_size: 6
+        size: 6
         byte_order: BigEndian
         value_type: Unsigned
         factor: 0.1
@@ -74,7 +74,7 @@ messages:
       - name: Enable
         multiplexer_indicator: Plain
         start_bit: 7
-        signal_size: 1
+        size: 1
         byte_order: BigEndian
         value_type: Unsigned
         factor: 1
@@ -90,23 +90,23 @@ environment_variable_data: []
 signal_types: []
 comments:
   - Message:
-      message_id:
+      id:
         Standard: 496
       comment: Example message used as template in MotoHawk models.
   - Signal:
       message_id:
         Standard: 496
-      signal_name: Temperature
+      name: Temperature
       comment: Temperature with a really long and complicated comment that probably require many many lines in a decently wide terminal
   - Signal:
       message_id:
         Standard: 496
-      signal_name: AverageRadius
+      name: AverageRadius
       comment: AverageRadius signal comment
   - Signal:
       message_id:
         Standard: 496
-      signal_name: Enable
+      name: Enable
       comment: Enable signal comment
 attribute_definitions: []
 attribute_defaults: []
@@ -115,12 +115,12 @@ value_descriptions:
   - Signal:
       message_id:
         Standard: 496
-      signal_name: Enable
+      name: Enable
       value_descriptions:
-        - a: 0
-          b: Disabled
-        - a: 1
-          b: Enabled
+        - id: 0
+          description: Disabled
+        - id: 1
+          description: Enabled
 signal_type_refs: []
 signal_groups: []
 signal_extended_value_type_list: []

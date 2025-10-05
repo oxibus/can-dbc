@@ -36,17 +36,17 @@ nodes:
   - - TestNode
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Standard: 1024
-    message_name: Message1
-    message_size: 8
+    name: Message1
+    size: 8
     transmitter:
       NodeName: TestNode
     signals:
       - name: Signal1
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 64
+        size: 64
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -56,17 +56,17 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Standard: 1025
-    message_name: Message2
-    message_size: 8
+    name: Message2
+    size: 8
     transmitter:
       NodeName: TestNode
     signals:
       - name: Signal2
         multiplexer_indicator: Plain
         start_bit: 32
-        signal_size: 32
+        size: 32
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -79,7 +79,7 @@ messages:
       - name: Signal1
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 32
+        size: 32
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -95,14 +95,14 @@ environment_variable_data: []
 signal_types: []
 comments:
   - Node:
-      node_name: TestNode
+      name: TestNode
       comment: ""
 attribute_definitions:
   - Message: "\"GenMsgCycleTime\" INT 0 65535"
 attribute_defaults:
-  - attribute_name: GenMsgCycleTime
-    attribute_value:
-      AttributeValueF64: 0
+  - name: GenMsgCycleTime
+    value:
+      Double: 0
 attribute_values: []
 value_descriptions: []
 signal_type_refs: []

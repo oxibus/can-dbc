@@ -34,7 +34,7 @@ fn main() -> io::Result<()> {
         for signal in message.signals() {
 
             let mut scope = Scope::new();
-            let message_struct = scope.new_struct(message.message_name());
+            let message_struct = scope.new_struct(message.name());
             for signal in message.signals() {
                 message_struct.field(signal.name().to_lowercase().as_str(), "f64");
             }

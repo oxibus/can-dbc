@@ -105,107 +105,107 @@ Incomplete(
         ],
         value_tables: [
             ValueTable {
-                value_table_name: "GearShifter",
-                value_descriptions: [
+                name: "GearShifter",
+                descriptions: [
                     ValDescription {
-                        a: 3.0,
-                        b: "Park",
+                        id: 3.0,
+                        description: "Park",
                     },
                     ValDescription {
-                        a: 0.0,
-                        b: "Drive/Low",
-                    },
-                ],
-            },
-            ValueTable {
-                value_table_name: "DriverDoorStatus",
-                value_descriptions: [
-                    ValDescription {
-                        a: 1.0,
-                        b: "Opened",
-                    },
-                    ValDescription {
-                        a: 0.0,
-                        b: "Closed",
+                        id: 0.0,
+                        description: "Drive/Low",
                     },
                 ],
             },
             ValueTable {
-                value_table_name: "LKAGapButton",
-                value_descriptions: [
+                name: "DriverDoorStatus",
+                descriptions: [
                     ValDescription {
-                        a: 2.0,
-                        b: "???",
+                        id: 1.0,
+                        description: "Opened",
                     },
                     ValDescription {
-                        a: 1.0,
-                        b: "??",
-                    },
-                    ValDescription {
-                        a: 0.0,
-                        b: "None",
+                        id: 0.0,
+                        description: "Closed",
                     },
                 ],
             },
             ValueTable {
-                value_table_name: "CruiseButtons",
-                value_descriptions: [
+                name: "LKAGapButton",
+                descriptions: [
                     ValDescription {
-                        a: 6.0,
-                        b: "Cancel",
+                        id: 2.0,
+                        description: "???",
                     },
                     ValDescription {
-                        a: 5.0,
-                        b: "Main",
+                        id: 1.0,
+                        description: "??",
                     },
                     ValDescription {
-                        a: 3.0,
-                        b: "Set",
-                    },
-                    ValDescription {
-                        a: 2.0,
-                        b: "Resume",
-                    },
-                    ValDescription {
-                        a: 1.0,
-                        b: "None",
+                        id: 0.0,
+                        description: "None",
                     },
                 ],
             },
             ValueTable {
-                value_table_name: "CruiseControlActive",
-                value_descriptions: [
+                name: "CruiseButtons",
+                descriptions: [
                     ValDescription {
-                        a: 1.0,
-                        b: "Active",
+                        id: 6.0,
+                        description: "Cancel",
                     },
                     ValDescription {
-                        a: 0.0,
-                        b: "Inactive",
+                        id: 5.0,
+                        description: "Main",
+                    },
+                    ValDescription {
+                        id: 3.0,
+                        description: "Set",
+                    },
+                    ValDescription {
+                        id: 2.0,
+                        description: "Resume",
+                    },
+                    ValDescription {
+                        id: 1.0,
+                        description: "None",
                     },
                 ],
             },
             ValueTable {
-                value_table_name: "BlinkerStatus",
-                value_descriptions: [
+                name: "CruiseControlActive",
+                descriptions: [
                     ValDescription {
-                        a: 1.0,
-                        b: "Active",
+                        id: 1.0,
+                        description: "Active",
                     },
                     ValDescription {
-                        a: 0.0,
-                        b: "Inactive",
+                        id: 0.0,
+                        description: "Inactive",
+                    },
+                ],
+            },
+            ValueTable {
+                name: "BlinkerStatus",
+                descriptions: [
+                    ValDescription {
+                        id: 1.0,
+                        description: "Active",
+                    },
+                    ValDescription {
+                        id: 0.0,
+                        description: "Inactive",
                     },
                 ],
             },
         ],
         messages: [
             Message {
-                message_id: Standard(
+                id: Standard(
                     0,
                 ),
-                message_name: "DriverDoorStatus",
-                message_size: 1,
+                name: "DriverDoorStatus",
+                size: 1,
                 transmitter: NodeName(
                     "GMLAN",
                 ),
@@ -214,7 +214,7 @@ Incomplete(
                         name: "DriverDoorOpened",
                         multiplexer_indicator: Plain,
                         start_bit: 0,
-                        signal_size: 1,
+                        size: 1,
                         byte_order: BigEndian,
                         value_type: Unsigned,
                         factor: 1.0,
@@ -229,11 +229,11 @@ Incomplete(
                 ],
             },
             Message {
-                message_id: Standard(
+                id: Standard(
                     0,
                 ),
-                message_name: "Chime",
-                message_size: 5,
+                name: "Chime",
+                size: 5,
                 transmitter: NodeName(
                     "NEO",
                 ),
@@ -242,7 +242,7 @@ Incomplete(
                         name: "ChimeType",
                         multiplexer_indicator: Plain,
                         start_bit: 7,
-                        signal_size: 8,
+                        size: 8,
                         byte_order: BigEndian,
                         value_type: Unsigned,
                         factor: 1.0,
@@ -258,7 +258,7 @@ Incomplete(
                         name: "ChimeRepeat",
                         multiplexer_indicator: Plain,
                         start_bit: 23,
-                        signal_size: 8,
+                        size: 8,
                         byte_order: BigEndian,
                         value_type: Unsigned,
                         factor: 1.0,
@@ -274,7 +274,7 @@ Incomplete(
                         name: "ChimeDuration",
                         multiplexer_indicator: Plain,
                         start_bit: 15,
-                        signal_size: 8,
+                        size: 8,
                         byte_order: BigEndian,
                         value_type: Unsigned,
                         factor: 1.0,
@@ -290,7 +290,7 @@ Incomplete(
                         name: "ChimeByte5",
                         multiplexer_indicator: Plain,
                         start_bit: 39,
-                        signal_size: 8,
+                        size: 8,
                         byte_order: BigEndian,
                         value_type: Unsigned,
                         factor: 1.0,
@@ -306,7 +306,7 @@ Incomplete(
                         name: "ChimeByte4",
                         multiplexer_indicator: Plain,
                         start_bit: 31,
-                        signal_size: 8,
+                        size: 8,
                         byte_order: BigEndian,
                         value_type: Unsigned,
                         factor: 1.0,
@@ -321,11 +321,11 @@ Incomplete(
                 ],
             },
             Message {
-                message_id: Standard(
+                id: Standard(
                     49152,
                 ),
-                message_name: "BlinkerStatus",
-                message_size: 5,
+                name: "BlinkerStatus",
+                size: 5,
                 transmitter: NodeName(
                     "GMLAN",
                 ),
@@ -334,7 +334,7 @@ Incomplete(
                         name: "RightBlinker",
                         multiplexer_indicator: Plain,
                         start_bit: 6,
-                        signal_size: 1,
+                        size: 1,
                         byte_order: BigEndian,
                         value_type: Unsigned,
                         factor: 1.0,
@@ -350,7 +350,7 @@ Incomplete(
                         name: "LeftBlinker",
                         multiplexer_indicator: Plain,
                         start_bit: 7,
-                        signal_size: 1,
+                        size: 1,
                         byte_order: BigEndian,
                         value_type: Unsigned,
                         factor: 1.0,
@@ -366,7 +366,7 @@ Incomplete(
                         name: "BlinkerLight",
                         multiplexer_indicator: Plain,
                         start_bit: 25,
-                        signal_size: 1,
+                        size: 1,
                         byte_order: BigEndian,
                         value_type: Unsigned,
                         factor: 1.0,
@@ -381,11 +381,11 @@ Incomplete(
                 ],
             },
             Message {
-                message_id: Standard(
+                id: Standard(
                     0,
                 ),
-                message_name: "SteeringWheelAngle",
-                message_size: 8,
+                name: "SteeringWheelAngle",
+                size: 8,
                 transmitter: NodeName(
                     "GMLAN",
                 ),
@@ -394,7 +394,7 @@ Incomplete(
                         name: "SteeringWheelAngle",
                         multiplexer_indicator: Plain,
                         start_bit: 39,
-                        signal_size: 16,
+                        size: 16,
                         byte_order: BigEndian,
                         value_type: Signed,
                         factor: 0.0625,
@@ -409,11 +409,11 @@ Incomplete(
                 ],
             },
             Message {
-                message_id: Standard(
+                id: Standard(
                     49152,
                 ),
-                message_name: "GearShifter",
-                message_size: 8,
+                name: "GearShifter",
+                size: 8,
                 transmitter: NodeName(
                     "GMLAN",
                 ),
@@ -422,7 +422,7 @@ Incomplete(
                         name: "GearShifter",
                         multiplexer_indicator: Plain,
                         start_bit: 17,
-                        signal_size: 2,
+                        size: 2,
                         byte_order: BigEndian,
                         value_type: Unsigned,
                         factor: 1.0,
@@ -437,11 +437,11 @@ Incomplete(
                 ],
             },
             Message {
-                message_id: Standard(
+                id: Standard(
                     40960,
                 ),
-                message_name: "GasPedalRegenCruise",
-                message_size: 8,
+                name: "GasPedalRegenCruise",
+                size: 8,
                 transmitter: NodeName(
                     "GMLAN",
                 ),
@@ -450,7 +450,7 @@ Incomplete(
                         name: "CruiseControlActive",
                         multiplexer_indicator: Plain,
                         start_bit: 56,
-                        signal_size: 1,
+                        size: 1,
                         byte_order: BigEndian,
                         value_type: Unsigned,
                         factor: 1.0,
@@ -466,7 +466,7 @@ Incomplete(
                         name: "MaxRegen",
                         multiplexer_indicator: Plain,
                         start_bit: 12,
-                        signal_size: 1,
+                        size: 1,
                         byte_order: BigEndian,
                         value_type: Unsigned,
                         factor: 1.0,
@@ -483,7 +483,7 @@ Incomplete(
                         name: "GasPedal",
                         multiplexer_indicator: Plain,
                         start_bit: 47,
-                        signal_size: 8,
+                        size: 8,
                         byte_order: BigEndian,
                         value_type: Unsigned,
                         factor: 1.0,
@@ -500,7 +500,7 @@ Incomplete(
                         name: "GearShifter2NotUsed",
                         multiplexer_indicator: Plain,
                         start_bit: 55,
-                        signal_size: 8,
+                        size: 8,
                         byte_order: BigEndian,
                         value_type: Unsigned,
                         factor: 1.0,
@@ -516,11 +516,11 @@ Incomplete(
                 ],
             },
             Message {
-                message_id: Standard(
+                id: Standard(
                     0,
                 ),
-                message_name: "BrakePedal",
-                message_size: 2,
+                name: "BrakePedal",
+                size: 2,
                 transmitter: NodeName(
                     "GMLAN",
                 ),
@@ -529,7 +529,7 @@ Incomplete(
                         name: "BrakeLevel",
                         multiplexer_indicator: Plain,
                         start_bit: 2,
-                        signal_size: 2,
+                        size: 2,
                         byte_order: BigEndian,
                         value_type: Unsigned,
                         factor: 1.0,
@@ -545,7 +545,7 @@ Incomplete(
                         name: "BrakeSensor",
                         multiplexer_indicator: Plain,
                         start_bit: 15,
-                        signal_size: 8,
+                        size: 8,
                         byte_order: BigEndian,
                         value_type: Unsigned,
                         factor: 1.0,
@@ -560,11 +560,11 @@ Incomplete(
                 ],
             },
             Message {
-                message_id: Standard(
+                id: Standard(
                     32768,
                 ),
-                message_name: "WheelSpeed",
-                message_size: 8,
+                name: "WheelSpeed",
+                size: 8,
                 transmitter: NodeName(
                     "GMLAN",
                 ),
@@ -573,7 +573,7 @@ Incomplete(
                         name: "WheelSpeedFL",
                         multiplexer_indicator: Plain,
                         start_bit: 7,
-                        signal_size: 16,
+                        size: 16,
                         byte_order: BigEndian,
                         value_type: Unsigned,
                         factor: 0.01,
@@ -589,7 +589,7 @@ Incomplete(
                         name: "WheelSpeedFR",
                         multiplexer_indicator: Plain,
                         start_bit: 39,
-                        signal_size: 16,
+                        size: 16,
                         byte_order: BigEndian,
                         value_type: Unsigned,
                         factor: 0.01,
@@ -605,7 +605,7 @@ Incomplete(
                         name: "WheelSpeedRL",
                         multiplexer_indicator: Plain,
                         start_bit: 23,
-                        signal_size: 16,
+                        size: 16,
                         byte_order: BigEndian,
                         value_type: Unsigned,
                         factor: 0.01,
@@ -621,7 +621,7 @@ Incomplete(
                         name: "WheelSpeedRR",
                         multiplexer_indicator: Plain,
                         start_bit: 55,
-                        signal_size: 16,
+                        size: 16,
                         byte_order: BigEndian,
                         value_type: Unsigned,
                         factor: 0.01,
@@ -636,11 +636,11 @@ Incomplete(
                 ],
             },
             Message {
-                message_id: Standard(
+                id: Standard(
                     0,
                 ),
-                message_name: "VehicleSpeed",
-                message_size: 8,
+                name: "VehicleSpeed",
+                size: 8,
                 transmitter: NodeName(
                     "GMLAN",
                 ),
@@ -649,7 +649,7 @@ Incomplete(
                         name: "VehicleSpeed1",
                         multiplexer_indicator: Plain,
                         start_bit: 7,
-                        signal_size: 16,
+                        size: 16,
                         byte_order: BigEndian,
                         value_type: Unsigned,
                         factor: 0.01,
@@ -665,7 +665,7 @@ Incomplete(
                         name: "VehicleSpeed2",
                         multiplexer_indicator: Plain,
                         start_bit: 39,
-                        signal_size: 16,
+                        size: 16,
                         byte_order: BigEndian,
                         value_type: Unsigned,
                         factor: 0.01,
@@ -680,11 +680,11 @@ Incomplete(
                 ],
             },
             Message {
-                message_id: Standard(
+                id: Standard(
                     32768,
                 ),
-                message_name: "CruiseButtons",
-                message_size: 3,
+                name: "CruiseButtons",
+                size: 3,
                 transmitter: NodeName(
                     "GMLAN",
                 ),
@@ -693,7 +693,7 @@ Incomplete(
                         name: "CruiseButtons",
                         multiplexer_indicator: Plain,
                         start_bit: 3,
-                        signal_size: 3,
+                        size: 3,
                         byte_order: BigEndian,
                         value_type: Unsigned,
                         factor: 1.0,
@@ -708,11 +708,11 @@ Incomplete(
                 ],
             },
             Message {
-                message_id: Standard(
+                id: Standard(
                     24576,
                 ),
-                message_name: "CruiseButtons2",
-                message_size: 1,
+                name: "CruiseButtons2",
+                size: 1,
                 transmitter: NodeName(
                     "GMLAN",
                 ),
@@ -721,7 +721,7 @@ Incomplete(
                         name: "LKAGapButton",
                         multiplexer_indicator: Plain,
                         start_bit: 1,
-                        signal_size: 2,
+                        size: 2,
                         byte_order: BigEndian,
                         value_type: Unsigned,
                         factor: 1.0,
@@ -754,37 +754,37 @@ Incomplete(
         ],
         attribute_defaults: [
             AttributeDefault {
-                attribute_name: "UseGMParameterIDs",
-                attribute_value: AttributeValueF64(
+                name: "UseGMParameterIDs",
+                value: Double(
                     1.0,
                 ),
             },
             AttributeDefault {
-                attribute_name: "ProtocolType",
-                attribute_value: AttributeValueCharString(
+                name: "ProtocolType",
+                value: String(
                     "GMLAN",
                 ),
             },
             AttributeDefault {
-                attribute_name: "BusType",
-                attribute_value: AttributeValueCharString(
+                name: "BusType",
+                value: String(
                     "",
                 ),
             },
         ],
         attribute_values: [
             AttributeValueForObject {
-                attribute_name: "BusType",
-                attribute_value: RawAttributeValue(
-                    AttributeValueCharString(
+                name: "BusType",
+                value: Raw(
+                    String(
                         "CAN",
                     ),
                 ),
             },
             AttributeValueForObject {
-                attribute_name: "ProtocolType",
-                attribute_value: RawAttributeValue(
-                    AttributeValueCharString(
+                name: "ProtocolType",
+                value: Raw(
+                    String(
                         "GMLAN",
                     ),
                 ),
@@ -795,15 +795,15 @@ Incomplete(
                 message_id: Standard(
                     0,
                 ),
-                signal_name: "DriverDoorOpened",
+                name: "DriverDoorOpened",
                 value_descriptions: [
                     ValDescription {
-                        a: 1.0,
-                        b: "Opened",
+                        id: 1.0,
+                        description: "Opened",
                     },
                     ValDescription {
-                        a: 0.0,
-                        b: "Closed",
+                        id: 0.0,
+                        description: "Closed",
                     },
                 ],
             },
@@ -811,15 +811,15 @@ Incomplete(
                 message_id: Standard(
                     49152,
                 ),
-                signal_name: "RightBlinker",
+                name: "RightBlinker",
                 value_descriptions: [
                     ValDescription {
-                        a: 1.0,
-                        b: "Active",
+                        id: 1.0,
+                        description: "Active",
                     },
                     ValDescription {
-                        a: 0.0,
-                        b: "Inactive",
+                        id: 0.0,
+                        description: "Inactive",
                     },
                 ],
             },
@@ -827,15 +827,15 @@ Incomplete(
                 message_id: Standard(
                     49152,
                 ),
-                signal_name: "LeftBlinker",
+                name: "LeftBlinker",
                 value_descriptions: [
                     ValDescription {
-                        a: 1.0,
-                        b: "Active",
+                        id: 1.0,
+                        description: "Active",
                     },
                     ValDescription {
-                        a: 0.0,
-                        b: "Inactive",
+                        id: 0.0,
+                        description: "Inactive",
                     },
                 ],
             },
@@ -843,15 +843,15 @@ Incomplete(
                 message_id: Standard(
                     49152,
                 ),
-                signal_name: "BlinkerLight",
+                name: "BlinkerLight",
                 value_descriptions: [
                     ValDescription {
-                        a: 1.0,
-                        b: "Active",
+                        id: 1.0,
+                        description: "Active",
                     },
                     ValDescription {
-                        a: 0.0,
-                        b: "Inactive",
+                        id: 0.0,
+                        description: "Inactive",
                     },
                 ],
             },
@@ -859,15 +859,15 @@ Incomplete(
                 message_id: Standard(
                     49152,
                 ),
-                signal_name: "GearShifter",
+                name: "GearShifter",
                 value_descriptions: [
                     ValDescription {
-                        a: 3.0,
-                        b: "Park",
+                        id: 3.0,
+                        description: "Park",
                     },
                     ValDescription {
-                        a: 0.0,
-                        b: "Drive/Low",
+                        id: 0.0,
+                        description: "Drive/Low",
                     },
                 ],
             },
@@ -875,15 +875,15 @@ Incomplete(
                 message_id: Standard(
                     40960,
                 ),
-                signal_name: "CruiseControlActive",
+                name: "CruiseControlActive",
                 value_descriptions: [
                     ValDescription {
-                        a: 1.0,
-                        b: "Active",
+                        id: 1.0,
+                        description: "Active",
                     },
                     ValDescription {
-                        a: 0.0,
-                        b: "Inactive",
+                        id: 0.0,
+                        description: "Inactive",
                     },
                 ],
             },
@@ -891,27 +891,27 @@ Incomplete(
                 message_id: Standard(
                     32768,
                 ),
-                signal_name: "CruiseButtons",
+                name: "CruiseButtons",
                 value_descriptions: [
                     ValDescription {
-                        a: 6.0,
-                        b: "Cancel",
+                        id: 6.0,
+                        description: "Cancel",
                     },
                     ValDescription {
-                        a: 5.0,
-                        b: "Main",
+                        id: 5.0,
+                        description: "Main",
                     },
                     ValDescription {
-                        a: 3.0,
-                        b: "Set",
+                        id: 3.0,
+                        description: "Set",
                     },
                     ValDescription {
-                        a: 2.0,
-                        b: "Resume",
+                        id: 2.0,
+                        description: "Resume",
                     },
                     ValDescription {
-                        a: 1.0,
-                        b: "None",
+                        id: 1.0,
+                        description: "None",
                     },
                 ],
             },

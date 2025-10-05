@@ -36,16 +36,16 @@ nodes:
   - []
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Standard: 1
-    message_name: Message1
-    message_size: 1
+    name: Message1
+    size: 1
     transmitter: VectorXXX
     signals:
       - name: Signal1
         multiplexer_indicator: Plain
         start_bit: 8
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1

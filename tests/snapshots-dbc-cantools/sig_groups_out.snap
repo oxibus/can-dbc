@@ -36,17 +36,17 @@ nodes:
   - - Tester
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Standard: 3
-    message_name: Test
-    message_size: 8
+    name: Test
+    size: 8
     transmitter:
       NodeName: Tester
     signals:
       - name: TestSig
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -56,16 +56,16 @@ messages:
         unit: ""
         receivers:
           - Tester
-  - message_id:
+  - id:
       Standard: 2
-    message_name: SGMsg_m
-    message_size: 8
+    name: SGMsg_m
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: dupsig
         multiplexer_indicator: Plain
         start_bit: 24
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -78,7 +78,7 @@ messages:
       - name: subSig2_1
         multiplexer_indicator: Plain
         start_bit: 16
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -91,7 +91,7 @@ messages:
       - name: subSig1_2
         multiplexer_indicator: Plain
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -104,7 +104,7 @@ messages:
       - name: subSig1_1
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -114,16 +114,16 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Standard: 1
-    message_name: SGMsg
-    message_size: 8
+    name: SGMsg
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: dupsig
         multiplexer_indicator: Plain
         start_bit: 16
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -136,7 +136,7 @@ messages:
       - name: SG2
         multiplexer_indicator: Plain
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -149,7 +149,7 @@ messages:
       - name: SG1
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -159,16 +159,16 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Standard: 0
-    message_name: NormalMsg
-    message_size: 8
+    name: NormalMsg
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: Sig_2
         multiplexer_indicator: Plain
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -181,7 +181,7 @@ messages:
       - name: Sig_1
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -200,25 +200,25 @@ attribute_definitions:
   - Plain: "\"BusType\" STRING "
   - Message: "\"GenMsgCycleTime\" INT 0 65535"
 attribute_defaults:
-  - attribute_name: BusType
-    attribute_value:
-      AttributeValueCharString: CAN
-  - attribute_name: GenMsgCycleTime
-    attribute_value:
-      AttributeValueF64: 0
+  - name: BusType
+    value:
+      String: CAN
+  - name: GenMsgCycleTime
+    value:
+      Double: 0
 attribute_values: []
 value_descriptions: []
 signal_type_refs: []
 signal_groups:
   - message_id:
       Standard: 3
-    signal_group_name: Test
+    name: Test
     repetitions: 1
     signal_names:
       - TestSig
   - message_id:
       Standard: 2
-    signal_group_name: SGMsg_m
+    name: SGMsg_m
     repetitions: 1
     signal_names:
       - subSig1_1
@@ -227,7 +227,7 @@ signal_groups:
       - dupsig
   - message_id:
       Standard: 1
-    signal_group_name: SGMsg
+    name: SGMsg
     repetitions: 1
     signal_names:
       - SG1
@@ -235,7 +235,7 @@ signal_groups:
       - dupsig
   - message_id:
       Standard: 0
-    signal_group_name: NormalMsg
+    name: NormalMsg
     repetitions: 1
     signal_names:
       - Sig_1

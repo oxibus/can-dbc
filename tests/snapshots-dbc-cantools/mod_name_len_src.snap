@@ -36,17 +36,17 @@ nodes:
   - - Node_will_be_shortened_456789_12
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Standard: 1
-    message_name: Msg_will_be_shortened_3456789_12
-    message_size: 8
+    name: Msg_will_be_shortened_3456789_12
+    size: 8
     transmitter:
       NodeName: Node_will_be_shortened_456789_12
     signals:
       - name: Sig_will_be_shortened_3456789_12
         multiplexer_indicator: Plain
         start_bit: 1
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -62,39 +62,39 @@ environment_variable_data: []
 signal_types: []
 comments:
   - Node:
-      node_name: Node_will_be_shortened_456789_12
+      name: Node_will_be_shortened_456789_12
       comment: ""
 attribute_definitions:
   - Node: "\"SystemNodeLongSymbol\" STRING "
   - Message: "\"SystemMessageLongSymbol\" STRING "
   - Signal: "\"SystemSignalLongSymbol\" STRING "
 attribute_defaults:
-  - attribute_name: SystemNodeLongSymbol
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: SystemMessageLongSymbol
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: SystemSignalLongSymbol
-    attribute_value:
-      AttributeValueCharString: ""
+  - name: SystemNodeLongSymbol
+    value:
+      String: ""
+  - name: SystemMessageLongSymbol
+    value:
+      String: ""
+  - name: SystemSignalLongSymbol
+    value:
+      String: ""
 attribute_values:
-  - attribute_name: SystemNodeLongSymbol
-    attribute_value:
-      NetworkNodeAttributeValue:
+  - name: SystemNodeLongSymbol
+    value:
+      NetworkNode:
         - Node_will_be_shortened_456789_12
-        - AttributeValueCharString: Node_will_be_shortened_456789_12ZZZZ
-  - attribute_name: SystemMessageLongSymbol
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - String: Node_will_be_shortened_456789_12ZZZZ
+  - name: SystemMessageLongSymbol
+    value:
+      MessageDefinition:
         - Standard: 1
-        - AttributeValueCharString: Msg_will_be_shortened_3456789_12YYYY
-  - attribute_name: SystemSignalLongSymbol
-    attribute_value:
-      SignalAttributeValue:
+        - String: Msg_will_be_shortened_3456789_12YYYY
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
         - Standard: 1
         - Sig_will_be_shortened_3456789_12
-        - AttributeValueCharString: Sig_will_be_shortened_3456789_12XXXX
+        - String: Sig_will_be_shortened_3456789_12XXXX
 value_descriptions: []
 signal_type_refs: []
 signal_groups: []

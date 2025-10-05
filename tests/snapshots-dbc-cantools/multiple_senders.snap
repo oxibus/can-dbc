@@ -39,17 +39,17 @@ nodes:
     - FUM
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Standard: 1
-    message_name: Bar
-    message_size: 4
+    name: Bar
+    size: 4
     transmitter:
       NodeName: FOO
     signals:
       - name: Binary32
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 32
+        size: 32
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -73,9 +73,9 @@ comments: []
 attribute_definitions:
   - Message: "\"GenMsgCycleTime\" INT 0 65535"
 attribute_defaults:
-  - attribute_name: GenMsgCycleTime
-    attribute_value:
-      AttributeValueF64: 0
+  - name: GenMsgCycleTime
+    value:
+      Double: 0
 attribute_values: []
 value_descriptions: []
 signal_type_refs: []

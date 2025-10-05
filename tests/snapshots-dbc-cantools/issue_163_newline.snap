@@ -36,10 +36,10 @@ nodes:
   - - dummy_node
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Standard: 0
-    message_name: dummy_msg
-    message_size: 8
+    name: dummy_msg
+    size: 8
     transmitter:
       NodeName: dummy_node
     signals: []
@@ -57,32 +57,32 @@ attribute_definitions:
   - Plain: "\"DBName\" STRING "
   - Plain: "\"BusType\" STRING "
 attribute_defaults:
-  - attribute_name: GenSigSendType
-    attribute_value:
-      AttributeValueCharString: Cyclic
-  - attribute_name: GenSigInactiveValue
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: GenMsgCycleTime
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: GenMsgSendType
-    attribute_value:
-      AttributeValueCharString: NoMsgSendType
-  - attribute_name: NmStationAddress
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: DBName
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: BusType
-    attribute_value:
-      AttributeValueCharString: CAN
+  - name: GenSigSendType
+    value:
+      String: Cyclic
+  - name: GenSigInactiveValue
+    value:
+      Double: 0
+  - name: GenMsgCycleTime
+    value:
+      Double: 0
+  - name: GenMsgSendType
+    value:
+      String: NoMsgSendType
+  - name: NmStationAddress
+    value:
+      Double: 0
+  - name: DBName
+    value:
+      String: ""
+  - name: BusType
+    value:
+      String: CAN
 attribute_values:
-  - attribute_name: DBName
-    attribute_value:
-      RawAttributeValue:
-        AttributeValueCharString: issue_165_newline
+  - name: DBName
+    value:
+      Raw:
+        String: issue_165_newline
 value_descriptions: []
 signal_type_refs: []
 signal_groups: []

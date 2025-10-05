@@ -36,17 +36,17 @@ nodes:
   - - TheNode
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Standard: 1234
-    message_name: INV2EventMsg1
-    message_size: 8
+    name: INV2EventMsg1
+    size: 8
     transmitter:
       NodeName: Inv2
     signals:
       - name: TheSignal
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -66,16 +66,16 @@ attribute_definitions:
   - Message: "\"GenMsgCycleTime\" INT 0 100"
 attribute_defaults: []
 attribute_values:
-  - attribute_name: GenMsgSendType
-    attribute_value:
-      MessageDefinitionAttributeValue:
+  - name: GenMsgSendType
+    value:
+      MessageDefinition:
         - Standard: 1234
-        - AttributeValueCharString: Event
-  - attribute_name: GenMsgCycleTime
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - String: Event
+  - name: GenMsgCycleTime
+    value:
+      MessageDefinition:
         - Standard: 1234
-        - AttributeValueF64: 0
+        - Double: 0
 value_descriptions: []
 signal_type_refs: []
 signal_groups: []
