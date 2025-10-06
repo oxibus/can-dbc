@@ -369,7 +369,7 @@ pub enum AccessNode {
     AccessNodeName(String),
 }
 
-/// FIXME: not used!
+// FIXME: not used!
 // #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 // pub enum SignalAttributeValue {
 //     Text(String),
