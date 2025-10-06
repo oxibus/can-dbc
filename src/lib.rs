@@ -369,11 +369,12 @@ pub enum AccessNode {
     Name(String),
 }
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-pub enum SignalAttributeValue {
-    Text(String),
-    Int(i64),
-}
+/// FIXME: not used!
+// #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+// pub enum SignalAttributeValue {
+//     Text(String),
+//     Int(i64),
+// }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub enum AttributeValuedForObjectType {
@@ -384,14 +385,15 @@ pub enum AttributeValuedForObjectType {
     EnvVariable(String, AttributeValue),
 }
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-pub enum AttributeValueType {
-    Int(i64, i64),
-    Hex(i64, i64),
-    Float(f64, f64),
-    String,
-    Enum(Vec<String>),
-}
+// FIXME: not used!
+// #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+// pub enum AttributeValueType {
+//     Int(i64, i64),
+//     Hex(i64, i64),
+//     Float(f64, f64),
+//     String,
+//     Enum(Vec<String>),
+// }
 
 #[derive(Clone, Debug, PartialEq, Getters, Serialize, Deserialize)]
 pub struct ValDescription {
@@ -399,11 +401,12 @@ pub struct ValDescription {
     description: String,
 }
 
-#[derive(Clone, Debug, PartialEq, Getters, Serialize, Deserialize)]
-pub struct AttrDefault {
-    name: String,
-    value: AttributeValue,
-}
+// FIXME: not used!
+// #[derive(Clone, Debug, PartialEq, Getters, Serialize, Deserialize)]
+// pub struct AttrDefault {
+//     name: String,
+//     value: AttributeValue,
+// }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub enum AttributeValue {
@@ -425,6 +428,7 @@ pub struct ExtendedMultiplexMapping {
     min_value: u64,
     max_value: u64,
 }
+
 /// Mapping between multiplexors and multiplexed signals
 #[derive(Clone, Debug, PartialEq, Getters, Serialize, Deserialize)]
 pub struct ExtendedMultiplex {

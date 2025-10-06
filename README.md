@@ -64,6 +64,11 @@ can-dbc is available on crates.io and can be included in your Cargo enabled proj
 can-dbc = "3.0"
 ```
 
+# Structure
+
+![Diagram](./docs/diagram.svg)
+
+
 # Implemented DBC parts
 
 - [x] version
