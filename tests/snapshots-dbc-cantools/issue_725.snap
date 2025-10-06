@@ -37,17 +37,17 @@ nodes:
     - Node1
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Standard: 1
-    message_name: TestMessage
-    message_size: 1
+    name: TestMessage
+    size: 1
     transmitter:
       NodeName: Node1
     signals:
       - name: Signal1
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -68,29 +68,29 @@ attribute_definitions:
   - Plain: "\"DBName\" STRING "
   - Signal: "\"GenSigStartValue\" INT -2147483648 2147483647"
 attribute_defaults:
-  - attribute_name: MultiplexExtEnabled
-    attribute_value:
-      AttributeValueCharString: "No"
-  - attribute_name: BusType
-    attribute_value:
-      AttributeValueCharString: CAN
-  - attribute_name: DBName
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: GenSigStartValue
-    attribute_value:
-      AttributeValueF64: -2147483648
+  - name: MultiplexExtEnabled
+    value:
+      String: "No"
+  - name: BusType
+    value:
+      String: CAN
+  - name: DBName
+    value:
+      String: ""
+  - name: GenSigStartValue
+    value:
+      Double: -2147483648
 attribute_values:
-  - attribute_name: DBName
-    attribute_value:
-      RawAttributeValue:
-        AttributeValueCharString: test
-  - attribute_name: GenSigStartValue
-    attribute_value:
-      SignalAttributeValue:
+  - name: DBName
+    value:
+      Raw:
+        String: test
+  - name: GenSigStartValue
+    value:
+      Signal:
         - Standard: 1
         - Signal1
-        - AttributeValueF64: 254
+        - Double: 254
 value_descriptions: []
 signal_type_refs: []
 signal_groups: []

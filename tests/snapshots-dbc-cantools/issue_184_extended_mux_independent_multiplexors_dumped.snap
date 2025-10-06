@@ -36,17 +36,17 @@ nodes:
   - []
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Extended: 2
-    message_name: ext_MUX_indep_multiplexors
-    message_size: 8
+    name: ext_MUX_indep_multiplexors
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: muxed_B_1
         multiplexer_indicator:
           MultiplexedSignal: 1
         start_bit: 24
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -60,7 +60,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 2
         start_bit: 24
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -73,7 +73,7 @@ messages:
       - name: MUX_B
         multiplexer_indicator: Multiplexor
         start_bit: 16
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -87,7 +87,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 0
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -101,7 +101,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 1
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -114,7 +114,7 @@ messages:
       - name: MUX_A
         multiplexer_indicator: Multiplexor
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -163,112 +163,112 @@ attribute_definitions:
   - Plain: "\"ProtocolType\" STRING "
   - Message: "\"VFrameFormat\" ENUM  \"StandardCAN\",\"ExtendedCAN\",\"reserved\",\"J1939PG\""
 attribute_defaults:
-  - attribute_name: SigType
-    attribute_value:
-      AttributeValueCharString: Default
-  - attribute_name: GenSigEVName
-    attribute_value:
-      AttributeValueCharString: Env@Nodename_@Signame
-  - attribute_name: GenSigILSupport
-    attribute_value:
-      AttributeValueCharString: "Yes"
-  - attribute_name: GenSigSendType
-    attribute_value:
-      AttributeValueCharString: NoSigSendType
-  - attribute_name: GenMsgFastOnStart
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: GenSigInactiveValue
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: GenMsgCycleTimeFast
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: GenMsgNrOfRepetition
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: GenSigStartValue
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: GenMsgDelayTime
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: GenMsgILSupport
-    attribute_value:
-      AttributeValueCharString: "Yes"
-  - attribute_name: GenMsgStartDelayTime
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: NodeLayerModules
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: ECU
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: NmJ1939SystemInstance
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: NmJ1939System
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: NmJ1939ManufacturerCode
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: NmJ1939IndustryGroup
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: NmJ1939IdentityNumber
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: NmJ1939FunctionInstance
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: NmJ1939Function
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: NmJ1939ECUInstance
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: NmJ1939AAC
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: NmStationAddress
-    attribute_value:
-      AttributeValueF64: 254
-  - attribute_name: GenMsgSendType
-    attribute_value:
-      AttributeValueCharString: noMsgSendType
-  - attribute_name: GenMsgRequestable
-    attribute_value:
-      AttributeValueF64: 1
-  - attribute_name: GenMsgCycleTime
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: SPN
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: DBName
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: BusType
-    attribute_value:
-      AttributeValueCharString: CAN
-  - attribute_name: ProtocolType
-    attribute_value:
-      AttributeValueCharString: J1939
-  - attribute_name: VFrameFormat
-    attribute_value:
-      AttributeValueCharString: J1939PG
+  - name: SigType
+    value:
+      String: Default
+  - name: GenSigEVName
+    value:
+      String: Env@Nodename_@Signame
+  - name: GenSigILSupport
+    value:
+      String: "Yes"
+  - name: GenSigSendType
+    value:
+      String: NoSigSendType
+  - name: GenMsgFastOnStart
+    value:
+      Double: 0
+  - name: GenSigInactiveValue
+    value:
+      Double: 0
+  - name: GenMsgCycleTimeFast
+    value:
+      Double: 0
+  - name: GenMsgNrOfRepetition
+    value:
+      Double: 0
+  - name: GenSigStartValue
+    value:
+      Double: 0
+  - name: GenMsgDelayTime
+    value:
+      Double: 0
+  - name: GenMsgILSupport
+    value:
+      String: "Yes"
+  - name: GenMsgStartDelayTime
+    value:
+      Double: 0
+  - name: NodeLayerModules
+    value:
+      String: ""
+  - name: ECU
+    value:
+      String: ""
+  - name: NmJ1939SystemInstance
+    value:
+      Double: 0
+  - name: NmJ1939System
+    value:
+      Double: 0
+  - name: NmJ1939ManufacturerCode
+    value:
+      Double: 0
+  - name: NmJ1939IndustryGroup
+    value:
+      Double: 0
+  - name: NmJ1939IdentityNumber
+    value:
+      Double: 0
+  - name: NmJ1939FunctionInstance
+    value:
+      Double: 0
+  - name: NmJ1939Function
+    value:
+      Double: 0
+  - name: NmJ1939ECUInstance
+    value:
+      Double: 0
+  - name: NmJ1939AAC
+    value:
+      Double: 0
+  - name: NmStationAddress
+    value:
+      Double: 254
+  - name: GenMsgSendType
+    value:
+      String: noMsgSendType
+  - name: GenMsgRequestable
+    value:
+      Double: 1
+  - name: GenMsgCycleTime
+    value:
+      Double: 0
+  - name: SPN
+    value:
+      Double: 0
+  - name: DBName
+    value:
+      String: ""
+  - name: BusType
+    value:
+      String: CAN
+  - name: ProtocolType
+    value:
+      String: J1939
+  - name: VFrameFormat
+    value:
+      String: J1939PG
 attribute_values:
-  - attribute_name: DBName
-    attribute_value:
-      RawAttributeValue:
-        AttributeValueCharString: ext_MUX_independent_multiplexors
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+  - name: DBName
+    value:
+      Raw:
+        String: ext_MUX_independent_multiplexors
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Extended: 2
-        - AttributeValueF64: 1
+        - Double: 1
 value_descriptions: []
 signal_type_refs: []
 signal_groups: []

@@ -36,16 +36,16 @@ nodes:
   - []
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Standard: 256
-    message_name: MuxedFrame
-    message_size: 8
+    name: MuxedFrame
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: UnmultiplexedSig
         multiplexer_indicator: Plain
         start_bit: 16
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -59,7 +59,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 42
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -72,7 +72,7 @@ messages:
       - name: MultiplexorSig
         multiplexer_indicator: Multiplexor
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -90,9 +90,9 @@ comments: []
 attribute_definitions:
   - Plain: "\"BusType\" STRING "
 attribute_defaults:
-  - attribute_name: BusType
-    attribute_value:
-      AttributeValueCharString: ""
+  - name: BusType
+    value:
+      String: ""
 attribute_values: []
 value_descriptions: []
 signal_type_refs: []

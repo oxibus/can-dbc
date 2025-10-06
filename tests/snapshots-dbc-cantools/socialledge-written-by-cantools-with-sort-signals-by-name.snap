@@ -40,17 +40,17 @@ nodes:
     - SENSOR
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Standard: 100
-    message_name: DRIVER_HEARTBEAT
-    message_size: 1
+    name: DRIVER_HEARTBEAT
+    size: 1
     transmitter:
       NodeName: DRIVER
     signals:
       - name: DRIVER_HEARTBEAT_cmd
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -61,17 +61,17 @@ messages:
         receivers:
           - SENSOR
           - MOTOR
-  - message_id:
+  - id:
       Standard: 500
-    message_name: IO_DEBUG
-    message_size: 4
+    name: IO_DEBUG
+    size: 4
     transmitter:
       NodeName: IO
     signals:
       - name: IO_DEBUG_test_enum
         multiplexer_indicator: Plain
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -84,7 +84,7 @@ messages:
       - name: IO_DEBUG_test_float
         multiplexer_indicator: Plain
         start_bit: 24
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.5
@@ -97,7 +97,7 @@ messages:
       - name: IO_DEBUG_test_signed
         multiplexer_indicator: Plain
         start_bit: 16
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -110,7 +110,7 @@ messages:
       - name: IO_DEBUG_test_unsigned
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -120,17 +120,17 @@ messages:
         unit: ""
         receivers:
           - DBG
-  - message_id:
+  - id:
       Standard: 101
-    message_name: MOTOR_CMD
-    message_size: 1
+    name: MOTOR_CMD
+    size: 1
     transmitter:
       NodeName: DRIVER
     signals:
       - name: MOTOR_CMD_drive
         multiplexer_indicator: Plain
         start_bit: 4
-        signal_size: 4
+        size: 4
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -143,7 +143,7 @@ messages:
       - name: MOTOR_CMD_steer
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 4
+        size: 4
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -153,17 +153,17 @@ messages:
         unit: ""
         receivers:
           - MOTOR
-  - message_id:
+  - id:
       Standard: 400
-    message_name: MOTOR_STATUS
-    message_size: 3
+    name: MOTOR_STATUS
+    size: 3
     transmitter:
       NodeName: MOTOR
     signals:
       - name: MOTOR_STATUS_speed_kph
         multiplexer_indicator: Plain
         start_bit: 8
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.001
@@ -177,7 +177,7 @@ messages:
       - name: MOTOR_STATUS_wheel_error
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -188,17 +188,17 @@ messages:
         receivers:
           - DRIVER
           - IO
-  - message_id:
+  - id:
       Standard: 200
-    message_name: SENSOR_SONARS
-    message_size: 8
+    name: SENSOR_SONARS
+    size: 8
     transmitter:
       NodeName: SENSOR
     signals:
       - name: SENSOR_SONARS_err_count
         multiplexer_indicator: Plain
         start_bit: 4
-        signal_size: 12
+        size: 12
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -213,7 +213,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 0
         start_bit: 16
-        signal_size: 12
+        size: 12
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.1
@@ -228,7 +228,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 0
         start_bit: 28
-        signal_size: 12
+        size: 12
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.1
@@ -242,7 +242,7 @@ messages:
       - name: SENSOR_SONARS_mux
         multiplexer_indicator: Multiplexor
         start_bit: 0
-        signal_size: 4
+        size: 4
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -257,7 +257,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 1
         start_bit: 16
-        signal_size: 12
+        size: 12
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.1
@@ -271,7 +271,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 1
         start_bit: 28
-        signal_size: 12
+        size: 12
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.1
@@ -285,7 +285,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 1
         start_bit: 52
-        signal_size: 12
+        size: 12
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.1
@@ -299,7 +299,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 1
         start_bit: 40
-        signal_size: 12
+        size: 12
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.1
@@ -313,7 +313,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 0
         start_bit: 52
-        signal_size: 12
+        size: 12
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.1
@@ -328,7 +328,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 0
         start_bit: 40
-        signal_size: 12
+        size: 12
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.1
@@ -345,16 +345,16 @@ environment_variable_data: []
 signal_types: []
 comments:
   - Node:
-      node_name: DRIVER
+      name: DRIVER
       comment: // The driver controller driving the car //
   - Node:
-      node_name: MOTOR
+      name: MOTOR
       comment: The motor controller of the car
   - Node:
-      node_name: SENSOR
+      name: SENSOR
       comment: The sensor controller of the car
   - Message:
-      message_id:
+      id:
         Standard: 100
       comment: Sync message used to synchronize the controllers
 attribute_definitions:
@@ -362,74 +362,74 @@ attribute_definitions:
   - Message: "\"GenMsgCycleTime\" INT 0 0"
   - Signal: "\"FieldType\" STRING "
 attribute_defaults:
-  - attribute_name: BusType
-    attribute_value:
-      AttributeValueCharString: CAN
-  - attribute_name: GenMsgCycleTime
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: FieldType
-    attribute_value:
-      AttributeValueCharString: ""
+  - name: BusType
+    value:
+      String: CAN
+  - name: GenMsgCycleTime
+    value:
+      Double: 0
+  - name: FieldType
+    value:
+      String: ""
 attribute_values:
-  - attribute_name: GenMsgCycleTime
-    attribute_value:
-      MessageDefinitionAttributeValue:
+  - name: GenMsgCycleTime
+    value:
+      MessageDefinition:
         - Standard: 100
-        - AttributeValueF64: 1000
-  - attribute_name: FieldType
-    attribute_value:
-      SignalAttributeValue:
+        - Double: 1000
+  - name: FieldType
+    value:
+      Signal:
         - Standard: 100
         - DRIVER_HEARTBEAT_cmd
-        - AttributeValueCharString: DRIVER_HEARTBEAT_cmd
-  - attribute_name: GenMsgCycleTime
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - String: DRIVER_HEARTBEAT_cmd
+  - name: GenMsgCycleTime
+    value:
+      MessageDefinition:
         - Standard: 500
-        - AttributeValueF64: 100
-  - attribute_name: FieldType
-    attribute_value:
-      SignalAttributeValue:
+        - Double: 100
+  - name: FieldType
+    value:
+      Signal:
         - Standard: 500
         - IO_DEBUG_test_enum
-        - AttributeValueCharString: IO_DEBUG_test_enum
-  - attribute_name: GenMsgCycleTime
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - String: IO_DEBUG_test_enum
+  - name: GenMsgCycleTime
+    value:
+      MessageDefinition:
         - Standard: 101
-        - AttributeValueF64: 100
-  - attribute_name: GenMsgCycleTime
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 100
+  - name: GenMsgCycleTime
+    value:
+      MessageDefinition:
         - Standard: 400
-        - AttributeValueF64: 100
-  - attribute_name: GenMsgCycleTime
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 100
+  - name: GenMsgCycleTime
+    value:
+      MessageDefinition:
         - Standard: 200
-        - AttributeValueF64: 100
+        - Double: 100
 value_descriptions:
   - Signal:
       message_id:
         Standard: 100
-      signal_name: DRIVER_HEARTBEAT_cmd
+      name: DRIVER_HEARTBEAT_cmd
       value_descriptions:
-        - a: 2
-          b: DRIVER_HEARTBEAT_cmd_REBOOT
-        - a: 1
-          b: DRIVER_HEARTBEAT_cmd_SYNC
-        - a: 0
-          b: DRIVER_HEARTBEAT_cmd_NOOP
+        - id: 2
+          description: DRIVER_HEARTBEAT_cmd_REBOOT
+        - id: 1
+          description: DRIVER_HEARTBEAT_cmd_SYNC
+        - id: 0
+          description: DRIVER_HEARTBEAT_cmd_NOOP
   - Signal:
       message_id:
         Standard: 500
-      signal_name: IO_DEBUG_test_enum
+      name: IO_DEBUG_test_enum
       value_descriptions:
-        - a: 2
-          b: IO_DEBUG_test2_enum_two
-        - a: 1
-          b: IO_DEBUG_test2_enum_one
+        - id: 2
+          description: IO_DEBUG_test2_enum_two
+        - id: 1
+          description: IO_DEBUG_test2_enum_one
 signal_type_refs: []
 signal_groups: []
 signal_extended_value_type_list: []

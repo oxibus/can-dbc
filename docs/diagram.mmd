@@ -1,0 +1,193 @@
+erDiagram
+    DBC {
+        version Version(str)
+        new_symbols[] Symbol(str)
+        bit_timing Optional[Baudrate(u64)[]]
+        nodes[] Node(str[])
+        value_tables[] ValueTable
+        messages[] Message
+        message_transmitters[] MessageTransmitter
+        environment_variables[] EnvironmentVariable
+        environment_variable_data[] EnvironmentVariableData(env_var_name(str)-data_size(u64))
+        signal_types[] SignalType
+        comments[] Comment
+        attribute_definitions[] AttributeDefinition
+        attribute_defaults[] AttributeDefault(name(str)-value(AttributeValue))
+        attribute_values[] AttributeValueForObject(name(str)-value(AttributeValuedForObjectType))
+        value_descriptions[] ValueDescription
+        signal_type_refs[] SignalTypeRef
+        signal_groups[] SignalGroups
+        signal_extended_value_type_list[] SignalExtendedValueTypeList
+        extended_multiplex[] ExtendedMultiplex
+    }
+
+    Signal {
+        name str
+        multiplexer_indicator MultiplexIndicator
+        start_bit u64
+        size u64
+        byte_order ByteOrder[LittleEndian-BigEndian]
+        value_type ValueType[Signed-Unsigned]
+        factor f64
+        offset f64
+        min f64
+        max f64
+        unit str
+        receivers[] str
+    }
+
+    MessageId {
+        Standard enum(u16)
+        Extended enum(u32)
+    }
+
+    MessageTransmitter {
+        message_id MessageId
+        transmitter[] Transmitter[NodeName-VectorXXX]
+    }
+
+    MultiplexIndicator {
+        Multiplexor enum
+        MultiplexedSignal enum(u64)
+        MultiplexorAndMultiplexedSignal enum(u64)
+        Plain enum
+    }
+
+    SignalType {
+        name str
+        signal_size u64
+        byte_order ByteOrder[LittleEndian-BigEndian]
+        value_type ValueType[Signed-Unsigned]
+        factor f64
+        offset f64
+        min f64
+        max f64
+        unit str
+        default_value f64
+        value_table str
+    }
+
+    AttributeValuedForObjectType {
+        Raw enum(AttributeValue)
+        NetworkNode enum(str-AttributeValue)
+        MessageDefinition enum(MessageId-Option[AttributeValue])
+        Signal enum(MessageId-str-AttributeValue)
+        EnvVariable enum(str-AttributeValue)
+    }
+
+    AttributeValue {
+        U64 enum(u64)
+        I64 enum(i64)
+        Double enum(f64)
+        String enum(str)
+    }
+
+    ValueTable {
+        name str
+        descriptions[] ValDescription(id(f64)-description(str))
+    }
+
+    ExtendedMultiplex {
+        message_id MessageId
+        signal_name str
+        multiplexor_signal_name str
+        mappings[] ExtendedMultiplexMapping(min_value(u64)-max_value(u64))
+    }
+
+    Comment {
+        Node enum(name(str)-comment(str))
+        Message enum(message_id(MessageId)-comment(str))
+        Signal enum(message_id(MessageId)-signal_name(str)-comment(str))
+        EnvVar enum(name(str)-comment(str))
+        Plain enum(comment(str))
+    }
+
+    Message {
+        id MessageId
+        name str
+        size u64
+        transmitter Transmitter[NodeName-VectorXXX]
+        signals[] Signal
+    }
+
+    EnvironmentVariable {
+        name str
+        typ EnvType[Float-U64-Data]
+        min i64
+        max i64
+        unit str
+        initial_value f64
+        ev_id i64
+        access_type AccessType[DummyNodeVector-0-1-2-3]
+        access_nodes[] AccessNode[VectorXXX-Name(String)]
+    }
+
+    AttributeDefinition {
+        Message enum(str)
+        Node enum(str)
+        Signal enum(str)
+        EnvironmentVariable enum(str)
+        Plain enum(str)
+    }
+
+    ValueDescription {
+        type str
+        message_id MessageId
+        name str
+        value_descriptions[] ValDescription(id(f64)-description(str))
+    }
+
+    SignalTypeRef {
+        message_id MessageId
+        signal_name str
+        signal_type_name str
+    }
+
+    SignalGroups {
+        message_id MessageId
+        name str
+        repetitions u64
+        signal_names[] str
+    }
+
+    SignalExtendedValueTypeList {
+        message_id MessageId
+        signal_name str
+        signal_extended_value_type SignalExtendedValueType[SignedOrUnsignedInteger-IEEEfloat32Bit-IEEEdouble64bit]
+    }
+
+%% Relationships
+    DBC ||--o{ ValueTable : ""
+    DBC ||--o{ Message : ""
+    DBC ||--o{ MessageTransmitter : ""
+    DBC ||--o{ EnvironmentVariable : ""
+    DBC ||--o{ SignalType : ""
+    DBC ||--o{ Comment : ""
+    DBC ||--o{ AttributeDefinition : ""
+    DBC ||--o{ AttributeValue : ""
+    DBC ||--o{ AttributeValuedForObjectType : ""
+    DBC ||--o{ ValueDescription : ""
+    DBC ||--o{ SignalTypeRef : ""
+    DBC ||--o{ SignalGroups : ""
+    DBC ||--o{ SignalExtendedValueTypeList : ""
+    DBC ||--o{ ExtendedMultiplex : ""
+
+    Signal ||--|| MultiplexIndicator : ""
+
+    MessageTransmitter ||--|| MessageId : ""
+
+    Message ||--o{ Signal : ""
+    Message ||--|| MessageId : ""
+
+    ExtendedMultiplex ||--|| MessageId : ""
+
+    Comment ||--o| MessageId : ""
+
+    SignalExtendedValueTypeList ||--|| MessageId : ""
+
+    SignalTypeRef ||--|| MessageId : ""
+
+    SignalGroups ||--|| MessageId : ""
+
+    AttributeValuedForObjectType ||--o| MessageId : ""
+    AttributeValuedForObjectType ||--o| AttributeValue : ""

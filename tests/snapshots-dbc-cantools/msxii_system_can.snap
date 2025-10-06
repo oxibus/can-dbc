@@ -28,10 +28,10 @@ nodes:
   - - BMS
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Standard: 1025
-    message_name: BATTERY_VT
-    message_size: 6
+    name: BATTERY_VT
+    size: 6
     transmitter:
       NodeName: BMS
     signals:
@@ -39,7 +39,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 35
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -53,7 +53,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 34
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -67,7 +67,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 33
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -81,7 +81,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 32
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -95,7 +95,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 31
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -109,7 +109,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 30
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -123,7 +123,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 29
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -137,7 +137,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 28
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -151,7 +151,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 27
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -165,7 +165,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 26
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -179,7 +179,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 25
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -193,7 +193,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 24
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -207,7 +207,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 23
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -221,7 +221,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 22
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -235,7 +235,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 21
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -249,7 +249,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 20
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -263,7 +263,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 19
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -277,7 +277,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 18
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -291,7 +291,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 17
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -305,7 +305,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 16
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -319,7 +319,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 15
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -333,7 +333,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 14
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -347,7 +347,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 13
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -361,7 +361,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 12
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -375,7 +375,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 11
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -389,7 +389,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 10
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -403,7 +403,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 9
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -417,7 +417,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 8
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -431,7 +431,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 7
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -445,7 +445,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 6
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -459,7 +459,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 5
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -473,7 +473,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 4
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -487,7 +487,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 3
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -501,7 +501,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 2
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -515,7 +515,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 1
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -529,7 +529,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 0
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -543,7 +543,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 35
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -557,7 +557,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 34
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -571,7 +571,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 33
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -585,7 +585,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 32
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -599,7 +599,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 31
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -613,7 +613,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 30
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -627,7 +627,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 29
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -641,7 +641,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 28
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -655,7 +655,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 27
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -669,7 +669,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 26
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -683,7 +683,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 25
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -697,7 +697,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 24
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -711,7 +711,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 23
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -725,7 +725,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 22
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -739,7 +739,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 21
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -753,7 +753,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 20
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -767,7 +767,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 19
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -781,7 +781,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 18
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -795,7 +795,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 17
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -809,7 +809,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 16
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -823,7 +823,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 15
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -837,7 +837,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 14
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -851,7 +851,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 13
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -865,7 +865,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 12
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -879,7 +879,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 11
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -893,7 +893,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 10
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -907,7 +907,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 9
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -921,7 +921,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 8
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -935,7 +935,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 7
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -949,7 +949,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 6
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -963,7 +963,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 5
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -977,7 +977,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 4
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -991,7 +991,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 3
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1005,7 +1005,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 2
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1019,7 +1019,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 1
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1033,7 +1033,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 0
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1046,7 +1046,7 @@ messages:
       - name: BATTERY_VT_INDEX
         multiplexer_indicator: Multiplexor
         start_bit: 0
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1

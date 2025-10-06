@@ -39,46 +39,46 @@ nodes:
     - N12345678901234567890123456_0001
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Standard: 9
-    message_name: SS123456789012345678901234587890
-    message_size: 8
+    name: SS123456789012345678901234587890
+    size: 8
     transmitter: VectorXXX
     signals: []
-  - message_id:
+  - id:
       Standard: 8
-    message_name: SS1234567890123456789012345_0000
-    message_size: 8
+    name: SS1234567890123456789012345_0000
+    size: 8
     transmitter: VectorXXX
     signals: []
-  - message_id:
+  - id:
       Standard: 7
-    message_name: SS1234567890123456789012345_0001
-    message_size: 8
+    name: SS1234567890123456789012345_0001
+    size: 8
     transmitter: VectorXXX
     signals: []
-  - message_id:
+  - id:
       Standard: 6
-    message_name: SS123456789012345678901234577890
-    message_size: 8
+    name: SS123456789012345678901234577890
+    size: 8
     transmitter: VectorXXX
     signals: []
-  - message_id:
+  - id:
       Standard: 5
-    message_name: SS123456789012345678901234567890
-    message_size: 8
+    name: SS123456789012345678901234567890
+    size: 8
     transmitter: VectorXXX
     signals: []
-  - message_id:
+  - id:
       Standard: 4
-    message_name: S1234567890123456789012345678901
-    message_size: 8
+    name: S1234567890123456789012345678901
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: SS123456789012345678901234567890
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -88,16 +88,16 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Standard: 0
-    message_name: M12345678901234567890123456_0000
-    message_size: 8
+    name: M12345678901234567890123456_0000
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: SSS12345678901234567890123456789
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -107,17 +107,17 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Standard: 1
-    message_name: M1234567890123456789012345678901
-    message_size: 8
+    name: M1234567890123456789012345678901
+    size: 8
     transmitter:
       NodeName: N1234567890123456789012345678901
     signals:
       - name: SS1234567890123456789012345_0000
         multiplexer_indicator: Plain
         start_bit: 32
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -130,7 +130,7 @@ messages:
       - name: SS1234567890123456789012345_0001
         multiplexer_indicator: Plain
         start_bit: 24
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -143,7 +143,7 @@ messages:
       - name: SS1234567890123456789012345_0002
         multiplexer_indicator: Plain
         start_bit: 16
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -156,7 +156,7 @@ messages:
       - name: S12345678901234567890123456_0000
         multiplexer_indicator: Plain
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -169,7 +169,7 @@ messages:
       - name: S1234567890123456789012345678901
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -179,17 +179,17 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Standard: 2
-    message_name: M12345678901234567890123456_0001
-    message_size: 8
+    name: M12345678901234567890123456_0001
+    size: 8
     transmitter:
       NodeName: N12345678901234567890123456_0001
     signals:
       - name: SS1234567890123456789012345_0003
         multiplexer_indicator: Plain
         start_bit: 24
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -202,7 +202,7 @@ messages:
       - name: SS1234567890123456789012345_0004
         multiplexer_indicator: Plain
         start_bit: 16
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -215,7 +215,7 @@ messages:
       - name: S12345678901234567890123456_0001
         multiplexer_indicator: Plain
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -228,7 +228,7 @@ messages:
       - name: S12345678901234567890123456_0002
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -238,16 +238,16 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Standard: 3
-    message_name: MM123456789012345678901234567890
-    message_size: 8
+    name: MM123456789012345678901234567890
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: SSS123456789012345678901234_0000
         multiplexer_indicator: Plain
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -260,7 +260,7 @@ messages:
       - name: SS1234567890123456789012345_0005
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -272,8 +272,8 @@ messages:
           - Vector__XXX
 message_transmitters: []
 environment_variables:
-  - env_var_name: E12345678901234567890123456_0000
-    env_var_type: EnvTypeFloat
+  - name: E12345678901234567890123456_0000
+    typ: Float
     min: 0
     max: 0
     unit: ""
@@ -281,9 +281,9 @@ environment_variables:
     ev_id: 1
     access_type: DummyNodeVector0
     access_nodes:
-      - AccessNodeName: Vector__XXX
-  - env_var_name: E1234567890123456789012345678901
-    env_var_type: EnvTypeFloat
+      - Name: Vector__XXX
+  - name: E1234567890123456789012345678901
+    typ: Float
     min: 0
     max: 0
     unit: ""
@@ -291,7 +291,7 @@ environment_variables:
     ev_id: 2
     access_type: DummyNodeVector0
     access_nodes:
-      - AccessNodeName: Vector__XXX
+      - Name: Vector__XXX
 environment_variable_data: []
 signal_types: []
 comments: []
@@ -302,160 +302,160 @@ attribute_definitions:
   - Node: "\"SystemNodeLongSymbol\" STRING "
   - EnvironmentVariable: "\"SystemEnvVarLongSymbol\" STRING "
 attribute_defaults:
-  - attribute_name: BusType
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: SystemSignalLongSymbol
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: SystemMessageLongSymbol
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: SystemNodeLongSymbol
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: SystemEnvVarLongSymbol
-    attribute_value:
-      AttributeValueCharString: ""
+  - name: BusType
+    value:
+      String: ""
+  - name: SystemSignalLongSymbol
+    value:
+      String: ""
+  - name: SystemMessageLongSymbol
+    value:
+      String: ""
+  - name: SystemNodeLongSymbol
+    value:
+      String: ""
+  - name: SystemEnvVarLongSymbol
+    value:
+      String: ""
 attribute_values:
-  - attribute_name: SystemNodeLongSymbol
-    attribute_value:
-      NetworkNodeAttributeValue:
+  - name: SystemNodeLongSymbol
+    value:
+      NetworkNode:
         - NN123456789012345678901234567890
-        - AttributeValueCharString: NN123456789012345678901234567890123
-  - attribute_name: SystemNodeLongSymbol
-    attribute_value:
-      NetworkNodeAttributeValue:
+        - String: NN123456789012345678901234567890123
+  - name: SystemNodeLongSymbol
+    value:
+      NetworkNode:
         - N12345678901234567890123456_0000
-        - AttributeValueCharString: N123456789012345678901234567890123
-  - attribute_name: SystemNodeLongSymbol
-    attribute_value:
-      NetworkNodeAttributeValue:
+        - String: N123456789012345678901234567890123
+  - name: SystemNodeLongSymbol
+    value:
+      NetworkNode:
         - N12345678901234567890123456_0001
-        - AttributeValueCharString: N12345678901234567890123456789012
-  - attribute_name: SystemMessageLongSymbol
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - String: N12345678901234567890123456789012
+  - name: SystemMessageLongSymbol
+    value:
+      MessageDefinition:
         - Standard: 9
-        - AttributeValueCharString: SS12345678901234567890123458789012345
-  - attribute_name: SystemMessageLongSymbol
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - String: SS12345678901234567890123458789012345
+  - name: SystemMessageLongSymbol
+    value:
+      MessageDefinition:
         - Standard: 8
-        - AttributeValueCharString: SS1234567890123456789012345778901
-  - attribute_name: SystemMessageLongSymbol
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - String: SS1234567890123456789012345778901
+  - name: SystemMessageLongSymbol
+    value:
+      MessageDefinition:
         - Standard: 7
-        - AttributeValueCharString: SS1234567890123456789012345878901234
-  - attribute_name: SystemMessageLongSymbol
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - String: SS1234567890123456789012345878901234
+  - name: SystemMessageLongSymbol
+    value:
+      MessageDefinition:
         - Standard: 5
-        - AttributeValueCharString: SS12345678901234567890123456789012
-  - attribute_name: SystemMessageLongSymbol
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - String: SS12345678901234567890123456789012
+  - name: SystemMessageLongSymbol
+    value:
+      MessageDefinition:
         - Standard: 4
-        - AttributeValueCharString: S12345678901234567890123456789012
-  - attribute_name: SystemMessageLongSymbol
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - String: S12345678901234567890123456789012
+  - name: SystemMessageLongSymbol
+    value:
+      MessageDefinition:
         - Standard: 0
-        - AttributeValueCharString: M123456789012345678901234567890123
-  - attribute_name: SystemMessageLongSymbol
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - String: M123456789012345678901234567890123
+  - name: SystemMessageLongSymbol
+    value:
+      MessageDefinition:
         - Standard: 2
-        - AttributeValueCharString: M12345678901234567890123456789012
-  - attribute_name: SystemMessageLongSymbol
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - String: M12345678901234567890123456789012
+  - name: SystemMessageLongSymbol
+    value:
+      MessageDefinition:
         - Standard: 3
-        - AttributeValueCharString: MM12345678901234567890123456789012
-  - attribute_name: SystemSignalLongSymbol
-    attribute_value:
-      SignalAttributeValue:
+        - String: MM12345678901234567890123456789012
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
         - Standard: 4
         - SS123456789012345678901234567890
-        - AttributeValueCharString: SS12345678901234567890123456789012
-  - attribute_name: SystemSignalLongSymbol
-    attribute_value:
-      SignalAttributeValue:
+        - String: SS12345678901234567890123456789012
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
         - Standard: 0
         - SSS12345678901234567890123456789
-        - AttributeValueCharString: SSS12345678901234567890123456789012
-  - attribute_name: SystemSignalLongSymbol
-    attribute_value:
-      SignalAttributeValue:
+        - String: SSS12345678901234567890123456789012
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
         - Standard: 1
         - SS1234567890123456789012345_0000
-        - AttributeValueCharString: SS12345678901234567890123456789012332
-  - attribute_name: SystemSignalLongSymbol
-    attribute_value:
-      SignalAttributeValue:
+        - String: SS12345678901234567890123456789012332
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
         - Standard: 1
         - SS1234567890123456789012345_0001
-        - AttributeValueCharString: SS1234567890123456789012345678901233
-  - attribute_name: SystemSignalLongSymbol
-    attribute_value:
-      SignalAttributeValue:
+        - String: SS1234567890123456789012345678901233
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
         - Standard: 1
         - SS1234567890123456789012345_0002
-        - AttributeValueCharString: SS12345678901234567890123456789012
-  - attribute_name: SystemSignalLongSymbol
-    attribute_value:
-      SignalAttributeValue:
+        - String: SS12345678901234567890123456789012
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
         - Standard: 1
         - S12345678901234567890123456_0000
-        - AttributeValueCharString: S123456789012345678901234567890123
-  - attribute_name: SystemSignalLongSymbol
-    attribute_value:
-      SignalAttributeValue:
+        - String: S123456789012345678901234567890123
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
         - Standard: 2
         - SS1234567890123456789012345_0003
-        - AttributeValueCharString: SS12345678901234567890123456789012dw
-  - attribute_name: SystemSignalLongSymbol
-    attribute_value:
-      SignalAttributeValue:
+        - String: SS12345678901234567890123456789012dw
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
         - Standard: 2
         - SS1234567890123456789012345_0004
-        - AttributeValueCharString: SS12345678901234567890123456789012
-  - attribute_name: SystemSignalLongSymbol
-    attribute_value:
-      SignalAttributeValue:
+        - String: SS12345678901234567890123456789012
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
         - Standard: 2
         - S12345678901234567890123456_0001
-        - AttributeValueCharString: S12345678901234567890123456789012
-  - attribute_name: SystemSignalLongSymbol
-    attribute_value:
-      SignalAttributeValue:
+        - String: S12345678901234567890123456789012
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
         - Standard: 2
         - S12345678901234567890123456_0002
-        - AttributeValueCharString: S123456789012345678901234567890123
-  - attribute_name: SystemSignalLongSymbol
-    attribute_value:
-      SignalAttributeValue:
+        - String: S123456789012345678901234567890123
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
         - Standard: 3
         - SSS123456789012345678901234_0000
-        - AttributeValueCharString: SSS12345678901234567890123456789012
-  - attribute_name: SystemSignalLongSymbol
-    attribute_value:
-      SignalAttributeValue:
+        - String: SSS12345678901234567890123456789012
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
         - Standard: 3
         - SS1234567890123456789012345_0005
-        - AttributeValueCharString: SS1234567890123456789012345678901233
-  - attribute_name: SystemEnvVarLongSymbol
-    attribute_value:
-      EnvVariableAttributeValue:
+        - String: SS1234567890123456789012345678901233
+  - name: SystemEnvVarLongSymbol
+    value:
+      EnvVariable:
         - E12345678901234567890123456_0000
-        - AttributeValueCharString: E12345678901234567890123456789012
+        - String: E12345678901234567890123456789012
 value_descriptions: []
 signal_type_refs: []
 signal_groups:
   - message_id:
       Standard: 3
-    signal_group_name: SS1234_sg
+    name: SS1234_sg
     repetitions: 1
     signal_names:
       - SS1234567890123456789012345_0005

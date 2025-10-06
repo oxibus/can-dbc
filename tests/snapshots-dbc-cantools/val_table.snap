@@ -35,35 +35,35 @@ bit_timing: []
 nodes:
   - []
 value_tables:
-  - value_table_name: Table3
-    value_descriptions:
-      - a: 16
-        b: "16"
-      - a: 7
-        b: "7"
-      - a: 2
-        b: "2"
-      - a: 0
-        b: "0"
-  - value_table_name: Table2
-    value_descriptions: []
-  - value_table_name: Table1
-    value_descriptions:
-      - a: 1
-        b: One
-      - a: 0
-        b: Zero
+  - name: Table3
+    descriptions:
+      - id: 16
+        description: "16"
+      - id: 7
+        description: "7"
+      - id: 2
+        description: "2"
+      - id: 0
+        description: "0"
+  - name: Table2
+    descriptions: []
+  - name: Table1
+    descriptions:
+      - id: 1
+        description: One
+      - id: 0
+        description: Zero
 messages:
-  - message_id:
+  - id:
       Standard: 0
-    message_name: Message1
-    message_size: 8
+    name: Message1
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: Signal1
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -82,23 +82,23 @@ attribute_definitions:
   - Plain: "\"BusType\" STRING "
   - Message: "\"GenMsgCycleTime\" INT 0 65535"
 attribute_defaults:
-  - attribute_name: BusType
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: GenMsgCycleTime
-    attribute_value:
-      AttributeValueF64: 0
+  - name: BusType
+    value:
+      String: ""
+  - name: GenMsgCycleTime
+    value:
+      Double: 0
 attribute_values: []
 value_descriptions:
   - Signal:
       message_id:
         Standard: 0
-      signal_name: Signal1
+      name: Signal1
       value_descriptions:
-        - a: 1
-          b: One
-        - a: 0
-          b: Zero
+        - id: 1
+          description: One
+        - id: 0
+          description: Zero
 signal_type_refs: []
 signal_groups: []
 signal_extended_value_type_list: []

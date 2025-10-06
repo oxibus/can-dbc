@@ -105,11 +105,11 @@ Incomplete(
         value_tables: [],
         messages: [
             Message {
-                message_id: Standard(
+                id: Standard(
                     1,
                 ),
-                message_name: "CONTROL",
-                message_size: 7,
+                name: "CONTROL",
+                size: 7,
                 transmitter: NodeName(
                     "COM",
                 ),
@@ -118,7 +118,7 @@ Incomplete(
                         name: "state",
                         multiplexer_indicator: Plain,
                         start_bit: 0,
-                        signal_size: 8,
+                        size: 8,
                         byte_order: LittleEndian,
                         value_type: Unsigned,
                         factor: 1.0,
@@ -145,8 +145,8 @@ Incomplete(
         ],
         attribute_defaults: [
             AttributeDefault {
-                attribute_name: "GenMsgCycleTime",
-                attribute_value: AttributeValueF64(
+                name: "GenMsgCycleTime",
+                value: Double(
                     0.0,
                 ),
             },

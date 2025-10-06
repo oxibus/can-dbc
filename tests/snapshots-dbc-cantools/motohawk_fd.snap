@@ -37,17 +37,17 @@ nodes:
     - FOO
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Extended: 496
-    message_name: ExampleMessage
-    message_size: 8
+    name: ExampleMessage
+    size: 8
     transmitter:
       NodeName: PCM1
     signals:
       - name: Temperature
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 12
+        size: 12
         byte_order: BigEndian
         value_type: Signed
         factor: 0.01
@@ -61,7 +61,7 @@ messages:
       - name: AverageRadius
         multiplexer_indicator: Plain
         start_bit: 6
-        signal_size: 6
+        size: 6
         byte_order: BigEndian
         value_type: Unsigned
         factor: 0.1
@@ -74,7 +74,7 @@ messages:
       - name: Enable
         multiplexer_indicator: Plain
         start_bit: 7
-        signal_size: 1
+        size: 1
         byte_order: BigEndian
         value_type: Unsigned
         factor: 1
@@ -90,7 +90,7 @@ environment_variable_data: []
 signal_types: []
 comments:
   - Message:
-      message_id:
+      id:
         Extended: 496
       comment: Example message used as template in MotoHawk models.
 attribute_definitions:
@@ -99,38 +99,38 @@ attribute_definitions:
   - Message: "\"VFrameFormat\" ENUM  \"StandardCAN\",\"ExtendedCAN\",\"reserved\",\"J1939PG\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"StandardCAN_FD\",\"ExtendedCAN_FD\""
   - Message: "\"CANFD_BRS\" ENUM  \"0\",\"1\""
 attribute_defaults:
-  - attribute_name: GenMsgCycleTime
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: BusType
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: VFrameFormat
-    attribute_value:
-      AttributeValueCharString: StandardCAN
-  - attribute_name: CANFD_BRS
-    attribute_value:
-      AttributeValueCharString: "1"
+  - name: GenMsgCycleTime
+    value:
+      Double: 0
+  - name: BusType
+    value:
+      String: ""
+  - name: VFrameFormat
+    value:
+      String: StandardCAN
+  - name: CANFD_BRS
+    value:
+      String: "1"
 attribute_values:
-  - attribute_name: BusType
-    attribute_value:
-      RawAttributeValue:
-        AttributeValueCharString: CAN FD
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+  - name: BusType
+    value:
+      Raw:
+        String: CAN FD
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Extended: 496
-        - AttributeValueF64: 15
+        - Double: 15
 value_descriptions:
   - Signal:
       message_id:
         Extended: 496
-      signal_name: Enable
+      name: Enable
       value_descriptions:
-        - a: 0
-          b: Disabled
-        - a: 1
-          b: Enabled
+        - id: 0
+          description: Disabled
+        - id: 1
+          description: Enabled
 signal_type_refs: []
 signal_groups: []
 signal_extended_value_type_list: []

@@ -37,17 +37,17 @@ nodes:
     - Receiver
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Standard: 1
-    message_name: Foo
-    message_size: 8
+    name: Foo
+    size: 8
     transmitter:
       NodeName: Sender
     signals:
       - name: Foo
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 12
+        size: 12
         byte_order: BigEndian
         value_type: Signed
         factor: 0.01
@@ -57,17 +57,17 @@ messages:
         unit: degK
         receivers:
           - Receiver
-  - message_id:
+  - id:
       Standard: 2
-    message_name: Bar
-    message_size: 8
+    name: Bar
+    size: 8
     transmitter:
       NodeName: Sender
     signals:
       - name: Foo
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 12
+        size: 12
         byte_order: BigEndian
         value_type: Signed
         factor: 0.01
@@ -86,23 +86,23 @@ attribute_definitions:
   - Message: "\"GenMsgSendType\" ENUM  \"Cyclic\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"IfActive\",\"NoMsgSendType\",\"NotUsed\",\"vector_leerstring\""
   - Message: "\"GenMsgCycleTime\" INT 0 50000"
 attribute_defaults:
-  - attribute_name: GenMsgSendType
-    attribute_value:
-      AttributeValueCharString: NoMsgSendType
-  - attribute_name: GenMsgCycleTime
-    attribute_value:
-      AttributeValueF64: 0
+  - name: GenMsgSendType
+    value:
+      String: NoMsgSendType
+  - name: GenMsgCycleTime
+    value:
+      Double: 0
 attribute_values:
-  - attribute_name: GenMsgCycleTime
-    attribute_value:
-      MessageDefinitionAttributeValue:
+  - name: GenMsgCycleTime
+    value:
+      MessageDefinition:
         - Standard: 1
-        - AttributeValueF64: 200
-  - attribute_name: GenMsgSendType
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 200
+  - name: GenMsgSendType
+    value:
+      MessageDefinition:
         - Standard: 1
-        - AttributeValueF64: 0
+        - Double: 0
 value_descriptions: []
 signal_type_refs: []
 signal_groups: []

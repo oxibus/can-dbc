@@ -36,16 +36,16 @@ nodes:
   - []
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Extended: 419204094
-    message_name: AFT1PSI2
-    message_size: 8
+    name: AFT1PSI2
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: HtrRes
         multiplexer_indicator: Plain
         start_bit: 40
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.1
@@ -58,7 +58,7 @@ messages:
       - name: MaxRes
         multiplexer_indicator: Plain
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 250
@@ -71,7 +71,7 @@ messages:
       - name: Temp
         multiplexer_indicator: Plain
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.03125
@@ -84,7 +84,7 @@ messages:
       - name: RegenFailedCount
         multiplexer_indicator: Plain
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -97,7 +97,7 @@ messages:
       - name: PwrSupply
         multiplexer_indicator: Plain
         start_bit: 4
-        signal_size: 2
+        size: 2
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -110,7 +110,7 @@ messages:
       - name: DetectionStatus
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 4
+        size: 4
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1

@@ -27,6 +27,11 @@ bless *args:  (cargo-install 'cargo-insta')
 build:
     cargo build {{packages}} {{features}} {{targets}}
 
+build-diagram:
+    @echo "Generating docs/diagram.svg using Mermaid CLI. Make sure you have it:"
+    @echo "     npm install -g @mermaid-js/mermaid-cli"
+    mmdc -i docs/diagram.mmd -o docs/diagram.svg
+
 # Quick compile without building a binary
 check:
     cargo check {{packages}} {{features}} {{targets}}

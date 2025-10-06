@@ -36,16 +36,16 @@ nodes:
   - []
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Standard: 472
-    message_name: Foo
-    message_size: 1
+    name: Foo
+    size: 1
     transmitter: VectorXXX
     signals:
       - name: signal_without_sender
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -61,15 +61,15 @@ environment_variable_data: []
 signal_types: []
 comments:
   - Message:
-      message_id:
+      id:
         Standard: 472
       comment: No sender message.
 attribute_definitions:
   - Plain: "\"BusType\" STRING "
 attribute_defaults:
-  - attribute_name: BusType
-    attribute_value:
-      AttributeValueCharString: ""
+  - name: BusType
+    value:
+      String: ""
 attribute_values: []
 value_descriptions: []
 signal_type_refs: []

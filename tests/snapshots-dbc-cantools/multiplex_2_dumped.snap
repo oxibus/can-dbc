@@ -36,17 +36,17 @@ nodes:
   - []
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Extended: 201522942
-    message_name: Shared
-    message_size: 8
+    name: Shared
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: S2
         multiplexer_indicator:
           MultiplexedSignal: 2
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -60,7 +60,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 1
         start_bit: 4
-        signal_size: 4
+        size: 4
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -73,7 +73,7 @@ messages:
       - name: S0
         multiplexer_indicator: Multiplexor
         start_bit: 0
-        signal_size: 4
+        size: 4
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -83,17 +83,17 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Extended: 201457406
-    message_name: Normal
-    message_size: 8
+    name: Normal
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: S2
         multiplexer_indicator:
           MultiplexedSignal: 1
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -107,7 +107,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 0
         start_bit: 4
-        signal_size: 4
+        size: 4
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -120,7 +120,7 @@ messages:
       - name: S0
         multiplexer_indicator: Multiplexor
         start_bit: 0
-        signal_size: 4
+        size: 4
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -130,17 +130,17 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Extended: 201391870
-    message_name: Extended
-    message_size: 8
+    name: Extended
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: S7
         multiplexer_indicator:
           MultiplexedSignal: 1
         start_bit: 40
-        signal_size: 24
+        size: 24
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -154,7 +154,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 2
         start_bit: 40
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -167,7 +167,7 @@ messages:
       - name: S6
         multiplexer_indicator: Multiplexor
         start_bit: 32
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -181,7 +181,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 0
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -195,7 +195,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 0
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -209,7 +209,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 2
         start_bit: 8
-        signal_size: 24
+        size: 24
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -222,7 +222,7 @@ messages:
       - name: S1
         multiplexer_indicator: Multiplexor
         start_bit: 4
-        signal_size: 4
+        size: 4
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -236,7 +236,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 1
         start_bit: 4
-        signal_size: 28
+        size: 28
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -249,7 +249,7 @@ messages:
       - name: S0
         multiplexer_indicator: Multiplexor
         start_bit: 0
-        signal_size: 4
+        size: 4
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -259,17 +259,17 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Extended: 201588478
-    message_name: ExtendedTypes
-    message_size: 8
+    name: ExtendedTypes
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: S9
         multiplexer_indicator:
           MultiplexedSignal: 5
         start_bit: 24
-        signal_size: 32
+        size: 32
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -283,7 +283,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 0
         start_bit: 16
-        signal_size: 32
+        size: 32
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -296,7 +296,7 @@ messages:
       - name: S0
         multiplexer_indicator: Multiplexor
         start_bit: 8
-        signal_size: 4
+        size: 4
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -309,7 +309,7 @@ messages:
       - name: S11
         multiplexer_indicator: Multiplexor
         start_bit: 0
-        signal_size: 5
+        size: 5
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -359,136 +359,136 @@ attribute_definitions:
   - Plain: "\"ProtocolType\" STRING "
   - Message: "\"VFrameFormat\" ENUM  \"StandardCAN\",\"ExtendedCAN\",\"reserved\",\"J1939PG\""
 attribute_defaults:
-  - attribute_name: TpJ1939VarDlc
-    attribute_value:
-      AttributeValueCharString: "No"
-  - attribute_name: SigType
-    attribute_value:
-      AttributeValueCharString: Default
-  - attribute_name: GenSigEVName
-    attribute_value:
-      AttributeValueCharString: Env@Nodename_@Signame
-  - attribute_name: GenSigILSupport
-    attribute_value:
-      AttributeValueCharString: "Yes"
-  - attribute_name: GenSigSendType
-    attribute_value:
-      AttributeValueCharString: NoSigSendType
-  - attribute_name: GenMsgFastOnStart
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: GenSigInactiveValue
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: GenMsgCycleTimeFast
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: GenMsgNrOfRepetition
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: GenSigStartValue
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: GenMsgDelayTime
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: GenMsgILSupport
-    attribute_value:
-      AttributeValueCharString: "Yes"
-  - attribute_name: GenMsgStartDelayTime
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: NodeLayerModules
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: ECU
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: NmJ1939SystemInstance
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: NmJ1939System
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: NmJ1939ManufacturerCode
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: NmJ1939IndustryGroup
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: NmJ1939IdentityNumber
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: NmJ1939FunctionInstance
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: NmJ1939Function
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: NmJ1939ECUInstance
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: NmJ1939AAC
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: NmStationAddress
-    attribute_value:
-      AttributeValueF64: 254
-  - attribute_name: GenMsgSendType
-    attribute_value:
-      AttributeValueCharString: noMsgSendType
-  - attribute_name: GenMsgRequestable
-    attribute_value:
-      AttributeValueF64: 1
-  - attribute_name: GenMsgCycleTime
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: SPN
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: DBName
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: BusType
-    attribute_value:
-      AttributeValueCharString: CAN
-  - attribute_name: ProtocolType
-    attribute_value:
-      AttributeValueCharString: J1939
-  - attribute_name: VFrameFormat
-    attribute_value:
-      AttributeValueCharString: J1939PG
+  - name: TpJ1939VarDlc
+    value:
+      String: "No"
+  - name: SigType
+    value:
+      String: Default
+  - name: GenSigEVName
+    value:
+      String: Env@Nodename_@Signame
+  - name: GenSigILSupport
+    value:
+      String: "Yes"
+  - name: GenSigSendType
+    value:
+      String: NoSigSendType
+  - name: GenMsgFastOnStart
+    value:
+      Double: 0
+  - name: GenSigInactiveValue
+    value:
+      Double: 0
+  - name: GenMsgCycleTimeFast
+    value:
+      Double: 0
+  - name: GenMsgNrOfRepetition
+    value:
+      Double: 0
+  - name: GenSigStartValue
+    value:
+      Double: 0
+  - name: GenMsgDelayTime
+    value:
+      Double: 0
+  - name: GenMsgILSupport
+    value:
+      String: "Yes"
+  - name: GenMsgStartDelayTime
+    value:
+      Double: 0
+  - name: NodeLayerModules
+    value:
+      String: ""
+  - name: ECU
+    value:
+      String: ""
+  - name: NmJ1939SystemInstance
+    value:
+      Double: 0
+  - name: NmJ1939System
+    value:
+      Double: 0
+  - name: NmJ1939ManufacturerCode
+    value:
+      Double: 0
+  - name: NmJ1939IndustryGroup
+    value:
+      Double: 0
+  - name: NmJ1939IdentityNumber
+    value:
+      Double: 0
+  - name: NmJ1939FunctionInstance
+    value:
+      Double: 0
+  - name: NmJ1939Function
+    value:
+      Double: 0
+  - name: NmJ1939ECUInstance
+    value:
+      Double: 0
+  - name: NmJ1939AAC
+    value:
+      Double: 0
+  - name: NmStationAddress
+    value:
+      Double: 254
+  - name: GenMsgSendType
+    value:
+      String: noMsgSendType
+  - name: GenMsgRequestable
+    value:
+      Double: 1
+  - name: GenMsgCycleTime
+    value:
+      Double: 0
+  - name: SPN
+    value:
+      Double: 0
+  - name: DBName
+    value:
+      String: ""
+  - name: BusType
+    value:
+      String: CAN
+  - name: ProtocolType
+    value:
+      String: J1939
+  - name: VFrameFormat
+    value:
+      String: J1939PG
 attribute_values:
-  - attribute_name: DBName
-    attribute_value:
-      RawAttributeValue:
-        AttributeValueCharString: foo
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+  - name: DBName
+    value:
+      Raw:
+        String: foo
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Extended: 201522942
-        - AttributeValueF64: 3
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 3
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Extended: 201457406
-        - AttributeValueF64: 3
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 3
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Extended: 201391870
-        - AttributeValueF64: 3
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 3
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Extended: 201588478
-        - AttributeValueF64: 3
-  - attribute_name: GenSigStartValue
-    attribute_value:
-      SignalAttributeValue:
+        - Double: 3
+  - name: GenSigStartValue
+    value:
+      Signal:
         - Extended: 201588478
         - S11
-        - AttributeValueF64: 2
+        - Double: 2
 value_descriptions: []
 signal_type_refs: []
 signal_groups: []

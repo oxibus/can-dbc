@@ -38,33 +38,33 @@ nodes:
     - Receiver_1
     - Node_6789_123456789_123456789_12
 value_tables:
-  - value_table_name: Value_Table_short
-    value_descriptions:
-      - a: 1
-        b: "Very long, long, long description for the value '0x1'"
-      - a: 0
-        b: "Very long, long, long description for the value '0x0'"
-  - value_table_name: Value_Table_cdefghi_ABCDEFGHI_AB
-    value_descriptions:
-      - a: 3
-        b: "Description for the value '0x3'"
-      - a: 2
-        b: "Description for the value '0x2'"
-      - a: 1
-        b: "Description for the value '0x1'"
-      - a: 0
-        b: "Description for the value '0x0'"
+  - name: Value_Table_short
+    descriptions:
+      - id: 1
+        description: "Very long, long, long description for the value '0x1'"
+      - id: 0
+        description: "Very long, long, long description for the value '0x0'"
+  - name: Value_Table_cdefghi_ABCDEFGHI_AB
+    descriptions:
+      - id: 3
+        description: "Description for the value '0x3'"
+      - id: 2
+        description: "Description for the value '0x2'"
+      - id: 1
+        description: "Description for the value '0x1'"
+      - id: 0
+        description: "Description for the value '0x0'"
 messages:
-  - message_id:
+  - id:
       Standard: 85
-    message_name: Msg_Long_Name_56789_123456789_12
-    message_size: 8
+    name: Msg_Long_Name_56789_123456789_12
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: rx_twice_11111111111111111111111
         multiplexer_indicator: Plain
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -77,7 +77,7 @@ messages:
       - name: rx_twice_short
         multiplexer_indicator: Plain
         start_bit: 16
-        signal_size: 18
+        size: 18
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -90,7 +90,7 @@ messages:
       - name: Sig_used_twice_efgh_abcdefghi_ab
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 6
+        size: 6
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -100,17 +100,17 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Standard: 6
-    message_name: TX_twice
-    message_size: 2
+    name: TX_twice
+    size: 2
     transmitter:
       NodeName: Node_6789_123456789_123456789_12
     signals:
       - name: rx_twice_long_yyyyyyyyyyyyyyyyyy
         multiplexer_indicator: Plain
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -124,7 +124,7 @@ messages:
       - name: rx_twice_short
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -135,17 +135,17 @@ messages:
         receivers:
           - Receiver_2_zzzzzzzzzzzzzzzzzzzzz
           - Receiver_1
-  - message_id:
+  - id:
       Standard: 5
-    message_name: RX_TX_1
-    message_size: 8
+    name: RX_TX_1
+    size: 8
     transmitter:
       NodeName: Node_6789_123456789_123456789_12
     signals:
       - name: Sig_used_twice_efgh_abcdefg_0000
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 9
+        size: 9
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -155,28 +155,28 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Standard: 4
-    message_name: MSG_CASE_TEST
-    message_size: 8
+    name: MSG_CASE_TEST
+    size: 8
     transmitter: VectorXXX
     signals: []
-  - message_id:
+  - id:
       Standard: 3
-    message_name: msg_case_test
-    message_size: 8
+    name: msg_case_test
+    size: 8
     transmitter: VectorXXX
     signals: []
-  - message_id:
+  - id:
       Standard: 2
-    message_name: Msg_with_value_table_sigs
-    message_size: 3
+    name: Msg_with_value_table_sigs
+    size: 3
     transmitter: VectorXXX
     signals:
       - name: Sig_with_short_val_table
         multiplexer_indicator: Plain
         start_bit: 16
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -189,7 +189,7 @@ messages:
       - name: Sig_with_long_val_table_2
         multiplexer_indicator: Plain
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -202,7 +202,7 @@ messages:
       - name: Sig_with_long_val_table_1
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -212,16 +212,16 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Standard: 1
-    message_name: Msg_Long_Name_56789_1234567_0000
-    message_size: 8
+    name: Msg_Long_Name_56789_1234567_0000
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: rx_twice_11111111111111111111111
         multiplexer_indicator: Plain
         start_bit: 8
-        signal_size: 2
+        size: 2
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -234,7 +234,7 @@ messages:
       - name: Sig_used_twice_efgh_abcdefg_0001
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -244,16 +244,16 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Standard: 0
-    message_name: Msg_Long_Name_56789_1234567_0001
-    message_size: 8
+    name: Msg_Long_Name_56789_1234567_0001
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: rx_twice_short
         multiplexer_indicator: Plain
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -266,7 +266,7 @@ messages:
       - name: Sig_used_twice_efgh_abcdefg_0002
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 6
+        size: 6
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -298,157 +298,157 @@ attribute_definitions:
   - Message: "\"SystemMessageLongSymbol\" STRING "
   - Node: "\"SystemNodeLongSymbol\" STRING "
 attribute_defaults:
-  - attribute_name: GenSigSendType
-    attribute_value:
-      AttributeValueCharString: Cyclic
-  - attribute_name: GenSigInactiveValue
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: GenMsgCycleTime
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: GenMsgSendType
-    attribute_value:
-      AttributeValueCharString: NoMsgSendType
-  - attribute_name: NmStationAddress
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: DBName
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: BusType
-    attribute_value:
-      AttributeValueCharString: CAN
-  - attribute_name: SystemSignalLongSymbol
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: SystemMessageLongSymbol
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: SystemNodeLongSymbol
-    attribute_value:
-      AttributeValueCharString: ""
+  - name: GenSigSendType
+    value:
+      String: Cyclic
+  - name: GenSigInactiveValue
+    value:
+      Double: 0
+  - name: GenMsgCycleTime
+    value:
+      Double: 0
+  - name: GenMsgSendType
+    value:
+      String: NoMsgSendType
+  - name: NmStationAddress
+    value:
+      Double: 0
+  - name: DBName
+    value:
+      String: ""
+  - name: BusType
+    value:
+      String: CAN
+  - name: SystemSignalLongSymbol
+    value:
+      String: ""
+  - name: SystemMessageLongSymbol
+    value:
+      String: ""
+  - name: SystemNodeLongSymbol
+    value:
+      String: ""
 attribute_values:
-  - attribute_name: DBName
-    attribute_value:
-      RawAttributeValue:
-        AttributeValueCharString: long_names_multiple_relations
-  - attribute_name: SystemNodeLongSymbol
-    attribute_value:
-      NetworkNodeAttributeValue:
+  - name: DBName
+    value:
+      Raw:
+        String: long_names_multiple_relations
+  - name: SystemNodeLongSymbol
+    value:
+      NetworkNode:
         - Sender_2_aaaaaaaaaaaaaaaaaaaaaaa
-        - AttributeValueCharString: Sender_2_aaaaaaaaaaaaaaaaaaaaaaaAAAAAA
-  - attribute_name: SystemNodeLongSymbol
-    attribute_value:
-      NetworkNodeAttributeValue:
+        - String: Sender_2_aaaaaaaaaaaaaaaaaaaaaaaAAAAAA
+  - name: SystemNodeLongSymbol
+    value:
+      NetworkNode:
         - Receiver_2_zzzzzzzzzzzzzzzzzzzzz
-        - AttributeValueCharString: Receiver_2_zzzzzzzzzzzzzzzzzzzzzZZZ
-  - attribute_name: SystemNodeLongSymbol
-    attribute_value:
-      NetworkNodeAttributeValue:
+        - String: Receiver_2_zzzzzzzzzzzzzzzzzzzzzZZZ
+  - name: SystemNodeLongSymbol
+    value:
+      NetworkNode:
         - Node_6789_123456789_123456789_12
-        - AttributeValueCharString: Node_6789_123456789_123456789_123456789
-  - attribute_name: SystemMessageLongSymbol
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - String: Node_6789_123456789_123456789_123456789
+  - name: SystemMessageLongSymbol
+    value:
+      MessageDefinition:
         - Standard: 85
-        - AttributeValueCharString: Msg_Long_Name_56789_123456789_123456789_Copy_2
-  - attribute_name: SystemMessageLongSymbol
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - String: Msg_Long_Name_56789_123456789_123456789_Copy_2
+  - name: SystemMessageLongSymbol
+    value:
+      MessageDefinition:
         - Standard: 1
-        - AttributeValueCharString: Msg_Long_Name_56789_123456789_123456789_Copy_1
-  - attribute_name: SystemMessageLongSymbol
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - String: Msg_Long_Name_56789_123456789_123456789_Copy_1
+  - name: SystemMessageLongSymbol
+    value:
+      MessageDefinition:
         - Standard: 0
-        - AttributeValueCharString: Msg_Long_Name_56789_123456789_123456789
-  - attribute_name: SystemSignalLongSymbol
-    attribute_value:
-      SignalAttributeValue:
+        - String: Msg_Long_Name_56789_123456789_123456789
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
         - Standard: 85
         - Sig_used_twice_efgh_abcdefghi_ab
-        - AttributeValueCharString: Sig_used_twice_efgh_abcdefghi_abcdefghi_abcdefghi
-  - attribute_name: SystemSignalLongSymbol
-    attribute_value:
-      SignalAttributeValue:
+        - String: Sig_used_twice_efgh_abcdefghi_abcdefghi_abcdefghi
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
         - Standard: 6
         - rx_twice_long_yyyyyyyyyyyyyyyyyy
-        - AttributeValueCharString: rx_twice_long_yyyyyyyyyyyyyyyyyyYYY
-  - attribute_name: SystemSignalLongSymbol
-    attribute_value:
-      SignalAttributeValue:
+        - String: rx_twice_long_yyyyyyyyyyyyyyyyyyYYY
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
         - Standard: 5
         - Sig_used_twice_efgh_abcdefg_0000
-        - AttributeValueCharString: Sig_used_twice_efgh_abcdefghi_abcdefghi_abcdefghi
-  - attribute_name: SystemSignalLongSymbol
-    attribute_value:
-      SignalAttributeValue:
+        - String: Sig_used_twice_efgh_abcdefghi_abcdefghi_abcdefghi
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
         - Standard: 1
         - Sig_used_twice_efgh_abcdefg_0001
-        - AttributeValueCharString: Sig_used_twice_efgh_abcdefghi_abcdefghi_abcdefghi
-  - attribute_name: SystemSignalLongSymbol
-    attribute_value:
-      SignalAttributeValue:
+        - String: Sig_used_twice_efgh_abcdefghi_abcdefghi_abcdefghi
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
         - Standard: 0
         - Sig_used_twice_efgh_abcdefg_0002
-        - AttributeValueCharString: Sig_used_twice_efgh_abcdefghi_abcdefghi_abcdefghi
+        - String: Sig_used_twice_efgh_abcdefghi_abcdefghi_abcdefghi
 value_descriptions:
   - Signal:
       message_id:
         Standard: 2
-      signal_name: Sig_with_short_val_table
+      name: Sig_with_short_val_table
       value_descriptions:
-        - a: 1
-          b: "Very long, long, long description for the value '0x1'"
-        - a: 0
-          b: "Very long, long, long description for the value '0x0'"
+        - id: 1
+          description: "Very long, long, long description for the value '0x1'"
+        - id: 0
+          description: "Very long, long, long description for the value '0x0'"
   - Signal:
       message_id:
         Standard: 2
-      signal_name: Sig_with_long_val_table_2
+      name: Sig_with_long_val_table_2
       value_descriptions:
-        - a: 13
-          b: "value '0xD'"
-        - a: 12
-          b: "Dvalue '0xC'"
-        - a: 11
-          b: "value '0xB'"
-        - a: 10
-          b: "value '0xA'"
-        - a: 9
-          b: "value '0x9'"
-        - a: 8
-          b: "value '0x8'"
-        - a: 7
-          b: "value '0x7'"
-        - a: 6
-          b: "value '0x6'"
-        - a: 5
-          b: "value '0x5'"
-        - a: 4
-          b: "value '0x4'"
-        - a: 3
-          b: "value '0x3'"
-        - a: 2
-          b: "value '0x2'"
-        - a: 1
-          b: "value '0x1'"
-        - a: 0
-          b: "value '0x0'"
+        - id: 13
+          description: "value '0xD'"
+        - id: 12
+          description: "Dvalue '0xC'"
+        - id: 11
+          description: "value '0xB'"
+        - id: 10
+          description: "value '0xA'"
+        - id: 9
+          description: "value '0x9'"
+        - id: 8
+          description: "value '0x8'"
+        - id: 7
+          description: "value '0x7'"
+        - id: 6
+          description: "value '0x6'"
+        - id: 5
+          description: "value '0x5'"
+        - id: 4
+          description: "value '0x4'"
+        - id: 3
+          description: "value '0x3'"
+        - id: 2
+          description: "value '0x2'"
+        - id: 1
+          description: "value '0x1'"
+        - id: 0
+          description: "value '0x0'"
   - Signal:
       message_id:
         Standard: 2
-      signal_name: Sig_with_long_val_table_1
+      name: Sig_with_long_val_table_1
       value_descriptions:
-        - a: 3
-          b: "Description for the value '0x3'"
-        - a: 2
-          b: "Description for the value '0x2'"
-        - a: 1
-          b: "Description for the value '0x1'"
-        - a: 0
-          b: "Description for the value '0x0'"
+        - id: 3
+          description: "Description for the value '0x3'"
+        - id: 2
+          description: "Description for the value '0x2'"
+        - id: 1
+          description: "Description for the value '0x1'"
+        - id: 0
+          description: "Description for the value '0x0'"
 signal_type_refs: []
 signal_groups: []
 signal_extended_value_type_list: []

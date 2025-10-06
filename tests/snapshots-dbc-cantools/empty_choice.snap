@@ -35,24 +35,24 @@ bit_timing: []
 nodes:
   - - tx_node
 value_tables:
-  - value_table_name: example_choice
-    value_descriptions:
-      - a: 255
-        b: Not available
-      - a: 254
-        b: Error
+  - name: example_choice
+    descriptions:
+      - id: 255
+        description: Not available
+      - id: 254
+        description: Error
 messages:
-  - message_id:
+  - id:
       Standard: 10
-    message_name: example_message
-    message_size: 3
+    name: example_message
+    size: 3
     transmitter:
       NodeName: tx_node
     signals:
       - name: no_choice
         multiplexer_indicator: Plain
         start_bit: 16
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -65,7 +65,7 @@ messages:
       - name: empty_choice
         multiplexer_indicator: Plain
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -78,7 +78,7 @@ messages:
       - name: non_empty_choice
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -96,25 +96,25 @@ comments: []
 attribute_definitions:
   - Plain: "\"BusType\" STRING "
 attribute_defaults:
-  - attribute_name: BusType
-    attribute_value:
-      AttributeValueCharString: CAN
+  - name: BusType
+    value:
+      String: CAN
 attribute_values: []
 value_descriptions:
   - Signal:
       message_id:
         Standard: 10
-      signal_name: empty_choice
+      name: empty_choice
       value_descriptions: []
   - Signal:
       message_id:
         Standard: 10
-      signal_name: non_empty_choice
+      name: non_empty_choice
       value_descriptions:
-        - a: 255
-          b: Not available
-        - a: 254
-          b: Error
+        - id: 255
+          description: Not available
+        - id: 254
+          description: Error
 signal_type_refs: []
 signal_groups: []
 signal_extended_value_type_list: []

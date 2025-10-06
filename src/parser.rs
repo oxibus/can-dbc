@@ -127,7 +127,7 @@ mod tests {
         let message_id = MessageId::Standard(193);
         let comment1 = Comment::Signal {
             message_id,
-            signal_name: "KLU_R_X".to_string(),
+            name: "KLU_R_X".to_string(),
             comment: "This is a signal comment test".to_string(),
         };
         let (_, comment1_def) = comment(def1).expect("Failed to parse signal comment definition");
@@ -139,7 +139,7 @@ mod tests {
         let def1 = "CM_ BO_ 34544 \"Some Message comment\";\n";
         let message_id = MessageId::Standard(34544);
         let comment1 = Comment::Message {
-            message_id,
+            id: message_id,
             comment: "Some Message comment".to_string(),
         };
         let (_, comment1_def) =
@@ -151,7 +151,7 @@ mod tests {
     fn node_comment_test() {
         let def1 = "CM_ BU_ network_node \"Some network node comment\";\n";
         let comment1 = Comment::Node {
-            node_name: "network_node".to_string(),
+            name: "network_node".to_string(),
             comment: "Some network node comment".to_string(),
         };
         let (_, comment1_def) = comment(def1).expect("Failed to parse node comment definition");
@@ -162,7 +162,7 @@ mod tests {
     fn env_var_comment_test() {
         let def1 = "CM_ EV_ ENVXYZ \"Some env var name comment\";\n";
         let comment1 = Comment::EnvVar {
-            env_var_name: "ENVXYZ".to_string(),
+            name: "ENVXYZ".to_string(),
             comment: "Some env var name comment".to_string(),
         };
         let (_, comment1_def) = comment(def1).expect("Failed to parse env var comment definition");
@@ -175,7 +175,7 @@ mod tests {
         let message_id = MessageId::Extended(65264);
         let comment1 = Comment::Signal {
             message_id,
-            signal_name: "FooBar".to_string(),
+            name: "FooBar".to_string(),
             comment: "Foo\\\\ \\n \\\"Bar\\\"".to_string(),
         };
         let (_, comment1_def) = comment(def1).expect("Failed to parse signal comment definition");
@@ -188,7 +188,7 @@ mod tests {
         let message_id = MessageId::Extended(65264);
         let comment1 = Comment::Signal {
             message_id,
-            signal_name: "FooBar".to_string(),
+            name: "FooBar".to_string(),
             comment: String::new(),
         };
         let (_, comment1_def) = comment(def1).expect("Failed to parse signal comment definition");
@@ -201,12 +201,12 @@ mod tests {
         let message_id = MessageId::Standard(837);
         let signal_name = "UF_HZ_OI".to_string();
         let val_descriptions = vec![ValDescription {
-            a: 255.0,
-            b: "NOP".to_string(),
+            id: 255.0,
+            description: "NOP".to_string(),
         }];
         let value_description_for_signal1 = ValueDescription::Signal {
             message_id,
-            signal_name,
+            name: signal_name,
             value_descriptions: val_descriptions,
         };
         let (_, value_signal_def) =
@@ -219,11 +219,11 @@ mod tests {
         let def1 = "VAL_ MY_ENV_VAR 255 \"NOP\";\n";
         let env_var_name = "MY_ENV_VAR".to_string();
         let val_descriptions = vec![ValDescription {
-            a: 255.0,
-            b: "NOP".to_string(),
+            id: 255.0,
+            description: "NOP".to_string(),
         }];
         let value_env_var1 = ValueDescription::EnvironmentVariable {
-            env_var_name,
+            name: env_var_name,
             value_descriptions: val_descriptions,
         };
         let (_, value_env_var) =
@@ -235,15 +235,15 @@ mod tests {
     fn environment_variable_test() {
         let def1 = "EV_ IUV: 0 [-22|20] \"mm\" 3 7 DUMMY_NODE_VECTOR0 VECTOR_XXX;\n";
         let env_var1 = EnvironmentVariable {
-            env_var_name: "IUV".to_string(),
-            env_var_type: EnvType::EnvTypeFloat,
+            name: "IUV".to_string(),
+            typ: EnvType::Float,
             min: -22,
             max: 20,
             unit: "mm".to_string(),
             initial_value: 3.0,
             ev_id: 7,
             access_type: AccessType::DummyNodeVector0,
-            access_nodes: vec![AccessNode::AccessNodeVectorXXX],
+            access_nodes: vec![AccessNode::VectorXXX],
         };
         let (_, env_var) =
             environment_variable(def1).expect("Failed to parse environment variable");
@@ -253,13 +253,13 @@ mod tests {
     #[test]
     fn network_node_attribute_value_test() {
         let def = "BA_ \"AttrName\" BU_ NodeName 12;\n";
-        let attribute_value = AttributeValuedForObjectType::NetworkNodeAttributeValue(
+        let attribute_value = AttributeValuedForObjectType::NetworkNode(
             "NodeName".to_string(),
-            AttributeValue::AttributeValueF64(12.0),
+            AttributeValue::Double(12.0),
         );
         let attr_val_exp = AttributeValueForObject {
-            attribute_name: "AttrName".to_string(),
-            attribute_value,
+            name: "AttrName".to_string(),
+            value: attribute_value,
         };
         let (_, attr_val) = attribute_value_for_object(def).unwrap();
         assert_eq!(attr_val_exp, attr_val);
@@ -268,13 +268,13 @@ mod tests {
     #[test]
     fn message_definition_attribute_value_test() {
         let def = "BA_ \"AttrName\" BO_ 298 13;\n";
-        let attribute_value = AttributeValuedForObjectType::MessageDefinitionAttributeValue(
+        let attribute_value = AttributeValuedForObjectType::MessageDefinition(
             MessageId::Standard(298),
-            Some(AttributeValue::AttributeValueF64(13.0)),
+            Some(AttributeValue::Double(13.0)),
         );
         let attr_val_exp = AttributeValueForObject {
-            attribute_name: "AttrName".to_string(),
-            attribute_value,
+            name: "AttrName".to_string(),
+            value: attribute_value,
         };
         let (_, attr_val) = attribute_value_for_object(def).unwrap();
         assert_eq!(attr_val_exp, attr_val);
@@ -283,14 +283,14 @@ mod tests {
     #[test]
     fn signal_attribute_value_test() {
         let def = "BA_ \"AttrName\" SG_ 198 SGName 13;\n";
-        let attribute_value = AttributeValuedForObjectType::SignalAttributeValue(
+        let attribute_value = AttributeValuedForObjectType::Signal(
             MessageId::Standard(198),
             "SGName".to_string(),
-            AttributeValue::AttributeValueF64(13.0),
+            AttributeValue::Double(13.0),
         );
         let attr_val_exp = AttributeValueForObject {
-            attribute_name: "AttrName".to_string(),
-            attribute_value,
+            name: "AttrName".to_string(),
+            value: attribute_value,
         };
         let (_, attr_val) = attribute_value_for_object(def).unwrap();
         assert_eq!(attr_val_exp, attr_val);
@@ -299,13 +299,13 @@ mod tests {
     #[test]
     fn env_var_attribute_value_test() {
         let def = "BA_ \"AttrName\" EV_ EvName \"CharStr\";\n";
-        let attribute_value = AttributeValuedForObjectType::EnvVariableAttributeValue(
+        let attribute_value = AttributeValuedForObjectType::EnvVariable(
             "EvName".to_string(),
-            AttributeValue::AttributeValueCharString("CharStr".to_string()),
+            AttributeValue::String("CharStr".to_string()),
         );
         let attr_val_exp = AttributeValueForObject {
-            attribute_name: "AttrName".to_string(),
-            attribute_value,
+            name: "AttrName".to_string(),
+            value: attribute_value,
         };
         let (_, attr_val) = attribute_value_for_object(def).unwrap();
         assert_eq!(attr_val_exp, attr_val);
@@ -314,12 +314,11 @@ mod tests {
     #[test]
     fn raw_attribute_value_test() {
         let def = "BA_ \"AttrName\" \"RAW\";\n";
-        let attribute_value = AttributeValuedForObjectType::RawAttributeValue(
-            AttributeValue::AttributeValueCharString("RAW".to_string()),
-        );
+        let attribute_value =
+            AttributeValuedForObjectType::Raw(AttributeValue::String("RAW".to_string()));
         let attr_val_exp = AttributeValueForObject {
-            attribute_name: "AttrName".to_string(),
-            attribute_value,
+            name: "AttrName".to_string(),
+            value: attribute_value,
         };
         let (_, attr_val) = attribute_value_for_object(def).unwrap();
         assert_eq!(attr_val_exp, attr_val);
@@ -381,7 +380,7 @@ mod tests {
         let def = "SGTYPE_ signal_type_name: 1024@1+ (5,2) [1|3] \"unit\" 2.0 val_table;\n";
 
         let exp = SignalType {
-            signal_type_name: "signal_type_name".to_string(),
+            name: "signal_type_name".to_string(),
             signal_size: 1024,
             byte_order: ByteOrder::LittleEndian,
             value_type: ValueType::Unsigned,
@@ -404,7 +403,7 @@ mod tests {
 
         let exp = SignalGroups {
             message_id: MessageId::Standard(23),
-            signal_group_name: "X_3290".to_string(),
+            name: "X_3290".to_string(),
             repetitions: 1,
             signal_names: vec!["A_b".to_string(), "XY_Z".to_string()],
         };
@@ -418,8 +417,8 @@ mod tests {
         let def = "BA_DEF_DEF_  \"ZUV\" \"OAL\";\n";
         let (_, attr_default) = attribute_default(def).unwrap();
         let attr_default_exp = AttributeDefault {
-            attribute_name: "ZUV".to_string(),
-            attribute_value: AttributeValue::AttributeValueCharString("OAL".to_string()),
+            name: "ZUV".to_string(),
+            value: AttributeValue::String("OAL".to_string()),
         };
         assert_eq!(attr_default_exp, attr_default);
     }
@@ -428,7 +427,7 @@ mod tests {
     fn attribute_value_f64_test() {
         let def = "80.0";
         let (_, val) = attribute_value(def).unwrap();
-        assert_eq!(AttributeValue::AttributeValueF64(80.0), val);
+        assert_eq!(AttributeValue::Double(80.0), val);
     }
 
     #[test]
@@ -487,8 +486,8 @@ mod tests {
     fn value_description_test() {
         let def = "2 \"ABC\"\n";
         let exp = ValDescription {
-            a: 2f64,
-            b: "ABC".to_string(),
+            id: 2f64,
+            description: "ABC".to_string(),
         };
         let (_, val_desc) = value_description(def).unwrap();
         assert_eq!(exp, val_desc);
@@ -498,15 +497,15 @@ mod tests {
     fn val_table_test() {
         let def = "VAL_TABLE_ Tst 2 \"ABC\" 1 \"Test A\" ;\n";
         let exp = ValueTable {
-            value_table_name: "Tst".to_string(),
-            value_descriptions: vec![
+            name: "Tst".to_string(),
+            descriptions: vec![
                 ValDescription {
-                    a: 2f64,
-                    b: "ABC".to_string(),
+                    id: 2f64,
+                    description: "ABC".to_string(),
                 },
                 ValDescription {
-                    a: 1f64,
-                    b: "Test A".to_string(),
+                    id: 1f64,
+                    description: "Test A".to_string(),
                 },
             ],
         };
@@ -518,10 +517,10 @@ mod tests {
     fn val_table_no_space_preceding_comma_test() {
         let def = "VAL_TABLE_ Tst 2 \"ABC\";\n";
         let exp = ValueTable {
-            value_table_name: "Tst".to_string(),
-            value_descriptions: vec![ValDescription {
-                a: 2f64,
-                b: "ABC".to_string(),
+            name: "Tst".to_string(),
+            descriptions: vec![ValDescription {
+                id: 2f64,
+                description: "ABC".to_string(),
             }],
         };
         let (_, val_table) = value_table(def).unwrap();
@@ -865,7 +864,7 @@ fn signal(s: &str) -> IResult<&str, Signal> {
             name,
             multiplexer_indicator,
             start_bit,
-            signal_size,
+            size: signal_size,
             byte_order,
             value_type,
             factor,
@@ -894,9 +893,9 @@ fn message(s: &str) -> IResult<&str, Message> {
     Ok((
         s,
         (Message {
-            message_id,
-            message_name,
-            message_size,
+            id: message_id,
+            name: message_name,
+            size: message_size,
             transmitter,
             signals,
         }),
@@ -916,8 +915,8 @@ fn attribute_default(s: &str) -> IResult<&str, AttributeDefault> {
     Ok((
         s,
         AttributeDefault {
-            attribute_name: attribute_name.to_string(),
-            attribute_value,
+            name: attribute_name.to_string(),
+            value: attribute_value,
         },
     ))
 }
@@ -932,7 +931,7 @@ fn node_comment(s: &str) -> IResult<&str, Comment> {
     Ok((
         s,
         Comment::Node {
-            node_name,
+            name: node_name,
             comment: comment.to_string(),
         },
     ))
@@ -948,7 +947,7 @@ fn message_comment(s: &str) -> IResult<&str, Comment> {
     Ok((
         s,
         Comment::Message {
-            message_id,
+            id: message_id,
             comment: comment.to_string(),
         },
     ))
@@ -966,7 +965,7 @@ fn signal_comment(s: &str) -> IResult<&str, Comment> {
         s,
         Comment::Signal {
             message_id,
-            signal_name,
+            name: signal_name,
             comment: comment.to_string(),
         },
     ))
@@ -982,7 +981,7 @@ fn env_var_comment(s: &str) -> IResult<&str, Comment> {
     Ok((
         s,
         Comment::EnvVar {
-            env_var_name,
+            name: env_var_name,
             comment: comment.to_string(),
         },
     ))
@@ -1022,8 +1021,8 @@ fn value_description(s: &str) -> IResult<&str, ValDescription> {
     Ok((
         s,
         ValDescription {
-            a,
-            b: b.to_string(),
+            id: a,
+            description: b.to_string(),
         },
     ))
 }
@@ -1044,7 +1043,7 @@ fn value_description_for_signal(s: &str) -> IResult<&str, ValueDescription> {
         s,
         ValueDescription::Signal {
             message_id,
-            signal_name,
+            name: signal_name,
             value_descriptions: value_descriptions.0,
         },
     ))
@@ -1063,7 +1062,7 @@ fn value_description_for_env_var(s: &str) -> IResult<&str, ValueDescription> {
     Ok((
         s,
         ValueDescription::EnvironmentVariable {
-            env_var_name,
+            name: env_var_name,
             value_descriptions: value_descriptions.0,
         },
     ))
@@ -1077,15 +1076,15 @@ fn value_descriptions(s: &str) -> IResult<&str, ValueDescription> {
 }
 
 fn env_float(s: &str) -> IResult<&str, EnvType> {
-    value(EnvType::EnvTypeFloat, char('0')).parse(s)
+    value(EnvType::Float, char('0')).parse(s)
 }
 
 fn env_int(s: &str) -> IResult<&str, EnvType> {
-    value(EnvType::EnvTypeu64, char('1')).parse(s)
+    value(EnvType::U64, char('1')).parse(s)
 }
 
 fn env_data(s: &str) -> IResult<&str, EnvType> {
-    value(EnvType::EnvTypeu64, char('2')).parse(s)
+    value(EnvType::U64, char('2')).parse(s)
 }
 
 fn env_var_type(s: &str) -> IResult<&str, EnvType> {
@@ -1120,11 +1119,11 @@ fn access_type(s: &str) -> IResult<&str, AccessType> {
 }
 
 fn access_node_vector_xxx(s: &str) -> IResult<&str, AccessNode> {
-    value(AccessNode::AccessNodeVectorXXX, tag("VECTOR_XXX")).parse(s)
+    value(AccessNode::VectorXXX, tag("VECTOR_XXX")).parse(s)
 }
 
 fn access_node_name(s: &str) -> IResult<&str, AccessNode> {
-    map(c_ident, AccessNode::AccessNodeName).parse(s)
+    map(c_ident, AccessNode::Name).parse(s)
 }
 
 fn access_node(s: &str) -> IResult<&str, AccessNode> {
@@ -1161,8 +1160,8 @@ fn environment_variable(s: &str) -> IResult<&str, EnvironmentVariable> {
     Ok((
         s,
         EnvironmentVariable {
-            env_var_name,
-            env_var_type,
+            name: env_var_name,
+            typ: env_var_type,
             min,
             max,
             unit: unit.to_string(),
@@ -1227,7 +1226,7 @@ fn signal_type(s: &str) -> IResult<&str, SignalType> {
     Ok((
         s,
         SignalType {
-            signal_type_name,
+            name: signal_type_name,
             signal_size,
             byte_order,
             value_type,
@@ -1244,23 +1243,20 @@ fn signal_type(s: &str) -> IResult<&str, SignalType> {
 
 #[allow(dead_code)]
 fn attribute_value_uint64(s: &str) -> IResult<&str, AttributeValue> {
-    map(complete::u64, AttributeValue::AttributeValueU64).parse(s)
+    map(complete::u64, AttributeValue::U64).parse(s)
 }
 
 #[allow(dead_code)]
 fn attribute_value_int64(s: &str) -> IResult<&str, AttributeValue> {
-    map(complete::i64, AttributeValue::AttributeValueI64).parse(s)
+    map(complete::i64, AttributeValue::I64).parse(s)
 }
 
 fn attribute_value_f64(s: &str) -> IResult<&str, AttributeValue> {
-    map(double, AttributeValue::AttributeValueF64).parse(s)
+    map(double, AttributeValue::Double).parse(s)
 }
 
 fn attribute_value_charstr(s: &str) -> IResult<&str, AttributeValue> {
-    map(char_string, |x| {
-        AttributeValue::AttributeValueCharString(x.to_string())
-    })
-    .parse(s)
+    map(char_string, |x| AttributeValue::String(x.to_string())).parse(s)
 }
 
 fn attribute_value(s: &str) -> IResult<&str, AttributeValue> {
@@ -1281,7 +1277,7 @@ fn network_node_attribute_value(s: &str) -> IResult<&str, AttributeValuedForObje
     let (s, value) = attribute_value(s)?;
     Ok((
         s,
-        AttributeValuedForObjectType::NetworkNodeAttributeValue(node_name, value),
+        AttributeValuedForObjectType::NetworkNode(node_name, value),
     ))
 }
 
@@ -1293,7 +1289,7 @@ fn message_definition_attribute_value(s: &str) -> IResult<&str, AttributeValuedF
     let (s, value) = opt(attribute_value).parse(s)?;
     Ok((
         s,
-        AttributeValuedForObjectType::MessageDefinitionAttributeValue(message_id, value),
+        AttributeValuedForObjectType::MessageDefinition(message_id, value),
     ))
 }
 
@@ -1307,7 +1303,7 @@ fn signal_attribute_value(s: &str) -> IResult<&str, AttributeValuedForObjectType
     let (s, value) = attribute_value(s)?;
     Ok((
         s,
-        AttributeValuedForObjectType::SignalAttributeValue(message_id, signal_name, value),
+        AttributeValuedForObjectType::Signal(message_id, signal_name, value),
     ))
 }
 
@@ -1319,16 +1315,12 @@ fn env_variable_attribute_value(s: &str) -> IResult<&str, AttributeValuedForObje
     let (s, value) = attribute_value(s)?;
     Ok((
         s,
-        AttributeValuedForObjectType::EnvVariableAttributeValue(env_var_name, value),
+        AttributeValuedForObjectType::EnvVariable(env_var_name, value),
     ))
 }
 
 fn raw_attribute_value(s: &str) -> IResult<&str, AttributeValuedForObjectType> {
-    map(
-        attribute_value,
-        AttributeValuedForObjectType::RawAttributeValue,
-    )
-    .parse(s)
+    map(attribute_value, AttributeValuedForObjectType::Raw).parse(s)
 }
 
 fn attribute_value_for_object(s: &str) -> IResult<&str, AttributeValueForObject> {
@@ -1350,8 +1342,8 @@ fn attribute_value_for_object(s: &str) -> IResult<&str, AttributeValueForObject>
     Ok((
         s,
         AttributeValueForObject {
-            attribute_name: attribute_name.to_string(),
-            attribute_value,
+            name: attribute_name.to_string(),
+            value: attribute_value,
         },
     ))
 }
@@ -1475,8 +1467,8 @@ fn value_table(s: &str) -> IResult<&str, ValueTable> {
     Ok((
         s,
         ValueTable {
-            value_table_name,
-            value_descriptions: value_descriptions.0,
+            name: value_table_name,
+            descriptions: value_descriptions.0,
         },
     ))
 }
@@ -1616,7 +1608,7 @@ fn signal_groups(s: &str) -> IResult<&str, SignalGroups> {
         s,
         SignalGroups {
             message_id,
-            signal_group_name,
+            name: signal_group_name,
             repetitions,
             signal_names,
         },

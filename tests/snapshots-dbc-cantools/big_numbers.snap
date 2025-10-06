@@ -36,16 +36,16 @@ nodes:
   - - TheNode
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Extended: 57
-    message_name: TheMessage
-    message_size: 8
+    name: TheMessage
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: TheSignal
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -55,16 +55,16 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Standard: 42
-    message_name: TheOtherMessage
-    message_size: 8
+    name: TheOtherMessage
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: TheSignal
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -80,7 +80,7 @@ environment_variable_data: []
 signal_types: []
 comments:
   - Node:
-      node_name: TheNode
+      name: TheNode
       comment: TheNodeComment
 attribute_definitions:
   - Signal: "\"TheSignalStringAttribute\" STRING "
@@ -107,124 +107,124 @@ attribute_definitions:
   - Signal: "\"GenSigSendType\" ENUM  \"Cyclic\",\"OnWrite\",\"OnWriteWithRepetition\",\"OnChange\",\"OnChangeWithRepetition\",\"IfActive\",\"IfActiveWithRepetition\",\"NoSigSendType\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"NotUsed\""
   - Signal: "\"GenSigStartValue\" FLOAT 0 100000000000"
 attribute_defaults:
-  - attribute_name: TheSignalStringAttribute
-    attribute_value:
-      AttributeValueCharString: "100"
-  - attribute_name: TheNetworkAttribute
-    attribute_value:
-      AttributeValueF64: 50
-  - attribute_name: TheHexAttribute
-    attribute_value:
-      AttributeValueF64: 4
-  - attribute_name: TheFloatAttribute
-    attribute_value:
-      AttributeValueF64: 55
-  - attribute_name: TheNodeAttribute
-    attribute_value:
-      AttributeValueF64: 100
-  - attribute_name: NodeLayerModules
-    attribute_value:
-      AttributeValueCharString: CANoeILNLVector.dll
-  - attribute_name: GenMsgStartDelayTime
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: NWM-WakeupAllowed
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: NmMessage
-    attribute_value:
-      AttributeValueCharString: "no"
-  - attribute_name: GenMsgILSupport
-    attribute_value:
-      AttributeValueCharString: "Yes"
-  - attribute_name: NmNode
-    attribute_value:
-      AttributeValueCharString: "no"
-  - attribute_name: NmStationAddress
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: NmBaseAddress
-    attribute_value:
-      AttributeValueF64: 1024
-  - attribute_name: GenMsgCycleTimeFast
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: BusType
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: GenMsgCycleTime
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: GenMsgDelayTime
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: GenMsgNrOfRepetition
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: GenMsgSendType
-    attribute_value:
-      AttributeValueCharString: NoMsgSendType
-  - attribute_name: GenSigInactiveValue
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: GenSigSendType
-    attribute_value:
-      AttributeValueCharString: Cyclic
-  - attribute_name: GenSigStartValue
-    attribute_value:
-      AttributeValueF64: 0
+  - name: TheSignalStringAttribute
+    value:
+      String: "100"
+  - name: TheNetworkAttribute
+    value:
+      Double: 50
+  - name: TheHexAttribute
+    value:
+      Double: 4
+  - name: TheFloatAttribute
+    value:
+      Double: 55
+  - name: TheNodeAttribute
+    value:
+      Double: 100
+  - name: NodeLayerModules
+    value:
+      String: CANoeILNLVector.dll
+  - name: GenMsgStartDelayTime
+    value:
+      Double: 0
+  - name: NWM-WakeupAllowed
+    value:
+      String: ""
+  - name: NmMessage
+    value:
+      String: "no"
+  - name: GenMsgILSupport
+    value:
+      String: "Yes"
+  - name: NmNode
+    value:
+      String: "no"
+  - name: NmStationAddress
+    value:
+      Double: 0
+  - name: NmBaseAddress
+    value:
+      Double: 1024
+  - name: GenMsgCycleTimeFast
+    value:
+      Double: 0
+  - name: BusType
+    value:
+      String: ""
+  - name: GenMsgCycleTime
+    value:
+      Double: 0
+  - name: GenMsgDelayTime
+    value:
+      Double: 0
+  - name: GenMsgNrOfRepetition
+    value:
+      Double: 0
+  - name: GenMsgSendType
+    value:
+      String: NoMsgSendType
+  - name: GenSigInactiveValue
+    value:
+      Double: 0
+  - name: GenSigSendType
+    value:
+      String: Cyclic
+  - name: GenSigStartValue
+    value:
+      Double: 0
 attribute_values:
-  - attribute_name: TheNetworkAttribute
-    attribute_value:
-      RawAttributeValue:
-        AttributeValueF64: 51
-  - attribute_name: BusType
-    attribute_value:
-      RawAttributeValue:
-        AttributeValueCharString: CAN
-  - attribute_name: TheNodeAttribute
-    attribute_value:
-      NetworkNodeAttributeValue:
+  - name: TheNetworkAttribute
+    value:
+      Raw:
+        Double: 51
+  - name: BusType
+    value:
+      Raw:
+        String: CAN
+  - name: TheNodeAttribute
+    value:
+      NetworkNode:
         - TheNode
-        - AttributeValueF64: 99
-  - attribute_name: TheFloatAttribute
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 99
+  - name: TheFloatAttribute
+    value:
+      MessageDefinition:
         - Extended: 57
-        - AttributeValueF64: 58.7
-  - attribute_name: TheHexAttribute
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 58.7
+  - name: TheHexAttribute
+    value:
+      MessageDefinition:
         - Extended: 57
-        - AttributeValueF64: 5
-  - attribute_name: GenMsgSendType
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 5
+  - name: GenMsgSendType
+    value:
+      MessageDefinition:
         - Extended: 57
-        - AttributeValueF64: 0
-  - attribute_name: GenMsgCycleTime
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 0
+  - name: GenMsgCycleTime
+    value:
+      MessageDefinition:
         - Extended: 57
-        - AttributeValueF64: 1000
-  - attribute_name: TheSignalStringAttribute
-    attribute_value:
-      SignalAttributeValue:
-        - Extended: 57
-        - TheSignal
-        - AttributeValueCharString: TestString
-  - attribute_name: GenSigSendType
-    attribute_value:
-      SignalAttributeValue:
+        - Double: 1000
+  - name: TheSignalStringAttribute
+    value:
+      Signal:
         - Extended: 57
         - TheSignal
-        - AttributeValueF64: 1
-  - attribute_name: GenSigSendType
-    attribute_value:
-      SignalAttributeValue:
+        - String: TestString
+  - name: GenSigSendType
+    value:
+      Signal:
+        - Extended: 57
+        - TheSignal
+        - Double: 1
+  - name: GenSigSendType
+    value:
+      Signal:
         - Standard: 42
         - TheSignal
-        - AttributeValueF64: 1
+        - Double: 1
 value_descriptions: []
 signal_type_refs: []
 signal_groups: []

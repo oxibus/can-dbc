@@ -105,18 +105,18 @@ Incomplete(
         value_tables: [],
         messages: [
             Message {
-                message_id: Standard(
+                id: Standard(
                     1,
                 ),
-                message_name: "SGMsg",
-                message_size: 8,
+                name: "SGMsg",
+                size: 8,
                 transmitter: VectorXXX,
                 signals: [
                     Signal {
                         name: "dupsig",
                         multiplexer_indicator: Plain,
                         start_bit: 16,
-                        signal_size: 8,
+                        size: 8,
                         byte_order: LittleEndian,
                         value_type: Signed,
                         factor: 1.0,
@@ -132,7 +132,7 @@ Incomplete(
                         name: "SG2",
                         multiplexer_indicator: Plain,
                         start_bit: 8,
-                        signal_size: 8,
+                        size: 8,
                         byte_order: LittleEndian,
                         value_type: Signed,
                         factor: 1.0,
@@ -148,7 +148,7 @@ Incomplete(
                         name: "SG1",
                         multiplexer_indicator: Plain,
                         start_bit: 0,
-                        signal_size: 8,
+                        size: 8,
                         byte_order: LittleEndian,
                         value_type: Signed,
                         factor: 1.0,
@@ -163,18 +163,18 @@ Incomplete(
                 ],
             },
             Message {
-                message_id: Standard(
+                id: Standard(
                     0,
                 ),
-                message_name: "NormalMsg",
-                message_size: 8,
+                name: "NormalMsg",
+                size: 8,
                 transmitter: VectorXXX,
                 signals: [
                     Signal {
                         name: "Sig_2",
                         multiplexer_indicator: Plain,
                         start_bit: 8,
-                        signal_size: 8,
+                        size: 8,
                         byte_order: LittleEndian,
                         value_type: Signed,
                         factor: 1.0,
@@ -190,7 +190,7 @@ Incomplete(
                         name: "Sig_1",
                         multiplexer_indicator: Plain,
                         start_bit: 0,
-                        signal_size: 8,
+                        size: 8,
                         byte_order: LittleEndian,
                         value_type: Signed,
                         factor: 1.0,
@@ -217,8 +217,8 @@ Incomplete(
         ],
         attribute_defaults: [
             AttributeDefault {
-                attribute_name: "BusType",
-                attribute_value: AttributeValueCharString(
+                name: "BusType",
+                value: String(
                     "CAN",
                 ),
             },

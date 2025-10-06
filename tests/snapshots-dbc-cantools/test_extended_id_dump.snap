@@ -36,16 +36,16 @@ nodes:
   - []
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Standard: 256
-    message_name: SomeFrame
-    message_size: 8
+    name: SomeFrame
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: SomeDifferentSig
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -55,16 +55,16 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Extended: 472525354
-    message_name: SomeExtFrame
-    message_size: 8
+    name: SomeExtFrame
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: SomeSig
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -82,9 +82,9 @@ comments: []
 attribute_definitions:
   - Plain: "\"BusType\" STRING "
 attribute_defaults:
-  - attribute_name: BusType
-    attribute_value:
-      AttributeValueCharString: ""
+  - name: BusType
+    value:
+      String: ""
 attribute_values: []
 value_descriptions: []
 signal_type_refs: []

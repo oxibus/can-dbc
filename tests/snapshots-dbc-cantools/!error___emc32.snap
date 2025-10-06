@@ -105,11 +105,11 @@ Incomplete(
         value_tables: [],
         messages: [
             Message {
-                message_id: Standard(
+                id: Standard(
                     546,
                 ),
-                message_name: "EMV_Stati",
-                message_size: 8,
+                name: "EMV_Stati",
+                size: 8,
                 transmitter: NodeName(
                     "EMV_Statusmeldungen",
                 ),
@@ -118,7 +118,7 @@ Incomplete(
                         name: "EMV_Aktion_Status_5",
                         multiplexer_indicator: Plain,
                         start_bit: 4,
-                        signal_size: 1,
+                        size: 1,
                         byte_order: LittleEndian,
                         value_type: Unsigned,
                         factor: 1.0,
@@ -134,7 +134,7 @@ Incomplete(
                         name: "EMV_Aktion_Status_4",
                         multiplexer_indicator: Plain,
                         start_bit: 3,
-                        signal_size: 1,
+                        size: 1,
                         byte_order: LittleEndian,
                         value_type: Unsigned,
                         factor: 1.0,
@@ -150,7 +150,7 @@ Incomplete(
                         name: "EMV_Aktion_Status_3",
                         multiplexer_indicator: Plain,
                         start_bit: 2,
-                        signal_size: 1,
+                        size: 1,
                         byte_order: LittleEndian,
                         value_type: Unsigned,
                         factor: 1.0,
@@ -166,7 +166,7 @@ Incomplete(
                         name: "EMV_Aktion_Status_2",
                         multiplexer_indicator: Plain,
                         start_bit: 6,
-                        signal_size: 1,
+                        size: 1,
                         byte_order: LittleEndian,
                         value_type: Unsigned,
                         factor: 1.0,
@@ -182,7 +182,7 @@ Incomplete(
                         name: "EMV_Aktion_Status_1",
                         multiplexer_indicator: Plain,
                         start_bit: 5,
-                        signal_size: 1,
+                        size: 1,
                         byte_order: LittleEndian,
                         value_type: Unsigned,
                         factor: 1.0,
@@ -200,8 +200,8 @@ Incomplete(
         message_transmitters: [],
         environment_variables: [
             EnvironmentVariable {
-                env_var_name: "EMC_TrdPower",
-                env_var_type: EnvTypeu64,
+                name: "EMC_TrdPower",
+                typ: U64,
                 min: 0,
                 max: 20000,
                 unit: "W",
@@ -209,7 +209,7 @@ Incomplete(
                 ev_id: 1,
                 access_type: DummyNodeVector0,
                 access_nodes: [
-                    AccessNodeName(
+                    Name(
                         "Vector__XXX",
                     ),
                 ],

@@ -33,9 +33,7 @@ cargo = { level = "warn", priority = -1 }
 pedantic = { level = "warn", priority = -1 }
 # TODO: fix these if it makes sense
 doc_markdown = "allow"     # 36
-enum_variant_names = "allow"     # 20
 must_use_candidate = "allow"     # 12
-struct_field_names = "allow"     # 10
 missing_errors_doc = "allow"      # 8
 similar_names = "allow"      # 4
 redundant_feature_names = "allow"      # 4
