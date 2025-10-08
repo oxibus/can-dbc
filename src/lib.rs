@@ -5,7 +5,9 @@ use std::convert::TryFrom;
 use derive_getters::Getters;
 use serde::{Deserialize, Serialize};
 
+mod extend;
 pub mod parser;
+pub use extend::*;
 
 #[cfg(test)]
 mod tests {
