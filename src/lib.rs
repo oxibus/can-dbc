@@ -1,11 +1,27 @@
 #![doc = include_str!("../README.md")]
 
+use std::borrow::Cow;
 use std::convert::TryFrom;
 
 use derive_getters::Getters;
 use serde::{Deserialize, Serialize};
 
 pub mod parser;
+
+/// Re-export of `encoding_rs` as encodings to simplify usage
+#[cfg(feature = "encodings")]
+pub use encoding_rs as encodings;
+
+/// A helper function to decode cp1252 bytes, as DBC files are often encoded in cp1252.
+#[cfg(feature = "encodings")]
+pub fn decode_cp1252(bytes: &[u8]) -> Option<Cow<'_, str>> {
+    let (cow, _, had_errors) = encodings::WINDOWS_1252.decode(bytes);
+    if had_errors {
+        None
+    } else {
+        Some(cow)
+    }
+}
 
 #[cfg(test)]
 mod tests {
@@ -102,7 +118,6 @@ SIG_VALTYPE_ 2000 Signal_8 : 1;
                         "Not all data in buffer was read {dbc:#?}, remaining unparsed: {remaining}",
                     ),
                     Error::MultipleMultiplexors => eprintln!("Multiple multiplexors defined"),
-                    Error::InvalidContent(e) => eprintln!("Invalid content: {e:?}"),
                 }
                 panic!("Failed to read DBC");
             }
@@ -241,8 +256,6 @@ pub enum Error<'a> {
     Nom(nom::Err<nom::error::Error<&'a str>>),
     /// Can't Lookup multiplexors because the message uses extended multiplexing.
     MultipleMultiplexors,
-    /// DBC file content is not valid UTF8
-    InvalidContent(std::str::Utf8Error),
 }
 
 /// Baudrate of network in kbit/s
@@ -604,13 +617,6 @@ pub struct Dbc {
 }
 
 impl Dbc {
-    /// Read a DBC from a buffer
-    #[allow(clippy::result_large_err)]
-    pub fn from_slice(buffer: &[u8]) -> Result<Dbc, Error<'_>> {
-        let dbc_in = std::str::from_utf8(buffer).map_err(Error::InvalidContent)?;
-        Self::try_from(dbc_in)
-    }
-
     #[allow(clippy::should_implement_trait)]
     #[deprecated(since = "4.0.0", note = "please use `Dbc::try_from` instead")]
     #[allow(clippy::result_large_err)]

@@ -1,11 +1,122 @@
 ---
 source: tests/test-snapshots.rs
 ---
-InvalidContent(
-    Utf8Error {
-        valid_up_to: 468,
-        error_len: Some(
-            1,
+Incomplete(
+    Dbc {
+        version: Version(
+            "",
         ),
+        new_symbols: [
+            Symbol(
+                "NS_DESC_",
+            ),
+            Symbol(
+                "CM_",
+            ),
+            Symbol(
+                "BA_DEF_",
+            ),
+            Symbol(
+                "BA_",
+            ),
+            Symbol(
+                "VAL_",
+            ),
+            Symbol(
+                "CAT_DEF_",
+            ),
+            Symbol(
+                "CAT_",
+            ),
+            Symbol(
+                "FILTER",
+            ),
+            Symbol(
+                "BA_DEF_DEF_",
+            ),
+            Symbol(
+                "EV_DATA_",
+            ),
+            Symbol(
+                "ENVVAR_DATA_",
+            ),
+            Symbol(
+                "SGTYPE_",
+            ),
+            Symbol(
+                "SGTYPE_VAL_",
+            ),
+            Symbol(
+                "BA_DEF_SGTYPE_",
+            ),
+            Symbol(
+                "BA_SGTYPE_",
+            ),
+            Symbol(
+                "SIG_TYPE_REF_",
+            ),
+            Symbol(
+                "VAL_TABLE_",
+            ),
+            Symbol(
+                "SIG_GROUP_",
+            ),
+            Symbol(
+                "SIG_VALTYPE_",
+            ),
+            Symbol(
+                "SIGTYPE_VALTYPE_",
+            ),
+            Symbol(
+                "BO_TX_BU_",
+            ),
+            Symbol(
+                "BA_DEF_REL_",
+            ),
+            Symbol(
+                "BA_REL_",
+            ),
+            Symbol(
+                "BA_DEF_DEF_REL_",
+            ),
+            Symbol(
+                "BU_SG_REL_",
+            ),
+            Symbol(
+                "BU_EV_REL_",
+            ),
+            Symbol(
+                "BU_BO_REL_",
+            ),
+            Symbol(
+                "SG_MUL_VAL_",
+            ),
+        ],
+        bit_timing: Some(
+            [],
+        ),
+        nodes: [
+            Node(
+                [
+                    "Node1",
+                ],
+            ),
+        ],
+        value_tables: [],
+        messages: [],
+        message_transmitters: [],
+        environment_variables: [],
+        environment_variable_data: [],
+        signal_types: [],
+        comments: [],
+        attribute_definitions: [],
+        attribute_defaults: [],
+        attribute_values: [],
+        value_descriptions: [],
+        signal_type_refs: [],
+        signal_groups: [],
+        signal_extended_value_type_list: [],
+        extended_multiplex: [],
     },
+    "CM_ BU_ Node1 \" !#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u{7f}€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ\u{a0}¡¢£¤¥¦§¨©ª«¬\u{ad}®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ\";\nBA_DEF_  \"BusType\" STRING ;\nBA_DEF_DEF_  \"BusType\" \"\";\n\n",
 )
