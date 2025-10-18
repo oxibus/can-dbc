@@ -12,7 +12,9 @@ rust-version = "1.74"
 
 [features]
 default = ["with-serde"]
-with-serde = ["dep:serde"]
+serde = ["dep:serde"]
+# This feature is deprecated per clippy::redundant_feature_names.  Use `serde` instead.
+with-serde = ["serde"]
 
 [dependencies]
 derive-getters = "0.5"
@@ -31,20 +33,14 @@ unused_qualifications = "warn"
 [lints.clippy]
 cargo = { level = "warn", priority = -1 }
 pedantic = { level = "warn", priority = -1 }
+# Verified allows
+ref_option = "allow"  # required by derive-getters
+redundant_feature_names = "allow"  # remove once with-serde feature is removed
 # TODO: fix these if it makes sense
-doc_markdown = "allow"     # 36
+#doc_markdown = "allow"     # 36
 enum_variant_names = "allow"     # 20
 must_use_candidate = "allow"     # 12
 struct_field_names = "allow"     # 10
 missing_errors_doc = "allow"      # 8
 similar_names = "allow"      # 4
-redundant_feature_names = "allow"      # 4
 needless_pass_by_value = "allow"      # 4
-cargo_common_metadata = "allow"      # 4
-upper_case_acronyms = "allow"      # 2
-trivially_copy_pass_by_ref = "allow"      # 2
-ref_option = "allow"      # 2
-match_wildcard_for_single_variants = "allow"      # 2
-cast_possible_truncation = "allow"      # 2
-match_same_arms = "allow"      # 1
-items_after_test_module = "allow"      # 1

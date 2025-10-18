@@ -16,11 +16,12 @@ use nom::{AsChar, IResult, Input, Parser};
 
 use crate::{
     AccessNode, AccessType, AttributeDefault, AttributeDefinition, AttributeValue,
-    AttributeValueForObject, AttributeValuedForObjectType, Baudrate, ByteOrder, Comment, EnvType,
-    EnvironmentVariable, EnvironmentVariableData, ExtendedMultiplex, ExtendedMultiplexMapping,
-    Message, MessageId, MessageTransmitter, MultiplexIndicator, Node, Signal,
-    SignalExtendedValueType, SignalExtendedValueTypeList, SignalGroups, SignalType, SignalTypeRef,
-    Symbol, Transmitter, ValDescription, ValueDescription, ValueTable, ValueType, Version, DBC,
+    AttributeValueForObject, AttributeValuedForObjectType, Baudrate, ByteOrder, Comment, Dbc,
+    EnvType, EnvironmentVariable, EnvironmentVariableData, ExtendedMultiplex,
+    ExtendedMultiplexMapping, Message, MessageId, MessageTransmitter, MultiplexIndicator, Node,
+    Signal, SignalExtendedValueType, SignalExtendedValueTypeList, SignalGroups, SignalType,
+    SignalTypeRef, Symbol, Transmitter, ValDescription, ValueDescription, ValueTable, ValueType,
+    Version,
 };
 
 fn is_semi_colon(chr: char) -> bool {
@@ -116,8 +117,8 @@ fn brk_close(s: &str) -> IResult<&str, char> {
     char(']').parse(s)
 }
 
-/// A valid C_identifier. C_identifiers start with a  alphacharacter or an underscore
-/// and may further consist of alpha­numeric, characters and underscore
+/// A valid `C_identifier`. `C_identifier`s start with an alpha character or an underscore
+/// and may further consist of alphanumeric characters and underscore
 fn c_ident(s: &str) -> IResult<&str, String> {
     let (s, head) = take_while1(is_c_ident_head).parse(s)?;
     let (s, remaining) = take_while(is_c_string_char).parse(s)?;
@@ -1026,7 +1027,7 @@ fn signal_groups(s: &str) -> IResult<&str, SignalGroups> {
     ))
 }
 
-pub fn dbc(s: &str) -> IResult<&str, DBC> {
+pub fn dbc(s: &str) -> IResult<&str, Dbc> {
     let (
         s,
         (
@@ -1075,7 +1076,7 @@ pub fn dbc(s: &str) -> IResult<&str, DBC> {
     let (s, _) = multispace0(s)?;
     Ok((
         s,
-        DBC {
+        Dbc {
             version,
             new_symbols,
             bit_timing,
@@ -1113,7 +1114,7 @@ mod tests {
         let (_, cid2) = c_ident(def2).unwrap();
         assert_eq!("_EALL_DUSasb18", cid2);
 
-        // identifiers must not start with digit1s
+        // identifiers must not start with digits
         let def3 = "3EALL_DUSasb18 ";
         let cid3_result = c_ident(def3);
         assert!(cid3_result.is_err());

@@ -27,7 +27,7 @@ fn main() -> io::Result<()> {
     f.read_to_end(&mut buffer)?;
     let dbc_in = std::str::from_utf8(&buffer).unwrap();
 
-    match can_dbc::DBC::try_from(dbc_in) {
+    match can_dbc::Dbc::try_from(dbc_in) {
         Ok(dbc_content) => println!("DBC Content{dbc_content:#?}"),
         Err(e) => {
             match e {
