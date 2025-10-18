@@ -3,16 +3,16 @@
 use std::fs;
 use std::path::Path;
 
-use insta::{assert_debug_snapshot, assert_yaml_snapshot, with_settings};
+use can_dbc::{decode_cp1252, Dbc};
+use insta::{assert_debug_snapshot, assert_snapshot, assert_yaml_snapshot, with_settings};
 
 /// Test parsing all DBC files
 #[test]
 fn test_cantools_dbc_files() {
-    let test_dirs = ["tests/shared-test-files/dbc-cantools"];
-    for path in &test_dirs {
+    let test_dirs = [("tests/shared-test-files/dbc-cantools", "dbc-cantools")];
+    for (path, file_name) in &test_dirs {
         let path = Path::new(path);
-        let snapshot_path =
-            String::from("snapshots-") + path.file_name().unwrap().to_str().unwrap();
+        let snapshot_path = String::from("snapshots-") + file_name;
         // snapshots should go to /tests/snapshots-* directory
         with_settings! {
             { omit_expression => true,
@@ -59,11 +59,17 @@ fn parse_one_file(path: &Path) {
     eprintln!("Testing DBC file: {}", path.display());
     let file_name = path.file_stem().unwrap().to_string_lossy().to_string();
     let buffer = fs::read(path).unwrap();
-    match can_dbc::DBC::from_slice(&buffer) {
-        Ok(dbc) => assert_yaml_snapshot!(file_name, dbc),
-        Err(e) => {
-            eprintln!("Failed to parse {file_name}.dbc: {e:?}");
-            assert_debug_snapshot!(format!("!error___{file_name}"), e);
+    if let Some(buffer) = decode_cp1252(&buffer) {
+        match Dbc::try_from(buffer.as_ref()) {
+            Ok(dbc) => assert_yaml_snapshot!(file_name, dbc),
+            Err(e) => {
+                eprintln!("Failed to parse {file_name}.dbc: {e:?}");
+                assert_debug_snapshot!(format!("!error___{file_name}"), e);
+            }
         }
+    } else {
+        let error = format!("Failed to decode {file_name}.dbc as cp1252");
+        eprintln!("{error}");
+        assert_snapshot!(format!("!error___{file_name}"), error);
     }
 }

@@ -3,7 +3,7 @@
 exclude: |
   (?x)^(
       .+\.(dbc|DBC)
-    | .*/docs/diagram\.svg
+    | docs/diagram\.svg
   )$
 
 repos:

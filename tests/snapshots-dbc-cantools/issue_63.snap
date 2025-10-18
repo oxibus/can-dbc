@@ -78,7 +78,7 @@ messages:
         offset: -273
         min: -273
         max: 1734.96875
-        unit: �C
+        unit: ï¿½C
         receivers:
           - Vector__XXX
       - name: RegenFailedCount

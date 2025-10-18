@@ -2,7 +2,7 @@
 source: tests/test-snapshots.rs
 ---
 Incomplete(
-    DBC {
+    Dbc {
         version: Version(
             "",
         ),
