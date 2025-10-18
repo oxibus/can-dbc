@@ -15,7 +15,7 @@ A CAN-dbc format parser written with Rust's [nom](https://github.com/Geal/nom) p
 Read dbc file and generate Rust structs based on the messages/signals defined in the dbc.
 
 ```rust,no_run
-use can_dbc::DBC;
+use can_dbc::Dbc;
 use codegen::Scope;
 
 use std::fs::File;
@@ -27,7 +27,7 @@ fn main() -> io::Result<()> {
     let mut buffer = Vec::new();
     f.read_to_end(&mut buffer)?;
 
-    let dbc = can_dbc::DBC::from_slice(&buffer).expect("Failed to parse dbc file");
+    let dbc = can_dbc::Dbc::from_slice(&buffer).expect("Failed to parse dbc file");
 
     let mut scope = Scope::new();
     for message in dbc.messages() {

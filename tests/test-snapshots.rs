@@ -59,7 +59,7 @@ fn parse_one_file(path: &Path) {
     eprintln!("Testing DBC file: {}", path.display());
     let file_name = path.file_stem().unwrap().to_string_lossy().to_string();
     let buffer = fs::read(path).unwrap();
-    match can_dbc::DBC::from_slice(&buffer) {
+    match can_dbc::Dbc::from_slice(&buffer) {
         Ok(dbc) => assert_yaml_snapshot!(file_name, dbc),
         Err(e) => {
             eprintln!("Failed to parse {file_name}.dbc: {e:?}");

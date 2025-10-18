@@ -16,11 +16,12 @@ use nom::{AsChar, IResult, Input, Parser};
 
 use crate::{
     AccessNode, AccessType, AttributeDefault, AttributeDefinition, AttributeValue,
-    AttributeValueForObject, AttributeValuedForObjectType, Baudrate, ByteOrder, Comment, EnvType,
-    EnvironmentVariable, EnvironmentVariableData, ExtendedMultiplex, ExtendedMultiplexMapping,
-    Message, MessageId, MessageTransmitter, MultiplexIndicator, Node, Signal,
-    SignalExtendedValueType, SignalExtendedValueTypeList, SignalGroups, SignalType, SignalTypeRef,
-    Symbol, Transmitter, ValDescription, ValueDescription, ValueTable, ValueType, Version, DBC,
+    AttributeValueForObject, AttributeValuedForObjectType, Baudrate, ByteOrder, Comment, Dbc,
+    EnvType, EnvironmentVariable, EnvironmentVariableData, ExtendedMultiplex,
+    ExtendedMultiplexMapping, Message, MessageId, MessageTransmitter, MultiplexIndicator, Node,
+    Signal, SignalExtendedValueType, SignalExtendedValueTypeList, SignalGroups, SignalType,
+    SignalTypeRef, Symbol, Transmitter, ValDescription, ValueDescription, ValueTable, ValueType,
+    Version,
 };
 
 fn is_semi_colon(chr: char) -> bool {
@@ -1026,7 +1027,7 @@ fn signal_groups(s: &str) -> IResult<&str, SignalGroups> {
     ))
 }
 
-pub fn dbc(s: &str) -> IResult<&str, DBC> {
+pub fn dbc(s: &str) -> IResult<&str, Dbc> {
     let (
         s,
         (
@@ -1075,7 +1076,7 @@ pub fn dbc(s: &str) -> IResult<&str, DBC> {
     let (s, _) = multispace0(s)?;
     Ok((
         s,
-        DBC {
+        Dbc {
             version,
             new_symbols,
             bit_timing,
