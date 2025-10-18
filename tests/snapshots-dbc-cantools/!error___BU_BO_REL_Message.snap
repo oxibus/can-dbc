@@ -106,11 +106,11 @@ Incomplete(
         value_tables: [],
         messages: [
             Message {
-                message_id: Standard(
+                id: Standard(
                     1,
                 ),
-                message_name: "message_1",
-                message_size: 7,
+                name: "message_1",
+                size: 7,
                 transmitter: NodeName(
                     "ECU1",
                 ),
@@ -119,7 +119,7 @@ Incomplete(
                         name: "signal_1",
                         multiplexer_indicator: Plain,
                         start_bit: 0,
-                        signal_size: 8,
+                        size: 8,
                         byte_order: LittleEndian,
                         value_type: Unsigned,
                         factor: 1.0,

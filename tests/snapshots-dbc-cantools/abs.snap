@@ -36,40 +36,40 @@ nodes:
   - - ABS
     - DRS_MM5_10
 value_tables:
-  - value_table_name: ABS_fault_info
-    value_descriptions:
-      - a: 2
-        b: active faults stored
-      - a: 1
-        b: inactive faults stored
-      - a: 0
-        b: no faults stored
-  - value_table_name: vt_WheelSpeedQualifier
-    value_descriptions:
-      - a: 5
-        b: InvalidUnderVoltage
-      - a: 4
-        b: NotCalculated
-      - a: 3
-        b: ReducedMonitored
-      - a: 2
-        b: Faulty
-      - a: 1
-        b: Normal
-      - a: 0
-        b: NotInitialized
+  - name: ABS_fault_info
+    descriptions:
+      - id: 2
+        description: active faults stored
+      - id: 1
+        description: inactive faults stored
+      - id: 0
+        description: no faults stored
+  - name: vt_WheelSpeedQualifier
+    descriptions:
+      - id: 5
+        description: InvalidUnderVoltage
+      - id: 4
+        description: NotCalculated
+      - id: 3
+        description: ReducedMonitored
+      - id: 2
+        description: Faulty
+      - id: 1
+        description: Normal
+      - id: 0
+        description: NotInitialized
 messages:
-  - message_id:
+  - id:
       Standard: 835
-    message_name: BREMSE_33
-    message_size: 8
+    name: BREMSE_33
+    size: 8
     transmitter:
       NodeName: ABS
     signals:
       - name: whlspeed_FL
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.015625
@@ -82,7 +82,7 @@ messages:
       - name: whlspeed_FR
         multiplexer_indicator: Plain
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.015625
@@ -95,7 +95,7 @@ messages:
       - name: whlspeed_RL
         multiplexer_indicator: Plain
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.015625
@@ -108,7 +108,7 @@ messages:
       - name: whlspeed_RR
         multiplexer_indicator: Plain
         start_bit: 48
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.015625
@@ -118,52 +118,52 @@ messages:
         unit: m/s
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Standard: 320
-    message_name: BREMSE_10
-    message_size: 8
+    name: BREMSE_10
+    size: 8
     transmitter:
       NodeName: ABS
     signals: []
-  - message_id:
+  - id:
       Standard: 321
-    message_name: BREMSE_11
-    message_size: 8
+    name: BREMSE_11
+    size: 8
     transmitter:
       NodeName: ABS
     signals: []
-  - message_id:
+  - id:
       Standard: 322
-    message_name: BREMSE_12
-    message_size: 8
+    name: BREMSE_12
+    size: 8
     transmitter:
       NodeName: ABS
     signals: []
-  - message_id:
+  - id:
       Standard: 323
-    message_name: BREMSE_13
-    message_size: 8
+    name: BREMSE_13
+    size: 8
     transmitter:
       NodeName: ABS
     signals: []
-  - message_id:
+  - id:
       Standard: 117
-    message_name: DRS_RX_ID0
-    message_size: 8
+    name: DRS_RX_ID0
+    size: 8
     transmitter:
       NodeName: ABS
     signals: []
-  - message_id:
+  - id:
       Standard: 112
-    message_name: MM5_10_TX1
-    message_size: 8
+    name: MM5_10_TX1
+    size: 8
     transmitter:
       NodeName: DRS_MM5_10
     signals:
       - name: Yaw_Rate
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.005
@@ -176,7 +176,7 @@ messages:
       - name: AY1
         multiplexer_indicator: Plain
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.000127465
@@ -186,17 +186,17 @@ messages:
         unit: g
         receivers:
           - ABS
-  - message_id:
+  - id:
       Standard: 128
-    message_name: MM5_10_TX2
-    message_size: 8
+    name: MM5_10_TX2
+    size: 8
     transmitter:
       NodeName: DRS_MM5_10
     signals:
       - name: Roll_Rate
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.005
@@ -209,7 +209,7 @@ messages:
       - name: AX1
         multiplexer_indicator: Plain
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.000127465
@@ -219,17 +219,17 @@ messages:
         unit: g
         receivers:
           - ABS
-  - message_id:
+  - id:
       Standard: 1398
-    message_name: MM5_10_TX3
-    message_size: 8
+    name: MM5_10_TX3
+    size: 8
     transmitter:
       NodeName: DRS_MM5_10
     signals:
       - name: AZ
         multiplexer_indicator: Plain
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.000127465
@@ -239,17 +239,17 @@ messages:
         unit: g
         receivers:
           - ABS
-  - message_id:
+  - id:
       Standard: 586
-    message_name: BREMSE_2
-    message_size: 8
+    name: BREMSE_2
+    size: 8
     transmitter:
       NodeName: ABS
     signals:
       - name: whlspeed_FL_Bremse2
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.015625
@@ -262,7 +262,7 @@ messages:
       - name: whlspeed_FR_Bremse2
         multiplexer_indicator: Plain
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.015625
@@ -275,7 +275,7 @@ messages:
       - name: whlspeed_RL_Bremse2
         multiplexer_indicator: Plain
         start_bit: 32
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.015625
@@ -288,7 +288,7 @@ messages:
       - name: whlspeed_RR_Bremse2
         multiplexer_indicator: Plain
         start_bit: 48
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.015625
@@ -298,16 +298,16 @@ messages:
         unit: m/s
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Standard: 588
-    message_name: ABS_Switch
-    message_size: 8
+    name: ABS_Switch
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: ABS_Switchposition
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -317,24 +317,24 @@ messages:
         unit: ""
         receivers:
           - ABS
-  - message_id:
+  - id:
       Standard: 832
-    message_name: BREMSE_30
-    message_size: 8
+    name: BREMSE_30
+    size: 8
     transmitter:
       NodeName: ABS
     signals: []
-  - message_id:
+  - id:
       Standard: 833
-    message_name: BREMSE_31
-    message_size: 8
+    name: BREMSE_31
+    size: 8
     transmitter:
       NodeName: ABS
     signals:
       - name: Idle_Time
         multiplexer_indicator: Plain
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -344,17 +344,17 @@ messages:
         unit: "-"
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Standard: 834
-    message_name: BREMSE_32
-    message_size: 8
+    name: BREMSE_32
+    size: 8
     transmitter:
       NodeName: ABS
     signals:
       - name: acc_FA
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.05
@@ -367,7 +367,7 @@ messages:
       - name: acc_RA
         multiplexer_indicator: Plain
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.05
@@ -380,7 +380,7 @@ messages:
       - name: WheelQuality_FL
         multiplexer_indicator: Plain
         start_bit: 32
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -393,7 +393,7 @@ messages:
       - name: WheelQuality_FR
         multiplexer_indicator: Plain
         start_bit: 40
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -406,7 +406,7 @@ messages:
       - name: WheelQuality_RL
         multiplexer_indicator: Plain
         start_bit: 48
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -419,7 +419,7 @@ messages:
       - name: WheelQuality_RR
         multiplexer_indicator: Plain
         start_bit: 56
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -429,17 +429,17 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Standard: 1345
-    message_name: BREMSE_51
-    message_size: 8
+    name: BREMSE_51
+    size: 8
     transmitter:
       NodeName: ABS
     signals:
       - name: AX1_ABS_int
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.00012742
@@ -452,7 +452,7 @@ messages:
       - name: AY1_ABS_int
         multiplexer_indicator: Plain
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.00012742
@@ -465,7 +465,7 @@ messages:
       - name: IF_variant
         multiplexer_indicator: Plain
         start_bit: 48
-        signal_size: 6
+        size: 6
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -478,7 +478,7 @@ messages:
       - name: IF_revision
         multiplexer_indicator: Plain
         start_bit: 54
-        signal_size: 6
+        size: 6
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -491,7 +491,7 @@ messages:
       - name: IF_chksum
         multiplexer_indicator: Plain
         start_bit: 60
-        signal_size: 4
+        size: 4
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -501,17 +501,17 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Standard: 1346
-    message_name: BREMSE_52
-    message_size: 8
+    name: BREMSE_52
+    size: 8
     transmitter:
       NodeName: ABS
     signals:
       - name: Mplx_SW_Info
         multiplexer_indicator: Multiplexor
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -525,7 +525,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 1
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -539,7 +539,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 1
         start_bit: 16
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -553,7 +553,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 1
         start_bit: 24
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -567,7 +567,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 1
         start_bit: 32
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -581,7 +581,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 1
         start_bit: 40
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -595,7 +595,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 1
         start_bit: 48
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -609,7 +609,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 2
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -623,7 +623,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 2
         start_bit: 16
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -637,7 +637,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 2
         start_bit: 24
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -651,7 +651,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 2
         start_bit: 32
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -665,7 +665,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 2
         start_bit: 40
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -679,7 +679,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 2
         start_bit: 48
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -693,7 +693,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 2
         start_bit: 56
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -707,7 +707,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 3
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -721,7 +721,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 3
         start_bit: 16
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -735,7 +735,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 3
         start_bit: 24
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -749,7 +749,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 3
         start_bit: 32
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -763,7 +763,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 3
         start_bit: 40
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -777,7 +777,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 3
         start_bit: 48
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -791,7 +791,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 3
         start_bit: 56
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -805,7 +805,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 4
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -819,7 +819,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 4
         start_bit: 16
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -833,7 +833,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 4
         start_bit: 24
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -847,7 +847,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 4
         start_bit: 32
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -861,7 +861,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 4
         start_bit: 40
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -875,7 +875,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 4
         start_bit: 48
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -889,7 +889,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 4
         start_bit: 56
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -903,7 +903,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 5
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -917,7 +917,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 5
         start_bit: 16
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -931,7 +931,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 5
         start_bit: 24
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -945,7 +945,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 5
         start_bit: 32
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -959,7 +959,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 5
         start_bit: 40
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -973,7 +973,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 5
         start_bit: 48
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -987,7 +987,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 6
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1001,7 +1001,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 7
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1015,7 +1015,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 7
         start_bit: 16
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1029,7 +1029,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 7
         start_bit: 24
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1043,7 +1043,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 7
         start_bit: 32
-        signal_size: 32
+        size: 32
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1053,17 +1053,17 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Standard: 1376
-    message_name: BREMSE_50
-    message_size: 8
+    name: BREMSE_50
+    size: 8
     transmitter:
       NodeName: ABS
     signals:
       - name: Brake_bal_at50
         multiplexer_indicator: Plain
         start_bit: 16
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.1
@@ -1076,7 +1076,7 @@ messages:
       - name: Brake_bal_at50_advice
         multiplexer_indicator: Plain
         start_bit: 32
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1089,7 +1089,7 @@ messages:
       - name: Brake_bal_pct
         multiplexer_indicator: Plain
         start_bit: 40
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 0.1
@@ -1102,7 +1102,7 @@ messages:
       - name: Brake_bal_pct_advice
         multiplexer_indicator: Plain
         start_bit: 56
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1112,17 +1112,17 @@ messages:
         unit: "%"
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Standard: 1472
-    message_name: BREMSE_53
-    message_size: 8
+    name: BREMSE_53
+    size: 8
     transmitter:
       NodeName: ABS
     signals:
       - name: SwitchPosition
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1135,7 +1135,7 @@ messages:
       - name: P_FA
         multiplexer_indicator: Plain
         start_bit: 8
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Signed
         factor: 0.01526
@@ -1148,7 +1148,7 @@ messages:
       - name: BLS
         multiplexer_indicator: Plain
         start_bit: 24
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1161,7 +1161,7 @@ messages:
       - name: Bremse_53_cnt
         multiplexer_indicator: Plain
         start_bit: 26
-        signal_size: 2
+        size: 2
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1174,7 +1174,7 @@ messages:
       - name: ABS_Malfunction
         multiplexer_indicator: Plain
         start_bit: 28
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1187,7 +1187,7 @@ messages:
       - name: ABS_Active
         multiplexer_indicator: Plain
         start_bit: 29
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1200,7 +1200,7 @@ messages:
       - name: EBD_Lamp
         multiplexer_indicator: Plain
         start_bit: 30
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1213,7 +1213,7 @@ messages:
       - name: ABS_Lamp
         multiplexer_indicator: Plain
         start_bit: 31
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1226,7 +1226,7 @@ messages:
       - name: Diag_FL
         multiplexer_indicator: Plain
         start_bit: 32
-        signal_size: 2
+        size: 2
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1239,7 +1239,7 @@ messages:
       - name: Diag_FR
         multiplexer_indicator: Plain
         start_bit: 34
-        signal_size: 2
+        size: 2
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1252,7 +1252,7 @@ messages:
       - name: Diag_RL
         multiplexer_indicator: Plain
         start_bit: 36
-        signal_size: 2
+        size: 2
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1265,7 +1265,7 @@ messages:
       - name: Diag_RR
         multiplexer_indicator: Plain
         start_bit: 38
-        signal_size: 2
+        size: 2
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1278,7 +1278,7 @@ messages:
       - name: Diag_ABSUnit
         multiplexer_indicator: Plain
         start_bit: 40
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1291,7 +1291,7 @@ messages:
       - name: Diag_FuseValve
         multiplexer_indicator: Plain
         start_bit: 41
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1304,7 +1304,7 @@ messages:
       - name: Diag_FusePump
         multiplexer_indicator: Plain
         start_bit: 42
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1317,7 +1317,7 @@ messages:
       - name: Diag_P_FA
         multiplexer_indicator: Plain
         start_bit: 43
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1330,7 +1330,7 @@ messages:
       - name: Diag_P_RA
         multiplexer_indicator: Plain
         start_bit: 44
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1343,7 +1343,7 @@ messages:
       - name: Diag_YRS
         multiplexer_indicator: Plain
         start_bit: 45
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1356,7 +1356,7 @@ messages:
       - name: ABS_fault_info
         multiplexer_indicator: Plain
         start_bit: 46
-        signal_size: 2
+        size: 2
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -1369,7 +1369,7 @@ messages:
       - name: P_RA
         multiplexer_indicator: Plain
         start_bit: 48
-        signal_size: 16
+        size: 16
         byte_order: LittleEndian
         value_type: Signed
         factor: 0.01526
@@ -1389,473 +1389,473 @@ comments:
   - Signal:
       message_id:
         Standard: 835
-      signal_name: whlspeed_FL
+      name: whlspeed_FL
       comment: Radgeschwindigkeit / wheel speed absCtrl FL
   - Signal:
       message_id:
         Standard: 835
-      signal_name: whlspeed_FR
+      name: whlspeed_FR
       comment: Radgeschwindigkeit / wheel speed absCtrl FR
   - Signal:
       message_id:
         Standard: 835
-      signal_name: whlspeed_RL
+      name: whlspeed_RL
       comment: Radgeschwindigkeit / wheel speed absCtrl RL
   - Signal:
       message_id:
         Standard: 835
-      signal_name: whlspeed_RR
+      name: whlspeed_RR
       comment: Radgeschwindigkeit / wheel speed absCtrl RR
   - Signal:
       message_id:
         Standard: 112
-      signal_name: Yaw_Rate
+      name: Yaw_Rate
       comment: Measured yaw rate around the Z axle.
   - Signal:
       message_id:
         Standard: 112
-      signal_name: AY1
+      name: AY1
       comment: Measured lateral acceleration.
   - Signal:
       message_id:
         Standard: 128
-      signal_name: Roll_Rate
+      name: Roll_Rate
       comment: Measured roll rate around the X axle.
   - Signal:
       message_id:
         Standard: 128
-      signal_name: AX1
+      name: AX1
       comment: Measured longitudional acceleration.
   - Signal:
       message_id:
         Standard: 1398
-      signal_name: AZ
+      name: AZ
       comment: Measured vertical acceleration.
   - Signal:
       message_id:
         Standard: 586
-      signal_name: whlspeed_FL_Bremse2
+      name: whlspeed_FL_Bremse2
       comment: Radgeschwindigkeit / wheel speed direct FL
   - Signal:
       message_id:
         Standard: 586
-      signal_name: whlspeed_FR_Bremse2
+      name: whlspeed_FR_Bremse2
       comment: Radgeschwindigkeit / wheel speed direct FR
   - Signal:
       message_id:
         Standard: 586
-      signal_name: whlspeed_RL_Bremse2
+      name: whlspeed_RL_Bremse2
       comment: Radgeschwindigkeit / wheel speed direct RL
   - Signal:
       message_id:
         Standard: 586
-      signal_name: whlspeed_RR_Bremse2
+      name: whlspeed_RR_Bremse2
       comment: Radgeschwindigkeit / wheel speed direct RR
   - Signal:
       message_id:
         Standard: 588
-      signal_name: ABS_Switchposition
+      name: ABS_Switchposition
       comment: Channel to send the swich position via CAN to the ABS.
   - Signal:
       message_id:
         Standard: 834
-      signal_name: acc_FA
+      name: acc_FA
       comment: Fill level of the fluid reservoir of the front axle.
   - Signal:
       message_id:
         Standard: 834
-      signal_name: acc_RA
+      name: acc_RA
       comment: Fill level of the fluid reservoir of the rear axle.
   - Signal:
       message_id:
         Standard: 834
-      signal_name: WheelQuality_FL
+      name: WheelQuality_FL
       comment: "Bit matrix\nBit0 ( 1) Signal Reduced Monitored\nBit1 ( 2) Reduced Accuracy\nBit2 ( 4) Interfered\nBit3 ( 8) Suspicious Plausibility\nBit4 (16) Suspicious Lost\nBit5 (32) Not Initialized\nBit6 (64) Invalid Generic\nBit7 (128) Invalid Individual"
   - Signal:
       message_id:
         Standard: 834
-      signal_name: WheelQuality_FR
+      name: WheelQuality_FR
       comment: "Bit matrix\nBit0 ( 1) Signal Reduced Monitored\nBit1 ( 2) Reduced Accuracy\nBit2 ( 4) Interfered\nBit3 ( 8) Suspicious Plausibility\nBit4 (16) Suspicious Lost\nBit5 (32) Not Initialized\nBit6 (64) Invalid Generic\nBit7 (128) Invalid Individual"
   - Signal:
       message_id:
         Standard: 834
-      signal_name: WheelQuality_RL
+      name: WheelQuality_RL
       comment: "Bit matrix\nBit0 ( 1) Signal Reduced Monitored\nBit1 ( 2) Reduced Accuracy\nBit2 ( 4) Interfered\nBit3 ( 8) Suspicious Plausibility\nBit4 (16) Suspicious Lost\nBit5 (32) Not Initialized\nBit6 (64) Invalid Generic\nBit7 (128) Invalid Individual"
   - Signal:
       message_id:
         Standard: 834
-      signal_name: WheelQuality_RR
+      name: WheelQuality_RR
       comment: "Bit matrix\nBit0 ( 1) Signal Reduced Monitored\nBit1 ( 2) Reduced Accuracy\nBit2 ( 4) Interfered\nBit3 ( 8) Suspicious Plausibility\nBit4 (16) Suspicious Lost\nBit5 (32) Not Initialized\nBit6 (64) Invalid Generic\nBit7 (128) Invalid Individual"
   - Signal:
       message_id:
         Standard: 1345
-      signal_name: AX1_ABS_int
+      name: AX1_ABS_int
       comment: Used longitudional acceleration value in the ABS.
   - Signal:
       message_id:
         Standard: 1345
-      signal_name: AY1_ABS_int
+      name: AY1_ABS_int
       comment: Used lateral acceleration value in the ABS.
   - Signal:
       message_id:
         Standard: 1345
-      signal_name: IF_variant
+      name: IF_variant
       comment: external info to e.g. MS6 which dbc has to be used. This index increments on changes that make the MS6 interface incompatible to the predecessor CAN interface implementation
   - Signal:
       message_id:
         Standard: 1345
-      signal_name: IF_revision
+      name: IF_revision
       comment: external info to e.g. MS6 which dbc has to be used. This index increments with added features (rest of MS6 interface stays intact.)
   - Signal:
       message_id:
         Standard: 1345
-      signal_name: IF_chksum
+      name: IF_chksum
       comment: "external info to e.g. MS6 which dbc has to be used. Checksum "
   - Signal:
       message_id:
         Standard: 1346
-      signal_name: Mplx_SW_Info
+      name: Mplx_SW_Info
       comment: "1=SW version; 2=BB#; 3,4=application name; 5=application date (UTC); 6=deviceType (SW CAN ident, ABS M5=2, ABS M6=3); 7=Serial#"
   - Signal:
       message_id:
         Standard: 1346
-      signal_name: SW_version_High_upper
+      name: SW_version_High_upper
       comment: "version 1.0 as 0x01(upper), version 100.20 as 0x64(upper)"
   - Signal:
       message_id:
         Standard: 1346
-      signal_name: SW_version_High_lower
+      name: SW_version_High_lower
       comment: "version 1.0 as 0x00(lower), version 100.20 as 0x14(lower)"
   - Signal:
       message_id:
         Standard: 1346
-      signal_name: SW_version_Mid_upper
+      name: SW_version_Mid_upper
       comment: "version 1.0 as 0x01(upper), version 100.20 as 0x64(upper)"
   - Signal:
       message_id:
         Standard: 1346
-      signal_name: SW_version_Mid_lower
+      name: SW_version_Mid_lower
       comment: "version 1.0 as 0x00(lower), version 100.20 as 0x14(lower)"
   - Signal:
       message_id:
         Standard: 1346
-      signal_name: SW_version_Low_upper
+      name: SW_version_Low_upper
       comment: "version 1.0 as 0x01(upper), version 100.20 as 0x64(upper)"
   - Signal:
       message_id:
         Standard: 1346
-      signal_name: SW_version_Low_lower
+      name: SW_version_Low_lower
       comment: "version 1.0 as 0x00(lower), version 100.20 as 0x14(lower)"
   - Signal:
       message_id:
         Standard: 1346
-      signal_name: Appl_date_01
+      name: Appl_date_01
       comment: year
   - Signal:
       message_id:
         Standard: 1346
-      signal_name: Appl_date_02
+      name: Appl_date_02
       comment: month
   - Signal:
       message_id:
         Standard: 1346
-      signal_name: Appl_date_03
+      name: Appl_date_03
       comment: day
   - Signal:
       message_id:
         Standard: 1346
-      signal_name: Appl_date_04
+      name: Appl_date_04
       comment: hour
   - Signal:
       message_id:
         Standard: 1346
-      signal_name: Appl_date_05
+      name: Appl_date_05
       comment: minute
   - Signal:
       message_id:
         Standard: 1346
-      signal_name: Appl_date_06
+      name: Appl_date_06
       comment: seconds
   - Signal:
       message_id:
         Standard: 1376
-      signal_name: Brake_bal_at50
+      name: Brake_bal_at50
       comment: Calculated rear axle brake pressure if the front pressure is at 50 bar.
   - Signal:
       message_id:
         Standard: 1376
-      signal_name: Brake_bal_at50_advice
+      name: Brake_bal_at50_advice
       comment: Recommended rear axle brake pressure if the front pressure is at 50 bar.
   - Signal:
       message_id:
         Standard: 1376
-      signal_name: Brake_bal_pct
+      name: Brake_bal_pct
       comment: "Percental brake balance on the front axle. "
   - Signal:
       message_id:
         Standard: 1376
-      signal_name: Brake_bal_pct_advice
+      name: Brake_bal_pct_advice
       comment: "Recommended percental brake balance on the front axle. "
   - Signal:
       message_id:
         Standard: 1472
-      signal_name: SwitchPosition
+      name: SwitchPosition
       comment: Used switch position of the ABS.
   - Signal:
       message_id:
         Standard: 1472
-      signal_name: P_FA
+      name: P_FA
       comment: Brake pressure on the front axle.
   - Signal:
       message_id:
         Standard: 1472
-      signal_name: BLS
+      name: BLS
       comment: Bit for the brake light switch.
   - Signal:
       message_id:
         Standard: 1472
-      signal_name: ABS_Malfunction
+      name: ABS_Malfunction
       comment: "Bit will jump to 1, if the ABS control is deactivated by a fault."
   - Signal:
       message_id:
         Standard: 1472
-      signal_name: ABS_Active
+      name: ABS_Active
       comment: "Bit will jump to 1, when the ABS control is active."
   - Signal:
       message_id:
         Standard: 1472
-      signal_name: EBD_Lamp
+      name: EBD_Lamp
       comment: "Bit will jump to 1, when the EBD is deactivated due to a fault."
   - Signal:
       message_id:
         Standard: 1472
-      signal_name: ABS_Lamp
+      name: ABS_Lamp
       comment: "Bit will jump to 1, when the ABS control is deactivated due to a fault, switch to the off position or while working with RaceABS."
   - Signal:
       message_id:
         Standard: 1472
-      signal_name: Diag_FL
+      name: Diag_FL
       comment: "Value to show faults related to the wheel speed sensor. \n0 - Signal ok, 1 - Wiring related fault, 2 - Signal related fault"
   - Signal:
       message_id:
         Standard: 1472
-      signal_name: Diag_FR
+      name: Diag_FR
       comment: "Value to show faults related to the wheel speed sensor. \n0 - Signal ok, 1 - Wiring related fault, 2 - Signal related fault"
   - Signal:
       message_id:
         Standard: 1472
-      signal_name: Diag_RL
+      name: Diag_RL
       comment: "Value to show faults related to the wheel speed sensor. \n0 - Signal ok, 1 - Wiring related fault, 2 - Signal related fault"
   - Signal:
       message_id:
         Standard: 1472
-      signal_name: Diag_RR
+      name: Diag_RR
       comment: "Value to show faults related to the wheel speed sensor. \n0 - Signal ok, 1 - Wiring related fault, 2 - Signal related fault"
   - Signal:
       message_id:
         Standard: 1472
-      signal_name: Diag_ABSUnit
+      name: Diag_ABSUnit
       comment: "Bit to show, if a ABS error related to the hydraulic unit is present"
   - Signal:
       message_id:
         Standard: 1472
-      signal_name: Diag_FuseValve
+      name: Diag_FuseValve
       comment: "Bit to show, if a ABS error related to the fuse or power supply of the ABS valves is present."
   - Signal:
       message_id:
         Standard: 1472
-      signal_name: Diag_FusePump
+      name: Diag_FusePump
       comment: "Bit to show, if a ABS error related to the fuse or power supply of the ABS pump is present."
   - Signal:
       message_id:
         Standard: 1472
-      signal_name: Diag_P_FA
+      name: Diag_P_FA
       comment: "Bit to show, if the pressure sensor FA is working properly. An error is pressent, if the bit is 1."
   - Signal:
       message_id:
         Standard: 1472
-      signal_name: Diag_P_RA
+      name: Diag_P_RA
       comment: "Bit to show, if the pressure sensor RA is working properly. An error is pressent, if the bit is 1."
   - Signal:
       message_id:
         Standard: 1472
-      signal_name: Diag_YRS
+      name: Diag_YRS
       comment: "Bit to show, if the yaw rate sensor is working properly. An error is pressent, if the bit is 1."
   - Signal:
       message_id:
         Standard: 1472
-      signal_name: ABS_fault_info
+      name: ABS_fault_info
       comment: Bit matrix to show if a fault or a active fault is stored in the ABS. Bit will also show minor errors which do  not shut down the ABS controller.
   - Signal:
       message_id:
         Standard: 1472
-      signal_name: P_RA
+      name: P_RA
       comment: Brake pressure on the rear axle.
 attribute_definitions:
   - Message: "\"GenMsgCycleTime\" INT 1 3000"
   - Message: "\"VFrameFormat\" ENUM  \"StandardCAN\",\"ExtendedCAN\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"StandardCAN_FD\",\"ExtendedCAN_FD\""
   - Plain: "\"BusType\" STRING "
 attribute_defaults:
-  - attribute_name: GenMsgCycleTime
-    attribute_value:
-      AttributeValueF64: 10
-  - attribute_name: VFrameFormat
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: BusType
-    attribute_value:
-      AttributeValueCharString: CAN
+  - name: GenMsgCycleTime
+    value:
+      Double: 10
+  - name: VFrameFormat
+    value:
+      String: ""
+  - name: BusType
+    value:
+      String: CAN
 attribute_values:
-  - attribute_name: BusType
-    attribute_value:
-      RawAttributeValue:
-        AttributeValueCharString: CAN
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+  - name: BusType
+    value:
+      Raw:
+        String: CAN
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Standard: 835
-        - AttributeValueF64: 0
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 0
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Standard: 320
-        - AttributeValueF64: 0
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 0
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Standard: 321
-        - AttributeValueF64: 0
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 0
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Standard: 322
-        - AttributeValueF64: 0
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 0
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Standard: 323
-        - AttributeValueF64: 0
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 0
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Standard: 117
-        - AttributeValueF64: 0
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 0
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Standard: 112
-        - AttributeValueF64: 0
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 0
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Standard: 128
-        - AttributeValueF64: 0
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 0
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Standard: 1398
-        - AttributeValueF64: 0
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 0
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Standard: 586
-        - AttributeValueF64: 0
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 0
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Standard: 588
-        - AttributeValueF64: 0
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 0
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Standard: 832
-        - AttributeValueF64: 0
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 0
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Standard: 833
-        - AttributeValueF64: 0
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 0
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Standard: 834
-        - AttributeValueF64: 0
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 0
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Standard: 1345
-        - AttributeValueF64: 0
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 0
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Standard: 1346
-        - AttributeValueF64: 0
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 0
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Standard: 1376
-        - AttributeValueF64: 0
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+        - Double: 0
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Standard: 1472
-        - AttributeValueF64: 0
+        - Double: 0
 value_descriptions:
   - Signal:
       message_id:
         Standard: 1472
-      signal_name: Diag_FL
+      name: Diag_FL
       value_descriptions:
-        - a: 2
-          b: Signal error
-        - a: 1
-          b: Line error
-        - a: 0
-          b: Signal ok
+        - id: 2
+          description: Signal error
+        - id: 1
+          description: Line error
+        - id: 0
+          description: Signal ok
   - Signal:
       message_id:
         Standard: 1472
-      signal_name: Diag_FR
+      name: Diag_FR
       value_descriptions:
-        - a: 2
-          b: Signal error
-        - a: 1
-          b: Line error
-        - a: 0
-          b: Signal ok
+        - id: 2
+          description: Signal error
+        - id: 1
+          description: Line error
+        - id: 0
+          description: Signal ok
   - Signal:
       message_id:
         Standard: 1472
-      signal_name: Diag_RL
+      name: Diag_RL
       value_descriptions:
-        - a: 2
-          b: Signal error
-        - a: 1
-          b: Line error
-        - a: 0
-          b: Signal ok
+        - id: 2
+          description: Signal error
+        - id: 1
+          description: Line error
+        - id: 0
+          description: Signal ok
   - Signal:
       message_id:
         Standard: 1472
-      signal_name: Diag_RR
+      name: Diag_RR
       value_descriptions:
-        - a: 2
-          b: Signal error
-        - a: 1
-          b: Line error
-        - a: 0
-          b: Signal ok
+        - id: 2
+          description: Signal error
+        - id: 1
+          description: Line error
+        - id: 0
+          description: Signal ok
   - Signal:
       message_id:
         Standard: 1472
-      signal_name: ABS_fault_info
+      name: ABS_fault_info
       value_descriptions:
-        - a: 2
-          b: active faults stored
-        - a: 1
-          b: inactive faults stored
-        - a: 0
-          b: no faults stored
+        - id: 2
+          description: active faults stored
+        - id: 1
+          description: inactive faults stored
+        - id: 0
+          description: no faults stored
 signal_type_refs: []
 signal_groups: []
 signal_extended_value_type_list: []

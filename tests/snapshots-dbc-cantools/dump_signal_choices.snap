@@ -28,17 +28,17 @@ nodes:
   - - Node0
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Standard: 1024
-    message_name: Message0
-    message_size: 8
+    name: Message0
+    size: 8
     transmitter:
       NodeName: Node0
     signals:
       - name: FooSignal
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 2
+        size: 2
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -51,7 +51,7 @@ messages:
       - name: BarSignal
         multiplexer_indicator: Plain
         start_bit: 2
-        signal_size: 3
+        size: 3
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -73,37 +73,37 @@ value_descriptions:
   - Signal:
       message_id:
         Standard: 1024
-      signal_name: FooSignal
+      name: FooSignal
       value_descriptions:
-        - a: 0
-          b: FOO_A
-        - a: 1
-          b: FOO_B
-        - a: 2
-          b: FOO_C
-        - a: 3
-          b: FOO_D
+        - id: 0
+          description: FOO_A
+        - id: 1
+          description: FOO_B
+        - id: 2
+          description: FOO_C
+        - id: 3
+          description: FOO_D
   - Signal:
       message_id:
         Standard: 1024
-      signal_name: BarSignal
+      name: BarSignal
       value_descriptions:
-        - a: 0
-          b: BAR_A
-        - a: 1
-          b: BAR_B
-        - a: 2
-          b: BAR_C
-        - a: 3
-          b: BAR_D
-        - a: 4
-          b: BAR_E
-        - a: 5
-          b: BAR_F
-        - a: 6
-          b: BAR_G
-        - a: 7
-          b: BAR_H
+        - id: 0
+          description: BAR_A
+        - id: 1
+          description: BAR_B
+        - id: 2
+          description: BAR_C
+        - id: 3
+          description: BAR_D
+        - id: 4
+          description: BAR_E
+        - id: 5
+          description: BAR_F
+        - id: 6
+          description: BAR_G
+        - id: 7
+          description: BAR_H
 signal_type_refs: []
 signal_groups: []
 signal_extended_value_type_list: []

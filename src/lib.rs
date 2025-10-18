@@ -167,8 +167,8 @@ SIG_VALTYPE_ 2000 Signal_8 : 1;
             .expect("Message comment missing");
 
         let exp = vec![ValDescription {
-            a: 255.0,
-            b: "NOP".to_string(),
+            id: 255.0,
+            description: "NOP".to_string(),
         }];
         assert_eq!(exp, val_descriptions);
     }
@@ -270,7 +270,7 @@ pub struct Signal {
     name: String,
     multiplexer_indicator: MultiplexIndicator,
     pub start_bit: u64,
-    pub signal_size: u64,
+    pub size: u64,
     byte_order: ByteOrder,
     value_type: ValueType,
     pub factor: f64,
@@ -348,14 +348,14 @@ pub enum ValueType {
 
 #[derive(Copy, Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub enum EnvType {
-    EnvTypeFloat,
-    EnvTypeu64,
-    EnvTypeData,
+    Float,
+    U64,
+    Data,
 }
 
 #[derive(Clone, Debug, PartialEq, Getters, Serialize, Deserialize)]
 pub struct SignalType {
-    signal_type_name: String,
+    name: String,
     signal_size: u64,
     byte_order: ByteOrder,
     value_type: ValueType,
@@ -378,10 +378,11 @@ pub enum AccessType {
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub enum AccessNode {
-    AccessNodeVectorXXX,
-    AccessNodeName(String),
+    VectorXXX,
+    Name(String),
 }
 
+// FIXME: not used!
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub enum SignalAttributeValue {
     Text(String),
@@ -390,28 +391,30 @@ pub enum SignalAttributeValue {
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub enum AttributeValuedForObjectType {
-    RawAttributeValue(AttributeValue),
-    NetworkNodeAttributeValue(String, AttributeValue),
-    MessageDefinitionAttributeValue(MessageId, Option<AttributeValue>),
-    SignalAttributeValue(MessageId, String, AttributeValue),
-    EnvVariableAttributeValue(String, AttributeValue),
+    Raw(AttributeValue),
+    NetworkNode(String, AttributeValue),
+    MessageDefinition(MessageId, Option<AttributeValue>),
+    Signal(MessageId, String, AttributeValue),
+    EnvVariable(String, AttributeValue),
 }
 
+// FIXME: not used!
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub enum AttributeValueType {
-    AttributeValueTypeInt(i64, i64),
-    AttributeValueTypeHex(i64, i64),
-    AttributeValueTypeFloat(f64, f64),
-    AttributeValueTypeString,
-    AttributeValueTypeEnum(Vec<String>),
+    Int(i64, i64),
+    Hex(i64, i64),
+    Float(f64, f64),
+    String,
+    Enum(Vec<String>),
 }
 
 #[derive(Clone, Debug, PartialEq, Getters, Serialize, Deserialize)]
 pub struct ValDescription {
-    a: f64,
-    b: String,
+    id: f64,
+    description: String,
 }
 
+// FIXME: not used!
 #[derive(Clone, Debug, PartialEq, Getters, Serialize, Deserialize)]
 pub struct AttrDefault {
     name: String,
@@ -420,17 +423,17 @@ pub struct AttrDefault {
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub enum AttributeValue {
-    AttributeValueU64(u64),
-    AttributeValueI64(i64),
-    AttributeValueF64(f64),
-    AttributeValueCharString(String),
+    U64(u64),
+    I64(i64),
+    Double(f64),
+    String(String),
 }
 
 /// Global value table
 #[derive(Clone, Debug, PartialEq, Getters, Serialize, Deserialize)]
 pub struct ValueTable {
-    value_table_name: String,
-    value_descriptions: Vec<ValDescription>,
+    name: String,
+    descriptions: Vec<ValDescription>,
 }
 
 #[derive(Clone, Debug, PartialEq, Getters, Serialize, Deserialize)]
@@ -438,6 +441,7 @@ pub struct ExtendedMultiplexMapping {
     min_value: u64,
     max_value: u64,
 }
+
 /// Mapping between multiplexors and multiplexed signals
 #[derive(Clone, Debug, PartialEq, Getters, Serialize, Deserialize)]
 pub struct ExtendedMultiplex {
@@ -451,20 +455,20 @@ pub struct ExtendedMultiplex {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub enum Comment {
     Node {
-        node_name: String,
+        name: String,
         comment: String,
     },
     Message {
-        message_id: MessageId,
+        id: MessageId,
         comment: String,
     },
     Signal {
         message_id: MessageId,
-        signal_name: String,
+        name: String,
         comment: String,
     },
     EnvVar {
-        env_var_name: String,
+        name: String,
         comment: String,
     },
     Plain {
@@ -477,17 +481,17 @@ pub enum Comment {
 pub struct Message {
     /// CAN id in header of CAN frame.
     /// Must be unique in DBC file.
-    message_id: MessageId,
-    message_name: String,
-    message_size: u64,
+    id: MessageId,
+    name: String,
+    size: u64,
     transmitter: Transmitter,
     signals: Vec<Signal>,
 }
 
 #[derive(Clone, Debug, PartialEq, Getters, Serialize, Deserialize)]
 pub struct EnvironmentVariable {
-    env_var_name: String,
-    env_var_type: EnvType,
+    name: String,
+    typ: EnvType,
     min: i64,
     max: i64,
     unit: String,
@@ -509,14 +513,14 @@ pub struct Node(pub Vec<String>);
 
 #[derive(Clone, Debug, PartialEq, Getters, Serialize, Deserialize)]
 pub struct AttributeDefault {
-    attribute_name: String,
-    attribute_value: AttributeValue,
+    name: String,
+    value: AttributeValue,
 }
 
 #[derive(Clone, Debug, PartialEq, Getters, Serialize, Deserialize)]
 pub struct AttributeValueForObject {
-    attribute_name: String,
-    attribute_value: AttributeValuedForObjectType,
+    name: String,
+    value: AttributeValuedForObjectType,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -537,11 +541,11 @@ pub enum AttributeDefinition {
 pub enum ValueDescription {
     Signal {
         message_id: MessageId,
-        signal_name: String,
+        name: String,
         value_descriptions: Vec<ValDescription>,
     },
     EnvironmentVariable {
-        env_var_name: String,
+        name: String,
         value_descriptions: Vec<ValDescription>,
     },
 }
@@ -557,7 +561,7 @@ pub struct SignalTypeRef {
 #[derive(Clone, Debug, PartialEq, Getters, Serialize, Deserialize)]
 pub struct SignalGroups {
     message_id: MessageId,
-    signal_group_name: String,
+    name: String,
     repetitions: u64,
     signal_names: Vec<String>,
 }
@@ -632,7 +636,7 @@ impl Dbc {
         let message = self
             .messages
             .iter()
-            .find(|message| message.message_id == message_id);
+            .find(|message| message.id == message_id);
 
         if let Some(message) = message {
             return message
@@ -647,7 +651,7 @@ impl Dbc {
     pub fn message_comment(&self, message_id: MessageId) -> Option<&str> {
         self.comments.iter().find_map(|x| match x {
             Comment::Message {
-                message_id: ref x_message_id,
+                id: ref x_message_id,
                 ref comment,
             } => {
                 if *x_message_id == message_id {
@@ -665,7 +669,7 @@ impl Dbc {
         self.comments.iter().find_map(|x| match x {
             Comment::Signal {
                 message_id: ref x_message_id,
-                signal_name: ref x_signal_name,
+                name: ref x_signal_name,
                 comment,
             } => {
                 if *x_message_id == message_id && x_signal_name == signal_name {
@@ -687,7 +691,7 @@ impl Dbc {
         self.value_descriptions.iter().find_map(|x| match x {
             ValueDescription::Signal {
                 message_id: ref x_message_id,
-                signal_name: ref x_signal_name,
+                name: ref x_signal_name,
                 ref value_descriptions,
             } => {
                 if *x_message_id == message_id && x_signal_name == signal_name {
@@ -730,7 +734,7 @@ impl Dbc {
         let message = self
             .messages
             .iter()
-            .find(|message| message.message_id == message_id);
+            .find(|message| message.id == message_id);
 
         if let Some(message) = message {
             if self

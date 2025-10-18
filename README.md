@@ -25,7 +25,7 @@ fn main() {
 
     let mut scope = Scope::new();
     for msg in dbc.messages() {
-        let msg_struct = scope.new_struct(msg.message_name());
+        let msg_struct = scope.new_struct(msg.name());
         for signal in msg.signals() {
             msg_struct.field(signal.name().to_lowercase().as_str(), "f64");
         }
@@ -44,6 +44,10 @@ The file parser simply parses a dbc input file and prints the parsed content.
 ```bash
 cargo run --example file_parser -- --input examples/sample.dbc
 ```
+
+# Structure
+
+![Diagram](./docs/diagram.svg)
 
 ## Implemented DBC parts
 

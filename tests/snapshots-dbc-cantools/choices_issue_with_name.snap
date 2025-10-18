@@ -35,23 +35,23 @@ bit_timing: []
 nodes:
   - []
 value_tables:
-  - value_table_name: CmdResp
-    value_descriptions:
-      - a: 1
-        b: SignalWithChoices_CmdRespOK
-      - a: 0
-        b: SignalWithChoices_CmdRespErr
+  - name: CmdResp
+    descriptions:
+      - id: 1
+        description: SignalWithChoices_CmdRespOK
+      - id: 0
+        description: SignalWithChoices_CmdRespErr
 messages:
-  - message_id:
+  - id:
       Extended: 589824
-    message_name: TestMessage
-    message_size: 1
+    name: TestMessage
+    size: 1
     transmitter: VectorXXX
     signals:
       - name: SignalWithChoices
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -69,20 +69,20 @@ comments: []
 attribute_definitions:
   - Plain: "\"BusType\" STRING "
 attribute_defaults:
-  - attribute_name: BusType
-    attribute_value:
-      AttributeValueCharString: CAN
+  - name: BusType
+    value:
+      String: CAN
 attribute_values: []
 value_descriptions:
   - Signal:
       message_id:
         Extended: 589824
-      signal_name: SignalWithChoices
+      name: SignalWithChoices
       value_descriptions:
-        - a: 1
-          b: SignalWithChoices_CmdRespOK
-        - a: 0
-          b: SignalWithChoices_CmdRespErr
+        - id: 1
+          description: SignalWithChoices_CmdRespOK
+        - id: 0
+          description: SignalWithChoices_CmdRespErr
 signal_type_refs: []
 signal_groups: []
 signal_extended_value_type_list: []

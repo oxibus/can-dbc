@@ -106,11 +106,11 @@ Incomplete(
         value_tables: [],
         messages: [
             Message {
-                message_id: Standard(
+                id: Standard(
                     83,
                 ),
-                message_name: "Message_2",
-                message_size: 8,
+                name: "Message_2",
+                size: 8,
                 transmitter: NodeName(
                     "ECU2",
                 ),
@@ -119,7 +119,7 @@ Incomplete(
                         name: "signal_2",
                         multiplexer_indicator: Plain,
                         start_bit: 0,
-                        signal_size: 8,
+                        size: 8,
                         byte_order: LittleEndian,
                         value_type: Signed,
                         factor: 1.0,
@@ -134,11 +134,11 @@ Incomplete(
                 ],
             },
             Message {
-                message_id: Standard(
+                id: Standard(
                     82,
                 ),
-                message_name: "Message_1",
-                message_size: 8,
+                name: "Message_1",
+                size: 8,
                 transmitter: NodeName(
                     "ECU1",
                 ),
@@ -147,7 +147,7 @@ Incomplete(
                         name: "signal_1",
                         multiplexer_indicator: Plain,
                         start_bit: 0,
-                        signal_size: 8,
+                        size: 8,
                         byte_order: LittleEndian,
                         value_type: Signed,
                         factor: 1.0,
@@ -168,7 +168,7 @@ Incomplete(
         signal_types: [],
         comments: [
             Node {
-                node_name: "ECU1",
+                name: "ECU1",
                 comment: "First ECU",
             },
         ],

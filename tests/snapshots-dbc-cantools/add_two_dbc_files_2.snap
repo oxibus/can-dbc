@@ -36,10 +36,10 @@ nodes:
   - - FOO
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Standard: 2
-    message_name: M1
-    message_size: 8
+    name: M1
+    size: 8
     transmitter:
       NodeName: FOO
     signals: []

@@ -34,35 +34,35 @@ bit_timing: []
 nodes:
   - []
 value_tables:
-  - value_table_name: Bar
-    value_descriptions:
-      - a: 6
-        b: reserved
-      - a: 5
-        b: reserved
-      - a: 4
-        b: unused 2
-      - a: 3
-        b: unused
-      - a: 2
-        b: unused
-      - a: 1
-        b: "#%=*ä'"
-      - a: 0
-        b: With space
-      - a: -5
-        b: A negative value
+  - name: Bar
+    descriptions:
+      - id: 6
+        description: reserved
+      - id: 5
+        description: reserved
+      - id: 4
+        description: unused 2
+      - id: 3
+        description: unused
+      - id: 2
+        description: unused
+      - id: 1
+        description: "#%=*ä'"
+      - id: 0
+        description: With space
+      - id: -5
+        description: A negative value
 messages:
-  - message_id:
+  - id:
       Standard: 0
-    message_name: Foo
-    message_size: 8
+    name: Foo
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: Foo
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -80,32 +80,32 @@ comments: []
 attribute_definitions:
   - Plain: "\"BusType\" STRING "
 attribute_defaults:
-  - attribute_name: BusType
-    attribute_value:
-      AttributeValueCharString: ""
+  - name: BusType
+    value:
+      String: ""
 attribute_values: []
 value_descriptions:
   - Signal:
       message_id:
         Standard: 0
-      signal_name: Foo
+      name: Foo
       value_descriptions:
-        - a: 6
-          b: reserved
-        - a: 5
-          b: reserved
-        - a: 4
-          b: unused 2
-        - a: 3
-          b: unused
-        - a: 2
-          b: unused
-        - a: 1
-          b: "#%=*ä'"
-        - a: 0
-          b: With space
-        - a: -5
-          b: A negative value
+        - id: 6
+          description: reserved
+        - id: 5
+          description: reserved
+        - id: 4
+          description: unused 2
+        - id: 3
+          description: unused
+        - id: 2
+          description: unused
+        - id: 1
+          description: "#%=*ä'"
+        - id: 0
+          description: With space
+        - id: -5
+          description: A negative value
 signal_type_refs: []
 signal_groups: []
 signal_extended_value_type_list: []

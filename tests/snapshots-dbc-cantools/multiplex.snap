@@ -36,17 +36,17 @@ nodes:
   - []
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Extended: 1193046
-    message_name: Message1
-    message_size: 8
+    name: Message1
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: BIT_K
         multiplexer_indicator:
           MultiplexedSignal: 24
         start_bit: 28
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -60,7 +60,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 24
         start_bit: 32
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -74,7 +74,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 24
         start_bit: 33
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -88,7 +88,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 24
         start_bit: 39
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -102,7 +102,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 24
         start_bit: 38
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -116,7 +116,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 24
         start_bit: 29
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -130,7 +130,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 24
         start_bit: 26
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -144,7 +144,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 8
         start_bit: 24
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -158,7 +158,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 8
         start_bit: 23
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -172,7 +172,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 8
         start_bit: 19
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -186,7 +186,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 8
         start_bit: 18
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -199,7 +199,7 @@ messages:
       - name: Multiplexor
         multiplexer_indicator: Multiplexor
         start_bit: 2
-        signal_size: 6
+        size: 6
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -217,7 +217,7 @@ comments:
   - Signal:
       message_id:
         Extended: 1193046
-      signal_name: Multiplexor
+      name: Multiplexor
       comment: Defines data content for response messages.
 attribute_definitions:
   - Message: "\"VFrameFormat\" ENUM  \"StandardCAN\",\"ExtendedCAN\",\"reserved\",\"J1939PG\""
@@ -229,44 +229,44 @@ attribute_definitions:
   - Plain: "\"DBName\" STRING "
   - Plain: "\"BusType\" STRING "
 attribute_defaults:
-  - attribute_name: VFrameFormat
-    attribute_value:
-      AttributeValueCharString: J1939PG
-  - attribute_name: GenSigSendType
-    attribute_value:
-      AttributeValueCharString: Cyclic
-  - attribute_name: GenSigInactiveValue
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: GenMsgCycleTime
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: GenMsgSendType
-    attribute_value:
-      AttributeValueCharString: NoMsgSendType
-  - attribute_name: NmStationAddress
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: DBName
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: BusType
-    attribute_value:
-      AttributeValueCharString: CAN
+  - name: VFrameFormat
+    value:
+      String: J1939PG
+  - name: GenSigSendType
+    value:
+      String: Cyclic
+  - name: GenSigInactiveValue
+    value:
+      Double: 0
+  - name: GenMsgCycleTime
+    value:
+      Double: 0
+  - name: GenMsgSendType
+    value:
+      String: NoMsgSendType
+  - name: NmStationAddress
+    value:
+      Double: 0
+  - name: DBName
+    value:
+      String: ""
+  - name: BusType
+    value:
+      String: CAN
 attribute_values:
-  - attribute_name: BusType
-    attribute_value:
-      RawAttributeValue:
-        AttributeValueCharString: CAN
-  - attribute_name: DBName
-    attribute_value:
-      RawAttributeValue:
-        AttributeValueCharString: Network_A
-  - attribute_name: VFrameFormat
-    attribute_value:
-      MessageDefinitionAttributeValue:
+  - name: BusType
+    value:
+      Raw:
+        String: CAN
+  - name: DBName
+    value:
+      Raw:
+        String: Network_A
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
         - Extended: 1193046
-        - AttributeValueF64: 3
+        - Double: 3
 value_descriptions: []
 signal_type_refs: []
 signal_groups: []

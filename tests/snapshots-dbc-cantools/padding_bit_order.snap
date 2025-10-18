@@ -36,17 +36,17 @@ nodes:
   - - E1
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Standard: 1
-    message_name: MSG0
-    message_size: 8
+    name: MSG0
+    size: 8
     transmitter:
       NodeName: E1
     signals:
       - name: A
         multiplexer_indicator: Plain
         start_bit: 6
-        signal_size: 15
+        size: 15
         byte_order: BigEndian
         value_type: Unsigned
         factor: 1
@@ -59,7 +59,7 @@ messages:
       - name: B
         multiplexer_indicator: Plain
         start_bit: 7
-        signal_size: 1
+        size: 1
         byte_order: BigEndian
         value_type: Unsigned
         factor: 1
@@ -72,7 +72,7 @@ messages:
       - name: C
         multiplexer_indicator: Plain
         start_bit: 38
-        signal_size: 15
+        size: 15
         byte_order: BigEndian
         value_type: Unsigned
         factor: 1
@@ -85,7 +85,7 @@ messages:
       - name: D
         multiplexer_indicator: Plain
         start_bit: 39
-        signal_size: 1
+        size: 1
         byte_order: BigEndian
         value_type: Unsigned
         factor: 1
@@ -95,17 +95,17 @@ messages:
         unit: ""
         receivers:
           - E1
-  - message_id:
+  - id:
       Standard: 2
-    message_name: MSG1
-    message_size: 8
+    name: MSG1
+    size: 8
     transmitter:
       NodeName: E1
     signals:
       - name: E
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -118,7 +118,7 @@ messages:
       - name: F
         multiplexer_indicator: Plain
         start_bit: 1
-        signal_size: 15
+        size: 15
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -131,7 +131,7 @@ messages:
       - name: G
         multiplexer_indicator: Plain
         start_bit: 32
-        signal_size: 1
+        size: 1
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -144,7 +144,7 @@ messages:
       - name: H
         multiplexer_indicator: Plain
         start_bit: 33
-        signal_size: 15
+        size: 15
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -154,17 +154,17 @@ messages:
         unit: ""
         receivers:
           - E1
-  - message_id:
+  - id:
       Standard: 3
-    message_name: MSG2
-    message_size: 8
+    name: MSG2
+    size: 8
     transmitter:
       NodeName: E1
     signals:
       - name: I
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 4
+        size: 4
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -177,7 +177,7 @@ messages:
       - name: J
         multiplexer_indicator: Plain
         start_bit: 4
-        signal_size: 4
+        size: 4
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -190,7 +190,7 @@ messages:
       - name: K
         multiplexer_indicator: Plain
         start_bit: 8
-        signal_size: 4
+        size: 4
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -200,17 +200,17 @@ messages:
         unit: ""
         receivers:
           - E1
-  - message_id:
+  - id:
       Standard: 4
-    message_name: MSG3
-    message_size: 8
+    name: MSG3
+    size: 8
     transmitter:
       NodeName: E1
     signals:
       - name: L
         multiplexer_indicator: Plain
         start_bit: 7
-        signal_size: 64
+        size: 64
         byte_order: BigEndian
         value_type: Unsigned
         factor: 1
@@ -220,17 +220,17 @@ messages:
         unit: ""
         receivers:
           - E1
-  - message_id:
+  - id:
       Standard: 5
-    message_name: MSG4
-    message_size: 8
+    name: MSG4
+    size: 8
     transmitter:
       NodeName: E1
     signals:
       - name: M
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 64
+        size: 64
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1

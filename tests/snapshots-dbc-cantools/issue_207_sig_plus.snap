@@ -36,16 +36,16 @@ nodes:
   - []
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Standard: 1
-    message_name: myMsg
-    message_size: 8
+    name: myMsg
+    size: 8
     transmitter: VectorXXX
     signals:
       - name: myExtraSigWithPlus
         multiplexer_indicator: Plain
         start_bit: 8
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -58,7 +58,7 @@ messages:
       - name: myNormalSig
         multiplexer_indicator: Plain
         start_bit: 0
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Signed
         factor: 1
@@ -76,9 +76,9 @@ comments: []
 attribute_definitions:
   - Plain: "\"BusType\" STRING "
 attribute_defaults:
-  - attribute_name: BusType
-    attribute_value:
-      AttributeValueCharString: CAN
+  - name: BusType
+    value:
+      String: CAN
 attribute_values: []
 value_descriptions: []
 signal_type_refs: []

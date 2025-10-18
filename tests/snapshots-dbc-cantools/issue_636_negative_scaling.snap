@@ -36,24 +36,24 @@ nodes:
   - - PCM1
     - FOO
 value_tables:
-  - value_table_name: TempValueTable
-    value_descriptions:
-      - a: 4095
-        b: Error
-      - a: 4094
-        b: Init
+  - name: TempValueTable
+    descriptions:
+      - id: 4095
+        description: Error
+      - id: 4094
+        description: Init
 messages:
-  - message_id:
+  - id:
       Standard: 496
-    message_name: ExampleMessage
-    message_size: 2
+    name: ExampleMessage
+    size: 2
     transmitter:
       NodeName: PCM1
     signals:
       - name: Temperature
         multiplexer_indicator: Plain
         start_bit: 3
-        signal_size: 12
+        size: 12
         byte_order: BigEndian
         value_type: Unsigned
         factor: -0.01
@@ -70,36 +70,36 @@ environment_variable_data: []
 signal_types: []
 comments:
   - Message:
-      message_id:
+      id:
         Standard: 496
       comment: Example message
 attribute_definitions:
   - Signal: "\"GenSigStartValue\" INT -2147483648 2147483647"
   - Message: "\"GenMsgCycleTime\" INT 0 65535"
 attribute_defaults:
-  - attribute_name: GenSigStartValue
-    attribute_value:
-      AttributeValueF64: 0
-  - attribute_name: GenMsgCycleTime
-    attribute_value:
-      AttributeValueF64: 0
+  - name: GenSigStartValue
+    value:
+      Double: 0
+  - name: GenMsgCycleTime
+    value:
+      Double: 0
 attribute_values:
-  - attribute_name: GenSigStartValue
-    attribute_value:
-      SignalAttributeValue:
+  - name: GenSigStartValue
+    value:
+      Signal:
         - Standard: 496
         - Temperature
-        - AttributeValueF64: 4094
+        - Double: 4094
 value_descriptions:
   - Signal:
       message_id:
         Standard: 496
-      signal_name: Temperature
+      name: Temperature
       value_descriptions:
-        - a: 4095
-          b: Error
-        - a: 4094
-          b: Init
+        - id: 4095
+          description: Error
+        - id: 4094
+          description: Init
 signal_type_refs: []
 signal_groups: []
 signal_extended_value_type_list: []

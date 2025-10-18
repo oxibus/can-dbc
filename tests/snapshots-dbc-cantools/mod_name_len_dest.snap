@@ -36,17 +36,17 @@ nodes:
   - - node_now_short
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Standard: 1
-    message_name: msg_now_short
-    message_size: 8
+    name: msg_now_short
+    size: 8
     transmitter:
       NodeName: node_now_short
     signals:
       - name: sig_now_short
         multiplexer_indicator: Plain
         start_bit: 1
-        signal_size: 8
+        size: 8
         byte_order: LittleEndian
         value_type: Unsigned
         factor: 1
@@ -62,22 +62,22 @@ environment_variable_data: []
 signal_types: []
 comments:
   - Node:
-      node_name: node_now_short
+      name: node_now_short
       comment: ""
 attribute_definitions:
   - Node: "\"SystemNodeLongSymbol\" STRING "
   - Message: "\"SystemMessageLongSymbol\" STRING "
   - Signal: "\"SystemSignalLongSymbol\" STRING "
 attribute_defaults:
-  - attribute_name: SystemNodeLongSymbol
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: SystemMessageLongSymbol
-    attribute_value:
-      AttributeValueCharString: ""
-  - attribute_name: SystemSignalLongSymbol
-    attribute_value:
-      AttributeValueCharString: ""
+  - name: SystemNodeLongSymbol
+    value:
+      String: ""
+  - name: SystemMessageLongSymbol
+    value:
+      String: ""
+  - name: SystemSignalLongSymbol
+    value:
+      String: ""
 attribute_values: []
 value_descriptions: []
 signal_type_refs: []

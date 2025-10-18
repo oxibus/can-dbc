@@ -36,10 +36,10 @@ nodes:
   - []
 value_tables: []
 messages:
-  - message_id:
+  - id:
       Standard: 1568
-    message_name: Msg1
-    message_size: 2
+    name: Msg1
+    size: 2
     transmitter:
       NodeName: Peripherals
     signals:
@@ -47,7 +47,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 2
         start_bit: 15
-        signal_size: 8
+        size: 8
         byte_order: BigEndian
         value_type: Unsigned
         factor: 1
@@ -61,7 +61,7 @@ messages:
         multiplexer_indicator:
           MultiplexedSignal: 1
         start_bit: 15
-        signal_size: 8
+        size: 8
         byte_order: BigEndian
         value_type: Unsigned
         factor: 1
@@ -74,7 +74,7 @@ messages:
       - name: sig1
         multiplexer_indicator: Multiplexor
         start_bit: 7
-        signal_size: 8
+        size: 8
         byte_order: BigEndian
         value_type: Unsigned
         factor: 1
@@ -84,17 +84,17 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-  - message_id:
+  - id:
       Standard: 1365
-    message_name: Msg2
-    message_size: 8
+    name: Msg2
+    size: 8
     transmitter:
       NodeName: ECU
     signals:
       - name: Test7
         multiplexer_indicator: Plain
         start_bit: 63
-        signal_size: 8
+        size: 8
         byte_order: BigEndian
         value_type: Unsigned
         factor: 1
@@ -107,7 +107,7 @@ messages:
       - name: Test6
         multiplexer_indicator: Plain
         start_bit: 55
-        signal_size: 8
+        size: 8
         byte_order: BigEndian
         value_type: Unsigned
         factor: 1
@@ -120,7 +120,7 @@ messages:
       - name: Test5
         multiplexer_indicator: Plain
         start_bit: 47
-        signal_size: 8
+        size: 8
         byte_order: BigEndian
         value_type: Unsigned
         factor: 1
@@ -133,7 +133,7 @@ messages:
       - name: Test4
         multiplexer_indicator: Plain
         start_bit: 39
-        signal_size: 8
+        size: 8
         byte_order: BigEndian
         value_type: Unsigned
         factor: 1
@@ -146,7 +146,7 @@ messages:
       - name: Test3
         multiplexer_indicator: Plain
         start_bit: 31
-        signal_size: 8
+        size: 8
         byte_order: BigEndian
         value_type: Unsigned
         factor: 1
@@ -159,7 +159,7 @@ messages:
       - name: Test2
         multiplexer_indicator: Plain
         start_bit: 23
-        signal_size: 8
+        size: 8
         byte_order: BigEndian
         value_type: Unsigned
         factor: 1
@@ -172,7 +172,7 @@ messages:
       - name: Test1
         multiplexer_indicator: Plain
         start_bit: 15
-        signal_size: 8
+        size: 8
         byte_order: BigEndian
         value_type: Unsigned
         factor: 1
@@ -185,7 +185,7 @@ messages:
       - name: Test0
         multiplexer_indicator: Plain
         start_bit: 7
-        signal_size: 8
+        size: 8
         byte_order: BigEndian
         value_type: Unsigned
         factor: 1
@@ -208,20 +208,20 @@ comments:
   - Signal:
       message_id:
         Standard: 1568
-      signal_name: sig22
+      name: sig22
       comment: another comment for sig1=2
   - Signal:
       message_id:
         Standard: 1568
-      signal_name: sig12
+      name: sig12
       comment: another comment for sig1=1
   - Signal:
       message_id:
         Standard: 1568
-      signal_name: sig1
+      name: sig1
       comment: a comment
   - Message:
-      message_id:
+      id:
         Standard: 1365
       comment: test
 attribute_definitions: []
@@ -231,16 +231,16 @@ value_descriptions:
   - Signal:
       message_id:
         Standard: 1365
-      signal_name: Test7
+      name: Test7
       value_descriptions:
-        - a: 1
-          b: A
-        - a: 2
-          b: B
-        - a: 3
-          b: C
-        - a: 4
-          b: D
+        - id: 1
+          description: A
+        - id: 2
+          description: B
+        - id: 3
+          description: C
+        - id: 4
+          description: D
 signal_type_refs: []
 signal_groups: []
 signal_extended_value_type_list: []
