@@ -1094,6 +1094,7 @@ pub fn dbc(s: &str) -> IResult<&str, Dbc> {
 }
 
 #[cfg(test)]
+#[allow(clippy::needless_raw_string_hashes)]
 mod tests {
     use super::*;
 
@@ -1401,13 +1402,13 @@ BA_ "AttrName" "RAW";
 
     #[test]
     fn new_symbols_test() {
-        let def = "
+        let def = r#"
 NS_ :
                 NS_DESC_
                 CM_
                 BA_DEF_
 
-            ";
+            "#;
         let exp = vec![
             Symbol("NS_DESC_".to_string()),
             Symbol("CM_".to_string()),
@@ -1419,9 +1420,9 @@ NS_ :
 
     #[test]
     fn network_node_test() {
-        let def = "
+        let def = r#"
 BU_: ZU XYZ ABC OIU
-";
+"#;
         let exp = Node(vec![
             "ZU".to_string(),
             "XYZ".to_string(),
@@ -1434,18 +1435,18 @@ BU_: ZU XYZ ABC OIU
 
     #[test]
     fn empty_network_node_test() {
-        let def = "
+        let def = r#"
 BU_:
-";
+"#;
         let (_, val) = node(def.trim_start()).unwrap();
         assert_eq!(val, Node(vec![]));
     }
 
     #[test]
     fn envvar_data_test() {
-        let def = "
+        let def = r#"
 ENVVAR_DATA_ SomeEnvVarData: 399;
-";
+"#;
         let exp = EnvironmentVariableData {
             env_var_name: "SomeEnvVarData".to_string(),
             data_size: 399,
@@ -1480,9 +1481,9 @@ SGTYPE_ signal_type_name: 1024@1+ (5,2) [1|3] "unit" 2.0 val_table;
 
     #[test]
     fn signal_groups_test() {
-        let def = "
+        let def = r#"
 SIG_GROUP_ 23 X_3290 1 : A_b XY_Z;
-";
+"#;
 
         let exp = SignalGroups {
             message_id: MessageId::Standard(23),
@@ -1569,9 +1570,9 @@ VERSION "HNPBNNNYNNNNNNNNNNNNNNNNNNNNNNNNYNYYYYYYYY>4>%%%/4>'%**4YYY///"
 
     #[test]
     fn message_transmitters_test() {
-        let def = "
+        let def = r#"
 BO_TX_BU_ 12345 : XZY,ABC;
-";
+"#;
         let exp = MessageTransmitter {
             message_id: MessageId::Standard(12345),
             transmitter: vec![
@@ -1583,9 +1584,9 @@ BO_TX_BU_ 12345 : XZY,ABC;
         assert_eq!(val, exp);
 
         // Same as above, but without space before the colon
-        let def = "
+        let def = r#"
 BO_TX_BU_ 12345 :XZY,ABC;
-";
+"#;
         let (_, val) = message_transmitter(def.trim_start()).unwrap();
         assert_eq!(val, exp);
     }
@@ -1644,9 +1645,9 @@ VAL_TABLE_ Tst 2 "ABC";
     #[test]
     fn extended_multiplex_test() {
         // simple mapping
-        let def = "
+        let def = r#"
 SG_MUL_VAL_ 2147483650 muxed_A_1 MUX_A 1-1;
-";
+"#;
         let exp = ExtendedMultiplex {
             message_id: MessageId::Extended(2),
             signal_name: "muxed_A_1".to_string(),
@@ -1663,9 +1664,9 @@ SG_MUL_VAL_ 2147483650 muxed_A_1 MUX_A 1-1;
     #[test]
     fn extended_multiplex_range_test() {
         // range mapping
-        let def = "
+        let def = r#"
 SG_MUL_VAL_ 2147483650 muxed_A_1 MUX_A 1568-2568;
-";
+"#;
         let exp = ExtendedMultiplex {
             message_id: MessageId::Extended(2),
             signal_name: "muxed_A_1".to_string(),
@@ -1682,9 +1683,9 @@ SG_MUL_VAL_ 2147483650 muxed_A_1 MUX_A 1568-2568;
     #[test]
     fn extended_multiplex_mult_test() {
         // multiple mappings
-        let def = "
+        let def = r#"
 SG_MUL_VAL_ 2147483650 muxed_B_5 MUX_B 5-5, 16-24;
-";
+"#;
         let exp = ExtendedMultiplex {
             message_id: MessageId::Extended(2),
             signal_name: "muxed_B_5".to_string(),
@@ -1706,9 +1707,9 @@ SG_MUL_VAL_ 2147483650 muxed_B_5 MUX_B 5-5, 16-24;
 
     #[test]
     fn sig_val_type_test() {
-        let def = "
+        let def = r#"
 SIG_VALTYPE_ 2000 Signal_8 : 1;
-";
+"#;
         let exp = SignalExtendedValueTypeList {
             message_id: MessageId::Standard(2000),
             signal_name: "Signal_8".to_string(),
