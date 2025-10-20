@@ -1099,210 +1099,214 @@ mod tests {
 
     #[test]
     fn c_ident_test() {
-        let def1 = "EALL_DUSasb18 ";
-        let (_, cid1) = c_ident(def1).unwrap();
-        assert_eq!("EALL_DUSasb18", cid1);
+        let def = "EALL_DUSasb18 ";
+        let (_, val) = c_ident(def).unwrap();
+        assert_eq!(val, "EALL_DUSasb18");
 
-        let def2 = "_EALL_DUSasb18 ";
-        let (_, cid2) = c_ident(def2).unwrap();
-        assert_eq!("_EALL_DUSasb18", cid2);
+        let def = "_EALL_DUSasb18 ";
+        let (_, val) = c_ident(def).unwrap();
+        assert_eq!(val, "_EALL_DUSasb18");
 
         // identifiers must not start with digits
-        let def3 = "3EALL_DUSasb18 ";
-        let cid3_result = c_ident(def3);
-        assert!(cid3_result.is_err());
+        let def = "3EALL_DUSasb18 ";
+        assert!(c_ident(def).is_err());
     }
 
     #[test]
     fn c_ident_vec_test() {
-        let cid = "FZHL_DUSasb18 ";
-        let (_, cid1) = c_ident_vec(cid).unwrap();
+        let def = "FZHL_DUSasb18 ";
+        let (_, val) = c_ident_vec(def).unwrap();
+        assert_eq!(val, vec!("FZHL_DUSasb18".to_string()));
 
-        assert_eq!(vec!("FZHL_DUSasb18".to_string()), cid1);
-
-        let cid_vec = "FZHL_DUSasb19,xkask_3298 ";
-        let (_, cid2) = c_ident_vec(cid_vec).unwrap();
-
+        let def = "FZHL_DUSasb19,xkask_3298 ";
+        let (_, val) = c_ident_vec(def).unwrap();
         assert_eq!(
-            vec!("FZHL_DUSasb19".to_string(), "xkask_3298".to_string()),
-            cid2
+            val,
+            vec!["FZHL_DUSasb19".to_string(), "xkask_3298".to_string()],
         );
     }
 
     #[test]
     fn char_string_test() {
         let def = "\"ab\x00\x7f\"";
-        let (_, char_string) = char_string(def).unwrap();
-        let exp = "ab\x00\x7f";
-        assert_eq!(exp, char_string);
+        let (_, val) = char_string(def).unwrap();
+        assert_eq!(val, "ab\x00\x7f");
     }
 
     #[test]
     fn signal_test() {
-        let signal_line = "SG_ NAME : 3|2@1- (1,0) [0|0] \"x\" UFA\r\n";
-        let _signal = signal(signal_line).unwrap();
+        let def = r#"
+SG_ NAME : 3|2@1- (1,0) [0|0] "x" UFA
+"#;
+        let _signal = signal(def.trim_start()).unwrap();
     }
 
     #[test]
     fn byte_order_test() {
-        let (_, big_endian) = byte_order("0").expect("Failed to parse big endian");
-        assert_eq!(ByteOrder::BigEndian, big_endian);
+        let (_, val) = byte_order("0").expect("parse big endian");
+        assert_eq!(val, ByteOrder::BigEndian);
 
-        let (_, little_endian) = byte_order("1").expect("Failed to parse little endian");
-        assert_eq!(ByteOrder::LittleEndian, little_endian);
+        let (_, val) = byte_order("1").expect("parse little endian");
+        assert_eq!(val, ByteOrder::LittleEndian);
     }
 
     #[test]
     fn multiplexer_indicator_test() {
-        let (_, multiplexer) =
-            multiplexer_indicator(" m34920 eol").expect("Failed to parse multiplexer");
-        assert_eq!(MultiplexIndicator::MultiplexedSignal(34920), multiplexer);
+        let (_, val) = multiplexer_indicator(" m34920 eol").expect("parse multiplexer");
+        assert_eq!(val, MultiplexIndicator::MultiplexedSignal(34920));
 
-        let (_, multiplexor) =
-            multiplexer_indicator(" M eol").expect("Failed to parse multiplexor");
-        assert_eq!(MultiplexIndicator::Multiplexor, multiplexor);
+        let (_, val) = multiplexer_indicator(" M eol").expect("parse multiplexor");
+        assert_eq!(val, MultiplexIndicator::Multiplexor);
 
-        let (_, plain) = multiplexer_indicator(" eol").expect("Failed to parse plain");
-        assert_eq!(MultiplexIndicator::Plain, plain);
+        let (_, val) = multiplexer_indicator(" eol").expect("parse plain");
+        assert_eq!(val, MultiplexIndicator::Plain);
 
-        let (_, multiplexer) =
-            multiplexer_indicator(" m8M eol").expect("Failed to parse multiplexer");
-        assert_eq!(
-            MultiplexIndicator::MultiplexorAndMultiplexedSignal(8),
-            multiplexer
-        );
+        let (_, val) = multiplexer_indicator(" m8M eol").expect("parse multiplexer");
+        assert_eq!(val, MultiplexIndicator::MultiplexorAndMultiplexedSignal(8));
     }
 
     #[test]
     fn value_type_test() {
-        let (_, vt) = value_type("- ").expect("Failed to parse value type");
-        assert_eq!(ValueType::Signed, vt);
+        let (_, val) = value_type("- ").expect("parse value type");
+        assert_eq!(ValueType::Signed, val);
 
-        let (_, vt) = value_type("+ ").expect("Failed to parse value type");
-        assert_eq!(ValueType::Unsigned, vt);
+        let (_, val) = value_type("+ ").expect("parse value type");
+        assert_eq!(ValueType::Unsigned, val);
     }
 
     #[test]
     fn message_definition_test() {
-        let def = "BO_ 1 MCA_A1: 6 MFA\r\nSG_ ABC_1 : 9|2@1+ (1,0) [0|0] \"x\" XYZ_OUS\r\nSG_ BasL2 : 3|2@0- (1,0) [0|0] \"x\" DFA_FUS\r\n x";
         signal("\r\n\r\nSG_ BasL2 : 3|2@0- (1,0) [0|0] \"x\" DFA_FUS\r\n").expect("Failed");
-        let (_, _message_def) = message(def).expect("Failed to parse message definition");
+
+        let def = r#"
+BO_ 1 MCA_A1: 6 MFA
+SG_ ABC_1 : 9|2@1+ (1,0) [0|0] "x" XYZ_OUS
+SG_ BasL2 : 3|2@0- (1,0) [0|0] "x" DFA_FUS
+ x"#;
+        let (_, _val) = message(def.trim_start()).expect("parse message definition");
     }
 
     #[test]
     fn signal_comment_test() {
-        let def1 = "CM_ SG_ 193 KLU_R_X \"This is a signal comment test\";\n";
-        let message_id = MessageId::Standard(193);
-        let comment1 = Comment::Signal {
-            message_id,
+        let def = r#"
+CM_ SG_ 193 KLU_R_X "This is a signal comment test";
+"#;
+        let exp = Comment::Signal {
+            message_id: MessageId::Standard(193),
             name: "KLU_R_X".to_string(),
             comment: "This is a signal comment test".to_string(),
         };
-        let (_, comment1_def) = comment(def1).expect("Failed to parse signal comment definition");
-        assert_eq!(comment1, comment1_def);
+        let (_, val) = comment(def.trim_start()).expect("parse signal comment definition");
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn message_definition_comment_test() {
-        let def1 = "CM_ BO_ 34544 \"Some Message comment\";\n";
-        let message_id = MessageId::Standard(34544);
-        let comment1 = Comment::Message {
-            id: message_id,
+        let def = r#"
+CM_ BO_ 34544 "Some Message comment";
+"#;
+        let exp = Comment::Message {
+            id: MessageId::Standard(34544),
             comment: "Some Message comment".to_string(),
         };
-        let (_, comment1_def) =
-            comment(def1).expect("Failed to parse message definition comment definition");
-        assert_eq!(comment1, comment1_def);
+        let (_, val) =
+            comment(def.trim_start()).expect("parse message definition comment definition");
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn node_comment_test() {
-        let def1 = "CM_ BU_ network_node \"Some network node comment\";\n";
-        let comment1 = Comment::Node {
+        let def = r#"
+CM_ BU_ network_node "Some network node comment";
+"#;
+        let exp = Comment::Node {
             name: "network_node".to_string(),
             comment: "Some network node comment".to_string(),
         };
-        let (_, comment1_def) = comment(def1).expect("Failed to parse node comment definition");
-        assert_eq!(comment1, comment1_def);
+        let (_, val) = comment(def.trim_start()).expect("parse node comment definition");
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn env_var_comment_test() {
-        let def1 = "CM_ EV_ ENVXYZ \"Some env var name comment\";\n";
-        let comment1 = Comment::EnvVar {
+        let def = r#"
+CM_ EV_ ENVXYZ "Some env var name comment";
+"#;
+        let exp = Comment::EnvVar {
             name: "ENVXYZ".to_string(),
             comment: "Some env var name comment".to_string(),
         };
-        let (_, comment1_def) = comment(def1).expect("Failed to parse env var comment definition");
-        assert_eq!(comment1, comment1_def);
+        let (_, val) = comment(def.trim_start()).expect("parse env var comment definition");
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn signal_comment_with_escaped_characters_test() {
-        let def1 = "CM_ SG_ 2147548912 FooBar \"Foo\\\\ \\n \\\"Bar\\\"\";\n";
-        let message_id = MessageId::Extended(65264);
-        let comment1 = Comment::Signal {
-            message_id,
+        let def = r#"
+CM_ SG_ 2147548912 FooBar "Foo\\ \n \"Bar\"";
+"#;
+        let exp = Comment::Signal {
+            message_id: MessageId::Extended(65264),
             name: "FooBar".to_string(),
-            comment: "Foo\\\\ \\n \\\"Bar\\\"".to_string(),
+            comment: r#"Foo\\ \n \"Bar\""#.to_string(),
         };
-        let (_, comment1_def) = comment(def1).expect("Failed to parse signal comment definition");
-        assert_eq!(comment1, comment1_def);
+        let (_, val) = comment(def.trim_start()).expect("parse signal comment definition");
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn empty_signal_comment_test() {
-        let def1 = "CM_ SG_ 2147548912 FooBar \"\";\n";
-        let message_id = MessageId::Extended(65264);
-        let comment1 = Comment::Signal {
-            message_id,
+        let def = r#"
+CM_ SG_ 2147548912 FooBar "";
+"#;
+        let exp = Comment::Signal {
+            message_id: MessageId::Extended(65264),
             name: "FooBar".to_string(),
             comment: String::new(),
         };
-        let (_, comment1_def) = comment(def1).expect("Failed to parse signal comment definition");
-        assert_eq!(comment1, comment1_def);
+        let (_, val) = comment(def.trim_start()).expect("parse signal comment definition");
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn value_description_for_signal_test() {
-        let def1 = "VAL_ 837 UF_HZ_OI 255 \"NOP\";\n";
-        let message_id = MessageId::Standard(837);
-        let signal_name = "UF_HZ_OI".to_string();
-        let val_descriptions = vec![ValDescription {
-            id: 255.0,
-            description: "NOP".to_string(),
-        }];
-        let value_description_for_signal1 = ValueDescription::Signal {
-            message_id,
-            name: signal_name,
-            value_descriptions: val_descriptions,
+        let def = r#"
+VAL_ 837 UF_HZ_OI 255 "NOP";
+"#;
+        let exp = ValueDescription::Signal {
+            message_id: MessageId::Standard(837),
+            name: "UF_HZ_OI".to_string(),
+            value_descriptions: vec![ValDescription {
+                id: 255.0,
+                description: "NOP".to_string(),
+            }],
         };
-        let (_, value_signal_def) =
-            value_descriptions(def1).expect("Failed to parse value desc for signal");
-        assert_eq!(value_description_for_signal1, value_signal_def);
+        let (_, val) = value_descriptions(def.trim_start()).expect("parse value desc for signal");
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn value_description_for_env_var_test() {
-        let def1 = "VAL_ MY_ENV_VAR 255 \"NOP\";\n";
-        let env_var_name = "MY_ENV_VAR".to_string();
-        let val_descriptions = vec![ValDescription {
-            id: 255.0,
-            description: "NOP".to_string(),
-        }];
-        let value_env_var1 = ValueDescription::EnvironmentVariable {
-            name: env_var_name,
-            value_descriptions: val_descriptions,
+        let def = r#"
+VAL_ MY_ENV_VAR 255 "NOP";
+"#;
+        let exp = ValueDescription::EnvironmentVariable {
+            name: "MY_ENV_VAR".to_string(),
+            value_descriptions: vec![ValDescription {
+                id: 255.0,
+                description: "NOP".to_string(),
+            }],
         };
-        let (_, value_env_var) =
-            value_descriptions(def1).expect("Failed to parse value desc for env var");
-        assert_eq!(value_env_var1, value_env_var);
+        let (_, val) = value_descriptions(def.trim_start()).expect("parse value desc for env var");
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn environment_variable_test() {
-        let def1 = "EV_ IUV: 0 [-22|20] \"mm\" 3 7 DUMMY_NODE_VECTOR0 VECTOR_XXX;\n";
-        let env_var1 = EnvironmentVariable {
+        let def = r#"
+EV_ IUV: 0 [-22|20] "mm" 3 7 DUMMY_NODE_VECTOR0 VECTOR_XXX;
+"#;
+        let exp = EnvironmentVariable {
             name: "IUV".to_string(),
             typ: EnvType::Float,
             min: -22,
@@ -1313,139 +1317,148 @@ mod tests {
             access_type: AccessType::DummyNodeVector0,
             access_nodes: vec![AccessNode::VectorXXX],
         };
-        let (_, env_var) =
-            environment_variable(def1).expect("Failed to parse environment variable");
-        assert_eq!(env_var1, env_var);
+        let (_, val) = environment_variable(def.trim_start()).expect("parse environment variable");
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn network_node_attribute_value_test() {
-        let def = "BA_ \"AttrName\" BU_ NodeName 12;\n";
-        let attribute_value = AttributeValuedForObjectType::NetworkNode(
-            "NodeName".to_string(),
-            AttributeValue::Double(12.0),
-        );
-        let attr_val_exp = AttributeValueForObject {
+        let def = r#"
+BA_ "AttrName" BU_ NodeName 12;
+"#;
+        let exp = AttributeValueForObject {
             name: "AttrName".to_string(),
-            value: attribute_value,
+            value: AttributeValuedForObjectType::NetworkNode(
+                "NodeName".to_string(),
+                AttributeValue::Double(12.0),
+            ),
         };
-        let (_, attr_val) = attribute_value_for_object(def).unwrap();
-        assert_eq!(attr_val_exp, attr_val);
+        let (_, val) = attribute_value_for_object(def.trim_start()).unwrap();
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn message_definition_attribute_value_test() {
-        let def = "BA_ \"AttrName\" BO_ 298 13;\n";
-        let attribute_value = AttributeValuedForObjectType::MessageDefinition(
-            MessageId::Standard(298),
-            Some(AttributeValue::Double(13.0)),
-        );
-        let attr_val_exp = AttributeValueForObject {
+        let def = r#"
+BA_ "AttrName" BO_ 298 13;
+"#;
+        let exp = AttributeValueForObject {
             name: "AttrName".to_string(),
-            value: attribute_value,
+            value: AttributeValuedForObjectType::MessageDefinition(
+                MessageId::Standard(298),
+                Some(AttributeValue::Double(13.0)),
+            ),
         };
-        let (_, attr_val) = attribute_value_for_object(def).unwrap();
-        assert_eq!(attr_val_exp, attr_val);
+        let (_, val) = attribute_value_for_object(def.trim_start()).unwrap();
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn signal_attribute_value_test() {
-        let def = "BA_ \"AttrName\" SG_ 198 SGName 13;\n";
-        let attribute_value = AttributeValuedForObjectType::Signal(
-            MessageId::Standard(198),
-            "SGName".to_string(),
-            AttributeValue::Double(13.0),
-        );
-        let attr_val_exp = AttributeValueForObject {
+        let def = r#"
+BA_ "AttrName" SG_ 198 SGName 13;
+"#;
+        let exp = AttributeValueForObject {
             name: "AttrName".to_string(),
-            value: attribute_value,
+            value: AttributeValuedForObjectType::Signal(
+                MessageId::Standard(198),
+                "SGName".to_string(),
+                AttributeValue::Double(13.0),
+            ),
         };
-        let (_, attr_val) = attribute_value_for_object(def).unwrap();
-        assert_eq!(attr_val_exp, attr_val);
+        let (_, val) = attribute_value_for_object(def.trim_start()).unwrap();
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn env_var_attribute_value_test() {
-        let def = "BA_ \"AttrName\" EV_ EvName \"CharStr\";\n";
-        let attribute_value = AttributeValuedForObjectType::EnvVariable(
-            "EvName".to_string(),
-            AttributeValue::String("CharStr".to_string()),
-        );
-        let attr_val_exp = AttributeValueForObject {
+        let def = r#"
+BA_ "AttrName" EV_ EvName "CharStr";
+"#;
+        let exp = AttributeValueForObject {
             name: "AttrName".to_string(),
-            value: attribute_value,
+            value: AttributeValuedForObjectType::EnvVariable(
+                "EvName".to_string(),
+                AttributeValue::String("CharStr".to_string()),
+            ),
         };
-        let (_, attr_val) = attribute_value_for_object(def).unwrap();
-        assert_eq!(attr_val_exp, attr_val);
+        let (_, val) = attribute_value_for_object(def.trim_start()).unwrap();
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn raw_attribute_value_test() {
-        let def = "BA_ \"AttrName\" \"RAW\";\n";
-        let attribute_value =
-            AttributeValuedForObjectType::Raw(AttributeValue::String("RAW".to_string()));
-        let attr_val_exp = AttributeValueForObject {
+        let def = r#"
+BA_ "AttrName" "RAW";
+"#;
+        let exp = AttributeValueForObject {
             name: "AttrName".to_string(),
-            value: attribute_value,
+            value: AttributeValuedForObjectType::Raw(AttributeValue::String("RAW".to_string())),
         };
-        let (_, attr_val) = attribute_value_for_object(def).unwrap();
-        assert_eq!(attr_val_exp, attr_val);
+        let (_, val) = attribute_value_for_object(def.trim_start()).unwrap();
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn new_symbols_test() {
-        let def = "NS_ :
+        let def = "
+NS_ :
                 NS_DESC_
                 CM_
                 BA_DEF_
 
             ";
-        let symbols_exp = vec![
+        let exp = vec![
             Symbol("NS_DESC_".to_string()),
             Symbol("CM_".to_string()),
             Symbol("BA_DEF_".to_string()),
         ];
-        let (_, symbols) = new_symbols(def).unwrap();
-        assert_eq!(symbols_exp, symbols);
+        let (_, val) = new_symbols(def.trim_start()).unwrap();
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn network_node_test() {
-        let def = "BU_: ZU XYZ ABC OIU\n";
-        let nodes = vec![
+        let def = "
+BU_: ZU XYZ ABC OIU
+";
+        let exp = Node(vec![
             "ZU".to_string(),
             "XYZ".to_string(),
             "ABC".to_string(),
             "OIU".to_string(),
-        ];
-        let (_, node) = node(def).unwrap();
-        let node_exp = Node(nodes);
-        assert_eq!(node_exp, node);
+        ]);
+        let (_, val) = node(def.trim_start()).unwrap();
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn empty_network_node_test() {
-        let def = "BU_: \n";
-        let nodes = vec![];
-        let (_, node) = node(def).unwrap();
-        let node_exp = Node(nodes);
-        assert_eq!(node_exp, node);
+        let def = "
+BU_:
+";
+        let (_, val) = node(def.trim_start()).unwrap();
+        assert_eq!(val, Node(vec![]));
     }
 
     #[test]
     fn envvar_data_test() {
-        let def = "ENVVAR_DATA_ SomeEnvVarData: 399;\n";
-        let (_, envvar_data) = environment_variable_data(def).unwrap();
-        let envvar_data_exp = EnvironmentVariableData {
+        let def = "
+ENVVAR_DATA_ SomeEnvVarData: 399;
+";
+        let exp = EnvironmentVariableData {
             env_var_name: "SomeEnvVarData".to_string(),
             data_size: 399,
         };
-        assert_eq!(envvar_data_exp, envvar_data);
+        let (_, val) = environment_variable_data(def.trim_start()).unwrap();
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn signal_type_test() {
-        let def = "SGTYPE_ signal_type_name: 1024@1+ (5,2) [1|3] \"unit\" 2.0 val_table;\n";
+        let def = r#"
+SGTYPE_ signal_type_name: 1024@1+ (5,2) [1|3] "unit" 2.0 val_table;
+"#;
 
         let exp = SignalType {
             name: "signal_type_name".to_string(),
@@ -1461,13 +1474,15 @@ mod tests {
             value_table: "val_table".to_string(),
         };
 
-        let (_, signal_type) = signal_type(def).unwrap();
-        assert_eq!(exp, signal_type);
+        let (_, val) = signal_type(def.trim_start()).unwrap();
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn signal_groups_test() {
-        let def = "SIG_GROUP_ 23 X_3290 1 : A_b XY_Z;\n";
+        let def = "
+SIG_GROUP_ 23 X_3290 1 : A_b XY_Z;
+";
 
         let exp = SignalGroups {
             message_id: MessageId::Standard(23),
@@ -1476,64 +1491,87 @@ mod tests {
             signal_names: vec!["A_b".to_string(), "XY_Z".to_string()],
         };
 
-        let (_, signal_groups) = signal_groups(def).unwrap();
-        assert_eq!(exp, signal_groups);
+        let (_, val) = signal_groups(def.trim_start()).unwrap();
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn attribute_default_test() {
-        let def = "BA_DEF_DEF_  \"ZUV\" \"OAL\";\n";
-        let (_, attr_default) = attribute_default(def).unwrap();
-        let attr_default_exp = AttributeDefault {
+        let def = r#"
+BA_DEF_DEF_  "ZUV" "OAL";
+"#;
+        let exp = AttributeDefault {
             name: "ZUV".to_string(),
             value: AttributeValue::String("OAL".to_string()),
         };
-        assert_eq!(attr_default_exp, attr_default);
+        let (_, val) = attribute_default(def.trim_start()).unwrap();
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn attribute_value_f64_test() {
         let def = "80.0";
-        let (_, val) = attribute_value(def).unwrap();
-        assert_eq!(AttributeValue::Double(80.0), val);
+        let (_, val) = attribute_value(def.trim_start()).unwrap();
+        assert_eq!(val, AttributeValue::Double(80.0));
     }
 
     #[test]
-    fn attribute_definition_test() {
-        let def_bo = "BA_DEF_ BO_ \"BaDef1BO\" INT 0 1000000;\n";
-        let (_, bo_def) = attribute_definition(def_bo).unwrap();
-        let bo_def_exp = AttributeDefinition::Message("\"BaDef1BO\" INT 0 1000000".to_string());
-        assert_eq!(bo_def_exp, bo_def);
+    fn attribute_definition_bo_test() {
+        let def_bo = r#"
+BA_DEF_ BO_ "BaDef1BO" INT 0 1000000;
+"#;
+        let (_, val) = attribute_definition(def_bo).unwrap();
+        let exp = AttributeDefinition::Message(r#""BaDef1BO" INT 0 1000000"#.to_string());
+        assert_eq!(val, exp);
+    }
 
-        let def_bu = "BA_DEF_ BU_ \"BuDef1BO\" INT 0 1000000;\n";
-        let (_, bu_def) = attribute_definition(def_bu).unwrap();
-        let bu_def_exp = AttributeDefinition::Node("\"BuDef1BO\" INT 0 1000000".to_string());
-        assert_eq!(bu_def_exp, bu_def);
+    #[test]
+    fn attribute_definition_bu_test() {
+        let def = r#"
+BA_DEF_ BU_ "BuDef1BO" INT 0 1000000;
+"#;
+        let (_, val) = attribute_definition(def.trim_start()).unwrap();
+        let exp = AttributeDefinition::Node(r#""BuDef1BO" INT 0 1000000"#.to_string());
+        assert_eq!(val, exp);
+    }
 
-        let def_signal = "BA_DEF_ SG_ \"SgDef1BO\" INT 0 1000000;\n";
-        let (_, signal_def) = attribute_definition(def_signal).unwrap();
-        let signal_def_exp = AttributeDefinition::Signal("\"SgDef1BO\" INT 0 1000000".to_string());
-        assert_eq!(signal_def_exp, signal_def);
+    #[test]
+    fn attribute_definition_sg_test() {
+        let def = r#"
+BA_DEF_ SG_ "SgDef1BO" INT 0 1000000;
+"#;
+        let (_, val) = attribute_definition(def.trim_start()).unwrap();
+        let exp = AttributeDefinition::Signal(r#""SgDef1BO" INT 0 1000000"#.to_string());
+        assert_eq!(val, exp);
+    }
 
-        let def_env_var = "BA_DEF_ EV_ \"EvDef1BO\" INT 0 1000000;\n";
-        let (_, env_var_def) = attribute_definition(def_env_var).unwrap();
-        let env_var_def_exp =
-            AttributeDefinition::EnvironmentVariable("\"EvDef1BO\" INT 0 1000000".to_string());
-        assert_eq!(env_var_def_exp, env_var_def);
+    #[test]
+    fn attribute_definition_ev_test() {
+        let def_env_var = r#"
+BA_DEF_ EV_ "EvDef1BO" INT 0 1000000;
+"#;
+        let (_, val) = attribute_definition(def_env_var).unwrap();
+        let exp =
+            AttributeDefinition::EnvironmentVariable(r#""EvDef1BO" INT 0 1000000"#.to_string());
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn version_test() {
-        let def = "VERSION \"HNPBNNNYNNNNNNNNNNNNNNNNNNNNNNNNYNYYYYYYYY>4>%%%/4>'%**4YYY///\"\n";
-        let version_exp =
+        let def = r#"
+VERSION "HNPBNNNYNNNNNNNNNNNNNNNNNNNNNNNNYNYYYYYYYY>4>%%%/4>'%**4YYY///"
+"#;
+        let exp =
             Version("HNPBNNNYNNNNNNNNNNNNNNNNNNNNNNNNYNYYYYYYYY>4>%%%/4>'%**4YYY///".to_string());
-        let (_, version) = version(def).unwrap();
-        assert_eq!(version_exp, version);
+        let (_, val) = version(def.trim_start()).unwrap();
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn message_transmitters_test() {
-        let def = "BO_TX_BU_ 12345 : XZY,ABC;\n";
+        let def = "
+BO_TX_BU_ 12345 : XZY,ABC;
+";
         let exp = MessageTransmitter {
             message_id: MessageId::Standard(12345),
             transmitter: vec![
@@ -1541,29 +1579,35 @@ mod tests {
                 Transmitter::NodeName("ABC".to_string()),
             ],
         };
-        let (_, transmitter) = message_transmitter(def).unwrap();
-        assert_eq!(exp, transmitter);
+        let (_, val) = message_transmitter(def.trim_start()).unwrap();
+        assert_eq!(val, exp);
 
         // Same as above, but without space before the colon
-        let def = "BO_TX_BU_ 12345 :XZY,ABC;\n";
-        let (_, transmitter) = message_transmitter(def).unwrap();
-        assert_eq!(exp, transmitter);
+        let def = "
+BO_TX_BU_ 12345 :XZY,ABC;
+";
+        let (_, val) = message_transmitter(def.trim_start()).unwrap();
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn value_description_test() {
-        let def = "2 \"ABC\"\n";
+        let def = r#"
+2 "ABC"
+"#;
         let exp = ValDescription {
             id: 2f64,
             description: "ABC".to_string(),
         };
-        let (_, val_desc) = value_description(def).unwrap();
-        assert_eq!(exp, val_desc);
+        let (_, val) = value_description(def.trim_start()).unwrap();
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn val_table_test() {
-        let def = "VAL_TABLE_ Tst 2 \"ABC\" 1 \"Test A\" ;\n";
+        let def = r#"
+VAL_TABLE_ Tst 2 "ABC" 1 "Test A" ;
+"#;
         let exp = ValueTable {
             name: "Tst".to_string(),
             descriptions: vec![
@@ -1577,13 +1621,15 @@ mod tests {
                 },
             ],
         };
-        let (_, val_table) = value_table(def).unwrap();
-        assert_eq!(exp, val_table);
+        let (_, val) = value_table(def.trim_start()).unwrap();
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn val_table_no_space_preceding_comma_test() {
-        let def = "VAL_TABLE_ Tst 2 \"ABC\";\n";
+        let def = r#"
+VAL_TABLE_ Tst 2 "ABC";
+"#;
         let exp = ValueTable {
             name: "Tst".to_string(),
             descriptions: vec![ValDescription {
@@ -1591,14 +1637,16 @@ mod tests {
                 description: "ABC".to_string(),
             }],
         };
-        let (_, val_table) = value_table(def).unwrap();
-        assert_eq!(exp, val_table);
+        let (_, val) = value_table(def.trim_start()).unwrap();
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn extended_multiplex_test() {
         // simple mapping
-        let def = "SG_MUL_VAL_ 2147483650 muxed_A_1 MUX_A 1-1;\n";
+        let def = "
+SG_MUL_VAL_ 2147483650 muxed_A_1 MUX_A 1-1;
+";
         let exp = ExtendedMultiplex {
             message_id: MessageId::Extended(2),
             signal_name: "muxed_A_1".to_string(),
@@ -1608,11 +1656,16 @@ mod tests {
                 max_value: 1,
             }],
         };
-        let (_, ext_multiplex) = extended_multiplex(def).unwrap();
-        assert_eq!(exp, ext_multiplex);
+        let (_, val) = extended_multiplex(def.trim_start()).unwrap();
+        assert_eq!(val, exp);
+    }
 
+    #[test]
+    fn extended_multiplex_range_test() {
         // range mapping
-        let def = "SG_MUL_VAL_ 2147483650 muxed_A_1 MUX_A 1568-2568;\n";
+        let def = "
+SG_MUL_VAL_ 2147483650 muxed_A_1 MUX_A 1568-2568;
+";
         let exp = ExtendedMultiplex {
             message_id: MessageId::Extended(2),
             signal_name: "muxed_A_1".to_string(),
@@ -1622,11 +1675,16 @@ mod tests {
                 max_value: 2568,
             }],
         };
-        let (_, ext_multiplex) = extended_multiplex(def).unwrap();
-        assert_eq!(exp, ext_multiplex);
+        let (_, val) = extended_multiplex(def.trim_start()).unwrap();
+        assert_eq!(val, exp);
+    }
 
+    #[test]
+    fn extended_multiplex_mult_test() {
         // multiple mappings
-        let def = "SG_MUL_VAL_ 2147483650 muxed_B_5 MUX_B 5-5, 16-24;\n";
+        let def = "
+SG_MUL_VAL_ 2147483650 muxed_B_5 MUX_B 5-5, 16-24;
+";
         let exp = ExtendedMultiplex {
             message_id: MessageId::Extended(2),
             signal_name: "muxed_B_5".to_string(),
@@ -1642,47 +1700,49 @@ mod tests {
                 },
             ],
         };
-        let (_, ext_multiplex) = extended_multiplex(def).unwrap();
-        assert_eq!(exp, ext_multiplex);
+        let (_, val) = extended_multiplex(def.trim_start()).unwrap();
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn sig_val_type_test() {
-        let def = "SIG_VALTYPE_ 2000 Signal_8 : 1;\n";
+        let def = "
+SIG_VALTYPE_ 2000 Signal_8 : 1;
+";
         let exp = SignalExtendedValueTypeList {
             message_id: MessageId::Standard(2000),
             signal_name: "Signal_8".to_string(),
             signal_extended_value_type: SignalExtendedValueType::IEEEfloat32Bit,
         };
 
-        let (_, extended_value_type_list) = signal_extended_value_type_list(def).unwrap();
-        assert_eq!(extended_value_type_list, exp);
+        let (_, val) = signal_extended_value_type_list(def.trim_start()).unwrap();
+        assert_eq!(val, exp);
     }
 
     #[test]
     fn standard_message_id_test() {
-        let (_, extended_message_id) = message_id("2").unwrap();
-        assert_eq!(extended_message_id, MessageId::Standard(2));
+        let (_, val) = message_id("2").unwrap();
+        assert_eq!(val, MessageId::Standard(2));
     }
 
     #[test]
     fn extended_low_message_id_test() {
         let s = (2u32 | 1 << 31).to_string();
-        let (_, extended_message_id) = message_id(&s).unwrap();
-        assert_eq!(extended_message_id, MessageId::Extended(2));
+        let (_, val) = message_id(&s).unwrap();
+        assert_eq!(val, MessageId::Extended(2));
     }
 
     #[test]
     fn extended_message_id_test() {
         let s = (0x1FFF_FFFF_u32 | 1 << 31).to_string();
-        let (_, extended_message_id) = message_id(&s).unwrap();
-        assert_eq!(extended_message_id, MessageId::Extended(0x1FFF_FFFF));
+        let (_, val) = message_id(&s).unwrap();
+        assert_eq!(val, MessageId::Extended(0x1FFF_FFFF));
     }
 
     #[test]
     fn extended_message_id_test_max_29bit() {
         let s = u32::MAX.to_string();
-        let (_, extended_message_id) = message_id(&s).unwrap();
-        assert_eq!(extended_message_id, MessageId::Extended(0x1FFF_FFFF));
+        let (_, val) = message_id(&s).unwrap();
+        assert_eq!(val, MessageId::Extended(0x1FFF_FFFF));
     }
 }
