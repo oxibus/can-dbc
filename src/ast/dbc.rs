@@ -1,11 +1,11 @@
 use crate::ast::{
     AttributeDefault, AttributeDefinition, AttributeValueForObject, Baudrate, Comment,
-    EnvironmentVariable, EnvironmentVariableData, Error, ExtendedMultiplex, Message, MessageId,
+    EnvironmentVariable, EnvironmentVariableData, ExtendedMultiplex, Message, MessageId,
     MessageTransmitter, MultiplexIndicator, Node, Signal, SignalExtendedValueType,
     SignalExtendedValueTypeList, SignalGroups, SignalType, SignalTypeRef, Symbol, ValDescription,
     ValueDescription, ValueTable, Version,
 };
-use crate::parser;
+use crate::{parser, DbcError, DbcResult};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -159,12 +159,9 @@ impl Dbc {
     }
 
     /// Lookup the message multiplexor switch signal for a given message
-    /// This does not work for extended multiplexed messages, if multiple multiplexors are defined for a message a Error is returned.
+    /// This does not work for extended multiplexed messages, if multiple multiplexors are defined for a message an Error is returned.
     #[allow(clippy::result_large_err)]
-    pub fn message_multiplexor_switch(
-        &self,
-        message_id: MessageId,
-    ) -> Result<Option<&Signal>, Error<'_>> {
+    pub fn message_multiplexor_switch(&self, message_id: MessageId) -> DbcResult<Option<&Signal>> {
         let message = self
             .messages
             .iter()
@@ -176,7 +173,7 @@ impl Dbc {
                 .iter()
                 .any(|ext_mp| ext_mp.message_id == message_id)
             {
-                Err(Error::MultipleMultiplexors)
+                Err(DbcError::MultipleMultiplexors)
             } else {
                 Ok(message
                     .signals
@@ -190,13 +187,9 @@ impl Dbc {
 }
 
 impl<'a> TryFrom<&'a str> for Dbc {
-    type Error = Error<'a>;
+    type Error = DbcError;
 
     fn try_from(dbc_in: &'a str) -> Result<Self, Self::Error> {
-        let (remaining, dbc) = parser::dbc(dbc_in).map_err(Error::Nom)?;
-        if !remaining.is_empty() {
-            return Err(Error::Incomplete(dbc, remaining));
-        }
-        Ok(dbc)
+        parser::dbc(dbc_in)
     }
 }

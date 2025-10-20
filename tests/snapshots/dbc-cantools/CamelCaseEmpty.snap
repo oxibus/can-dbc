@@ -1,0 +1,15 @@
+---
+source: tests/snapshots.rs
+---
+version: ""
+bit_timing: []
+nodes:
+  - Node
+  - TestNode
+messages:
+  - id:
+      Standard: 1024
+    name: Message1
+    size: 5
+    transmitter:
+      NodeName: TestNode

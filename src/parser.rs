@@ -1,1098 +1,1027 @@
 //!
-//! Module containing nom parser combinators
+//! Parser module for DBC files using pest
 //!
 
 use std::str;
 
-use nom::branch::{alt, permutation};
-use nom::bytes::complete::{escaped, tag, take_till, take_till1, take_while, take_while1};
-use nom::character::complete::{self, char, line_ending, multispace0, one_of, space0, space1};
-use nom::combinator::{map, opt, value};
-use nom::error::{ErrorKind, ParseError};
-use nom::multi::{many0, many_till, separated_list0};
-use nom::number::complete::double;
-use nom::sequence::preceded;
-use nom::{AsChar, IResult, Input, Parser};
+use can_dbc_pest::{DbcParser, Pair, Pairs, Parser as _, Rule};
 
 use crate::{
     AccessNode, AccessType, AttributeDefault, AttributeDefinition, AttributeValue,
     AttributeValueForObject, AttributeValuedForObjectType, Baudrate, ByteOrder, Comment, Dbc,
-    EnvType, EnvironmentVariable, EnvironmentVariableData, ExtendedMultiplex,
+    DbcError, DbcResult, EnvType, EnvironmentVariable, EnvironmentVariableData, ExtendedMultiplex,
     ExtendedMultiplexMapping, Message, MessageId, MessageTransmitter, MultiplexIndicator, Node,
     Signal, SignalExtendedValueType, SignalExtendedValueTypeList, SignalGroups, SignalType,
     SignalTypeRef, Symbol, Transmitter, ValDescription, ValueDescription, ValueTable, ValueType,
     Version,
 };
 
-fn is_semi_colon(chr: char) -> bool {
-    chr == ';'
+/// Helper function to extract string content from quoted_str rule
+fn parse_str(pair: Pair<Rule>) -> String {
+    if pair.as_rule() == Rule::string {
+        return pair.as_str().to_string();
+    }
+    for pair2 in pair.into_inner() {
+        if pair2.as_rule() == Rule::string {
+            return pair2.as_str().to_string();
+        }
+    }
+    String::new()
 }
 
-fn is_c_string_char(chr: char) -> bool {
-    chr.is_ascii_digit() || chr.is_alphabetic() || chr == '_'
+/// Helper function to parse an integer from a pest pair
+pub(crate) fn parse_int(pair: Pair<Rule>) -> DbcResult<i64> {
+    pair.as_str()
+        .parse::<i64>()
+        .map_err(|_| DbcError::InvalidData)
 }
 
-fn is_c_ident_head(chr: char) -> bool {
-    chr.is_alphabetic() || chr == '_'
+/// Helper function to parse an unsigned integer from a pest pair
+pub(crate) fn parse_uint(pair: Pair<Rule>) -> DbcResult<u64> {
+    pair.as_str()
+        .parse::<u64>()
+        .map_err(|_| DbcError::InvalidData)
 }
 
-fn is_quote_or_escape_character(chr: char) -> bool {
-    chr == '"' || chr == '\\'
+/// Helper function to parse a float from a pest pair
+pub(crate) fn parse_float(pair: Pair<Rule>) -> DbcResult<f64> {
+    pair.as_str()
+        .parse::<f64>()
+        .map_err(|_| DbcError::InvalidData)
 }
 
-/// Multispace zero or more
-fn ms0<T, E: ParseError<T>>(input: T) -> IResult<T, T, E>
-where
-    T: Input,
-    <T as Input>::Item: AsChar + Clone,
-{
-    input.split_at_position_complete(|item| {
-        let c = item.as_char();
-        c != ' '
+/// Parse version: VERSION "string"
+pub(crate) fn parse_version(pair: Pair<Rule>) -> DbcResult<Version> {
+    let mut inner_pairs = pair.into_inner();
+    let version_str = parse_str(next_rule(&mut inner_pairs, Rule::quoted_str)?);
+    // Don't use expect_empty here as there might be comments or whitespace
+    Ok(Version(version_str))
+}
+
+/// Parse new symbols: NS_ : symbol1 symbol2 ...
+pub(crate) fn parse_new_symbols(pair: Pair<Rule>) -> DbcResult<Vec<Symbol>> {
+    let mut symbols = Vec::new();
+    for pair2 in pair.into_inner() {
+        if let Rule::ident = pair2.as_rule() {
+            symbols.push(Symbol(pair2.as_str().to_string()));
+        }
+    }
+    Ok(symbols)
+}
+
+/// Parse bit timing: BS_: [baud_rate : BTR1 , BTR2 ]
+pub(crate) fn parse_bit_timing(pair: Pair<Rule>) -> DbcResult<Vec<Baudrate>> {
+    let baudrates = Vec::new();
+    for pair2 in pair.into_inner() {
+        match pair2.as_rule() {
+            other => panic!("What is this? {other:?}"),
+        }
+    }
+    Ok(baudrates)
+}
+
+/// Parse nodes: BU_: node1 node2 node3 ...
+pub(crate) fn parse_nodes(pair: Pair<Rule>) -> DbcResult<Vec<Node>> {
+    let mut nodes = Vec::new();
+
+    for pair2 in pair.into_inner() {
+        if let Rule::node_name = pair2.as_rule() {
+            nodes.push(Node(pair2.as_str().to_string()));
+        }
+    }
+
+    Ok(nodes)
+}
+
+/// Parse message: BO_ message_id message_name: message_size transmitter
+pub(crate) fn parse_message(pair: Pair<Rule>) -> DbcResult<Message> {
+    let mut inner_pairs = pair.into_inner();
+
+    // Parse msg_var (contains msg_literal ~ message_id)
+    let msg_var_pair = next_rule(&mut inner_pairs, Rule::msg_var)?;
+    let mut message_id = 0u32;
+    for sub_pair in msg_var_pair.into_inner() {
+        if sub_pair.as_rule() == Rule::message_id {
+            message_id = parse_uint(sub_pair)? as u32;
+        }
+    }
+
+    let message_name = next_rule(&mut inner_pairs, Rule::message_name)?
+        .as_str()
+        .to_string();
+    let message_size = parse_uint(next_rule(&mut inner_pairs, Rule::message_size)?)?;
+    let transmitter = next_rule(&mut inner_pairs, Rule::transmitter)?
+        .as_str()
+        .to_string();
+
+    // Don't use expect_empty here as there might be comments or whitespace
+
+    let msg_id = if message_id & (1 << 31) != 0 {
+        MessageId::Extended(message_id & 0x1FFF_FFFF)
+    } else {
+        MessageId::Standard(message_id as u16)
+    };
+
+    let transmitter =
+        if transmitter == "Vector__XXX" || transmitter == "VectorXXX" || transmitter.is_empty() {
+            Transmitter::VectorXXX
+        } else {
+            Transmitter::NodeName(transmitter)
+        };
+
+    Ok(Message {
+        id: msg_id,
+        name: message_name,
+        size: message_size,
+        transmitter,
+        signals: Vec::new(), // Signals will be parsed separately and associated later
     })
 }
 
-/// Multi space one or more
-fn ms1<T, E: ParseError<T>>(input: T) -> IResult<T, T, E>
-where
-    T: Input,
-    <T as Input>::Item: AsChar + Clone,
-{
-    input.split_at_position1_complete(
-        |item| {
-            let c = item.as_char();
-            c != ' '
-        },
-        ErrorKind::MultiSpace,
-    )
+/// Parse comment: CM_ [BU_|BO_|SG_|EV_] object_name "comment_text";
+pub(crate) fn parse_comment(pair: Pair<Rule>) -> DbcResult<Option<Comment>> {
+    let mut comment_text = String::new();
+    let mut message_id = None;
+    let mut signal_name = None;
+    let mut node_name = None;
+    let mut env_var_name = None;
+
+    // Process all inner pairs to extract information
+    for pair2 in pair.into_inner() {
+        match pair2.as_rule() {
+            Rule::quoted_str => comment_text = parse_str(pair2),
+            Rule::msg_var => {
+                // msg_var contains msg_literal ~ message_id
+                for sub_pair in pair2.into_inner() {
+                    if sub_pair.as_rule() == Rule::message_id {
+                        message_id = Some(parse_uint(sub_pair)? as u32);
+                    }
+                }
+            }
+            Rule::node_var => {
+                // node_var contains node_literal ~ node_name
+                for sub_pair in pair2.into_inner() {
+                    if sub_pair.as_rule() == Rule::node_name {
+                        node_name = Some(sub_pair.as_str().to_string());
+                    }
+                }
+            }
+            Rule::env_var => {
+                // env_var contains env_literal ~ env_var_name
+                for sub_pair in pair2.into_inner() {
+                    if sub_pair.as_rule() == Rule::env_var_name {
+                        env_var_name = Some(sub_pair.as_str().to_string());
+                    }
+                }
+            }
+            Rule::signal_var => {
+                // signal_var contains signal_literal ~ message_id ~ ident
+                for sub_pair in pair2.into_inner() {
+                    match sub_pair.as_rule() {
+                        Rule::message_id => {
+                            message_id = Some(parse_uint(sub_pair)? as u32);
+                        }
+                        Rule::ident => {
+                            signal_name = Some(sub_pair.as_str().to_string());
+                        }
+                        _ => {}
+                    }
+                }
+            }
+            Rule::message_id => message_id = Some(parse_uint(pair2)? as u32),
+            Rule::signal_name => signal_name = Some(pair2.as_str().to_string()),
+            Rule::node_name => node_name = Some(pair2.as_str().to_string()),
+            Rule::env_var_name => env_var_name = Some(pair2.as_str().to_string()),
+            other => panic!("What is this? {other:?}"),
+        }
+    }
+
+    // Determine comment type based on parsed components
+    // The grammar structure tells us:
+    // - If we have message_id + signal_name => Signal comment
+    // - If we have message_id only => Message comment
+    // - If we have node_name => Node comment
+    // - If we have env_var_name => Environment variable comment
+    // - Otherwise => Plain comment
+
+    if let Some(msg_id) = message_id {
+        let msg_id = if msg_id & (1 << 31) != 0 {
+            MessageId::Extended(msg_id & 0x1FFF_FFFF)
+        } else {
+            MessageId::Standard(msg_id as u16)
+        };
+
+        return if let Some(sig_name) = signal_name {
+            // Signal comment: CM_ SG_ message_id signal_name "comment"
+            Ok(Some(Comment::Signal {
+                message_id: msg_id,
+                name: sig_name,
+                comment: comment_text,
+            }))
+        } else {
+            // Message comment: CM_ BO_ message_id "comment"
+            Ok(Some(Comment::Message {
+                id: msg_id,
+                comment: comment_text,
+            }))
+        };
+    } else if let Some(node) = node_name {
+        // Node comment: CM_ BU_ node_name "comment"
+        return Ok(Some(Comment::Node {
+            name: node,
+            comment: comment_text,
+        }));
+    } else if let Some(env_var) = env_var_name {
+        // Environment variable comment: CM_ EV_ env_var_name "comment"
+        return Ok(Some(Comment::EnvVar {
+            name: env_var,
+            comment: comment_text,
+        }));
+    } else if !comment_text.is_empty() {
+        // Plain comment: CM_ "comment"
+        return Ok(Some(Comment::Plain {
+            comment: comment_text,
+        }));
+    }
+
+    Ok(None)
 }
 
-/// Colon aka `:`
-fn colon(s: &str) -> IResult<&str, char> {
-    char(':').parse(s)
-}
+/// Parse attribute definition: BA_DEF_ [object_type] attribute_name attribute_type [min max];
+pub(crate) fn parse_attribute_definition(pair: Pair<Rule>) -> DbcResult<AttributeDefinition> {
+    let mut definition_string = String::new();
+    let mut object_type = None;
 
-/// Comma aka ','
-fn comma(s: &str) -> IResult<&str, char> {
-    char(',').parse(s)
-}
+    // Collect all tokens to build the full definition string
+    for pair2 in pair.into_inner() {
+        match pair2.as_rule() {
+            Rule::object_type => {
+                // This is the new rule that captures the object type
+                let text = pair2.as_str();
+                if text == "SG_" {
+                    object_type = Some("signal");
+                } else if text == "BO_" {
+                    object_type = Some("message");
+                } else if text == "BU_" {
+                    object_type = Some("node");
+                } else if text == "EV_" {
+                    object_type = Some("environment_variable");
+                }
+            }
+            Rule::attribute_name
+            | Rule::attribute_type_int
+            | Rule::attribute_type_hex
+            | Rule::attribute_type_float
+            | Rule::attribute_type_string
+            | Rule::attribute_type_enum => {
+                if !definition_string.is_empty() {
+                    definition_string.push(' ');
+                }
+                definition_string.push_str(pair2.as_str());
+            }
+            other => panic!("What is this? {other:?}"),
+        }
+    }
 
-/// Comma aka ';'
-fn semi_colon(s: &str) -> IResult<&str, char> {
-    char(';').parse(s)
-}
-
-/// Quote aka '"'
-fn quote(s: &str) -> IResult<&str, char> {
-    char('"').parse(s)
-}
-
-/// Pipe character
-fn pipe(s: &str) -> IResult<&str, char> {
-    char('|').parse(s)
-}
-
-/// at character
-fn at(s: &str) -> IResult<&str, char> {
-    char('@').parse(s)
-}
-
-/// brace open aka '('
-fn brc_open(s: &str) -> IResult<&str, char> {
-    char('(').parse(s)
-}
-
-/// brace close aka ')'
-fn brc_close(s: &str) -> IResult<&str, char> {
-    char(')').parse(s)
-}
-
-/// bracket open aka '['
-fn brk_open(s: &str) -> IResult<&str, char> {
-    char('[').parse(s)
-}
-
-/// bracket close aka ']'
-fn brk_close(s: &str) -> IResult<&str, char> {
-    char(']').parse(s)
-}
-
-/// A valid `C_identifier`. `C_identifier`s start with an alpha character or an underscore
-/// and may further consist of alphanumeric characters and underscore
-pub(crate) fn c_ident(s: &str) -> IResult<&str, String> {
-    let (s, head) = take_while1(is_c_ident_head).parse(s)?;
-    let (s, remaining) = take_while(is_c_string_char).parse(s)?;
-    Ok((s, [head, remaining].concat()))
-}
-
-pub(crate) fn c_ident_vec(s: &str) -> IResult<&str, Vec<String>> {
-    separated_list0(comma, c_ident).parse(s)
-}
-
-pub(crate) fn char_string(s: &str) -> IResult<&str, &str> {
-    let (s, _) = quote(s)?;
-    let (s, optional_char_string_value) = opt(escaped(
-        take_till1(is_quote_or_escape_character),
-        '\\',
-        one_of(r#""n\"#),
-    ))
-    .parse(s)?;
-    let (s, _) = quote(s)?;
-
-    let char_string_value = optional_char_string_value.unwrap_or("");
-    Ok((s, char_string_value))
-}
-
-fn little_endian(s: &str) -> IResult<&str, ByteOrder> {
-    map(char('1'), |_| ByteOrder::LittleEndian).parse(s)
-}
-
-fn big_endian(s: &str) -> IResult<&str, ByteOrder> {
-    map(char('0'), |_| ByteOrder::BigEndian).parse(s)
-}
-
-pub(crate) fn byte_order(s: &str) -> IResult<&str, ByteOrder> {
-    alt((little_endian, big_endian)).parse(s)
-}
-
-pub(crate) fn message_id(s: &str) -> IResult<&str, MessageId> {
-    let (s, parsed_value) = complete::u32(s)?;
-
-    if parsed_value & (1 << 31) != 0 {
-        Ok((s, MessageId::Extended(parsed_value & 0x1FFF_FFFF)))
-    } else {
-        // FIXME: use u16::try_from and handle error
-        #[allow(clippy::cast_possible_truncation)]
-        Ok((s, MessageId::Standard(parsed_value as u16)))
+    // Return appropriate attribute definition based on object type
+    match object_type {
+        Some("signal") => Ok(AttributeDefinition::Signal(definition_string)),
+        Some("message") => Ok(AttributeDefinition::Message(definition_string)),
+        Some("node") => Ok(AttributeDefinition::Node(definition_string)),
+        Some("environment_variable") => {
+            Ok(AttributeDefinition::EnvironmentVariable(definition_string))
+        }
+        _ => Ok(AttributeDefinition::Plain(definition_string)),
     }
 }
 
-fn signed(s: &str) -> IResult<&str, ValueType> {
-    map(char('-'), |_| ValueType::Signed).parse(s)
-}
+/// Parse attribute value: BA_ attribute_name [object_type] object_name value;
+pub(crate) fn parse_attribute_value(pair: Pair<Rule>) -> DbcResult<AttributeValueForObject> {
+    let mut attribute_name = String::new();
+    let mut object_type = None;
+    let mut message_id = None;
+    let mut signal_name = None;
+    let mut node_name = None;
+    let mut env_var_name = None;
+    let mut value = None;
 
-fn unsigned(s: &str) -> IResult<&str, ValueType> {
-    map(char('+'), |_| ValueType::Unsigned).parse(s)
-}
+    for pair2 in pair.into_inner() {
+        match pair2.as_rule() {
+            Rule::attribute_name => {
+                attribute_name = parse_str(pair2);
+            }
+            // num_str_value is a silent rule, so we get quoted_str or number directly
+            Rule::quoted_str => {
+                value = Some(AttributeValue::String(parse_str(pair2)));
+            }
+            Rule::number => {
+                value = Some(AttributeValue::Double(parse_float(pair2)?));
+            }
+            Rule::node_var => {
+                object_type = Some("node");
+                // Parse the node name from the inner pairs
+                // node_var contains: node_literal ~ node_name
+                // node_literal is silent (_), so we get node_name directly
+                for sub_pair in pair2.into_inner() {
+                    if sub_pair.as_rule() == Rule::node_name {
+                        node_name = Some(sub_pair.as_str().to_string());
+                    }
+                }
+            }
+            Rule::msg_var => {
+                object_type = Some("message");
+                // Parse the message ID from the inner pairs
+                for sub_pair in pair2.into_inner() {
+                    if sub_pair.as_rule() == Rule::message_id {
+                        message_id = Some(parse_uint(sub_pair)? as u32);
+                    }
+                }
+            }
+            Rule::signal_var => {
+                object_type = Some("signal");
+                // Parse the message ID and signal name from the inner pairs
+                for sub_pair in pair2.into_inner() {
+                    match sub_pair.as_rule() {
+                        Rule::message_id => {
+                            message_id = Some(parse_uint(sub_pair)? as u32);
+                        }
+                        Rule::ident => {
+                            signal_name = Some(sub_pair.as_str().to_string());
+                        }
+                        other => panic!("What is this? {other:?}"),
+                    }
+                }
+            }
+            Rule::env_var => {
+                object_type = Some("env_var");
+                // Parse the environment variable name from the inner pairs
+                // env_var contains: env_literal ~ env_var_name
+                // env_literal is silent (_), so we get env_var_name directly
+                for sub_pair in pair2.into_inner() {
+                    if sub_pair.as_rule() == Rule::env_var_name {
+                        env_var_name = Some(sub_pair.as_str().to_string());
+                    }
+                }
+            }
+            other => panic!("What is this? {other:?}"),
+        }
+    }
 
-pub(crate) fn value_type(s: &str) -> IResult<&str, ValueType> {
-    alt((signed, unsigned)).parse(s)
-}
+    let value = value.unwrap_or(AttributeValue::String(String::new()));
 
-fn multiplexer(s: &str) -> IResult<&str, MultiplexIndicator> {
-    let (s, _) = ms1(s)?;
-    let (s, _) = char('m').parse(s)?;
-    let (s, d) = complete::u64(s)?;
-    let (s, _) = ms1(s)?;
-    Ok((s, MultiplexIndicator::MultiplexedSignal(d)))
-}
-
-fn multiplexor(s: &str) -> IResult<&str, MultiplexIndicator> {
-    let (s, _) = ms1(s)?;
-    let (s, _) = char('M').parse(s)?;
-    let (s, _) = ms1(s)?;
-    Ok((s, MultiplexIndicator::Multiplexor))
-}
-
-fn multiplexor_and_multiplexed(s: &str) -> IResult<&str, MultiplexIndicator> {
-    let (s, _) = ms1(s)?;
-    let (s, _) = char('m').parse(s)?;
-    let (s, d) = complete::u64(s)?;
-    let (s, _) = char('M').parse(s)?;
-    let (s, _) = ms1(s)?;
-    Ok((s, MultiplexIndicator::MultiplexorAndMultiplexedSignal(d)))
-}
-
-fn plain(s: &str) -> IResult<&str, MultiplexIndicator> {
-    let (s, _) = ms1(s)?;
-    Ok((s, MultiplexIndicator::Plain))
-}
-
-pub(crate) fn multiplexer_indicator(s: &str) -> IResult<&str, MultiplexIndicator> {
-    alt((multiplexer, multiplexor, multiplexor_and_multiplexed, plain)).parse(s)
-}
-
-pub(crate) fn version(s: &str) -> IResult<&str, Version> {
-    let (s, _) = multispace0(s)?;
-    let (s, _) = tag("VERSION").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, v) = char_string(s)?;
-    let (s, _) = line_ending(s)?;
-    Ok((s, Version(v.to_string())))
-}
-
-fn bit_timing(s: &str) -> IResult<&str, Vec<Baudrate>> {
-    let (s, _) = multispace0(s)?;
-    let (s, _) = tag("BS_:").parse(s)?;
-    let (s, baudrates) = opt(preceded(
-        ms1,
-        separated_list0(comma, map(complete::u64, Baudrate)),
-    ))
-    .parse(s)?;
-    Ok((s, baudrates.unwrap_or_default()))
-}
-
-pub(crate) fn signal(s: &str) -> IResult<&str, Signal> {
-    let (s, _) = multispace0(s)?;
-    let (s, _) = tag("SG_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, name) = c_ident(s)?;
-    let (s, multiplexer_indicator) = multiplexer_indicator(s)?;
-    let (s, _) = colon(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, start_bit) = complete::u64(s)?;
-    let (s, _) = pipe(s)?;
-    let (s, signal_size) = complete::u64(s)?;
-    let (s, _) = at(s)?;
-    let (s, byte_order) = byte_order(s)?;
-    let (s, value_type) = value_type(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, _) = brc_open(s)?;
-    let (s, factor) = double(s)?;
-    let (s, _) = comma(s)?;
-    let (s, offset) = double(s)?;
-    let (s, _) = brc_close(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, _) = brk_open(s)?;
-    let (s, min) = double(s)?;
-    let (s, _) = pipe(s)?;
-    let (s, max) = double(s)?;
-    let (s, _) = brk_close(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, unit) = char_string(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, receivers) = c_ident_vec(s)?;
-    let (s, _) = line_ending(s)?;
-    Ok((
-        s,
-        Signal {
-            name,
-            multiplexer_indicator,
-            start_bit,
-            size: signal_size,
-            byte_order,
-            value_type,
-            factor,
-            offset,
-            min,
-            max,
-            unit: unit.to_string(),
-            receivers,
-        },
-    ))
-}
-
-pub(crate) fn message(s: &str) -> IResult<&str, Message> {
-    let (s, _) = multispace0(s)?;
-    let (s, _) = tag("BO_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, message_id) = message_id(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, message_name) = c_ident(s)?;
-    let (s, _) = colon(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, message_size) = complete::u64(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, transmitter) = transmitter(s)?;
-    let (s, signals) = many0(signal).parse(s)?;
-    Ok((
-        s,
-        (Message {
-            id: message_id,
-            name: message_name,
-            size: message_size,
-            transmitter,
-            signals,
+    // Determine attribute value type based on parsed components
+    match object_type {
+        Some("signal") => {
+            if let (Some(msg_id), Some(sig_name)) = (message_id, signal_name) {
+                let msg_id = if msg_id & (1 << 31) != 0 {
+                    MessageId::Extended(msg_id & 0x1FFF_FFFF)
+                } else {
+                    MessageId::Standard(msg_id as u16)
+                };
+                Ok(AttributeValueForObject {
+                    name: attribute_name,
+                    value: AttributeValuedForObjectType::Signal(msg_id, sig_name, value),
+                })
+            } else {
+                todo!()
+                // Ok(AttributeValueForObject {
+                //     name: attribute_name,
+                //     value: AttributeValuedForObjectType::Raw(value),
+                // })
+            }
+        }
+        Some("message") => {
+            if let Some(msg_id) = message_id {
+                let msg_id = if msg_id & (1 << 31) != 0 {
+                    MessageId::Extended(msg_id & 0x1FFF_FFFF)
+                } else {
+                    MessageId::Standard(msg_id as u16)
+                };
+                Ok(AttributeValueForObject {
+                    name: attribute_name,
+                    value: AttributeValuedForObjectType::MessageDefinition(msg_id, Some(value)),
+                })
+            } else {
+                Ok(AttributeValueForObject {
+                    name: attribute_name,
+                    value: AttributeValuedForObjectType::Raw(value),
+                })
+            }
+        }
+        Some("node") => {
+            if let Some(node) = node_name {
+                Ok(AttributeValueForObject {
+                    name: attribute_name,
+                    value: AttributeValuedForObjectType::NetworkNode(node, value),
+                })
+            } else {
+                Ok(AttributeValueForObject {
+                    name: attribute_name,
+                    value: AttributeValuedForObjectType::Raw(value),
+                })
+            }
+        }
+        Some("env_var") => {
+            if let Some(env_var) = env_var_name {
+                Ok(AttributeValueForObject {
+                    name: attribute_name,
+                    value: AttributeValuedForObjectType::EnvVariable(env_var, value),
+                })
+            } else {
+                Ok(AttributeValueForObject {
+                    name: attribute_name,
+                    value: AttributeValuedForObjectType::Raw(value),
+                })
+            }
+        }
+        _ => Ok(AttributeValueForObject {
+            name: attribute_name,
+            value: AttributeValuedForObjectType::Raw(value),
         }),
-    ))
+    }
 }
 
-pub(crate) fn attribute_default(s: &str) -> IResult<&str, AttributeDefault> {
-    let (s, _) = multispace0(s)?;
-    let (s, _) = tag("BA_DEF_DEF_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, attribute_name) = char_string(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, attribute_value) = attribute_value(s)?;
-    let (s, _) = semi_colon(s)?;
-    let (s, _) = line_ending(s)?;
+/// Parse value table: VAL_TABLE_ table_name value1 "description1" value2 "description2" ... ;
+pub(crate) fn parse_value_table(pair: Pair<Rule>) -> DbcResult<ValueTable> {
+    let mut inner_pairs = pair.into_inner();
 
-    Ok((
-        s,
-        AttributeDefault {
-            name: attribute_name.to_string(),
-            value: attribute_value,
-        },
-    ))
+    let table_name = next_rule(&mut inner_pairs, Rule::table_name)?
+        .as_str()
+        .to_string();
+
+    // Collect table value descriptions
+    let mut descriptions = Vec::new();
+    for pair2 in inner_pairs {
+        if pair2.as_rule() == Rule::table_value_description {
+            descriptions.push(parse_table_value_description(pair2)?);
+        }
+    }
+
+    Ok(ValueTable {
+        name: table_name,
+        descriptions,
+    })
 }
 
-fn node_comment(s: &str) -> IResult<&str, Comment> {
-    let (s, _) = tag("BU_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, node_name) = c_ident(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, comment) = char_string(s)?;
-
-    Ok((
-        s,
-        Comment::Node {
-            name: node_name,
-            comment: comment.to_string(),
-        },
-    ))
-}
-
-fn message_comment(s: &str) -> IResult<&str, Comment> {
-    let (s, _) = tag("BO_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, message_id) = message_id(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, comment) = char_string(s)?;
-
-    Ok((
-        s,
-        Comment::Message {
-            id: message_id,
-            comment: comment.to_string(),
-        },
-    ))
-}
-
-fn signal_comment(s: &str) -> IResult<&str, Comment> {
-    let (s, _) = tag("SG_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, message_id) = message_id(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, signal_name) = c_ident(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, comment) = char_string(s)?;
-    Ok((
-        s,
-        Comment::Signal {
-            message_id,
-            name: signal_name,
-            comment: comment.to_string(),
-        },
-    ))
-}
-
-fn env_var_comment(s: &str) -> IResult<&str, Comment> {
-    let (s, _) = ms0(s)?;
-    let (s, _) = tag("EV_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, env_var_name) = c_ident(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, comment) = char_string(s)?;
-    Ok((
-        s,
-        Comment::EnvVar {
-            name: env_var_name,
-            comment: comment.to_string(),
-        },
-    ))
-}
-
-fn comment_plain(s: &str) -> IResult<&str, Comment> {
-    let (s, comment) = char_string(s)?;
-    Ok((
-        s,
-        Comment::Plain {
-            comment: comment.to_string(),
-        },
-    ))
-}
-
-pub(crate) fn comment(s: &str) -> IResult<&str, Comment> {
-    let (s, _) = multispace0(s)?;
-    let (s, _) = tag("CM_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, comment) = alt((
-        node_comment,
-        message_comment,
-        env_var_comment,
-        signal_comment,
-        comment_plain,
-    ))
-    .parse(s)?;
-    let (s, _) = semi_colon(s)?;
-    let (s, _) = line_ending(s)?;
-    Ok((s, comment))
-}
-
-pub(crate) fn value_description(s: &str) -> IResult<&str, ValDescription> {
-    let (s, a) = double(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, b) = char_string(s)?;
-    Ok((
-        s,
-        ValDescription {
-            id: a,
-            description: b.to_string(),
-        },
-    ))
-}
-
-fn value_description_for_signal(s: &str) -> IResult<&str, ValueDescription> {
-    let (s, _) = ms0(s)?;
-    let (s, _) = tag("VAL_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, message_id) = message_id(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, signal_name) = c_ident(s)?;
-    let (s, value_descriptions) = many_till(
-        preceded(ms1, value_description),
-        preceded(opt(ms1), semi_colon),
-    )
-    .parse(s)?;
-    Ok((
-        s,
-        ValueDescription::Signal {
-            message_id,
-            name: signal_name,
-            value_descriptions: value_descriptions.0,
-        },
-    ))
-}
-
-fn value_description_for_env_var(s: &str) -> IResult<&str, ValueDescription> {
-    let (s, _) = ms0(s)?;
-    let (s, _) = tag("VAL_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, env_var_name) = c_ident(s)?;
-    let (s, value_descriptions) = many_till(
-        preceded(ms1, value_description),
-        preceded(opt(ms1), semi_colon),
-    )
-    .parse(s)?;
-    Ok((
-        s,
-        ValueDescription::EnvironmentVariable {
-            name: env_var_name,
-            value_descriptions: value_descriptions.0,
-        },
-    ))
-}
-
-pub(crate) fn value_descriptions(s: &str) -> IResult<&str, ValueDescription> {
-    let (s, _) = multispace0(s)?;
-    let (s, vd) = alt((value_description_for_signal, value_description_for_env_var)).parse(s)?;
-    let (s, _) = line_ending(s)?;
-    Ok((s, vd))
-}
-
-fn env_float(s: &str) -> IResult<&str, EnvType> {
-    value(EnvType::Float, char('0')).parse(s)
-}
-
-fn env_int(s: &str) -> IResult<&str, EnvType> {
-    value(EnvType::U64, char('1')).parse(s)
-}
-
-fn env_data(s: &str) -> IResult<&str, EnvType> {
-    value(EnvType::U64, char('2')).parse(s)
-}
-
-fn env_var_type(s: &str) -> IResult<&str, EnvType> {
-    alt((env_float, env_int, env_data)).parse(s)
-}
-
-fn dummy_node_vector_0(s: &str) -> IResult<&str, AccessType> {
-    value(AccessType::DummyNodeVector0, char('0')).parse(s)
-}
-
-fn dummy_node_vector_1(s: &str) -> IResult<&str, AccessType> {
-    value(AccessType::DummyNodeVector1, char('1')).parse(s)
-}
-
-fn dummy_node_vector_2(s: &str) -> IResult<&str, AccessType> {
-    value(AccessType::DummyNodeVector2, char('2')).parse(s)
-}
-fn dummy_node_vector_3(s: &str) -> IResult<&str, AccessType> {
-    value(AccessType::DummyNodeVector3, char('3')).parse(s)
-}
-
-fn access_type(s: &str) -> IResult<&str, AccessType> {
-    let (s, _) = tag("DUMMY_NODE_VECTOR").parse(s)?;
-    let (s, node) = alt((
-        dummy_node_vector_0,
-        dummy_node_vector_1,
-        dummy_node_vector_2,
-        dummy_node_vector_3,
-    ))
-    .parse(s)?;
-    Ok((s, node))
-}
-
-fn access_node_vector_xxx(s: &str) -> IResult<&str, AccessNode> {
-    value(AccessNode::VectorXXX, tag("VECTOR_XXX")).parse(s)
-}
-
-fn access_node_name(s: &str) -> IResult<&str, AccessNode> {
-    map(c_ident, AccessNode::Name).parse(s)
-}
-
-fn access_node(s: &str) -> IResult<&str, AccessNode> {
-    alt((access_node_vector_xxx, access_node_name)).parse(s)
-}
-
-/// Environment Variable Definitions
-pub(crate) fn environment_variable(s: &str) -> IResult<&str, EnvironmentVariable> {
-    let (s, _) = multispace0(s)?;
-    let (s, _) = tag("EV_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, env_var_name) = c_ident(s)?;
-    let (s, _) = colon(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, env_var_type) = env_var_type(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, _) = brk_open(s)?;
-    let (s, min) = complete::i64(s)?;
-    let (s, _) = pipe(s)?;
-    let (s, max) = complete::i64(s)?;
-    let (s, _) = brk_close(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, unit) = char_string(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, initial_value) = double(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, ev_id) = complete::i64(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, access_type) = access_type(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, access_nodes) = separated_list0(comma, access_node).parse(s)?;
-    let (s, _) = semi_colon(s)?;
-    let (s, _) = line_ending(s)?;
-    Ok((
-        s,
-        EnvironmentVariable {
-            name: env_var_name,
-            typ: env_var_type,
-            min,
-            max,
-            unit: unit.to_string(),
-            initial_value,
-            ev_id,
-            access_type,
-            access_nodes,
-        },
-    ))
-}
-
-pub(crate) fn environment_variable_data(s: &str) -> IResult<&str, EnvironmentVariableData> {
-    let (s, _) = multispace0(s)?;
-    let (s, _) = tag("ENVVAR_DATA_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, env_var_name) = c_ident(s)?;
-    let (s, _) = colon(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, data_size) = complete::u64(s)?;
-    let (s, _) = semi_colon(s)?;
-    let (s, _) = line_ending(s)?;
-    Ok((
-        s,
-        EnvironmentVariableData {
-            env_var_name,
-            data_size,
-        },
-    ))
-}
-
-pub(crate) fn signal_type(s: &str) -> IResult<&str, SignalType> {
-    let (s, _) = multispace0(s)?;
-    let (s, _) = tag("SGTYPE_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, signal_type_name) = c_ident(s)?;
-    let (s, _) = colon(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, signal_size) = complete::u64(s)?;
-    let (s, _) = at(s)?;
-    let (s, byte_order) = byte_order(s)?;
-    let (s, value_type) = value_type(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, _) = brc_open(s)?;
-    let (s, factor) = double(s)?;
-    let (s, _) = comma(s)?;
-    let (s, offset) = double(s)?;
-    let (s, _) = brc_close(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, _) = brk_open(s)?;
-    let (s, min) = double(s)?;
-    let (s, _) = pipe(s)?;
-    let (s, max) = double(s)?;
-    let (s, _) = brk_close(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, unit) = char_string(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, default_value) = double(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, value_table) = c_ident(s)?;
-    let (s, _) = semi_colon(s)?;
-    let (s, _) = line_ending(s)?;
-    Ok((
-        s,
-        SignalType {
-            name: signal_type_name,
-            signal_size,
-            byte_order,
-            value_type,
-            factor,
-            offset,
-            min,
-            max,
-            unit: unit.to_string(),
-            default_value,
-            value_table,
-        },
-    ))
+/// Helper function to get the next pair and validate its rule
+fn next_rule<'a>(iter: &'a mut Pairs<Rule>, expected_rule: Rule) -> DbcResult<Pair<'a, Rule>> {
+    let pair = iter.next().ok_or(DbcError::ParseError)?;
+    if pair.as_rule() != expected_rule {
+        Err(DbcError::ParseError)
+    } else {
+        Ok(pair)
+    }
 }
 
 #[allow(dead_code)]
-fn attribute_value_uint64(s: &str) -> IResult<&str, AttributeValue> {
-    map(complete::u64, AttributeValue::U64).parse(s)
+fn peek_rule<'a>(iter: &mut Pairs<'a, Rule>, expected_rule: Rule) -> Option<Pair<'a, Rule>> {
+    if let Some(pair) = iter.peek() {
+        if pair.as_rule() == expected_rule {
+            return Some(iter.next().unwrap());
+        }
+    }
+    None
 }
 
+/// Helper function to ensure the iterator is empty (no more items)
 #[allow(dead_code)]
-fn attribute_value_int64(s: &str) -> IResult<&str, AttributeValue> {
-    map(complete::i64, AttributeValue::I64).parse(s)
+fn expect_empty<'a>(iter: &mut Pairs<Rule>) -> DbcResult<()> {
+    if iter.next().is_some() {
+        Err(DbcError::ParseError)
+    } else {
+        Ok(())
+    }
 }
 
-fn attribute_value_f64(s: &str) -> IResult<&str, AttributeValue> {
-    map(double, AttributeValue::Double).parse(s)
+/// Helper to parse a single table value description pair (value + description)
+pub(crate) fn parse_table_value_description(pair: Pair<Rule>) -> DbcResult<ValDescription> {
+    let mut inner_pairs = pair.into_inner();
+
+    let id = parse_int(next_rule(&mut inner_pairs, Rule::int)?)? as f64;
+    let description = parse_str(next_rule(&mut inner_pairs, Rule::quoted_str)?);
+    // Don't use expect_empty here as there might be comments or whitespace
+
+    Ok(ValDescription { id, description })
 }
 
-fn attribute_value_charstr(s: &str) -> IResult<&str, AttributeValue> {
-    map(char_string, |x| AttributeValue::String(x.to_string())).parse(s)
+/// Helper to parse min/max values from a min_max rule
+pub(crate) fn parse_min_max_int(pair: Pair<Rule>) -> DbcResult<(i64, i64)> {
+    let mut inner_pairs = pair.into_inner();
+
+    let min_val = parse_int(next_rule(&mut inner_pairs, Rule::minimum)?)?;
+    let max_val = parse_int(next_rule(&mut inner_pairs, Rule::maximum)?)?;
+    // Don't use expect_empty here as there might be comments or whitespace
+
+    Ok((min_val, max_val))
 }
 
-pub(crate) fn attribute_value(s: &str) -> IResult<&str, AttributeValue> {
-    alt((
-        // attribute_value_uint64,
-        // attribute_value_int64,
-        attribute_value_f64,
-        attribute_value_charstr,
-    ))
-    .parse(s)
+/// Helper to parse min/max values from a min_max rule as floats
+pub(crate) fn parse_min_max_float(pair: Pair<Rule>) -> DbcResult<(f64, f64)> {
+    let mut inner_pairs = pair.into_inner();
+
+    let min_val = parse_float(next_rule(&mut inner_pairs, Rule::minimum)?)?;
+    let max_val = parse_float(next_rule(&mut inner_pairs, Rule::maximum)?)?;
+    // Don't use expect_empty here as there might be comments or whitespace
+
+    Ok((min_val, max_val))
 }
 
-fn network_node_attribute_value(s: &str) -> IResult<&str, AttributeValuedForObjectType> {
-    let (s, _) = tag("BU_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, node_name) = c_ident(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, value) = attribute_value(s)?;
-    Ok((
-        s,
-        AttributeValuedForObjectType::NetworkNode(node_name, value),
-    ))
+/// Parse value description: VAL_ message_id signal_name value1 "description1" value2 "description2" ... ;
+pub(crate) fn parse_value_description(pair: Pair<Rule>) -> DbcResult<ValueDescription> {
+    let mut inner_pairs = pair.into_inner();
+
+    // Check if first item is message_id (optional)
+    let mut message_id = None;
+    if let Some(first_pair) = inner_pairs.next() {
+        if first_pair.as_rule() == Rule::message_id {
+            message_id = Some(parse_uint(first_pair)? as u32);
+        } else {
+            // Put it back and treat as signal_name (environment variable case)
+            let signal_name = first_pair.as_str().to_string();
+            let mut descriptions = Vec::new();
+            for pair2 in inner_pairs {
+                if pair2.as_rule() == Rule::table_value_description {
+                    descriptions.push(parse_table_value_description(pair2)?);
+                }
+            }
+            return Ok(ValueDescription::EnvironmentVariable {
+                name: signal_name,
+                value_descriptions: descriptions,
+            });
+        }
+    }
+
+    let signal_name = next_rule(&mut inner_pairs, Rule::signal_name)?
+        .as_str()
+        .to_string();
+
+    // Collect table value descriptions
+    let mut descriptions = Vec::new();
+    for pair2 in inner_pairs {
+        if pair2.as_rule() == Rule::table_value_description {
+            descriptions.push(parse_table_value_description(pair2)?);
+        }
+    }
+
+    if let Some(msg_id) = message_id {
+        let msg_id = if msg_id & (1 << 31) != 0 {
+            MessageId::Extended(msg_id & 0x1FFF_FFFF)
+        } else {
+            MessageId::Standard(msg_id as u16)
+        };
+        Ok(ValueDescription::Signal {
+            message_id: msg_id,
+            name: signal_name,
+            value_descriptions: descriptions,
+        })
+    } else {
+        Ok(ValueDescription::EnvironmentVariable {
+            name: signal_name,
+            value_descriptions: descriptions,
+        })
+    }
 }
 
-fn message_definition_attribute_value(s: &str) -> IResult<&str, AttributeValuedForObjectType> {
-    let (s, _) = tag("BO_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, message_id) = message_id(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, value) = opt(attribute_value).parse(s)?;
-    Ok((
-        s,
-        AttributeValuedForObjectType::MessageDefinition(message_id, value),
-    ))
+/// Parse signal group: SIG_GROUP_ message_id group_name multiplexer_id : signal1 signal2 ... ;
+pub(crate) fn parse_signal_group(pair: Pair<Rule>) -> DbcResult<SignalGroups> {
+    let mut inner_pairs = pair.into_inner();
+
+    let message_id = parse_uint(next_rule(&mut inner_pairs, Rule::message_id)?)? as u32;
+    let group_name = next_rule(&mut inner_pairs, Rule::group_name)?
+        .as_str()
+        .to_string();
+    let repetitions = parse_uint(next_rule(&mut inner_pairs, Rule::multiplexer_id)?)?;
+
+    // Collect remaining signal names
+    let mut signal_names = Vec::new();
+    for pair2 in inner_pairs {
+        if pair2.as_rule() == Rule::signal_name {
+            signal_names.push(pair2.as_str().to_string());
+        }
+    }
+
+    let msg_id = if message_id & (1 << 31) != 0 {
+        MessageId::Extended(message_id & 0x1FFF_FFFF)
+    } else {
+        MessageId::Standard(message_id as u16)
+    };
+
+    Ok(SignalGroups {
+        message_id: msg_id,
+        name: group_name,
+        repetitions,
+        signal_names,
+    })
 }
 
-fn signal_attribute_value(s: &str) -> IResult<&str, AttributeValuedForObjectType> {
-    let (s, _) = tag("SG_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, message_id) = message_id(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, signal_name) = c_ident(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, value) = attribute_value(s)?;
-    Ok((
-        s,
-        AttributeValuedForObjectType::Signal(message_id, signal_name, value),
-    ))
+/// Parse signal value type: SIG_VALTYPE_ message_id signal_name : value_type;
+pub(crate) fn parse_signal_value_type(pair: Pair<Rule>) -> DbcResult<SignalExtendedValueTypeList> {
+    let mut inner_pairs = pair.into_inner();
+
+    let message_id = parse_uint(next_rule(&mut inner_pairs, Rule::message_id)?)? as u32;
+    let signal_name = next_rule(&mut inner_pairs, Rule::signal_name)?
+        .as_str()
+        .to_string();
+    let value_type = parse_uint(next_rule(&mut inner_pairs, Rule::int)?)?;
+
+    // Don't use expect_empty here as there might be comments or whitespace
+
+    let msg_id = if message_id & (1 << 31) != 0 {
+        MessageId::Extended(message_id & 0x1FFF_FFFF)
+    } else {
+        MessageId::Standard(message_id as u16)
+    };
+
+    let signal_extended_value_type = match value_type {
+        0 => SignalExtendedValueType::SignedOrUnsignedInteger,
+        1 => SignalExtendedValueType::IEEEfloat32Bit,
+        2 => SignalExtendedValueType::IEEEdouble64bit,
+        _ => SignalExtendedValueType::SignedOrUnsignedInteger,
+    };
+
+    Ok(SignalExtendedValueTypeList {
+        message_id: msg_id,
+        signal_name,
+        signal_extended_value_type,
+    })
 }
 
-fn env_variable_attribute_value(s: &str) -> IResult<&str, AttributeValuedForObjectType> {
-    let (s, _) = tag("EV_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, env_var_name) = c_ident(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, value) = attribute_value(s)?;
-    Ok((
-        s,
-        AttributeValuedForObjectType::EnvVariable(env_var_name, value),
-    ))
+/// Parse message transmitter: BO_TX_BU_ message_id : transmitter1,transmitter2,... ;
+pub(crate) fn parse_message_transmitter(pair: Pair<Rule>) -> DbcResult<MessageTransmitter> {
+    let mut inner_pairs = pair.into_inner();
+
+    let message_id = parse_uint(next_rule(&mut inner_pairs, Rule::message_id)?)? as u32;
+
+    // Collect transmitters
+    let mut transmitters = Vec::new();
+    for pair2 in inner_pairs {
+        if pair2.as_rule() == Rule::transmitter {
+            let name = pair2.as_str().to_string();
+            let transmitter = if name == "Vector__XXX" {
+                Transmitter::VectorXXX
+            } else {
+                Transmitter::NodeName(name)
+            };
+            transmitters.push(transmitter);
+        }
+    }
+
+    let msg_id = if message_id & (1 << 31) != 0 {
+        MessageId::Extended(message_id & 0x1FFF_FFFF)
+    } else {
+        MessageId::Standard(message_id as u16)
+    };
+
+    Ok(MessageTransmitter {
+        message_id: msg_id,
+        transmitter: transmitters,
+    })
 }
 
-fn raw_attribute_value(s: &str) -> IResult<&str, AttributeValuedForObjectType> {
-    map(attribute_value, AttributeValuedForObjectType::Raw).parse(s)
+/// Parse attribute default: BA_DEF_DEF_ attribute_name default_value;
+pub(crate) fn parse_attribute_default(pair: Pair<Rule>) -> DbcResult<AttributeDefault> {
+    let mut inner_pairs = pair.into_inner();
+
+    let attribute_name = parse_str(next_rule(&mut inner_pairs, Rule::attribute_name)?);
+
+    // Parse the value - could be quoted_str or number (num_str_value is silent)
+    let value_pair = inner_pairs.next().ok_or(DbcError::ParseError)?;
+    let default_value = match value_pair.as_rule() {
+        Rule::quoted_str => AttributeValue::String(parse_str(value_pair)),
+        Rule::number => AttributeValue::Double(parse_float(value_pair)?),
+        _ => return Err(DbcError::ParseError),
+    };
+
+    // Don't use expect_empty here as there might be comments or whitespace
+
+    Ok(AttributeDefault {
+        name: attribute_name,
+        value: default_value,
+    })
 }
 
-pub(crate) fn attribute_value_for_object(s: &str) -> IResult<&str, AttributeValueForObject> {
-    let (s, _) = multispace0(s)?;
-    let (s, _) = tag("BA_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, attribute_name) = char_string(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, attribute_value) = alt((
-        network_node_attribute_value,
-        message_definition_attribute_value,
-        signal_attribute_value,
-        env_variable_attribute_value,
-        raw_attribute_value,
-    ))
-    .parse(s)?;
-    let (s, _) = semi_colon(s)?;
-    let (s, _) = line_ending(s)?;
-    Ok((
-        s,
-        AttributeValueForObject {
-            name: attribute_name.to_string(),
-            value: attribute_value,
-        },
-    ))
+/// Parse extended multiplex: SG_MUL_VAL_ message_id signal_name multiplexor_name value_pairs;
+pub(crate) fn parse_extended_multiplex(pair: Pair<Rule>) -> DbcResult<ExtendedMultiplex> {
+    let mut inner_pairs = pair.into_inner();
+
+    let message_id = parse_uint(next_rule(&mut inner_pairs, Rule::message_id)?)? as u32;
+    let signal_name = next_rule(&mut inner_pairs, Rule::signal_name)?
+        .as_str()
+        .to_string();
+    let multiplexor_name = next_rule(&mut inner_pairs, Rule::multiplexer_name)?
+        .as_str()
+        .to_string();
+
+    // Collect value pairs
+    let mut mappings = Vec::new();
+    for pair2 in inner_pairs {
+        if pair2.as_rule() == Rule::value_pair {
+            let mut min_val = None;
+            let mut max_val = None;
+            for pair3 in pair2.into_inner() {
+                if pair3.as_rule() == Rule::int {
+                    let value = parse_uint(pair3)?;
+                    if min_val.is_none() {
+                        min_val = Some(value);
+                    } else {
+                        max_val = Some(value);
+                    }
+                }
+            }
+            if let (Some(min), Some(max)) = (min_val, max_val) {
+                mappings.push(ExtendedMultiplexMapping {
+                    min_value: min,
+                    max_value: max,
+                });
+            }
+        }
+    }
+
+    let msg_id = if message_id & (1 << 31) != 0 {
+        MessageId::Extended(message_id & 0x1FFF_FFFF)
+    } else {
+        MessageId::Standard(message_id as u16)
+    };
+
+    Ok(ExtendedMultiplex {
+        message_id: msg_id,
+        signal_name,
+        multiplexor_signal_name: multiplexor_name,
+        mappings,
+    })
 }
 
-// TODO add properties
-fn attribute_definition_node(s: &str) -> IResult<&str, AttributeDefinition> {
-    let (s, _) = tag("BU_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, node) = take_till(is_semi_colon).parse(s)?;
-    Ok((s, AttributeDefinition::Node(node.trim().to_string())))
+/// Parse environment variable: EV_ variable_name : type [min|max] "unit" access_type access_node node_name1 node_name2;
+pub(crate) fn parse_environment_variable(pair: Pair<Rule>) -> DbcResult<EnvironmentVariable> {
+    let mut variable_name = String::new();
+    let mut env_type = 0u64;
+    let mut min_val = 0i64;
+    let mut max_val = 0i64;
+    let mut unit = String::new();
+    let mut initial_value = 0.0f64;
+    let mut ev_id = 0i64;
+    let mut access_type = String::new();
+    let mut access_nodes = Vec::new();
+
+    for pair2 in pair.into_inner() {
+        match pair2.as_rule() {
+            Rule::env_var => {
+                // env_var contains env_literal ~ env_var_name
+                for sub_pair in pair2.into_inner() {
+                    if sub_pair.as_rule() == Rule::env_var_name {
+                        variable_name = sub_pair.as_str().to_string();
+                    }
+                }
+            }
+            Rule::env_var_type_int => env_type = 0, // Integer type
+            Rule::env_var_type_float => env_type = 1, // Float type
+            Rule::env_var_type_string => env_type = 2, // String type
+            Rule::min_max => (min_val, max_val) = parse_min_max_int(pair2)?,
+            Rule::unit => unit = parse_str(pair2),
+            Rule::init_value => initial_value = parse_int(pair2)? as f64,
+            Rule::ev_id => ev_id = parse_int(pair2)?,
+            Rule::node_name => {
+                let name = pair2.as_str().to_string();
+                if access_type.is_empty() {
+                    // First node_name is the access type
+                    access_type = name;
+                } else {
+                    // Subsequent node_names are access nodes
+                    let access_node = if name == "VECTOR__XXX" {
+                        AccessNode::VectorXXX
+                    } else {
+                        AccessNode::Name(name)
+                    };
+                    access_nodes.push(access_node);
+                }
+            }
+            other => panic!("What is this? {other:?}"),
+        }
+    }
+
+    let typ = match env_type {
+        0 => EnvType::Float,
+        1 => EnvType::U64,
+        2 => EnvType::Data,
+        _ => EnvType::Float,
+    };
+
+    let access_type_enum = match access_type.as_str() {
+        "DUMMY_NODE_VECTOR0" => AccessType::DummyNodeVector0,
+        "DUMMY_NODE_VECTOR1" => AccessType::DummyNodeVector1,
+        "DUMMY_NODE_VECTOR2" => AccessType::DummyNodeVector2,
+        "DUMMY_NODE_VECTOR3" => AccessType::DummyNodeVector3,
+        _ => AccessType::DummyNodeVector0,
+    };
+
+    Ok(EnvironmentVariable {
+        name: variable_name,
+        typ,
+        min: min_val,
+        max: max_val,
+        unit,
+        initial_value,
+        ev_id,
+        access_type: access_type_enum,
+        access_nodes,
+    })
 }
 
-// TODO add properties
-fn attribute_definition_signal(s: &str) -> IResult<&str, AttributeDefinition> {
-    let (s, _) = tag("SG_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, signal) = take_till(is_semi_colon).parse(s)?;
-    Ok((s, AttributeDefinition::Signal(signal.trim().to_string())))
+/// Parse signal: SG_ signal_name : start_bit|signal_size@byte_order+/- (factor,offset) [min|max] "unit" receiver
+pub(crate) fn parse_signal(pair: Pair<Rule>) -> DbcResult<Signal> {
+    let mut signal_name = String::new();
+    let mut multiplexer_indicator = MultiplexIndicator::Plain;
+    let mut start_bit = 0u64;
+    let mut signal_size = 0u64;
+    let mut byte_order = ByteOrder::BigEndian;
+    let mut value_type = ValueType::Unsigned;
+    let mut factor = 0.0f64;
+    let mut offset = 0.0f64;
+    let mut min = 0.0f64;
+    let mut max = 0.0f64;
+    let mut unit = String::new();
+    let mut receivers = Vec::new();
+
+    for pair2 in pair.into_inner() {
+        match pair2.as_rule() {
+            Rule::signal_name => {
+                signal_name = pair2.as_str().to_string();
+            }
+            Rule::multiplexer_indicator => {
+                let text = pair2.as_str();
+                if text == "M" {
+                    multiplexer_indicator = MultiplexIndicator::Multiplexor;
+                } else if text.starts_with('m') {
+                    // Parse multiplexed signal value from the text
+                    // The text should be like "m1" or "m1M"
+                    if text.len() > 1 {
+                        let value_str = &text[1..];
+                        // Check if it ends with 'M' (multiplexor and multiplexed signal)
+                        if value_str.ends_with('M') {
+                            let value_str = &value_str[..value_str.len() - 1];
+                            if let Ok(value) = value_str.parse::<u64>() {
+                                multiplexer_indicator =
+                                    MultiplexIndicator::MultiplexorAndMultiplexedSignal(value);
+                            }
+                        } else {
+                            // Just multiplexed signal
+                            if let Ok(value) = value_str.parse::<u64>() {
+                                multiplexer_indicator =
+                                    MultiplexIndicator::MultiplexedSignal(value);
+                            }
+                        }
+                    }
+                }
+            }
+            Rule::start_bit => start_bit = parse_uint(pair2)?,
+            Rule::signal_size => signal_size = parse_uint(pair2)?,
+            Rule::big_endian => byte_order = ByteOrder::BigEndian,
+            Rule::little_endian => byte_order = ByteOrder::LittleEndian,
+            Rule::signed_type => value_type = ValueType::Signed,
+            Rule::unsigned_type => value_type = ValueType::Unsigned,
+            Rule::factor => factor = parse_float(pair2)?,
+            Rule::offset => offset = parse_float(pair2)?,
+            Rule::min_max => (min, max) = parse_min_max_float(pair2)?,
+            Rule::unit => unit = parse_str(pair2),
+            Rule::node_name => receivers.push(pair2.as_str().to_string()),
+            other => panic!("What is this? {other:?}"),
+        }
+    }
+
+    Ok(Signal {
+        name: signal_name,
+        multiplexer_indicator,
+        start_bit,
+        size: signal_size,
+        byte_order,
+        value_type,
+        factor,
+        offset,
+        min,
+        max,
+        unit,
+        receivers,
+    })
 }
 
-// TODO add properties
-fn attribute_definition_environment_variable(s: &str) -> IResult<&str, AttributeDefinition> {
-    let (s, _) = tag("EV_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, env_var) = take_till(is_semi_colon).parse(s)?;
-    let value = env_var.trim().to_string();
-    Ok((s, AttributeDefinition::EnvironmentVariable(value)))
+pub(crate) fn parse_environment_variable_data(
+    pair: Pair<Rule>,
+) -> DbcResult<EnvironmentVariableData> {
+    let mut inner_pairs = pair.into_inner();
+
+    let variable_name = next_rule(&mut inner_pairs, Rule::env_var_name)?
+        .as_str()
+        .to_string();
+    let data_size = parse_uint(next_rule(&mut inner_pairs, Rule::data_size)?)?;
+
+    // Don't use expect_empty here as there might be comments or whitespace
+
+    Ok(EnvironmentVariableData {
+        env_var_name: variable_name,
+        data_size,
+    })
 }
 
-// TODO add properties
-fn attribute_definition_message(s: &str) -> IResult<&str, AttributeDefinition> {
-    let (s, _) = tag("BO_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, message) = take_till(is_semi_colon).parse(s)?;
-    Ok((s, AttributeDefinition::Message(message.trim().to_string())))
-}
+pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
+    let pairs = DbcParser::parse(Rule::file, buffer)?;
 
-// TODO add properties
-fn attribute_definition_plain(s: &str) -> IResult<&str, AttributeDefinition> {
-    let (s, plain) = take_till(is_semi_colon).parse(s)?;
-    Ok((s, AttributeDefinition::Plain(plain.trim().to_string())))
-}
+    let mut version: Version = Default::default();
+    let mut new_symbols: Vec<Symbol> = Default::default();
+    let mut bit_timing: Option<Vec<Baudrate>> = Default::default();
+    let mut nodes: Vec<Node> = Default::default();
+    let mut value_tables: Vec<ValueTable> = Default::default();
+    let mut messages: Vec<Message> = Default::default();
+    let mut signals: Vec<(MessageId, Signal)> = Default::default(); // Store signals with their message ID
+    let mut message_transmitters: Vec<MessageTransmitter> = Default::default();
+    let mut environment_variables: Vec<EnvironmentVariable> = Default::default();
+    let mut environment_variable_data: Vec<EnvironmentVariableData> = Default::default();
+    let signal_types: Vec<SignalType> = Default::default();
+    let mut comments: Vec<Comment> = Default::default();
+    let mut attribute_definitions: Vec<AttributeDefinition> = Default::default();
+    let mut attribute_defaults: Vec<AttributeDefault> = Default::default();
+    let mut attribute_values: Vec<AttributeValueForObject> = Default::default();
+    let mut value_descriptions: Vec<ValueDescription> = Default::default();
+    let signal_type_refs: Vec<SignalTypeRef> = Default::default();
+    let mut signal_groups: Vec<SignalGroups> = Default::default();
+    let mut signal_extended_value_type_list: Vec<SignalExtendedValueTypeList> = Default::default();
+    let mut extended_multiplex: Vec<ExtendedMultiplex> = Default::default();
 
-pub(crate) fn attribute_definition(s: &str) -> IResult<&str, AttributeDefinition> {
-    let (s, _) = multispace0(s)?;
-    let (s, _) = tag("BA_DEF_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, def) = alt((
-        attribute_definition_node,
-        attribute_definition_signal,
-        attribute_definition_environment_variable,
-        attribute_definition_message,
-        attribute_definition_plain,
-    ))
-    .parse(s)?;
+    let mut current_message_id: Option<MessageId> = None;
 
-    let (s, _) = semi_colon(s)?;
-    let (s, _) = line_ending(s)?;
-    Ok((s, def))
-}
+    for pair in pairs {
+        if !matches!(pair.as_rule(), Rule::file) {
+            return Err(DbcError::ParseError);
+        }
+        for pair2 in pair.into_inner() {
+            match pair2.as_rule() {
+                Rule::version => version = parse_version(pair2)?,
+                Rule::new_symbols => new_symbols = parse_new_symbols(pair2)?,
+                Rule::bit_timing => bit_timing = Some(parse_bit_timing(pair2)?),
+                Rule::nodes => nodes = parse_nodes(pair2)?,
+                Rule::message => {
+                    let message = parse_message(pair2)?;
+                    current_message_id = Some(message.id);
+                    messages.push(message);
+                }
+                Rule::signal => {
+                    if let Some(msg_id) = current_message_id {
+                        signals.push((msg_id, parse_signal(pair2)?));
+                    }
+                }
+                Rule::comment => {
+                    if let Some(comment) = parse_comment(pair2)? {
+                        comments.push(comment);
+                    }
+                }
+                Rule::attr_def => attribute_definitions.push(parse_attribute_definition(pair2)?),
+                Rule::attr_value => attribute_values.push(parse_attribute_value(pair2)?),
+                Rule::value_table => value_tables.push(parse_value_table(pair2)?),
+                Rule::value_table_def => value_descriptions.push(parse_value_description(pair2)?),
+                Rule::signal_group => signal_groups.push(parse_signal_group(pair2)?),
+                Rule::signal_value_type => {
+                    signal_extended_value_type_list.push(parse_signal_value_type(pair2)?)
+                }
+                Rule::bo_tx_bu => message_transmitters.push(parse_message_transmitter(pair2)?),
+                Rule::ba_def_def => attribute_defaults.push(parse_attribute_default(pair2)?),
+                Rule::sg_mul_val => extended_multiplex.push(parse_extended_multiplex(pair2)?),
+                Rule::environment_variable => {
+                    environment_variables.push(parse_environment_variable(pair2)?)
+                }
+                Rule::envvar_data => {
+                    environment_variable_data.push(parse_environment_variable_data(pair2)?)
+                }
+                Rule::EOI => {}
+                other => panic!("What is this? {other:?}"),
+            }
+        }
+    }
 
-fn symbol(s: &str) -> IResult<&str, Symbol> {
-    let (s, _) = space1(s)?;
-    let (s, symbol) = c_ident(s)?;
-    let (s, _) = line_ending(s)?;
-    Ok((s, Symbol(symbol)))
-}
+    // Associate signals with their messages
+    for (msg_id, signal) in signals {
+        if let Some(message) = messages.iter_mut().find(|m| m.id == msg_id) {
+            message.signals.push(signal);
+        }
+    }
 
-pub(crate) fn new_symbols(s: &str) -> IResult<&str, Vec<Symbol>> {
-    let (s, _) = multispace0(s)?;
-    let (s, _) = tag("NS_ :").parse(s)?;
-    let (s, _) = space0(s)?;
-    let (s, _) = line_ending(s)?;
-    let (s, symbols) = many0(symbol).parse(s)?;
-    Ok((s, symbols))
-}
-
-/// Network node
-pub(crate) fn node(s: &str) -> IResult<&str, Vec<Node>> {
-    let (s, _) = multispace0(s)?;
-    let (s, _) = tag("BU_:").parse(s)?;
-    let (s, li) = opt(preceded(ms1, separated_list0(ms1, c_ident))).parse(s)?;
-    let (s, _) = space0(s)?;
-    let (s, _) = line_ending(s)?;
-    Ok((
-        s,
-        li.map(|v| v.into_iter().map(Node).collect::<Vec<_>>())
-            .unwrap_or_default(),
-    ))
-}
-
-fn signal_type_ref(s: &str) -> IResult<&str, SignalTypeRef> {
-    let (s, _) = multispace0(s)?;
-    let (s, _) = tag("SGTYPE_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, message_id) = message_id(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, signal_name) = c_ident(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, _) = colon(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, signal_type_name) = c_ident(s)?;
-    let (s, _) = semi_colon(s)?;
-    let (s, _) = line_ending(s)?;
-    Ok((
-        s,
-        SignalTypeRef {
-            message_id,
-            signal_name,
-            signal_type_name,
-        },
-    ))
-}
-
-pub(crate) fn value_table(s: &str) -> IResult<&str, ValueTable> {
-    let (s, _) = multispace0(s)?;
-    let (s, _) = tag("VAL_TABLE_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, value_table_name) = c_ident(s)?;
-    let (s, value_descriptions) =
-        many_till(preceded(ms0, value_description), preceded(ms0, semi_colon)).parse(s)?;
-    let (s, _) = line_ending(s)?;
-    Ok((
-        s,
-        ValueTable {
-            name: value_table_name,
-            descriptions: value_descriptions.0,
-        },
-    ))
-}
-
-fn extended_multiplex_mapping(s: &str) -> IResult<&str, ExtendedMultiplexMapping> {
-    let (s, _) = ms0(s)?;
-    let (s, min_value) = complete::u64(s)?;
-    let (s, _) = char('-').parse(s)?;
-    let (s, max_value) = complete::u64(s)?;
-    Ok((
-        s,
-        ExtendedMultiplexMapping {
-            min_value,
-            max_value,
-        },
-    ))
-}
-
-pub(crate) fn extended_multiplex(s: &str) -> IResult<&str, ExtendedMultiplex> {
-    let (s, _) = multispace0(s)?;
-    let (s, _) = tag("SG_MUL_VAL_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, message_id) = message_id(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, signal_name) = c_ident(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, multiplexor_signal_name) = c_ident(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, mappings) = separated_list0(tag(","), extended_multiplex_mapping).parse(s)?;
-    let (s, _) = semi_colon(s)?;
-    let (s, _) = line_ending(s)?;
-    Ok((
-        s,
-        ExtendedMultiplex {
-            message_id,
-            signal_name,
-            multiplexor_signal_name,
-            mappings,
-        },
-    ))
-}
-
-fn signed_or_unsigned_integer(s: &str) -> IResult<&str, SignalExtendedValueType> {
-    value(SignalExtendedValueType::SignedOrUnsignedInteger, tag("0")).parse(s)
-}
-fn ieee_float_32bit(s: &str) -> IResult<&str, SignalExtendedValueType> {
-    value(SignalExtendedValueType::IEEEfloat32Bit, tag("1")).parse(s)
-}
-fn ieee_double_64bit(s: &str) -> IResult<&str, SignalExtendedValueType> {
-    value(SignalExtendedValueType::IEEEdouble64bit, tag("2")).parse(s)
-}
-
-fn signal_extended_value_type(s: &str) -> IResult<&str, SignalExtendedValueType> {
-    alt((
-        signed_or_unsigned_integer,
-        ieee_float_32bit,
-        ieee_double_64bit,
-    ))
-    .parse(s)
-}
-
-pub(crate) fn signal_extended_value_type_list(
-    s: &str,
-) -> IResult<&str, SignalExtendedValueTypeList> {
-    let (s, _) = multispace0(s)?;
-    let (s, _) = tag("SIG_VALTYPE_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, message_id) = message_id(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, signal_name) = c_ident(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, _) = opt(colon).parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, signal_extended_value_type) = signal_extended_value_type(s)?;
-    let (s, _) = semi_colon(s)?;
-    let (s, _) = line_ending(s)?;
-    Ok((
-        s,
-        SignalExtendedValueTypeList {
-            message_id,
-            signal_name,
-            signal_extended_value_type,
-        },
-    ))
-}
-
-fn transmitter_vector_xxx(s: &str) -> IResult<&str, Transmitter> {
-    value(Transmitter::VectorXXX, tag("Vector__XXX")).parse(s)
-}
-
-fn transmitter_node_name(s: &str) -> IResult<&str, Transmitter> {
-    map(c_ident, Transmitter::NodeName).parse(s)
-}
-
-fn transmitter(s: &str) -> IResult<&str, Transmitter> {
-    alt((transmitter_vector_xxx, transmitter_node_name)).parse(s)
-}
-
-fn message_transmitters(s: &str) -> IResult<&str, Vec<Transmitter>> {
-    separated_list0(comma, transmitter).parse(s)
-}
-
-pub(crate) fn message_transmitter(s: &str) -> IResult<&str, MessageTransmitter> {
-    let (s, _) = multispace0(s)?;
-    let (s, _) = tag("BO_TX_BU_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, message_id) = message_id(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, _) = colon(s)?;
-    let (s, _) = opt(ms1).parse(s)?;
-    let (s, transmitter) = message_transmitters(s)?;
-    let (s, _) = semi_colon(s)?;
-    let (s, _) = line_ending(s)?;
-    Ok((
-        s,
-        MessageTransmitter {
-            message_id,
-            transmitter,
-        },
-    ))
-}
-
-pub(crate) fn signal_groups(s: &str) -> IResult<&str, SignalGroups> {
-    let (s, _) = multispace0(s)?;
-    let (s, _) = tag("SIG_GROUP_").parse(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, message_id) = message_id(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, signal_group_name) = c_ident(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, repetitions) = complete::u64(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, _) = colon(s)?;
-    let (s, _) = ms1(s)?;
-    let (s, signal_names) = separated_list0(ms1, c_ident).parse(s)?;
-    let (s, _) = semi_colon(s)?;
-    let (s, _) = line_ending(s)?;
-    Ok((
-        s,
-        SignalGroups {
-            message_id,
-            name: signal_group_name,
-            repetitions,
-            signal_names,
-        },
-    ))
-}
-
-pub fn dbc(s: &str) -> IResult<&str, Dbc> {
-    let (
-        s,
-        (
-            version,
-            new_symbols,
-            bit_timing,
-            nodes,
-            value_tables,
-            messages,
-            message_transmitters,
-            environment_variables,
-            environment_variable_data,
-            signal_types,
-            comments,
-            attribute_definitions,
-            attribute_defaults,
-            attribute_values,
-            value_descriptions,
-            signal_type_refs,
-            signal_groups,
-            signal_extended_value_type_list,
-            extended_multiplex,
-        ),
-    ) = permutation((
+    Ok(Dbc {
         version,
         new_symbols,
-        opt(bit_timing),
-        many0(node),
-        many0(value_table),
-        many0(message),
-        many0(message_transmitter),
-        many0(environment_variable),
-        many0(environment_variable_data),
-        many0(signal_type),
-        many0(comment),
-        many0(attribute_definition),
-        many0(attribute_default),
-        many0(attribute_value_for_object),
-        many0(value_descriptions),
-        many0(signal_type_ref),
-        many0(signal_groups),
-        many0(signal_extended_value_type_list),
-        many0(extended_multiplex),
-    ))
-    .parse(s)?;
-    let (s, _) = multispace0(s)?;
-    Ok((
-        s,
-        Dbc {
-            version,
-            new_symbols,
-            bit_timing,
-            nodes: nodes.into_iter().flatten().collect(),
-            value_tables,
-            messages,
-            message_transmitters,
-            environment_variables,
-            environment_variable_data,
-            signal_types,
-            comments,
-            attribute_definitions,
-            attribute_defaults,
-            attribute_values,
-            value_descriptions,
-            signal_type_refs,
-            signal_groups,
-            signal_extended_value_type_list,
-            extended_multiplex,
-        },
-    ))
+        bit_timing,
+        nodes,
+        value_tables,
+        messages,
+        message_transmitters,
+        environment_variables,
+        environment_variable_data,
+        signal_types,
+        comments,
+        attribute_definitions,
+        attribute_defaults,
+        attribute_values,
+        value_descriptions,
+        signal_type_refs,
+        signal_groups,
+        signal_extended_value_type_list,
+        extended_multiplex,
+    })
 }

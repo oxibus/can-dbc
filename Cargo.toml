@@ -24,9 +24,10 @@ serde = ["dep:serde"]
 with-serde = ["serde"]
 
 [dependencies]
+can-dbc-pest = { version = "0.4.0" }
 encoding_rs = { version = "0.8", optional = true }
-nom = { version = "8.0", features = ["alloc"] }
 serde = { version = "1.0", features = ["derive"], optional = true }
+thiserror = "2.0.17"
 
 [dev-dependencies]
 clap = { version = "4.5.0", features = ["cargo", "derive"] }
@@ -50,3 +51,6 @@ must_use_candidate = "allow"     # 12
 missing_errors_doc = "allow"      # 8
 similar_names = "allow"      # 4
 needless_pass_by_value = "allow"      # 4
+
+#[patch.crates-io]
+#can-dbc-pest = { path = "../can-dbc-pest" }

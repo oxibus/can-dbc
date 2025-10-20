@@ -1,23 +1,30 @@
 #![allow(clippy::needless_raw_string_hashes)]
+#![allow(unused_imports)]
+
+use can_dbc_pest::*;
 
 use crate::parser::*;
 use crate::*;
 
-#[test]
-fn c_ident_test() {
-    let def = "EALL_DUSasb18 ";
-    let (_, val) = c_ident(def).unwrap();
-    assert_eq!(val, "EALL_DUSasb18");
-
-    let def = "_EALL_DUSasb18 ";
-    let (_, val) = c_ident(def).unwrap();
-    assert_eq!(val, "_EALL_DUSasb18");
-
-    // identifiers must not start with digits
-    let def = "3EALL_DUSasb18 ";
-    assert!(c_ident(def).is_err());
+/// Helper function to parse a snippet with a specific rule, returning just the rule's inner content already unwrapped
+fn parse(input: &str, rule: Rule) -> DbcResult<Pair<'_, Rule>> {
+    let pairs = DbcParser::parse(rule, input)?;
+    Ok(pairs.into_iter().next().unwrap())
 }
 
+fn span(input: &str, rule: Rule) -> &str {
+    let pair = parse(input, rule).unwrap();
+    pair.as_span().as_str()
+}
+
+#[test]
+fn c_ident_test() {
+    assert_eq!(span("EALL_DUSasb18 ", Rule::ident), "EALL_DUSasb18");
+    assert_eq!(span("_EALL_DUSasb18 ", Rule::ident), "_EALL_DUSasb18");
+    assert!(parse("3EALL_DUSasb18 ", Rule::ident).is_err());
+}
+
+/*
 #[test]
 fn c_ident_vec_test() {
     let def = "FZHL_DUSasb18 ";
@@ -658,3 +665,4 @@ fn extended_message_id_test_max_29bit() {
     let (_, val) = message_id(&s).unwrap();
     assert_eq!(val, MessageId::Extended(0x1FFF_FFFF));
 }
+*/

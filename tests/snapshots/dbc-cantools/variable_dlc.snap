@@ -1,0 +1,132 @@
+---
+source: tests/snapshots.rs
+---
+version: ""
+bit_timing: []
+nodes:
+  - Test
+messages:
+  - id:
+      Extended: 16711936
+    name: TestMessage1
+    size: 3
+    transmitter:
+      NodeName: Test
+    signals:
+      - name: Signal1
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Test
+      - name: Signal2
+        multiplexer_indicator: Plain
+        start_bit: 8
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Test
+      - name: Signal3
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Test
+  - id:
+      Extended: 16712192
+    name: TestMessage2
+    size: 10
+    transmitter:
+      NodeName: Test
+    signals:
+      - name: Signal4
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 15
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Test
+      - name: Signal5
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 15
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Test
+      - name: Signal6
+        multiplexer_indicator: Plain
+        start_bit: 30
+        size: 15
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Test
+      - name: Signal7
+        multiplexer_indicator: Plain
+        start_bit: 45
+        size: 15
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Test
+      - name: Signal8
+        multiplexer_indicator: Plain
+        start_bit: 60
+        size: 15
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Test
+attribute_definitions:
+  - Message: "\"VFrameFormat\" INT 0 3"
+attribute_defaults:
+  - name: VFrameFormat
+    value:
+      Double: 3

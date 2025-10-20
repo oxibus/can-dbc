@@ -4,9 +4,8 @@ use std::borrow::Cow;
 use std::fs;
 use std::path::{Path, PathBuf};
 
-use can_dbc::{decode_cp1252, Dbc, Error};
+use can_dbc::{decode_cp1252, Dbc, DbcError};
 use insta::{assert_debug_snapshot, assert_yaml_snapshot, with_settings};
-use nom::Err;
 use test_each_file::test_each_path;
 
 struct TestConfig {
@@ -120,7 +119,7 @@ fn parse_one_file([path]: [&Path; 1]) {
 }
 
 fn report_test_result(
-    result: Result<Dbc, Error>,
+    result: Result<Dbc, DbcError>,
     snapshot_path: PathBuf,
     file_name: String,
     do_snapshot: bool,
@@ -150,14 +149,11 @@ fn report_test_result(
     }
 }
 
-fn err_to_str<'a>(err: &'a Error) -> &'a str {
+fn err_to_str(err: &DbcError) -> String {
     match err {
-        Error::Incomplete(_, _) => "incomplete",
-        Error::Nom(e) => match e {
-            Err::Incomplete(_) => "nom-incomplete",
-            Err::Error(_) => "nom-error",
-            Err::Failure(_) => "nom-failure",
-        },
-        Error::MultipleMultiplexors => "multiple multiplexors",
+        DbcError::Pest(e) => e.to_string(),
+        DbcError::InvalidData => "invalid data".into(),
+        DbcError::ParseError => "parse error".into(),
+        DbcError::MultipleMultiplexors => "multiple multiplexors".into(),
     }
 }
