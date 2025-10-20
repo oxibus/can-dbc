@@ -7,29 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [7.0.0](https://github.com/oxibus/can-dbc/compare/v6.0.0...v7.0.0) - 2025-10-18
+## [7.0.0](https://github.com/oxibus/can-dbc/compare/v6.0.0...v7.0.0) - 2025-10-19
+
+**NOTE**: `can-dbc` has moved to the [OxiBUS](https://github.com/oxibus) GitHub org - a community developing Rust code with focus on communication in automotive and related spaces. If you are maintaining an open source Rust project in this area, consider joining us - it is always easier to maintain projects together!
+
+### Breaking
+- major struct and enum naming refactoring. See ([#45](https://github.com/oxibus/can-dbc/pull/45)) for the full list of changes.
+- remove `from_slice` - use cp1252 decoder and pass in a `&str` instead ([#44](https://github.com/oxibus/can-dbc/pull/44))
+- rename `DBC`→`Dbc` and feature `with-serde`→`serde` ([#42](https://github.com/oxibus/can-dbc/pull/42))
 
 ### Added
 
-- [**breaking**] support cp1252, rm `from_slice`, improve README examples ([#44](https://github.com/oxibus/can-dbc/pull/44))
+- added cp1252 decoding support ([#44](https://github.com/oxibus/can-dbc/pull/44))
 
 ### Other
 
-- [**breaking**] major struct and enum naming refactoring ([#45](https://github.com/oxibus/can-dbc/pull/45))
-- update README with usage examples and license information ([#46](https://github.com/oxibus/can-dbc/pull/46))
-- [**breaking**] rename `DBC`→`Dbc` and feature `with-serde`→`serde` ([#42](https://github.com/oxibus/can-dbc/pull/42))
-- move tests to the end ([#43](https://github.com/oxibus/can-dbc/pull/43))
 - relicense as `MIT OR Apache-2.0` ([#38](https://github.com/oxibus/can-dbc/pull/38))
-- auto-release and `cargo deny` ([#39](https://github.com/oxibus/can-dbc/pull/39))
+- update README with usage examples and license information ([#46](https://github.com/oxibus/can-dbc/pull/46))
+- move tests to the end ([#43](https://github.com/oxibus/can-dbc/pull/43))
 - move test files to submodule, default with serde feature ([#40](https://github.com/oxibus/can-dbc/pull/40))
-- upload coverage reports
-- update README to oxibus org ([#37](https://github.com/oxibus/can-dbc/pull/37))
 - allow space after message ID ([#25](https://github.com/oxibus/can-dbc/pull/25))
 - upgrade to nom 8 ([#36](https://github.com/oxibus/can-dbc/pull/36))
-- add automatic validation with precommit on CI side ([#30](https://github.com/oxibus/can-dbc/pull/30))
-- *(ci)* modernize CI ([#33](https://github.com/oxibus/can-dbc/pull/33))
-- cleanup a few clippy lints
-- consolidate docs with readme
+- clippy lints
 - use `insta` to test all parsing results
 - use `clap-derive` in example
 - run `cargo fmt`
@@ -37,8 +36,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Simplify tests, test for other escaped characters
 - Remove obsolete is_quote function
 - Add support for escaped strings within comments
-- Also derive the Deserialize trait when serde is enabled
-# Change Log
+- Derive the Deserialize trait when serde is enabled
+- consolidate docs with readme
+
+#### CI improvements
+- auto-release and `cargo deny` ([#39](https://github.com/oxibus/can-dbc/pull/39))
+- update README to oxibus org ([#37](https://github.com/oxibus/can-dbc/pull/37))
+- add automatic validation with precommit on CI side ([#30](https://github.com/oxibus/can-dbc/pull/30))
+- modernize CI ([#33](https://github.com/oxibus/can-dbc/pull/33))
 
 ## [6.0.0](https://github.com/oxibus/can-dbc/tree/6.0.0) (2024-02-08)
 - Update dependencies.
