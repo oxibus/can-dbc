@@ -621,17 +621,6 @@ pub struct Dbc {
 }
 
 impl Dbc {
-    #[allow(clippy::should_implement_trait)]
-    #[deprecated(since = "4.0.0", note = "please use `Dbc::try_from` instead")]
-    #[allow(clippy::result_large_err)]
-    pub fn from_str(dbc_in: &str) -> Result<Dbc, Error<'_>> {
-        let (remaining, dbc) = parser::dbc(dbc_in).map_err(Error::Nom)?;
-        if !remaining.is_empty() {
-            return Err(Error::Incomplete(dbc, remaining));
-        }
-        Ok(dbc)
-    }
-
     pub fn signal_by_name(&self, message_id: MessageId, signal_name: &str) -> Option<&Signal> {
         let message = self
             .messages
