@@ -33,10 +33,10 @@ new_symbols:
   - SG_MUL_VAL_
 bit_timing: []
 nodes:
-  - - Sender_2_aaaaaaaaaaaaaaaaaaaaaaa
-    - Receiver_2_zzzzzzzzzzzzzzzzzzzzz
-    - Receiver_1
-    - Node_6789_123456789_123456789_12
+  - Sender_2_aaaaaaaaaaaaaaaaaaaaaaa
+  - Receiver_2_zzzzzzzzzzzzzzzzzzzzz
+  - Receiver_1
+  - Node_6789_123456789_123456789_12
 value_tables:
   - name: Value_Table_short
     descriptions:

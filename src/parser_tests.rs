@@ -327,12 +327,12 @@ fn network_node_test() {
     let def = r#"
 BU_: ZU XYZ ABC OIU
 "#;
-    let exp = Node(vec![
-        "ZU".to_string(),
-        "XYZ".to_string(),
-        "ABC".to_string(),
-        "OIU".to_string(),
-    ]);
+    let exp = vec![
+        Node("ZU".to_string()),
+        Node("XYZ".to_string()),
+        Node("ABC".to_string()),
+        Node("OIU".to_string()),
+    ];
     let (_, val) = node(def.trim_start()).unwrap();
     assert_eq!(val, exp);
 }
@@ -343,7 +343,7 @@ fn empty_network_node_test() {
 BU_:
 "#;
     let (_, val) = node(def.trim_start()).unwrap();
-    assert_eq!(val, Node(vec![]));
+    assert_eq!(val, vec![]);
 }
 
 #[test]

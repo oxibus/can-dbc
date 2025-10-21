@@ -33,10 +33,10 @@ new_symbols:
   - SG_MUL_VAL_
 bit_timing: []
 nodes:
-  - - FOO
-    - BAR
-    - FIE
-    - FUM
+  - FOO
+  - BAR
+  - FIE
+  - FUM
 value_tables: []
 messages:
   - id:

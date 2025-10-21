@@ -33,7 +33,7 @@ new_symbols:
   - SG_MUL_VAL_
 bit_timing: []
 nodes:
-  - - Node_will_be_shortened_456789_12
+  - Node_will_be_shortened_456789_12
 value_tables: []
 messages:
   - id:

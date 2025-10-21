@@ -290,7 +290,7 @@ pub struct EnvironmentVariableData {
 
 /// CAN network nodes, names must be unique
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-pub struct Node(pub Vec<String>);
+pub struct Node(pub String);
 
 #[derive(Clone, Debug, PartialEq, Getters, Serialize, Deserialize)]
 pub struct AttributeDefault {
