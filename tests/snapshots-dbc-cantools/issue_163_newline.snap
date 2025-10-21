@@ -34,7 +34,6 @@ new_symbols:
 bit_timing: []
 nodes:
   - dummy_node
-value_tables: []
 messages:
   - id:
       Standard: 0
@@ -42,12 +41,6 @@ messages:
     size: 8
     transmitter:
       NodeName: dummy_node
-    signals: []
-message_transmitters: []
-environment_variables: []
-environment_variable_data: []
-signal_types: []
-comments: []
 attribute_definitions:
   - Signal: "\"GenSigSendType\" ENUM  \"Cyclic\",\"OnWrite\",\"OnWriteWithRepetition\",\"OnChange\",\"OnChangeWithRepetition\",\"IfActive\",\"IfActiveWithRepetition\",\"NoSigSendType\""
   - Signal: "\"GenSigInactiveValue\" INT 0 0"
@@ -83,8 +76,3 @@ attribute_values:
     value:
       Raw:
         String: issue_165_newline
-value_descriptions: []
-signal_type_refs: []
-signal_groups: []
-signal_extended_value_type_list: []
-extended_multiplex: []

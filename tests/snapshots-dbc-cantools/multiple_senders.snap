@@ -37,7 +37,6 @@ nodes:
   - BAR
   - FIE
   - FUM
-value_tables: []
 messages:
   - id:
       Standard: 1
@@ -66,19 +65,9 @@ message_transmitters:
       - NodeName: FOO
       - NodeName: BAR
       - NodeName: FIE
-environment_variables: []
-environment_variable_data: []
-signal_types: []
-comments: []
 attribute_definitions:
   - Message: "\"GenMsgCycleTime\" INT 0 65535"
 attribute_defaults:
   - name: GenMsgCycleTime
     value:
       Double: 0
-attribute_values: []
-value_descriptions: []
-signal_type_refs: []
-signal_groups: []
-signal_extended_value_type_list: []
-extended_multiplex: []

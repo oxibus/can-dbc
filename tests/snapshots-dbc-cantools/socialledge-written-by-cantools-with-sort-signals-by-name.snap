@@ -38,7 +38,6 @@ nodes:
   - IO
   - MOTOR
   - SENSOR
-value_tables: []
 messages:
   - id:
       Standard: 100
@@ -339,10 +338,6 @@ messages:
         receivers:
           - DRIVER
           - IO
-message_transmitters: []
-environment_variables: []
-environment_variable_data: []
-signal_types: []
 comments:
   - Node:
       name: DRIVER
@@ -430,7 +425,3 @@ value_descriptions:
           description: IO_DEBUG_test2_enum_two
         - id: 1
           description: IO_DEBUG_test2_enum_one
-signal_type_refs: []
-signal_groups: []
-signal_extended_value_type_list: []
-extended_multiplex: []
