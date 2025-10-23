@@ -33,8 +33,7 @@ new_symbols:
   - SG_MUL_VAL_
 bit_timing: []
 nodes:
-  - - FOO
-value_tables: []
+  - FOO
 messages:
   - id:
       Standard: 1
@@ -42,24 +41,9 @@ messages:
     size: 8
     transmitter:
       NodeName: FOO
-    signals: []
   - id:
       Standard: 2
     name: M2
     size: 8
     transmitter:
       NodeName: FOO
-    signals: []
-message_transmitters: []
-environment_variables: []
-environment_variable_data: []
-signal_types: []
-comments: []
-attribute_definitions: []
-attribute_defaults: []
-attribute_values: []
-value_descriptions: []
-signal_type_refs: []
-signal_groups: []
-signal_extended_value_type_list: []
-extended_multiplex: []

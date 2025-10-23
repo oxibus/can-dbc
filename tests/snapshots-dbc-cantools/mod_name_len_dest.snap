@@ -33,8 +33,7 @@ new_symbols:
   - SG_MUL_VAL_
 bit_timing: []
 nodes:
-  - - node_now_short
-value_tables: []
+  - node_now_short
 messages:
   - id:
       Standard: 1
@@ -56,10 +55,6 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-message_transmitters: []
-environment_variables: []
-environment_variable_data: []
-signal_types: []
 comments:
   - Node:
       name: node_now_short
@@ -78,9 +73,3 @@ attribute_defaults:
   - name: SystemSignalLongSymbol
     value:
       String: ""
-attribute_values: []
-value_descriptions: []
-signal_type_refs: []
-signal_groups: []
-signal_extended_value_type_list: []
-extended_multiplex: []

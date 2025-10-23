@@ -32,8 +32,6 @@ new_symbols:
   - BU_BO_REL_
   - SG_MUL_VAL_
 bit_timing: []
-nodes:
-  - []
 value_tables:
   - name: Table3
     descriptions:
@@ -46,7 +44,6 @@ value_tables:
       - id: 0
         description: "0"
   - name: Table2
-    descriptions: []
   - name: Table1
     descriptions:
       - id: 1
@@ -73,11 +70,6 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-message_transmitters: []
-environment_variables: []
-environment_variable_data: []
-signal_types: []
-comments: []
 attribute_definitions:
   - Plain: "\"BusType\" STRING "
   - Message: "\"GenMsgCycleTime\" INT 0 65535"
@@ -88,7 +80,6 @@ attribute_defaults:
   - name: GenMsgCycleTime
     value:
       Double: 0
-attribute_values: []
 value_descriptions:
   - Signal:
       message_id:
@@ -99,7 +90,3 @@ value_descriptions:
           description: One
         - id: 0
           description: Zero
-signal_type_refs: []
-signal_groups: []
-signal_extended_value_type_list: []
-extended_multiplex: []

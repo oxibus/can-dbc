@@ -97,10 +97,10 @@ Incomplete(
         ),
         nodes: [
             Node(
-                [
-                    "ECU2",
-                    "ECU1",
-                ],
+                "ECU2",
+            ),
+            Node(
+                "ECU1",
             ),
         ],
         value_tables: [],

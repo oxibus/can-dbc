@@ -33,8 +33,8 @@ new_symbols:
   - SG_MUL_VAL_
 bit_timing: []
 nodes:
-  - - ABS
-    - DRS_MM5_10
+  - ABS
+  - DRS_MM5_10
 value_tables:
   - name: ABS_fault_info
     descriptions:
@@ -124,35 +124,30 @@ messages:
     size: 8
     transmitter:
       NodeName: ABS
-    signals: []
   - id:
       Standard: 321
     name: BREMSE_11
     size: 8
     transmitter:
       NodeName: ABS
-    signals: []
   - id:
       Standard: 322
     name: BREMSE_12
     size: 8
     transmitter:
       NodeName: ABS
-    signals: []
   - id:
       Standard: 323
     name: BREMSE_13
     size: 8
     transmitter:
       NodeName: ABS
-    signals: []
   - id:
       Standard: 117
     name: DRS_RX_ID0
     size: 8
     transmitter:
       NodeName: ABS
-    signals: []
   - id:
       Standard: 112
     name: MM5_10_TX1
@@ -323,7 +318,6 @@ messages:
     size: 8
     transmitter:
       NodeName: ABS
-    signals: []
   - id:
       Standard: 833
     name: BREMSE_31
@@ -1379,10 +1373,6 @@ messages:
         unit: bar
         receivers:
           - Vector__XXX
-message_transmitters: []
-environment_variables: []
-environment_variable_data: []
-signal_types: []
 comments:
   - Plain:
       comment: Version 2.0
@@ -1856,7 +1846,3 @@ value_descriptions:
           description: inactive faults stored
         - id: 0
           description: no faults stored
-signal_type_refs: []
-signal_groups: []
-signal_extended_value_type_list: []
-extended_multiplex: []

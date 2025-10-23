@@ -33,8 +33,7 @@ new_symbols:
   - SG_MUL_VAL_
 bit_timing: []
 nodes:
-  - - Tester
-value_tables: []
+  - Tester
 messages:
   - id:
       Standard: 3
@@ -191,11 +190,6 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-message_transmitters: []
-environment_variables: []
-environment_variable_data: []
-signal_types: []
-comments: []
 attribute_definitions:
   - Plain: "\"BusType\" STRING "
   - Message: "\"GenMsgCycleTime\" INT 0 65535"
@@ -206,9 +200,6 @@ attribute_defaults:
   - name: GenMsgCycleTime
     value:
       Double: 0
-attribute_values: []
-value_descriptions: []
-signal_type_refs: []
 signal_groups:
   - message_id:
       Standard: 2
@@ -232,5 +223,3 @@ signal_groups:
     signal_names:
       - SG2
       - SG1
-signal_extended_value_type_list: []
-extended_multiplex: []

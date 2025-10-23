@@ -33,42 +33,36 @@ new_symbols:
   - SG_MUL_VAL_
 bit_timing: []
 nodes:
-  - - NN123456789012345678901234567890
-    - N12345678901234567890123456_0000
-    - N1234567890123456789012345678901
-    - N12345678901234567890123456_0001
-value_tables: []
+  - NN123456789012345678901234567890
+  - N12345678901234567890123456_0000
+  - N1234567890123456789012345678901
+  - N12345678901234567890123456_0001
 messages:
   - id:
       Standard: 9
     name: SS123456789012345678901234587890
     size: 8
     transmitter: VectorXXX
-    signals: []
   - id:
       Standard: 8
     name: SS1234567890123456789012345_0000
     size: 8
     transmitter: VectorXXX
-    signals: []
   - id:
       Standard: 7
     name: SS1234567890123456789012345_0001
     size: 8
     transmitter: VectorXXX
-    signals: []
   - id:
       Standard: 6
     name: SS123456789012345678901234577890
     size: 8
     transmitter: VectorXXX
-    signals: []
   - id:
       Standard: 5
     name: SS123456789012345678901234567890
     size: 8
     transmitter: VectorXXX
-    signals: []
   - id:
       Standard: 4
     name: S1234567890123456789012345678901
@@ -270,7 +264,6 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-message_transmitters: []
 environment_variables:
   - name: E12345678901234567890123456_0000
     typ: Float
@@ -292,9 +285,6 @@ environment_variables:
     access_type: DummyNodeVector0
     access_nodes:
       - Name: Vector__XXX
-environment_variable_data: []
-signal_types: []
-comments: []
 attribute_definitions:
   - Plain: "\"BusType\" STRING "
   - Signal: "\"SystemSignalLongSymbol\" STRING "
@@ -450,8 +440,6 @@ attribute_values:
       EnvVariable:
         - E12345678901234567890123456_0000
         - String: E12345678901234567890123456789012
-value_descriptions: []
-signal_type_refs: []
 signal_groups:
   - message_id:
       Standard: 3
@@ -460,5 +448,3 @@ signal_groups:
     signal_names:
       - SS1234567890123456789012345_0005
       - SSS123456789012345678901234_0000
-signal_extended_value_type_list: []
-extended_multiplex: []

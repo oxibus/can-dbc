@@ -33,8 +33,8 @@ new_symbols:
   - SG_MUL_VAL_
 bit_timing: []
 nodes:
-  - - PCM1
-    - FOO
+  - PCM1
+  - FOO
 value_tables:
   - name: TempValueTable
     descriptions:
@@ -64,10 +64,6 @@ messages:
         receivers:
           - PCM1
           - FOO
-message_transmitters: []
-environment_variables: []
-environment_variable_data: []
-signal_types: []
 comments:
   - Message:
       id:
@@ -100,7 +96,3 @@ value_descriptions:
           description: Error
         - id: 4094
           description: Init
-signal_type_refs: []
-signal_groups: []
-signal_extended_value_type_list: []
-extended_multiplex: []

@@ -33,8 +33,7 @@ new_symbols:
   - SG_MUL_VAL_
 bit_timing: []
 nodes:
-  - - TestNode
-value_tables: []
+  - TestNode
 messages:
   - id:
       Standard: 1024
@@ -89,10 +88,6 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-message_transmitters: []
-environment_variables: []
-environment_variable_data: []
-signal_types: []
 comments:
   - Node:
       name: TestNode
@@ -103,10 +98,6 @@ attribute_defaults:
   - name: GenMsgCycleTime
     value:
       Double: 0
-attribute_values: []
-value_descriptions: []
-signal_type_refs: []
-signal_groups: []
 signal_extended_value_type_list:
   - message_id:
       Standard: 1024
@@ -120,4 +111,3 @@ signal_extended_value_type_list:
       Standard: 1025
     signal_name: Signal2
     signal_extended_value_type: IEEEfloat32Bit
-extended_multiplex: []

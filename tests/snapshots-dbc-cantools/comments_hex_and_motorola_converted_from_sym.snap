@@ -32,9 +32,6 @@ new_symbols:
   - BU_BO_REL_
   - SG_MUL_VAL_
 bit_timing: []
-nodes:
-  - []
-value_tables: []
 messages:
   - id:
       Standard: 1568
@@ -201,9 +198,6 @@ message_transmitters:
     transmitter:
       - NodeName: ECU
       - NodeName: Peripherals
-environment_variables: []
-environment_variable_data: []
-signal_types: []
 comments:
   - Signal:
       message_id:
@@ -224,9 +218,6 @@ comments:
       id:
         Standard: 1365
       comment: test
-attribute_definitions: []
-attribute_defaults: []
-attribute_values: []
 value_descriptions:
   - Signal:
       message_id:
@@ -241,7 +232,3 @@ value_descriptions:
           description: C
         - id: 4
           description: D
-signal_type_refs: []
-signal_groups: []
-signal_extended_value_type_list: []
-extended_multiplex: []

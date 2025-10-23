@@ -33,12 +33,11 @@ new_symbols:
   - SG_MUL_VAL_
 bit_timing: []
 nodes:
-  - - DBG
-    - DRIVER
-    - IO
-    - MOTOR
-    - SENSOR
-value_tables: []
+  - DBG
+  - DRIVER
+  - IO
+  - MOTOR
+  - SENSOR
 messages:
   - id:
       Standard: 100
@@ -339,10 +338,6 @@ messages:
         unit: ""
         receivers:
           - DBG
-message_transmitters: []
-environment_variables: []
-environment_variable_data: []
-signal_types: []
 comments:
   - Node:
       name: DRIVER
@@ -430,7 +425,3 @@ value_descriptions:
           description: IO_DEBUG_test2_enum_two
         - id: 1
           description: IO_DEBUG_test2_enum_one
-signal_type_refs: []
-signal_groups: []
-signal_extended_value_type_list: []
-extended_multiplex: []

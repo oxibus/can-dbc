@@ -25,8 +25,7 @@ new_symbols:
   - SIGTYPE_VALTYPE_
 bit_timing: []
 nodes:
-  - - Node0
-value_tables: []
+  - Node0
 messages:
   - id:
       Standard: 1024
@@ -61,14 +60,6 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-message_transmitters: []
-environment_variables: []
-environment_variable_data: []
-signal_types: []
-comments: []
-attribute_definitions: []
-attribute_defaults: []
-attribute_values: []
 value_descriptions:
   - Signal:
       message_id:
@@ -104,7 +95,3 @@ value_descriptions:
           description: BAR_G
         - id: 7
           description: BAR_H
-signal_type_refs: []
-signal_groups: []
-signal_extended_value_type_list: []
-extended_multiplex: []

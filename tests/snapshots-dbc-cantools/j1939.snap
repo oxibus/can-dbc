@@ -33,9 +33,8 @@ new_symbols:
   - SG_MUL_VAL_
 bit_timing: []
 nodes:
-  - - Node2
-    - Node1
-value_tables: []
+  - Node2
+  - Node1
 messages:
   - id:
       Extended: 355729921
@@ -77,11 +76,6 @@ messages:
         unit: ""
         receivers:
           - Node1
-message_transmitters: []
-environment_variables: []
-environment_variable_data: []
-signal_types: []
-comments: []
 attribute_definitions:
   - Message: "\"TpJ1939VarDlc\" ENUM  \"No\",\"Yes\""
   - Signal: "\"SigType\" ENUM  \"Default\",\"Range\",\"RangeSigned\",\"ASCII\",\"Discrete\",\"Control\",\"ReferencePGN\",\"DTC\",\"StringDelimiter\",\"StringLength\",\"StringLengthControl\",\"MessageCounter\",\"MessageChecksum\""
@@ -242,8 +236,3 @@ attribute_values:
         - Extended: 355729921
         - Signal1
         - Double: 500
-value_descriptions: []
-signal_type_refs: []
-signal_groups: []
-signal_extended_value_type_list: []
-extended_multiplex: []

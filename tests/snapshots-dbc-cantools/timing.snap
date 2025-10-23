@@ -33,9 +33,8 @@ new_symbols:
   - SG_MUL_VAL_
 bit_timing: []
 nodes:
-  - - Sender
-    - Receiver
-value_tables: []
+  - Sender
+  - Receiver
 messages:
   - id:
       Standard: 1
@@ -77,11 +76,6 @@ messages:
         unit: degK
         receivers:
           - Receiver
-message_transmitters: []
-environment_variables: []
-environment_variable_data: []
-signal_types: []
-comments: []
 attribute_definitions:
   - Message: "\"GenMsgSendType\" ENUM  \"Cyclic\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"IfActive\",\"NoMsgSendType\",\"NotUsed\",\"vector_leerstring\""
   - Message: "\"GenMsgCycleTime\" INT 0 50000"
@@ -103,8 +97,3 @@ attribute_values:
       MessageDefinition:
         - Standard: 1
         - Double: 0
-value_descriptions: []
-signal_type_refs: []
-signal_groups: []
-signal_extended_value_type_list: []
-extended_multiplex: []

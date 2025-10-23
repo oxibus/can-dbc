@@ -33,8 +33,7 @@ new_symbols:
   - SG_MUL_VAL_
 bit_timing: []
 nodes:
-  - - TheNode
-value_tables: []
+  - TheNode
 messages:
   - id:
       Standard: 1234
@@ -56,15 +55,9 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-message_transmitters: []
-environment_variables: []
-environment_variable_data: []
-signal_types: []
-comments: []
 attribute_definitions:
   - Message: "\"GenMsgSendType\" STRING "
   - Message: "\"GenMsgCycleTime\" INT 0 100"
-attribute_defaults: []
 attribute_values:
   - name: GenMsgSendType
     value:
@@ -76,8 +69,3 @@ attribute_values:
       MessageDefinition:
         - Standard: 1234
         - Double: 0
-value_descriptions: []
-signal_type_refs: []
-signal_groups: []
-signal_extended_value_type_list: []
-extended_multiplex: []

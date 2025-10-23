@@ -97,11 +97,13 @@ Incomplete(
         ),
         nodes: [
             Node(
-                [
-                    "Actuator",
-                    "Driver",
-                    "Sensor",
-                ],
+                "Actuator",
+            ),
+            Node(
+                "Driver",
+            ),
+            Node(
+                "Sensor",
             ),
         ],
         value_tables: [],

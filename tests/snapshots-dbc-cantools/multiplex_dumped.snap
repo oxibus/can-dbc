@@ -32,9 +32,6 @@ new_symbols:
   - BU_BO_REL_
   - SG_MUL_VAL_
 bit_timing: []
-nodes:
-  - []
-value_tables: []
 messages:
   - id:
       Extended: 1193046
@@ -209,10 +206,6 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-message_transmitters: []
-environment_variables: []
-environment_variable_data: []
-signal_types: []
 comments:
   - Signal:
       message_id:
@@ -267,10 +260,6 @@ attribute_values:
       MessageDefinition:
         - Extended: 1193046
         - Double: 3
-value_descriptions: []
-signal_type_refs: []
-signal_groups: []
-signal_extended_value_type_list: []
 extended_multiplex:
   - message_id:
       Extended: 1193046
