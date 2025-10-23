@@ -195,6 +195,29 @@ pub enum AttributeValuedForObjectType {
     EnvVariable(String, AttributeValue),
 }
 
+#[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub enum AttributeValueForRelationType {
+    NodeToSignal {
+        node_name: String,
+        message_id: MessageId,
+        signal_name: String,
+        value: AttributeValue,
+    },
+    NodeToMessage {
+        node_name: String,
+        message_id: MessageId,
+        value: AttributeValue,
+    },
+}
+
+#[derive(Clone, Debug, PartialEq, Getters)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct AttributeDefaultForRelation {
+    name: String,
+    value: AttributeValue,
+}
+
 // FIXME: not used!
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -333,9 +356,24 @@ pub struct AttributeDefault {
 
 #[derive(Clone, Debug, PartialEq, Getters)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct AttributeDefinitionForRelation {
+    name: String,
+    value_spec: String,
+}
+
+#[derive(Clone, Debug, PartialEq, Getters)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct AttributeValueForObject {
     name: String,
     value: AttributeValuedForObjectType,
+}
+
+#[derive(Clone, Debug, PartialEq, Getters)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+/// An attribute attached to the relation between a node and a signal
+pub struct AttributeValueForRelation {
+    name: String,
+    details: AttributeValueForRelationType,
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -435,12 +473,18 @@ pub struct Dbc {
     comments: Vec<Comment>,
     #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
     attribute_definitions: Vec<AttributeDefinition>,
+    #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
+    relation_attribute_definitions: Vec<AttributeDefinitionForRelation>,
     // undefined
     // sigtype_attr_list: SigtypeAttrList,
     #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
     attribute_defaults: Vec<AttributeDefault>,
     #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
+    relation_attribute_defaults: Vec<AttributeDefaultForRelation>,
+    #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
     attribute_values: Vec<AttributeValueForObject>,
+    #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
+    relation_attribute_values: Vec<AttributeValueForRelation>,
     /// Encoding for signal raw values
     #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
     value_descriptions: Vec<ValueDescription>,
