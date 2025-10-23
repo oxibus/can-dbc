@@ -160,13 +160,11 @@ messages:
     name: MSG_CASE_TEST
     size: 8
     transmitter: VectorXXX
-    signals: []
   - id:
       Standard: 3
     name: msg_case_test
     size: 8
     transmitter: VectorXXX
-    signals: []
   - id:
       Standard: 2
     name: Msg_with_value_table_sigs
@@ -282,10 +280,6 @@ message_transmitters:
     transmitter:
       - NodeName: Node_6789_123456789_123456789_12
       - NodeName: Sender_2_aaaaaaaaaaaaaaaaaaaaaaa
-environment_variables: []
-environment_variable_data: []
-signal_types: []
-comments: []
 attribute_definitions:
   - Signal: "\"GenSigSendType\" ENUM  \"Cyclic\",\"OnWrite\",\"OnWriteWithRepetition\",\"OnChange\",\"OnChangeWithRepetition\",\"IfActive\",\"IfActiveWithRepetition\",\"NoSigSendType\""
   - Signal: "\"GenSigInactiveValue\" INT 0 0"
@@ -449,7 +443,3 @@ value_descriptions:
           description: "Description for the value '0x1'"
         - id: 0
           description: "Description for the value '0x0'"
-signal_type_refs: []
-signal_groups: []
-signal_extended_value_type_list: []
-extended_multiplex: []

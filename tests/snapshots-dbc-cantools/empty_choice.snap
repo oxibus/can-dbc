@@ -88,24 +88,17 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-message_transmitters: []
-environment_variables: []
-environment_variable_data: []
-signal_types: []
-comments: []
 attribute_definitions:
   - Plain: "\"BusType\" STRING "
 attribute_defaults:
   - name: BusType
     value:
       String: CAN
-attribute_values: []
 value_descriptions:
   - Signal:
       message_id:
         Standard: 10
       name: empty_choice
-      value_descriptions: []
   - Signal:
       message_id:
         Standard: 10
@@ -115,7 +108,3 @@ value_descriptions:
           description: Not available
         - id: 254
           description: Error
-signal_type_refs: []
-signal_groups: []
-signal_extended_value_type_list: []
-extended_multiplex: []

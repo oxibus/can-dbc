@@ -34,7 +34,6 @@ new_symbols:
 bit_timing: []
 nodes:
   - E1
-value_tables: []
 messages:
   - id:
       Standard: 1
@@ -240,16 +239,3 @@ messages:
         unit: ""
         receivers:
           - E1
-message_transmitters: []
-environment_variables: []
-environment_variable_data: []
-signal_types: []
-comments: []
-attribute_definitions: []
-attribute_defaults: []
-attribute_values: []
-value_descriptions: []
-signal_type_refs: []
-signal_groups: []
-signal_extended_value_type_list: []
-extended_multiplex: []

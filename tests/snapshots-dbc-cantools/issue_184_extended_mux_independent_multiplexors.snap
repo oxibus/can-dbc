@@ -32,8 +32,6 @@ new_symbols:
   - BU_BO_REL_
   - SG_MUL_VAL_
 bit_timing: []
-nodes: []
-value_tables: []
 messages:
   - id:
       Extended: 2
@@ -123,11 +121,6 @@ messages:
         unit: ""
         receivers:
           - Vector__XXX
-message_transmitters: []
-environment_variables: []
-environment_variable_data: []
-signal_types: []
-comments: []
 attribute_definitions:
   - Signal: "\"SigType\" ENUM  \"Default\",\"Range\",\"RangeSigned\",\"ASCII\",\"Discrete\",\"Control\",\"ReferencePGN\",\"DTC\",\"StringDelimiter\",\"StringLength\",\"StringLengthControl\""
   - Signal: "\"GenSigEVName\" STRING "
@@ -268,10 +261,6 @@ attribute_values:
       MessageDefinition:
         - Extended: 2
         - Double: 1
-value_descriptions: []
-signal_type_refs: []
-signal_groups: []
-signal_extended_value_type_list: []
 extended_multiplex:
   - message_id:
       Extended: 2
