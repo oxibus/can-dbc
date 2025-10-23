@@ -11,7 +11,7 @@ edition = "2021"
 rust-version = "1.74"
 
 [features]
-default = ["with-serde", "encodings"]
+default = ["serde", "encodings"]
 # Support decoding from all standard encodings, e.g. cp1251 commonly used for dbc
 encodings = ["dep:encoding_rs"]
 serde = ["dep:serde"]

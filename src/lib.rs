@@ -1,7 +1,5 @@
 #![doc = include_str!("../README.md")]
 
-#[cfg(feature = "encodings")]
-use std::borrow::Cow;
 use std::convert::TryFrom;
 
 use derive_getters::Getters;
@@ -17,7 +15,7 @@ pub use encoding_rs as encodings;
 
 /// A helper function to decode cp1252 bytes, as DBC files are often encoded in cp1252.
 #[cfg(feature = "encodings")]
-pub fn decode_cp1252(bytes: &[u8]) -> Option<Cow<'_, str>> {
+pub fn decode_cp1252(bytes: &[u8]) -> Option<std::borrow::Cow<'_, str>> {
     let (cow, _, had_errors) = encodings::WINDOWS_1252.decode(bytes);
     if had_errors {
         None

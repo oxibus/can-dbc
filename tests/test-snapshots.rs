@@ -1,4 +1,4 @@
-#![cfg(feature = "with-serde")]
+#![cfg(feature = "serde")]
 
 use std::fs;
 use std::path::Path;
