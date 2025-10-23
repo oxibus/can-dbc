@@ -191,7 +191,7 @@ messages:
         receivers:
           - Vector__XXX
 attribute_definitions:
-  - Plain: "\"BusType\" STRING "
+  - Plain: "\"BusType\" STRING"
   - Message: "\"GenMsgCycleTime\" INT 0 65535"
 attribute_defaults:
   - name: BusType

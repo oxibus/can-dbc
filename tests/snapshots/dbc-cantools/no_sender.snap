@@ -58,7 +58,7 @@ comments:
         Standard: 472
       comment: No sender message.
 attribute_definitions:
-  - Plain: "\"BusType\" STRING "
+  - Plain: "\"BusType\" STRING"
 attribute_defaults:
   - name: BusType
     value:

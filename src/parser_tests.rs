@@ -431,6 +431,16 @@ BA_DEF_ BO_ "BaDef1BO" INT 0 1000000;
 }
 
 #[test]
+fn attribute_definition_bo_txt_test() {
+    let def = r#"
+BA_DEF_ BO_  "GenMsgSendType" STRING ;
+"#;
+    let (_, val) = attribute_definition(def.trim_start()).unwrap();
+    let exp = AttributeDefinition::Message(r#""GenMsgSendType" STRING"#.to_string());
+    assert_eq!(val, exp);
+}
+
+#[test]
 fn attribute_definition_bu_test() {
     let def = r#"
 BA_DEF_ BU_ "BuDef1BO" INT 0 1000000;

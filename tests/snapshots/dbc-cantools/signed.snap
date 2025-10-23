@@ -334,7 +334,7 @@ messages:
         receivers:
           - Vector__XXX
 attribute_definitions:
-  - Plain: "\"BusType\" STRING "
+  - Plain: "\"BusType\" STRING"
 attribute_defaults:
   - name: BusType
     value:

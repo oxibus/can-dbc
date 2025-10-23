@@ -58,8 +58,8 @@ messages:
           - Node2
 attribute_definitions:
   - Plain: "\"MultiplexExtEnabled\" ENUM  \"No\",\"Yes\""
-  - Plain: "\"BusType\" STRING "
-  - Plain: "\"DBName\" STRING "
+  - Plain: "\"BusType\" STRING"
+  - Plain: "\"DBName\" STRING"
   - Signal: "\"GenSigStartValue\" INT -2147483648 2147483647"
 attribute_defaults:
   - name: MultiplexExtEnabled

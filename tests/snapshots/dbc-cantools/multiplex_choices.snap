@@ -467,8 +467,8 @@ attribute_definitions:
   - Message: "\"GenMsgCycleTime\" INT 0 0"
   - Message: "\"GenMsgSendType\" ENUM  \"Cyclic\",\"not_used\",\"not_used\",\"not_used\",\"not_used\",\"Cyclic\",\"not_used\",\"IfActive\",\"NoMsgSendType\""
   - Node: "\"NmStationAddress\" HEX 0 0"
-  - Plain: "\"DBName\" STRING "
-  - Plain: "\"BusType\" STRING "
+  - Plain: "\"DBName\" STRING"
+  - Plain: "\"BusType\" STRING"
 attribute_defaults:
   - name: VFrameFormat
     value:

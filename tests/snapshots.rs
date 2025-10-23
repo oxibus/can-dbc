@@ -1,12 +1,12 @@
 #![cfg(all(feature = "serde", feature = "encodings"))]
 
-use nom::Err;
 use std::borrow::Cow;
 use std::fs;
 use std::path::{Path, PathBuf};
 
 use can_dbc::{decode_cp1252, Dbc, Error};
 use insta::{assert_debug_snapshot, assert_yaml_snapshot, with_settings};
+use nom::Err;
 use test_each_file::test_each_path;
 
 struct TestConfig {

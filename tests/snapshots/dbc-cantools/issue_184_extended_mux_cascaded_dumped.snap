@@ -109,7 +109,7 @@ messages:
           - Vector__XXX
 attribute_definitions:
   - Signal: "\"SigType\" ENUM  \"Default\",\"Range\",\"RangeSigned\",\"ASCII\",\"Discrete\",\"Control\",\"ReferencePGN\",\"DTC\",\"StringDelimiter\",\"StringLength\",\"StringLengthControl\""
-  - Signal: "\"GenSigEVName\" STRING "
+  - Signal: "\"GenSigEVName\" STRING"
   - Signal: "\"GenSigILSupport\" ENUM  \"No\",\"Yes\""
   - Signal: "\"GenSigSendType\" ENUM  \"Cyclic\",\"OnWrite\",\"OnWriteWithRepetition\",\"OnChange\",\"OnChangeWithRepetition\",\"IfActive\",\"IfActiveWithRepetition\",\"NoSigSendType\""
   - Message: "\"GenMsgFastOnStart\" INT 0 100000"
@@ -120,8 +120,8 @@ attribute_definitions:
   - Message: "\"GenMsgDelayTime\" INT 0 1000"
   - Message: "\"GenMsgILSupport\" ENUM  \"No\",\"Yes\""
   - Message: "\"GenMsgStartDelayTime\" INT 0 100000"
-  - Node: "\"NodeLayerModules\" STRING "
-  - Node: "\"ECU\" STRING "
+  - Node: "\"NodeLayerModules\" STRING"
+  - Node: "\"ECU\" STRING"
   - Node: "\"NmJ1939SystemInstance\" INT 0 15"
   - Node: "\"NmJ1939System\" INT 0 127"
   - Node: "\"NmJ1939ManufacturerCode\" INT 0 2047"
@@ -136,9 +136,9 @@ attribute_definitions:
   - Message: "\"GenMsgRequestable\" INT 0 1"
   - Message: "\"GenMsgCycleTime\" INT 0 3600000"
   - Signal: "\"SPN\" INT 0 524287"
-  - Plain: "\"DBName\" STRING "
-  - Plain: "\"BusType\" STRING "
-  - Plain: "\"ProtocolType\" STRING "
+  - Plain: "\"DBName\" STRING"
+  - Plain: "\"BusType\" STRING"
+  - Plain: "\"ProtocolType\" STRING"
   - Message: "\"VFrameFormat\" ENUM  \"StandardCAN\",\"ExtendedCAN\",\"reserved\",\"J1939PG\""
 attribute_defaults:
   - name: SigType

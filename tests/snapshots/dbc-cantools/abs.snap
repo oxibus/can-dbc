@@ -1684,7 +1684,7 @@ comments:
 attribute_definitions:
   - Message: "\"GenMsgCycleTime\" INT 1 3000"
   - Message: "\"VFrameFormat\" ENUM  \"StandardCAN\",\"ExtendedCAN\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"StandardCAN_FD\",\"ExtendedCAN_FD\""
-  - Plain: "\"BusType\" STRING "
+  - Plain: "\"BusType\" STRING"
 attribute_defaults:
   - name: GenMsgCycleTime
     value:
