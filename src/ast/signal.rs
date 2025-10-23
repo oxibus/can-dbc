@@ -1,11 +1,9 @@
-use derive_getters::Getters;
-
 use crate::ast::{ByteOrder, MultiplexIndicator, ValueType};
 
 /// One or multiple signals are the payload of a CAN frame.
 /// To determine the actual value of a signal the following fn applies:
 /// `let fnvalue = |can_signal_value| -> can_signal_value * factor + offset;`
-#[derive(Clone, Debug, PartialEq, Getters)]
+#[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Signal {
     pub name: String,

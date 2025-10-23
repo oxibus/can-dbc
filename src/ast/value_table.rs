@@ -1,9 +1,7 @@
-use derive_getters::Getters;
-
 use crate::ast::ValDescription;
 
 /// Global value table
-#[derive(Clone, Debug, PartialEq, Getters)]
+#[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct ValueTable {
     pub name: String,

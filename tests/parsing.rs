@@ -192,7 +192,7 @@ fn lookup_multiplex_indicator_switch() {
     let multiplexor_switch = dbc_content.message_multiplexor_switch(MessageId::Standard(3040));
     assert!(multiplexor_switch.is_ok());
     assert!(multiplexor_switch.as_ref().unwrap().is_some());
-    assert_eq!(multiplexor_switch.unwrap().unwrap().name(), "Switch");
+    assert_eq!(multiplexor_switch.unwrap().unwrap().name, "Switch");
 }
 
 #[test]

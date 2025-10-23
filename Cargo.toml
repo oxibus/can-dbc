@@ -24,7 +24,6 @@ serde = ["dep:serde"]
 with-serde = ["serde"]
 
 [dependencies]
-derive-getters = "0.5"
 encoding_rs = { version = "0.8", optional = true }
 nom = { version = "8.0", features = ["alloc"] }
 serde = { version = "1.0", features = ["derive"], optional = true }
