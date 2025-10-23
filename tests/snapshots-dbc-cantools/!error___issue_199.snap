@@ -752,6 +752,7 @@ Incomplete(
                 "\"BusType\" STRING ",
             ),
         ],
+        relation_attribute_definitions: [],
         attribute_defaults: [
             AttributeDefault {
                 name: "UseGMParameterIDs",
@@ -772,6 +773,7 @@ Incomplete(
                 ),
             },
         ],
+        relation_attribute_defaults: [],
         attribute_values: [
             AttributeValueForObject {
                 name: "BusType",
@@ -790,6 +792,7 @@ Incomplete(
                 ),
             },
         ],
+        relation_attribute_values: [],
         value_descriptions: [
             Signal {
                 message_id: Standard(

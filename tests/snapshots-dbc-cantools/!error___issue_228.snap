@@ -213,6 +213,7 @@ Incomplete(
                 "\"BusType\" STRING ",
             ),
         ],
+        relation_attribute_definitions: [],
         attribute_defaults: [
             AttributeDefault {
                 name: "BusType",
@@ -221,7 +222,9 @@ Incomplete(
                 ),
             },
         ],
+        relation_attribute_defaults: [],
         attribute_values: [],
+        relation_attribute_values: [],
         value_descriptions: [],
         signal_type_refs: [],
         signal_groups: [],

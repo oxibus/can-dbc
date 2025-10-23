@@ -141,6 +141,7 @@ Incomplete(
                 "\"GenMsgCycleTime\" INT 0 65535",
             ),
         ],
+        relation_attribute_definitions: [],
         attribute_defaults: [
             AttributeDefault {
                 name: "GenMsgCycleTime",
@@ -149,7 +150,9 @@ Incomplete(
                 ),
             },
         ],
+        relation_attribute_defaults: [],
         attribute_values: [],
+        relation_attribute_values: [],
         value_descriptions: [],
         signal_type_refs: [],
         signal_groups: [],

@@ -15,13 +15,14 @@ use nom::sequence::preceded;
 use nom::{AsChar, IResult, Input, Parser};
 
 use crate::{
-    AccessNode, AccessType, AttributeDefault, AttributeDefinition, AttributeValue,
-    AttributeValueForObject, AttributeValuedForObjectType, Baudrate, ByteOrder, Comment, Dbc,
-    EnvType, EnvironmentVariable, EnvironmentVariableData, ExtendedMultiplex,
-    ExtendedMultiplexMapping, Message, MessageId, MessageTransmitter, MultiplexIndicator, Node,
-    Signal, SignalExtendedValueType, SignalExtendedValueTypeList, SignalGroups, SignalType,
-    SignalTypeRef, Symbol, Transmitter, ValDescription, ValueDescription, ValueTable, ValueType,
-    Version,
+    AccessNode, AccessType, AttributeDefault, AttributeDefaultForRelation, AttributeDefinition,
+    AttributeDefinitionForRelation, AttributeValue, AttributeValueForObject,
+    AttributeValueForRelation, AttributeValueForRelationType, AttributeValuedForObjectType,
+    Baudrate, ByteOrder, Comment, Dbc, EnvType, EnvironmentVariable, EnvironmentVariableData,
+    ExtendedMultiplex, ExtendedMultiplexMapping, Message, MessageId, MessageTransmitter,
+    MultiplexIndicator, Node, Signal, SignalExtendedValueType, SignalExtendedValueTypeList,
+    SignalGroups, SignalType, SignalTypeRef, Symbol, Transmitter, ValDescription, ValueDescription,
+    ValueTable, ValueType, Version,
 };
 
 fn is_semi_colon(chr: char) -> bool {
@@ -320,6 +321,28 @@ pub(crate) fn attribute_default(s: &str) -> IResult<&str, AttributeDefault> {
     Ok((
         s,
         AttributeDefault {
+            name: attribute_name.to_string(),
+            value: attribute_value,
+        },
+    ))
+}
+
+pub(crate) fn attribute_for_relation_default(
+    s: &str,
+) -> IResult<&str, AttributeDefaultForRelation> {
+    // Example: BA_DEF_DEF_REL_ "GenSigTimeoutTime" 0;
+    let (s, _) = multispace0(s)?;
+    let (s, _) = tag("BA_DEF_DEF_REL_").parse(s)?;
+    let (s, _) = ms1(s)?;
+    let (s, attribute_name) = char_string(s)?;
+    let (s, _) = ms1(s)?;
+    let (s, attribute_value) = attribute_value(s)?;
+    let (s, _) = semi_colon(s)?;
+    let (s, _) = line_ending(s)?;
+
+    Ok((
+        s,
+        AttributeDefaultForRelation {
             name: attribute_name.to_string(),
             value: attribute_value,
         },
@@ -753,6 +776,101 @@ pub(crate) fn attribute_value_for_object(s: &str) -> IResult<&str, AttributeValu
     ))
 }
 
+fn attribute_definition_for_relation(s: &str) -> IResult<&str, AttributeDefinitionForRelation> {
+    // example: BA_DEF_REL_ BU_SG_REL_ "GenSigTimeoutTime" INT 0 0;
+    let (s, _) = multispace0(s)?;
+    let (s, _) = tag("BA_DEF_REL_").parse(s)?;
+    let (s, _) = ms1(s)?;
+    let (s, _) = tag("BU_SG_REL_").parse(s)?;
+    let (s, _) = ms1(s)?;
+    let (s, attribute_name) = char_string(s)?;
+    let (s, _) = ms1(s)?;
+    // TODO: Details - could be INT, FLOAT, ENUM, HEX, STRING, (more?)
+    let (s, value_spec) = take_till(is_semi_colon).parse(s)?;
+    let (s, _) = semi_colon(s)?;
+    let (s, _) = line_ending(s)?;
+
+    Ok((
+        s,
+        AttributeDefinitionForRelation {
+            name: attribute_name.to_string(),
+            value_spec: value_spec.to_string(),
+        },
+    ))
+}
+
+fn attribute_value_for_node_signal_relation(
+    s: &str,
+) -> IResult<&str, AttributeValueForRelationType> {
+    // Example: BU_SG_REL_ ECU SG_ 1234 Signal_Name 500;
+    let (s, _) = tag("BU_SG_REL_").parse(s)?;
+    let (s, _) = ms1(s)?;
+    let (s, node_name) = c_ident(s)?;
+    let (s, _) = ms1(s)?;
+    let (s, _) = tag("SG_").parse(s)?;
+    let (s, _) = ms1(s)?;
+    let (s, message_id) = message_id(s)?;
+    let (s, _) = ms1(s)?;
+    let (s, signal_name) = c_ident(s)?;
+    let (s, _) = ms1(s)?;
+    let (s, value) = attribute_value(s)?;
+    let (s, _) = semi_colon(s)?;
+    let (s, _) = line_ending(s)?;
+    Ok((
+        s,
+        AttributeValueForRelationType::NodeToSignal {
+            node_name,
+            message_id,
+            signal_name,
+            value,
+        },
+    ))
+}
+
+fn attribute_value_for_node_message_relation(
+    s: &str,
+) -> IResult<&str, AttributeValueForRelationType> {
+    let (s, _) = tag("BU_BO_REL_").parse(s)?;
+    let (s, _) = ms1(s)?;
+    let (s, node_name) = c_ident(s)?;
+    let (s, _) = ms1(s)?;
+    let (s, message_id) = message_id(s)?;
+    let (s, _) = ms1(s)?;
+    let (s, value) = attribute_value(s)?;
+    let (s, _) = semi_colon(s)?;
+    let (s, _) = line_ending(s)?;
+    Ok((
+        s,
+        AttributeValueForRelationType::NodeToMessage {
+            node_name,
+            message_id,
+            value,
+        },
+    ))
+}
+
+pub(crate) fn attribute_value_for_relation(s: &str) -> IResult<&str, AttributeValueForRelation> {
+    // Example: BA_REL_ "GenSigTimeoutTime" [BU_SG_REL_ ... | BU_BO_REL_ ...]
+    let (s, _) = multispace0(s)?;
+    let (s, _) = tag("BA_REL_").parse(s)?;
+    let (s, _) = ms1(s)?;
+    let (s, attribute_name) = char_string(s)?;
+    let (s, _) = ms1(s)?;
+    let (s, details) = alt((
+        attribute_value_for_node_signal_relation,
+        attribute_value_for_node_message_relation,
+    ))
+    .parse(s)?;
+
+    Ok((
+        s,
+        AttributeValueForRelation {
+            name: attribute_name.to_string(),
+            details,
+        },
+    ))
+}
+
 // TODO add properties
 fn attribute_definition_node(s: &str) -> IResult<&str, AttributeDefinition> {
     let (s, _) = tag("BU_").parse(s)?;
@@ -809,6 +927,7 @@ pub(crate) fn attribute_definition(s: &str) -> IResult<&str, AttributeDefinition
 
     let (s, _) = semi_colon(s)?;
     let (s, _) = line_ending(s)?;
+
     Ok((s, def))
 }
 
@@ -1027,10 +1146,11 @@ pub(crate) fn signal_groups(s: &str) -> IResult<&str, SignalGroups> {
 }
 
 pub fn dbc(s: &str) -> IResult<&str, Dbc> {
+    let (s, version) = version(s)?;
+
     let (
         s,
         (
-            version,
             new_symbols,
             bit_timing,
             nodes,
@@ -1042,8 +1162,11 @@ pub fn dbc(s: &str) -> IResult<&str, Dbc> {
             signal_types,
             comments,
             attribute_definitions,
+            relation_attribute_definitions,
             attribute_defaults,
+            relation_attribute_defaults,
             attribute_values,
+            relation_attribute_values,
             value_descriptions,
             signal_type_refs,
             signal_groups,
@@ -1051,7 +1174,6 @@ pub fn dbc(s: &str) -> IResult<&str, Dbc> {
             extended_multiplex,
         ),
     ) = permutation((
-        version,
         new_symbols,
         opt(bit_timing),
         many0(node),
@@ -1063,8 +1185,11 @@ pub fn dbc(s: &str) -> IResult<&str, Dbc> {
         many0(signal_type),
         many0(comment),
         many0(attribute_definition),
+        many0(attribute_definition_for_relation),
         many0(attribute_default),
+        many0(attribute_for_relation_default),
         many0(attribute_value_for_object),
+        many0(attribute_value_for_relation),
         many0(value_descriptions),
         many0(signal_type_ref),
         many0(signal_groups),
@@ -1088,8 +1213,11 @@ pub fn dbc(s: &str) -> IResult<&str, Dbc> {
             signal_types,
             comments,
             attribute_definitions,
+            relation_attribute_definitions,
             attribute_defaults,
+            relation_attribute_defaults,
             attribute_values,
+            relation_attribute_values,
             value_descriptions,
             signal_type_refs,
             signal_groups,

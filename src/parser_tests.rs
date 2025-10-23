@@ -648,3 +648,38 @@ fn extended_message_id_test_max_29bit() {
     let (_, val) = message_id(&s).unwrap();
     assert_eq!(val, MessageId::Extended(0x1FFF_FFFF));
 }
+
+#[test]
+fn attribute_value_for_node_message_relation_test() {
+    let def = r#"
+BA_REL_ "MsgProject" BU_BO_REL_ ECU1 1 2;
+"#;
+    let exp = AttributeValueForRelation {
+        name: "MsgProject".to_string(),
+        details: AttributeValueForRelationType::NodeToMessage {
+            node_name: "ECU1".to_string(),
+            message_id: MessageId::Standard(1),
+            value: AttributeValue::Double(2.0),
+        },
+    };
+    let (_, val) = attribute_value_for_relation(def.trim_start()).unwrap();
+    assert_eq!(val, exp);
+}
+
+#[test]
+fn attribute_value_for_node_signal_relation_test() {
+    let def = r#"
+BA_REL_ "SignalAttr" BU_SG_REL_ ECU SG_ 1234 Signal_Name 500;
+"#;
+    let exp = AttributeValueForRelation {
+        name: "SignalAttr".to_string(),
+        details: AttributeValueForRelationType::NodeToSignal {
+            node_name: "ECU".to_string(),
+            message_id: MessageId::Standard(1234),
+            signal_name: "Signal_Name".to_string(),
+            value: AttributeValue::Double(500.0),
+        },
+    };
+    let (_, val) = attribute_value_for_relation(def.trim_start()).unwrap();
+    assert_eq!(val, exp);
+}
