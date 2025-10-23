@@ -24,10 +24,10 @@ fn main() {
     let dbc = Dbc::try_from(data.as_str()).expect("Failed to parse dbc file");
 
     let mut scope = Scope::new();
-    for msg in dbc.messages() {
-        let msg_struct = scope.new_struct(msg.name());
-        for signal in msg.signals() {
-            msg_struct.field(signal.name().to_lowercase().as_str(), "f64");
+    for msg in dbc.messages {
+        let msg_struct = scope.new_struct(&msg.name);
+        for signal in msg.signals {
+            msg_struct.field(&signal.name.to_lowercase(), "f64");
         }
     }
 

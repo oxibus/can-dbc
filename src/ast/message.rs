@@ -1,9 +1,7 @@
-use derive_getters::Getters;
-
 use crate::ast::{MessageId, Signal, Transmitter};
 
 /// CAN message (frame) details including signal details
-#[derive(Clone, Debug, PartialEq, Getters)]
+#[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Message {
     /// CAN id in header of CAN frame.

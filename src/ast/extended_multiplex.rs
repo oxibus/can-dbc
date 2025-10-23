@@ -1,9 +1,7 @@
-use derive_getters::Getters;
-
 use crate::ast::{ExtendedMultiplexMapping, MessageId};
 
 /// Mapping between multiplexors and multiplexed signals
-#[derive(Clone, Debug, PartialEq, Getters)]
+#[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct ExtendedMultiplex {
     pub message_id: MessageId,

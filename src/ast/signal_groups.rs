@@ -1,9 +1,7 @@
-use derive_getters::Getters;
-
 use crate::ast::MessageId;
 
 /// Signal groups define a group of signals within a message
-#[derive(Clone, Debug, PartialEq, Getters)]
+#[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct SignalGroups {
     pub message_id: MessageId,
