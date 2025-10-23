@@ -33,7 +33,7 @@ new_symbols:
   - SG_MUL_VAL_
 bit_timing: []
 nodes:
-  - - tx_node
+  - tx_node
 value_tables:
   - name: example_choice
     descriptions:

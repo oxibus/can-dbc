@@ -33,8 +33,8 @@ new_symbols:
   - SG_MUL_VAL_
 bit_timing: []
 nodes:
-  - - Sender
-    - Receiver
+  - Sender
+  - Receiver
 value_tables: []
 messages:
   - id:

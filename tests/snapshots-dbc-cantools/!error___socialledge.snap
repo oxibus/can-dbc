@@ -97,13 +97,19 @@ Incomplete(
         ),
         nodes: [
             Node(
-                [
-                    "DBG",
-                    "DRIVER",
-                    "IO",
-                    "MOTOR",
-                    "SENSOR",
-                ],
+                "DBG",
+            ),
+            Node(
+                "DRIVER",
+            ),
+            Node(
+                "IO",
+            ),
+            Node(
+                "MOTOR",
+            ),
+            Node(
+                "SENSOR",
             ),
         ],
         value_tables: [],

@@ -829,13 +829,17 @@ pub(crate) fn new_symbols(s: &str) -> IResult<&str, Vec<Symbol>> {
 }
 
 /// Network node
-pub(crate) fn node(s: &str) -> IResult<&str, Node> {
+pub(crate) fn node(s: &str) -> IResult<&str, Vec<Node>> {
     let (s, _) = multispace0(s)?;
     let (s, _) = tag("BU_:").parse(s)?;
     let (s, li) = opt(preceded(ms1, separated_list0(ms1, c_ident))).parse(s)?;
     let (s, _) = space0(s)?;
     let (s, _) = line_ending(s)?;
-    Ok((s, Node(li.unwrap_or_default())))
+    Ok((
+        s,
+        li.map(|v| v.into_iter().map(Node).collect::<Vec<_>>())
+            .unwrap_or_default(),
+    ))
 }
 
 fn signal_type_ref(s: &str) -> IResult<&str, SignalTypeRef> {
@@ -1075,7 +1079,7 @@ pub fn dbc(s: &str) -> IResult<&str, Dbc> {
             version,
             new_symbols,
             bit_timing,
-            nodes,
+            nodes: nodes.into_iter().flatten().collect(),
             value_tables,
             messages,
             message_transmitters,

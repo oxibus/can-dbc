@@ -33,8 +33,8 @@ new_symbols:
   - SG_MUL_VAL_
 bit_timing: []
 nodes:
-  - - PCM1
-    - FOO
+  - PCM1
+  - FOO
 value_tables: []
 messages:
   - id:

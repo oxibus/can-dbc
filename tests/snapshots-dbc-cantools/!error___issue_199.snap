@@ -97,10 +97,10 @@ Incomplete(
         ),
         nodes: [
             Node(
-                [
-                    "GMLAN",
-                    "NEO",
-                ],
+                "GMLAN",
+            ),
+            Node(
+                "NEO",
             ),
         ],
         value_tables: [

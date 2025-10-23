@@ -32,8 +32,7 @@ new_symbols:
   - BU_BO_REL_
   - SG_MUL_VAL_
 bit_timing: []
-nodes:
-  - []
+nodes: []
 value_tables: []
 messages:
   - id:

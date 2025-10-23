@@ -31,8 +31,7 @@ new_symbols:
   - BU_EV_REL_
   - BU_BO_REL_
 bit_timing: []
-nodes:
-  - []
+nodes: []
 value_tables:
   - name: Bar
     descriptions:

@@ -25,7 +25,7 @@ new_symbols:
   - SIGTYPE_VALTYPE_
 bit_timing: []
 nodes:
-  - - Node0
+  - Node0
 value_tables: []
 messages:
   - id:

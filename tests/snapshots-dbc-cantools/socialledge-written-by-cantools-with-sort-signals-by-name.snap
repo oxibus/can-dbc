@@ -33,11 +33,11 @@ new_symbols:
   - SG_MUL_VAL_
 bit_timing: []
 nodes:
-  - - DBG
-    - DRIVER
-    - IO
-    - MOTOR
-    - SENSOR
+  - DBG
+  - DRIVER
+  - IO
+  - MOTOR
+  - SENSOR
 value_tables: []
 messages:
   - id:

@@ -33,7 +33,7 @@ new_symbols:
   - SG_MUL_VAL_
 bit_timing: []
 nodes:
-  - - TestNode
+  - TestNode
 value_tables: []
 messages:
   - id:

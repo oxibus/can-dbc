@@ -97,9 +97,7 @@ Incomplete(
         ),
         nodes: [
             Node(
-                [
-                    "Node1",
-                ],
+                "Node1",
             ),
         ],
         value_tables: [],
