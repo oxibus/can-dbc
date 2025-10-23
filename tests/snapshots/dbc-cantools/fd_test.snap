@@ -111,10 +111,10 @@ messages:
           - Vector__XXX
 attribute_definitions:
   - Message: "\"CANFD_BRS\" ENUM  \"0\",\"1\""
-  - Plain: "\"DBName\" STRING "
-  - Plain: "\"BusType\" STRING "
-  - Node: "\"NodeLayerModules\" STRING "
-  - Node: "\"ECU\" STRING "
+  - Plain: "\"DBName\" STRING"
+  - Plain: "\"BusType\" STRING"
+  - Node: "\"NodeLayerModules\" STRING"
+  - Node: "\"ECU\" STRING"
   - Node: "\"CANoeJitterMax\" INT 0 0"
   - Node: "\"CANoeJitterMin\" INT 0 0"
   - Node: "\"CANoeDrift\" INT 0 0"

@@ -78,13 +78,13 @@ comments:
       name: TheNode
       comment: TheNodeComment
 attribute_definitions:
-  - Signal: "\"TheSignalStringAttribute\" STRING "
+  - Signal: "\"TheSignalStringAttribute\" STRING"
   - Plain: "\"TheNetworkAttribute\" INT 0 100"
   - Message: "\"TheUnusedAttributeDefinitionWithoutDefault\" HEX 0 8"
   - Message: "\"TheHexAttribute\" HEX 0 8"
   - Message: "\"TheFloatAttribute\" FLOAT 5 87"
   - Node: "\"TheNodeAttribute\" INT 50 150"
-  - Node: "\"NodeLayerModules\" STRING "
+  - Node: "\"NodeLayerModules\" STRING"
   - Message: "\"GenMsgStartDelayTime\" INT 0 65535"
   - Signal: "\"NWM-WakeupAllowed\" ENUM  \"No\",\"Yes\""
   - Message: "\"NmMessage\" ENUM  \"no\",\"yes\""
@@ -93,7 +93,7 @@ attribute_definitions:
   - Node: "\"NmStationAddress\" INT 0 63"
   - Plain: "\"NmBaseAddress\" HEX 1024 1087"
   - Message: "\"GenMsgCycleTimeFast\" INT 0 50000"
-  - Plain: "\"BusType\" STRING "
+  - Plain: "\"BusType\" STRING"
   - Message: "\"GenMsgCycleTime\" INT 0 50000"
   - Message: "\"GenMsgDelayTime\" INT 0 1000"
   - Message: "\"GenMsgNrOfRepetition\" INT 0 999999"

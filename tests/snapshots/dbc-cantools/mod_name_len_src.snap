@@ -60,9 +60,9 @@ comments:
       name: Node_will_be_shortened_456789_12
       comment: ""
 attribute_definitions:
-  - Node: "\"SystemNodeLongSymbol\" STRING "
-  - Message: "\"SystemMessageLongSymbol\" STRING "
-  - Signal: "\"SystemSignalLongSymbol\" STRING "
+  - Node: "\"SystemNodeLongSymbol\" STRING"
+  - Message: "\"SystemMessageLongSymbol\" STRING"
+  - Signal: "\"SystemSignalLongSymbol\" STRING"
 attribute_defaults:
   - name: SystemNodeLongSymbol
     value:
