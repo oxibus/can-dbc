@@ -35,6 +35,7 @@ build-diagram:
 # Quick compile without building a binary
 check:
     cargo check {{packages}} {{features}} {{targets}}
+    cargo check {{packages}} --no-default-features {{targets}}
 
 # Generate code coverage report to upload to codecov.io
 ci-coverage: env-info && \
@@ -43,7 +44,7 @@ ci-coverage: env-info && \
     mkdir -p target/llvm-cov
 
 # Run all tests as expected by CI
-ci-test: env-info test-fmt clippy test test-doc deny && assert-git-is-clean
+ci-test: env-info test-fmt check clippy test test-doc deny && assert-git-is-clean
 
 # Run minimal subset of tests to ensure compatibility with MSRV
 ci-test-msrv: env-info check test
