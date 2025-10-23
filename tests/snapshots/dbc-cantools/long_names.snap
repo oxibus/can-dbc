@@ -1,0 +1,450 @@
+---
+source: tests/snapshots.rs
+---
+version: ""
+new_symbols:
+  - NS_DESC_
+  - CM_
+  - BA_DEF_
+  - BA_
+  - VAL_
+  - CAT_DEF_
+  - CAT_
+  - FILTER
+  - BA_DEF_DEF_
+  - EV_DATA_
+  - ENVVAR_DATA_
+  - SGTYPE_
+  - SGTYPE_VAL_
+  - BA_DEF_SGTYPE_
+  - BA_SGTYPE_
+  - SIG_TYPE_REF_
+  - VAL_TABLE_
+  - SIG_GROUP_
+  - SIG_VALTYPE_
+  - SIGTYPE_VALTYPE_
+  - BO_TX_BU_
+  - BA_DEF_REL_
+  - BA_REL_
+  - BA_DEF_DEF_REL_
+  - BU_SG_REL_
+  - BU_EV_REL_
+  - BU_BO_REL_
+  - SG_MUL_VAL_
+bit_timing: []
+nodes:
+  - NN123456789012345678901234567890
+  - N12345678901234567890123456_0000
+  - N1234567890123456789012345678901
+  - N12345678901234567890123456_0001
+messages:
+  - id:
+      Standard: 9
+    name: SS123456789012345678901234587890
+    size: 8
+    transmitter: VectorXXX
+  - id:
+      Standard: 8
+    name: SS1234567890123456789012345_0000
+    size: 8
+    transmitter: VectorXXX
+  - id:
+      Standard: 7
+    name: SS1234567890123456789012345_0001
+    size: 8
+    transmitter: VectorXXX
+  - id:
+      Standard: 6
+    name: SS123456789012345678901234577890
+    size: 8
+    transmitter: VectorXXX
+  - id:
+      Standard: 5
+    name: SS123456789012345678901234567890
+    size: 8
+    transmitter: VectorXXX
+  - id:
+      Standard: 4
+    name: S1234567890123456789012345678901
+    size: 8
+    transmitter: VectorXXX
+    signals:
+      - name: SS123456789012345678901234567890
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+  - id:
+      Standard: 0
+    name: M12345678901234567890123456_0000
+    size: 8
+    transmitter: VectorXXX
+    signals:
+      - name: SSS12345678901234567890123456789
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+  - id:
+      Standard: 1
+    name: M1234567890123456789012345678901
+    size: 8
+    transmitter:
+      NodeName: N1234567890123456789012345678901
+    signals:
+      - name: SS1234567890123456789012345_0000
+        multiplexer_indicator: Plain
+        start_bit: 32
+        size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: SS1234567890123456789012345_0001
+        multiplexer_indicator: Plain
+        start_bit: 24
+        size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: SS1234567890123456789012345_0002
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - N12345678901234567890123456_0000
+      - name: S12345678901234567890123456_0000
+        multiplexer_indicator: Plain
+        start_bit: 8
+        size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: S1234567890123456789012345678901
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+  - id:
+      Standard: 2
+    name: M12345678901234567890123456_0001
+    size: 8
+    transmitter:
+      NodeName: N12345678901234567890123456_0001
+    signals:
+      - name: SS1234567890123456789012345_0003
+        multiplexer_indicator: Plain
+        start_bit: 24
+        size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: SS1234567890123456789012345_0004
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: S12345678901234567890123456_0001
+        multiplexer_indicator: Plain
+        start_bit: 8
+        size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: S12345678901234567890123456_0002
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+  - id:
+      Standard: 3
+    name: MM123456789012345678901234567890
+    size: 8
+    transmitter: VectorXXX
+    signals:
+      - name: SSS123456789012345678901234_0000
+        multiplexer_indicator: Plain
+        start_bit: 8
+        size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: SS1234567890123456789012345_0005
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+environment_variables:
+  - name: E12345678901234567890123456_0000
+    typ: Float
+    min: 0
+    max: 0
+    unit: ""
+    initial_value: 0
+    ev_id: 1
+    access_type: DummyNodeVector0
+    access_nodes:
+      - Name: Vector__XXX
+  - name: E1234567890123456789012345678901
+    typ: Float
+    min: 0
+    max: 0
+    unit: ""
+    initial_value: 0
+    ev_id: 2
+    access_type: DummyNodeVector0
+    access_nodes:
+      - Name: Vector__XXX
+attribute_definitions:
+  - Plain: "\"BusType\" STRING "
+  - Signal: "\"SystemSignalLongSymbol\" STRING "
+  - Message: "\"SystemMessageLongSymbol\" STRING "
+  - Node: "\"SystemNodeLongSymbol\" STRING "
+  - EnvironmentVariable: "\"SystemEnvVarLongSymbol\" STRING "
+attribute_defaults:
+  - name: BusType
+    value:
+      String: ""
+  - name: SystemSignalLongSymbol
+    value:
+      String: ""
+  - name: SystemMessageLongSymbol
+    value:
+      String: ""
+  - name: SystemNodeLongSymbol
+    value:
+      String: ""
+  - name: SystemEnvVarLongSymbol
+    value:
+      String: ""
+attribute_values:
+  - name: SystemNodeLongSymbol
+    value:
+      NetworkNode:
+        - NN123456789012345678901234567890
+        - String: NN123456789012345678901234567890123
+  - name: SystemNodeLongSymbol
+    value:
+      NetworkNode:
+        - N12345678901234567890123456_0000
+        - String: N123456789012345678901234567890123
+  - name: SystemNodeLongSymbol
+    value:
+      NetworkNode:
+        - N12345678901234567890123456_0001
+        - String: N12345678901234567890123456789012
+  - name: SystemMessageLongSymbol
+    value:
+      MessageDefinition:
+        - Standard: 9
+        - String: SS12345678901234567890123458789012345
+  - name: SystemMessageLongSymbol
+    value:
+      MessageDefinition:
+        - Standard: 8
+        - String: SS1234567890123456789012345778901
+  - name: SystemMessageLongSymbol
+    value:
+      MessageDefinition:
+        - Standard: 7
+        - String: SS1234567890123456789012345878901234
+  - name: SystemMessageLongSymbol
+    value:
+      MessageDefinition:
+        - Standard: 5
+        - String: SS12345678901234567890123456789012
+  - name: SystemMessageLongSymbol
+    value:
+      MessageDefinition:
+        - Standard: 4
+        - String: S12345678901234567890123456789012
+  - name: SystemMessageLongSymbol
+    value:
+      MessageDefinition:
+        - Standard: 0
+        - String: M123456789012345678901234567890123
+  - name: SystemMessageLongSymbol
+    value:
+      MessageDefinition:
+        - Standard: 2
+        - String: M12345678901234567890123456789012
+  - name: SystemMessageLongSymbol
+    value:
+      MessageDefinition:
+        - Standard: 3
+        - String: MM12345678901234567890123456789012
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
+        - Standard: 4
+        - SS123456789012345678901234567890
+        - String: SS12345678901234567890123456789012
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
+        - Standard: 0
+        - SSS12345678901234567890123456789
+        - String: SSS12345678901234567890123456789012
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
+        - Standard: 1
+        - SS1234567890123456789012345_0000
+        - String: SS12345678901234567890123456789012332
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
+        - Standard: 1
+        - SS1234567890123456789012345_0001
+        - String: SS1234567890123456789012345678901233
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
+        - Standard: 1
+        - SS1234567890123456789012345_0002
+        - String: SS12345678901234567890123456789012
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
+        - Standard: 1
+        - S12345678901234567890123456_0000
+        - String: S123456789012345678901234567890123
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
+        - Standard: 2
+        - SS1234567890123456789012345_0003
+        - String: SS12345678901234567890123456789012dw
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
+        - Standard: 2
+        - SS1234567890123456789012345_0004
+        - String: SS12345678901234567890123456789012
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
+        - Standard: 2
+        - S12345678901234567890123456_0001
+        - String: S12345678901234567890123456789012
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
+        - Standard: 2
+        - S12345678901234567890123456_0002
+        - String: S123456789012345678901234567890123
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
+        - Standard: 3
+        - SSS123456789012345678901234_0000
+        - String: SSS12345678901234567890123456789012
+  - name: SystemSignalLongSymbol
+    value:
+      Signal:
+        - Standard: 3
+        - SS1234567890123456789012345_0005
+        - String: SS1234567890123456789012345678901233
+  - name: SystemEnvVarLongSymbol
+    value:
+      EnvVariable:
+        - E12345678901234567890123456_0000
+        - String: E12345678901234567890123456789012
+signal_groups:
+  - message_id:
+      Standard: 3
+    name: SS1234_sg
+    repetitions: 1
+    signal_names:
+      - SS1234567890123456789012345_0005
+      - SSS123456789012345678901234_0000

@@ -1,3 +1,6 @@
-[submodule "tests/shared-test-files"]
-	path = tests/shared-test-files
+[submodule "tests/fixtures/shared-test-files"]
+	path = tests/fixtures/shared-test-files
 	url = https://github.com/oxibus/shared-test-files
+[submodule "tests/fixtures/opendbc"]
+	path = tests/fixtures/opendbc
+	url = https://github.com/commaai/opendbc.git
