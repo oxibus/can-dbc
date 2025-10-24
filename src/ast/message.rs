@@ -1,8 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{MessageId, Signal, Transmitter};
-use crate::parser;
-use crate::parser::{expect_empty, DbcResult};
+use crate::parser::{expect_empty, next_rule, parse_uint, DbcResult};
 
 /// CAN message (frame) details including signal details
 #[derive(Clone, Debug, PartialEq)]
@@ -24,19 +23,19 @@ impl Message {
         let mut pairs = pair.into_inner();
 
         // Parse msg_var (contains msg_literal ~ message_id)
-        let msg_var_pair = parser::next_rule(&mut pairs, Rule::msg_var)?;
+        let msg_var_pair = next_rule(&mut pairs, Rule::msg_var)?;
         let mut message_id = 0u32;
         for sub_pair in msg_var_pair.into_inner() {
             if sub_pair.as_rule() == Rule::message_id {
-                message_id = parser::parse_uint(sub_pair)? as u32;
+                message_id = parse_uint(sub_pair)? as u32;
             }
         }
 
-        let message_name = parser::next_rule(&mut pairs, Rule::message_name)?
+        let message_name = next_rule(&mut pairs, Rule::message_name)?
             .as_str()
             .to_string();
-        let message_size = parser::parse_uint(parser::next_rule(&mut pairs, Rule::message_size)?)?;
-        let transmitter = parser::next_rule(&mut pairs, Rule::transmitter)?
+        let message_size = parse_uint(next_rule(&mut pairs, Rule::message_size)?)?;
+        let transmitter = next_rule(&mut pairs, Rule::transmitter)?
             .as_str()
             .to_string();
         expect_empty(&mut pairs)?;

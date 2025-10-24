@@ -1,8 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{AccessNode, AccessType, EnvType};
-use crate::parser;
-use crate::parser::DbcResult;
+use crate::parser::{parse_int, parse_min_max_int, parse_str, DbcResult};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -45,10 +44,10 @@ impl EnvironmentVariable {
                 Rule::env_var_type_int => env_type = 0, // Integer type
                 Rule::env_var_type_float => env_type = 1, // Float type
                 Rule::env_var_type_string => env_type = 2, // String type
-                Rule::min_max => (min_val, max_val) = parser::parse_min_max_int(pairs)?,
-                Rule::unit => unit = parser::parse_str(pairs),
-                Rule::init_value => initial_value = parser::parse_int(pairs)? as f64,
-                Rule::ev_id => ev_id = parser::parse_int(pairs)?,
+                Rule::min_max => (min_val, max_val) = parse_min_max_int(pairs)?,
+                Rule::unit => unit = parse_str(pairs),
+                Rule::init_value => initial_value = parse_int(pairs)? as f64,
+                Rule::ev_id => ev_id = parse_int(pairs)?,
                 Rule::node_name => {
                     let name = pairs.as_str().to_string();
                     if access_type.is_empty() {

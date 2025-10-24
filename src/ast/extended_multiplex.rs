@@ -1,8 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{ExtendedMultiplexMapping, MessageId};
-use crate::parser;
-use crate::parser::DbcResult;
+use crate::parser::{next_rule, parse_uint, DbcResult};
 
 /// Mapping between multiplexors and multiplexed signals
 #[derive(Clone, Debug, PartialEq)]
@@ -20,12 +19,11 @@ impl ExtendedMultiplex {
     pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<ExtendedMultiplex> {
         let mut pairs = pair.into_inner();
 
-        let message_id =
-            parser::parse_uint(parser::next_rule(&mut pairs, Rule::message_id)?)? as u32;
-        let signal_name = parser::next_rule(&mut pairs, Rule::signal_name)?
+        let message_id = parse_uint(next_rule(&mut pairs, Rule::message_id)?)? as u32;
+        let signal_name = next_rule(&mut pairs, Rule::signal_name)?
             .as_str()
             .to_string();
-        let multiplexor_name = parser::next_rule(&mut pairs, Rule::multiplexer_name)?
+        let multiplexor_name = next_rule(&mut pairs, Rule::multiplexer_name)?
             .as_str()
             .to_string();
 
@@ -37,7 +35,7 @@ impl ExtendedMultiplex {
                 let mut max_val = None;
                 for pairs2 in pair2.into_inner() {
                     if pairs2.as_rule() == Rule::int {
-                        let value = parser::parse_uint(pairs2)?;
+                        let value = parse_uint(pairs2)?;
                         if min_val.is_none() {
                             min_val = Some(value);
                         } else {

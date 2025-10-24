@@ -1,8 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{MessageId, Transmitter};
-use crate::parser;
-use crate::parser::DbcResult;
+use crate::parser::{next_rule, parse_uint, DbcResult};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -17,8 +16,7 @@ impl MessageTransmitter {
     pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<MessageTransmitter> {
         let mut pairs = pair.into_inner();
 
-        let message_id =
-            parser::parse_uint(parser::next_rule(&mut pairs, Rule::message_id)?)? as u32;
+        let message_id = parse_uint(next_rule(&mut pairs, Rule::message_id)?)? as u32;
 
         // Collect transmitters
         let mut transmitters = Vec::new();

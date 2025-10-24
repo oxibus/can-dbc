@@ -1,7 +1,6 @@
 use can_dbc_pest::{Pair, Rule};
 
-use crate::parser;
-use crate::parser::{expect_empty, DbcResult};
+use crate::parser::{expect_empty, next_rule, parse_int, parse_str, DbcResult};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -15,8 +14,8 @@ impl ValDescription {
     pub(crate) fn parse_table_value_description(pair: Pair<Rule>) -> DbcResult<ValDescription> {
         let mut pairs = pair.into_inner();
 
-        let id = parser::parse_int(parser::next_rule(&mut pairs, Rule::int)?)? as f64;
-        let description = parser::parse_str(parser::next_rule(&mut pairs, Rule::quoted_str)?);
+        let id = parse_int(next_rule(&mut pairs, Rule::int)?)? as f64;
+        let description = parse_str(next_rule(&mut pairs, Rule::quoted_str)?);
         expect_empty(&mut pairs)?;
 
         Ok(ValDescription { id, description })

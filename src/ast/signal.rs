@@ -1,8 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{ByteOrder, MultiplexIndicator, ValueType};
-use crate::parser;
-use crate::parser::DbcResult;
+use crate::parser::{parse_float, parse_min_max_float, parse_str, parse_uint, DbcResult};
 
 /// One or multiple signals are the payload of a CAN frame.
 /// To determine the actual value of a signal the following fn applies:
@@ -47,16 +46,16 @@ impl Signal {
                 Rule::multiplexer_indicator => {
                     multiplexer_indicator = crate::parse_multiplexer(pair2.as_str());
                 }
-                Rule::start_bit => start_bit = parser::parse_uint(pair2)?,
-                Rule::signal_size => size = parser::parse_uint(pair2)?,
+                Rule::start_bit => start_bit = parse_uint(pair2)?,
+                Rule::signal_size => size = parse_uint(pair2)?,
                 Rule::big_endian => byte_order = ByteOrder::BigEndian,
                 Rule::little_endian => byte_order = ByteOrder::LittleEndian,
                 Rule::signed_type => value_type = ValueType::Signed,
                 Rule::unsigned_type => value_type = ValueType::Unsigned,
-                Rule::factor => factor = parser::parse_float(pair2)?,
-                Rule::offset => offset = parser::parse_float(pair2)?,
-                Rule::min_max => (min, max) = parser::parse_min_max_float(pair2)?,
-                Rule::unit => unit = parser::parse_str(pair2),
+                Rule::factor => factor = parse_float(pair2)?,
+                Rule::offset => offset = parse_float(pair2)?,
+                Rule::min_max => (min, max) = parse_min_max_float(pair2)?,
+                Rule::unit => unit = parse_str(pair2),
                 Rule::node_name => receivers.push(pair2.as_str().to_string()),
                 other => panic!("What is this? {other:?}"),
             }

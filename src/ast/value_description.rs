@@ -1,8 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{MessageId, ValDescription};
-use crate::parser;
-use crate::parser::DbcResult;
+use crate::parser::{next_rule, parse_uint, DbcResult};
 
 /// Encoding for signal raw values.
 #[derive(Clone, Debug, PartialEq)]
@@ -30,7 +29,7 @@ impl ValueDescription {
         let mut message_id = None;
         if let Some(first_pair) = pairs.next() {
             if first_pair.as_rule() == Rule::message_id {
-                message_id = Some(parser::parse_uint(first_pair)? as u32);
+                message_id = Some(parse_uint(first_pair)? as u32);
             } else {
                 // Put it back and treat as signal_name (environment variable case)
                 let signal_name = first_pair.as_str().to_string();
@@ -47,7 +46,7 @@ impl ValueDescription {
             }
         }
 
-        let signal_name = parser::next_rule(&mut pairs, Rule::signal_name)?
+        let signal_name = next_rule(&mut pairs, Rule::signal_name)?
             .as_str()
             .to_string();
 

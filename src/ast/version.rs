@@ -1,7 +1,6 @@
 use can_dbc_pest::{Pair, Rule};
 
-use crate::parser;
-use crate::parser::{expect_empty, DbcResult};
+use crate::parser::{expect_empty, next_rule, parse_str, DbcResult};
 
 /// Version identifier of the DBC file.
 ///
@@ -14,7 +13,7 @@ impl Version {
     /// Parse version: VERSION "string"
     pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Version> {
         let mut pairs = pair.into_inner();
-        let version_str = parser::parse_str(parser::next_rule(&mut pairs, Rule::quoted_str)?);
+        let version_str = parse_str(next_rule(&mut pairs, Rule::quoted_str)?);
         expect_empty(&mut pairs)?;
 
         Ok(Version(version_str))

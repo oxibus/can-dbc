@@ -1,8 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::MessageId;
-use crate::parser;
-use crate::parser::DbcResult;
+use crate::parser::{parse_str, parse_uint, DbcResult};
 
 /// Object comments
 #[derive(Clone, Debug, PartialEq)]
@@ -42,12 +41,12 @@ impl Comment {
         // Process all inner pairs to extract information
         for pairs in pair.into_inner() {
             match pairs.as_rule() {
-                Rule::quoted_str => comment_text = parser::parse_str(pairs),
+                Rule::quoted_str => comment_text = parse_str(pairs),
                 Rule::msg_var => {
                     // msg_var contains msg_literal ~ message_id
                     for sub_pair in pairs.into_inner() {
                         if sub_pair.as_rule() == Rule::message_id {
-                            message_id = Some(parser::parse_uint(sub_pair)? as u32);
+                            message_id = Some(parse_uint(sub_pair)? as u32);
                         }
                     }
                 }
@@ -72,7 +71,7 @@ impl Comment {
                     for sub_pair in pairs.into_inner() {
                         match sub_pair.as_rule() {
                             Rule::message_id => {
-                                message_id = Some(parser::parse_uint(sub_pair)? as u32);
+                                message_id = Some(parse_uint(sub_pair)? as u32);
                             }
                             Rule::ident => {
                                 signal_name = Some(sub_pair.as_str().to_string());
@@ -81,7 +80,7 @@ impl Comment {
                         }
                     }
                 }
-                Rule::message_id => message_id = Some(parser::parse_uint(pairs)? as u32),
+                Rule::message_id => message_id = Some(parse_uint(pairs)? as u32),
                 Rule::signal_name => signal_name = Some(pairs.as_str().to_string()),
                 Rule::node_name => node_name = Some(pairs.as_str().to_string()),
                 Rule::env_var_name => env_var_name = Some(pairs.as_str().to_string()),
