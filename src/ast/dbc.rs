@@ -205,7 +205,7 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
     let mut nodes: Vec<Node> = vec![];
     let mut value_tables: Vec<ValueTable> = vec![];
     let mut messages: Vec<Message> = vec![];
-    let mut signals: Vec<(MessageId, Signal)> = vec![]; // Store signals with their message ID
+    let mut signals: Vec<(usize, Signal)> = vec![]; // Store signals with their message index
     let mut message_transmitters: Vec<MessageTransmitter> = vec![];
     let mut environment_variables: Vec<EnvironmentVariable> = vec![];
     let mut environment_variable_data: Vec<EnvironmentVariableData> = vec![];
@@ -218,7 +218,7 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
     let mut signal_extended_value_type_list: Vec<SignalExtendedValueTypeList> = vec![];
     let mut extended_multiplex: Vec<ExtendedMultiplex> = vec![];
 
-    let mut current_message_id: Option<MessageId> = None;
+    let mut current_message_index: Option<usize> = None;
 
     for pair in DbcParser::parse(Rule::file, buffer)? {
         if !matches!(pair.as_rule(), Rule::file) {
@@ -232,12 +232,12 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
                 Rule::nodes => nodes = Node::parse_nodes(pairs)?,
                 Rule::message => {
                     let message = Message::parse(pairs)?;
-                    current_message_id = Some(message.id);
                     messages.push(message);
+                    current_message_index = Some(messages.len() - 1);
                 }
                 Rule::signal => {
-                    if let Some(msg_id) = current_message_id {
-                        signals.push((msg_id, Signal::parse(pairs)?));
+                    if let Some(msg_idx) = current_message_index {
+                        signals.push((msg_idx, Signal::parse(pairs)?));
                     }
                 }
                 Rule::comment => {
@@ -274,10 +274,10 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
         }
     }
 
-    // Associate signals with their messages
-    for (msg_id, signal) in signals {
-        if let Some(message) = messages.iter_mut().find(|m| m.id == msg_id) {
-            message.signals.push(signal);
+    // Associate signals with their messages using index-based association
+    for (msg_idx, signal) in signals {
+        if msg_idx < messages.len() {
+            messages[msg_idx].signals.push(signal);
         }
     }
 
