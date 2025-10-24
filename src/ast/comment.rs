@@ -1,7 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::MessageId;
-use crate::parser::{parse_str, parse_uint, DbcResult};
+use crate::parser::{parse_str, parse_uint, single_rule, DbcResult};
 
 /// Object comments
 #[derive(Clone, Debug, PartialEq)]
@@ -43,12 +43,8 @@ impl Comment {
             match pairs.as_rule() {
                 Rule::quoted_str => comment_text = parse_str(pairs),
                 Rule::msg_var => {
-                    // msg_var contains msg_literal ~ message_id
-                    for sub_pair in pairs.into_inner() {
-                        if sub_pair.as_rule() == Rule::message_id {
-                            message_id = Some(parse_uint(sub_pair)? as u32);
-                        }
-                    }
+                    let v = single_rule(pairs, Rule::message_id)?;
+                    message_id = Some(parse_uint(v)? as u32);
                 }
                 Rule::node_var => {
                     // node_var contains node_literal ~ node_name

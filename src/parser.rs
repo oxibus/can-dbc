@@ -51,6 +51,19 @@ pub(crate) fn next_rule<'a>(
     }
 }
 
+/// Helper function to get a single pair and validate its rule
+pub(crate) fn single_rule(pair: Pair<Rule>, expected: Rule) -> DbcResult<Pair<Rule>> {
+    let mut iter = pair.into_inner();
+    let pair = iter.next().ok_or(DbcError::ParseError)?;
+    if pair.as_rule() != expected {
+        return Err(DbcError::ParseError);
+    }
+    if iter.next().is_some() {
+        return Err(DbcError::ParseError);
+    }
+    Ok(pair)
+}
+
 /// Helper function to optionally get the next pair if it matches the expected rule
 pub(crate) fn opt_rule<'a>(iter: &mut Pairs<'a, Rule>, expected: Rule) -> Option<Pair<'a, Rule>> {
     if let Some(pair) = iter.peek() {
