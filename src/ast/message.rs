@@ -21,10 +21,10 @@ pub struct Message {
 impl Message {
     /// Parse message: `BO_ message_id message_name: message_size transmitter`
     pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Message> {
-        let mut inner_pairs = pair.into_inner();
+        let mut pairs = pair.into_inner();
 
         // Parse msg_var (contains msg_literal ~ message_id)
-        let msg_var_pair = parser::next_rule(&mut inner_pairs, Rule::msg_var)?;
+        let msg_var_pair = parser::next_rule(&mut pairs, Rule::msg_var)?;
         let mut message_id = 0u32;
         for sub_pair in msg_var_pair.into_inner() {
             if sub_pair.as_rule() == Rule::message_id {
@@ -32,12 +32,11 @@ impl Message {
             }
         }
 
-        let message_name = parser::next_rule(&mut inner_pairs, Rule::message_name)?
+        let message_name = parser::next_rule(&mut pairs, Rule::message_name)?
             .as_str()
             .to_string();
-        let message_size =
-            parser::parse_uint(parser::next_rule(&mut inner_pairs, Rule::message_size)?)?;
-        let transmitter = parser::next_rule(&mut inner_pairs, Rule::transmitter)?
+        let message_size = parser::parse_uint(parser::next_rule(&mut pairs, Rule::message_size)?)?;
+        let transmitter = parser::next_rule(&mut pairs, Rule::transmitter)?
             .as_str()
             .to_string();
 

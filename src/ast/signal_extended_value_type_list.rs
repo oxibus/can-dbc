@@ -15,14 +15,14 @@ pub struct SignalExtendedValueTypeList {
 impl SignalExtendedValueTypeList {
     /// Parse signal value type: `SIG_VALTYPE_ message_id signal_name : value_type;`
     pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<SignalExtendedValueTypeList> {
-        let mut inner_pairs = pair.into_inner();
+        let mut pairs = pair.into_inner();
 
         let message_id =
-            parser::parse_uint(parser::next_rule(&mut inner_pairs, Rule::message_id)?)? as u32;
-        let signal_name = parser::next_rule(&mut inner_pairs, Rule::signal_name)?
+            parser::parse_uint(parser::next_rule(&mut pairs, Rule::message_id)?)? as u32;
+        let signal_name = parser::next_rule(&mut pairs, Rule::signal_name)?
             .as_str()
             .to_string();
-        let value_type = parser::parse_uint(parser::next_rule(&mut inner_pairs, Rule::int)?)?;
+        let value_type = parser::parse_uint(parser::next_rule(&mut pairs, Rule::int)?)?;
 
         // Don't use expect_empty here as there might be comments or whitespace
 

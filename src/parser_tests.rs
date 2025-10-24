@@ -68,7 +68,7 @@ fn multiplexer_indicator_test() {
     let (_, val) = multiplexer_indicator(" m34920 eol").expect("parse multiplexer");
     assert_eq!(val, MultiplexIndicator::MultiplexedSignal(34920));
 
-    let (_, val) = multiplexer_indicator(" M eol").expect("parse multiplexor");
+    let (_, val) = multiplexer_indicator(" M eol").expect("parse multiplexer");
     assert_eq!(val, MultiplexIndicator::Multiplexor);
 
     let (_, val) = multiplexer_indicator(" eol").expect("parse plain");

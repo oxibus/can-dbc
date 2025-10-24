@@ -24,18 +24,18 @@ pub enum ValueDescription {
 impl ValueDescription {
     /// Parse value description: `VAL_ message_id signal_name value1 "description1" value2 "description2" ... ;`
     pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<ValueDescription> {
-        let mut inner_pairs = pair.into_inner();
+        let mut pairs = pair.into_inner();
 
         // Check if first item is message_id (optional)
         let mut message_id = None;
-        if let Some(first_pair) = inner_pairs.next() {
+        if let Some(first_pair) = pairs.next() {
             if first_pair.as_rule() == Rule::message_id {
                 message_id = Some(parser::parse_uint(first_pair)? as u32);
             } else {
                 // Put it back and treat as signal_name (environment variable case)
                 let signal_name = first_pair.as_str().to_string();
                 let mut descriptions = Vec::new();
-                for pair2 in inner_pairs {
+                for pair2 in pairs {
                     if pair2.as_rule() == Rule::table_value_description {
                         descriptions.push(ValDescription::parse_table_value_description(pair2)?);
                     }
@@ -47,13 +47,13 @@ impl ValueDescription {
             }
         }
 
-        let signal_name = parser::next_rule(&mut inner_pairs, Rule::signal_name)?
+        let signal_name = parser::next_rule(&mut pairs, Rule::signal_name)?
             .as_str()
             .to_string();
 
         // Collect table value descriptions
         let mut descriptions = Vec::new();
-        for pair2 in inner_pairs {
+        for pair2 in pairs {
             if pair2.as_rule() == Rule::table_value_description {
                 descriptions.push(ValDescription::parse_table_value_description(pair2)?);
             }

@@ -11,8 +11,8 @@ pub struct Version(pub String);
 impl Version {
     /// Parse version: VERSION "string"
     pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Version> {
-        let mut inner_pairs = pair.into_inner();
-        let version_str = parser::parse_str(parser::next_rule(&mut inner_pairs, Rule::quoted_str)?);
+        let mut pairs = pair.into_inner();
+        let version_str = parser::parse_str(parser::next_rule(&mut pairs, Rule::quoted_str)?);
         // Don't use expect_empty here as there might be comments or whitespace
         Ok(Version(version_str))
     }

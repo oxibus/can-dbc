@@ -18,20 +18,20 @@ pub struct ExtendedMultiplex {
 impl ExtendedMultiplex {
     /// Parse extended multiplex: `SG_MUL_VAL_ message_id signal_name multiplexor_name value_pairs;`
     pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<ExtendedMultiplex> {
-        let mut inner_pairs = pair.into_inner();
+        let mut pairs = pair.into_inner();
 
         let message_id =
-            parser::parse_uint(parser::next_rule(&mut inner_pairs, Rule::message_id)?)? as u32;
-        let signal_name = parser::next_rule(&mut inner_pairs, Rule::signal_name)?
+            parser::parse_uint(parser::next_rule(&mut pairs, Rule::message_id)?)? as u32;
+        let signal_name = parser::next_rule(&mut pairs, Rule::signal_name)?
             .as_str()
             .to_string();
-        let multiplexor_name = parser::next_rule(&mut inner_pairs, Rule::multiplexer_name)?
+        let multiplexor_name = parser::next_rule(&mut pairs, Rule::multiplexer_name)?
             .as_str()
             .to_string();
 
         // Collect value pairs
         let mut mappings = Vec::new();
-        for pair2 in inner_pairs {
+        for pair2 in pairs {
             if pair2.as_rule() == Rule::value_pair {
                 let mut min_val = None;
                 let mut max_val = None;

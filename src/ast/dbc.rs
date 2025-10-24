@@ -162,7 +162,7 @@ impl Dbc {
         })
     }
 
-    /// Lookup the message multiplexor switch signal for a given message
+    /// Lookup the message multiplexer switch signal for a given message
     /// This does not work for extended multiplexed messages, if multiple multiplexors are defined for a message an Error is returned.
     #[allow(clippy::result_large_err)]
     pub fn message_multiplexor_switch(&self, message_id: MessageId) -> DbcResult<Option<&Signal>> {

@@ -15,14 +15,14 @@ pub struct MessageTransmitter {
 impl MessageTransmitter {
     /// Parse message transmitter: `BO_TX_BU_ message_id : transmitter1,transmitter2,... ;`
     pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<MessageTransmitter> {
-        let mut inner_pairs = pair.into_inner();
+        let mut pairs = pair.into_inner();
 
         let message_id =
-            parser::parse_uint(parser::next_rule(&mut inner_pairs, Rule::message_id)?)? as u32;
+            parser::parse_uint(parser::next_rule(&mut pairs, Rule::message_id)?)? as u32;
 
         // Collect transmitters
         let mut transmitters = Vec::new();
-        for pair2 in inner_pairs {
+        for pair2 in pairs {
             if pair2.as_rule() == Rule::transmitter {
                 let name = pair2.as_str().to_string();
                 let transmitter = if name == "Vector__XXX" {

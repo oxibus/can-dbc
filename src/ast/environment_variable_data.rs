@@ -12,12 +12,12 @@ pub struct EnvironmentVariableData {
 
 impl EnvironmentVariableData {
     pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<EnvironmentVariableData> {
-        let mut inner_pairs = pair.into_inner();
+        let mut pairs = pair.into_inner();
 
-        let variable_name = parser::next_rule(&mut inner_pairs, Rule::env_var_name)?
+        let variable_name = parser::next_rule(&mut pairs, Rule::env_var_name)?
             .as_str()
             .to_string();
-        let data_size = parser::parse_uint(parser::next_rule(&mut inner_pairs, Rule::data_size)?)?;
+        let data_size = parser::parse_uint(parser::next_rule(&mut pairs, Rule::data_size)?)?;
 
         // Don't use expect_empty here as there might be comments or whitespace
 

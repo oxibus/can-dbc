@@ -6,6 +6,40 @@ use can_dbc_pest::{Error as PestError, Pair, Pairs, Rule};
 
 use crate::encodings;
 
+pub type DbcResult<T> = Result<T, DbcError>;
+
+/// A helper function to decode cp1252 bytes, as DBC files are often encoded in cp1252.
+#[cfg(feature = "encodings")]
+pub fn decode_cp1252(bytes: &[u8]) -> Option<std::borrow::Cow<'_, str>> {
+    let (cow, _, had_errors) = encodings::WINDOWS_1252.decode(bytes);
+    if had_errors {
+        None
+    } else {
+        Some(cow)
+    }
+}
+
+/// Error type for DBC parsing operations
+#[derive(Debug, Clone, PartialEq, thiserror::Error)]
+pub enum DbcError {
+    #[error(transparent)]
+    Pest(Box<PestError<Rule>>),
+    #[error("Invalid data")]
+    InvalidData,
+    #[error("Unknown parse error")]
+    ParseError,
+    #[error("Multiple multiplexors defined for a message")]
+    MultipleMultiplexors,
+    #[error("Feature not implemented: {0}")]
+    NotImplemented(&'static str),
+}
+
+impl From<PestError<Rule>> for DbcError {
+    fn from(value: PestError<Rule>) -> Self {
+        Self::Pest(Box::new(value))
+    }
+}
+
 /// Helper function to extract string content from `quoted_str` rule
 pub(crate) fn parse_str(pair: Pair<Rule>) -> String {
     if pair.as_rule() == Rule::string {
@@ -75,10 +109,10 @@ fn expect_empty(iter: &mut Pairs<Rule>) -> DbcResult<()> {
 
 /// Helper to parse min/max values from a `min_max` rule
 pub(crate) fn parse_min_max_int(pair: Pair<Rule>) -> DbcResult<(i64, i64)> {
-    let mut inner_pairs = pair.into_inner();
+    let mut pairs = pair.into_inner();
 
-    let min_val = parse_int(next_rule(&mut inner_pairs, Rule::minimum)?)?;
-    let max_val = parse_int(next_rule(&mut inner_pairs, Rule::maximum)?)?;
+    let min_val = parse_int(next_rule(&mut pairs, Rule::minimum)?)?;
+    let max_val = parse_int(next_rule(&mut pairs, Rule::maximum)?)?;
     // Don't use expect_empty here as there might be comments or whitespace
 
     Ok((min_val, max_val))
@@ -86,45 +120,11 @@ pub(crate) fn parse_min_max_int(pair: Pair<Rule>) -> DbcResult<(i64, i64)> {
 
 /// Helper to parse min/max values from a `min_max` rule as floats
 pub(crate) fn parse_min_max_float(pair: Pair<Rule>) -> DbcResult<(f64, f64)> {
-    let mut inner_pairs = pair.into_inner();
+    let mut pairs = pair.into_inner();
 
-    let min_val = parse_float(next_rule(&mut inner_pairs, Rule::minimum)?)?;
-    let max_val = parse_float(next_rule(&mut inner_pairs, Rule::maximum)?)?;
+    let min_val = parse_float(next_rule(&mut pairs, Rule::minimum)?)?;
+    let max_val = parse_float(next_rule(&mut pairs, Rule::maximum)?)?;
     // Don't use expect_empty here as there might be comments or whitespace
 
     Ok((min_val, max_val))
-}
-
-pub type DbcResult<T> = Result<T, DbcError>;
-
-/// A helper function to decode cp1252 bytes, as DBC files are often encoded in cp1252.
-#[cfg(feature = "encodings")]
-pub fn decode_cp1252(bytes: &[u8]) -> Option<std::borrow::Cow<'_, str>> {
-    let (cow, _, had_errors) = encodings::WINDOWS_1252.decode(bytes);
-    if had_errors {
-        None
-    } else {
-        Some(cow)
-    }
-}
-
-/// Error type for DBC parsing operations
-#[derive(Debug, Clone, PartialEq, thiserror::Error)]
-pub enum DbcError {
-    #[error(transparent)]
-    Pest(Box<PestError<Rule>>),
-    #[error("Invalid data")]
-    InvalidData,
-    #[error("Unknown parse error")]
-    ParseError,
-    #[error("Multiple multiplexors defined for a message")]
-    MultipleMultiplexors,
-    #[error("Feature not implemented: {0}")]
-    NotImplemented(&'static str),
-}
-
-impl From<PestError<Rule>> for DbcError {
-    fn from(value: PestError<Rule>) -> Self {
-        Self::Pest(Box::new(value))
-    }
 }
