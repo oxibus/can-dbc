@@ -173,71 +173,6 @@ messages:
         unit: ""
         receivers:
           - GMLAN
-      - name: SteeringWheelAngle
-        multiplexer_indicator: Plain
-        start_bit: 39
-        size: 16
-        byte_order: BigEndian
-        value_type: Signed
-        factor: 0.0625
-        offset: 0
-        min: -540
-        max: 540
-        unit: deg
-        receivers:
-          - NEO
-      - name: BrakeLevel
-        multiplexer_indicator: Plain
-        start_bit: 2
-        size: 2
-        byte_order: BigEndian
-        value_type: Unsigned
-        factor: 1
-        offset: 0
-        min: 0
-        max: 3
-        unit: ""
-        receivers:
-          - NEO
-      - name: BrakeSensor
-        multiplexer_indicator: Plain
-        start_bit: 15
-        size: 8
-        byte_order: BigEndian
-        value_type: Unsigned
-        factor: 1
-        offset: 0
-        min: 0
-        max: 255
-        unit: ""
-        receivers:
-          - NEO
-      - name: VehicleSpeed1
-        multiplexer_indicator: Plain
-        start_bit: 7
-        size: 16
-        byte_order: BigEndian
-        value_type: Unsigned
-        factor: 0.01
-        offset: 0
-        min: 0
-        max: 100
-        unit: mph
-        receivers:
-          - NEO
-      - name: VehicleSpeed2
-        multiplexer_indicator: Plain
-        start_bit: 39
-        size: 16
-        byte_order: BigEndian
-        value_type: Unsigned
-        factor: 0.01
-        offset: 0
-        min: 0
-        max: 100
-        unit: mph
-        receivers:
-          - NEO
   - id:
       Standard: 49152
     name: BlinkerStatus
@@ -284,6 +219,33 @@ messages:
         unit: ""
         receivers:
           - NEO
+  - id:
+      Standard: 0
+    name: SteeringWheelAngle
+    size: 8
+    transmitter:
+      NodeName: GMLAN
+    signals:
+      - name: SteeringWheelAngle
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 16
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 0.0625
+        offset: 0
+        min: -540
+        max: 540
+        unit: deg
+        receivers:
+          - NEO
+  - id:
+      Standard: 49152
+    name: GearShifter
+    size: 8
+    transmitter:
+      NodeName: GMLAN
+    signals:
       - name: GearShifter
         multiplexer_indicator: Plain
         start_bit: 17
@@ -297,18 +259,6 @@ messages:
         unit: ""
         receivers:
           - NEO
-  - id:
-      Standard: 0
-    name: SteeringWheelAngle
-    size: 8
-    transmitter:
-      NodeName: GMLAN
-  - id:
-      Standard: 49152
-    name: GearShifter
-    size: 8
-    transmitter:
-      NodeName: GMLAN
   - id:
       Standard: 40960
     name: GasPedalRegenCruise
@@ -377,6 +327,33 @@ messages:
     size: 2
     transmitter:
       NodeName: GMLAN
+    signals:
+      - name: BrakeLevel
+        multiplexer_indicator: Plain
+        start_bit: 2
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - NEO
+      - name: BrakeSensor
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - NEO
   - id:
       Standard: 32768
     name: WheelSpeed
@@ -436,6 +413,46 @@ messages:
         unit: yd/s
         receivers:
           - NEO
+  - id:
+      Standard: 0
+    name: VehicleSpeed
+    size: 8
+    transmitter:
+      NodeName: GMLAN
+    signals:
+      - name: VehicleSpeed1
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.01
+        offset: 0
+        min: 0
+        max: 100
+        unit: mph
+        receivers:
+          - NEO
+      - name: VehicleSpeed2
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.01
+        offset: 0
+        min: 0
+        max: 100
+        unit: mph
+        receivers:
+          - NEO
+  - id:
+      Standard: 32768
+    name: CruiseButtons
+    size: 3
+    transmitter:
+      NodeName: GMLAN
+    signals:
       - name: CruiseButtons
         multiplexer_indicator: Plain
         start_bit: 3
@@ -449,18 +466,6 @@ messages:
         unit: ""
         receivers:
           - NEO
-  - id:
-      Standard: 0
-    name: VehicleSpeed
-    size: 8
-    transmitter:
-      NodeName: GMLAN
-  - id:
-      Standard: 32768
-    name: CruiseButtons
-    size: 3
-    transmitter:
-      NodeName: GMLAN
   - id:
       Standard: 24576
     name: CruiseButtons2
