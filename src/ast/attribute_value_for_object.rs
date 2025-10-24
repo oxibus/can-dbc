@@ -1,7 +1,8 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::AttributeValuedForObjectType;
-use crate::{parser, AttributeValue, DbcResult, MessageId};
+use crate::parser::DbcResult;
+use crate::{parser, AttributeValue, MessageId};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]

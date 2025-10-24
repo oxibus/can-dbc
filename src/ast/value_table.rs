@@ -1,7 +1,8 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::ValDescription;
-use crate::{parser, DbcResult};
+use crate::parser;
+use crate::parser::DbcResult;
 
 /// Global value table
 #[derive(Clone, Debug, PartialEq)]

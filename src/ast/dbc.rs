@@ -9,7 +9,7 @@ use crate::ast::{
     SignalExtendedValueTypeList, SignalGroups, SignalType, SignalTypeRef, Symbol, ValDescription,
     ValueDescription, ValueTable, Version,
 };
-use crate::{DbcError, DbcResult};
+use crate::parser::{DbcError, DbcResult};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]

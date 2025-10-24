@@ -1,7 +1,8 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{ExtendedMultiplexMapping, MessageId};
-use crate::{parser, DbcResult};
+use crate::parser;
+use crate::parser::DbcResult;
 
 /// Mapping between multiplexors and multiplexed signals
 #[derive(Clone, Debug, PartialEq)]

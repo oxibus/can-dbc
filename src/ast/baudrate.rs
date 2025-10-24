@@ -1,6 +1,6 @@
 use can_dbc_pest::{Pair, Rule};
 
-use crate::DbcResult;
+use crate::parser::DbcResult;
 
 /// Baudrate of network in kbit/s
 #[derive(Copy, Clone, Debug, PartialEq)]

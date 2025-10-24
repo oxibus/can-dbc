@@ -1,7 +1,8 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{ByteOrder, MultiplexIndicator, ValueType};
-use crate::{parser, DbcResult};
+use crate::parser;
+use crate::parser::DbcResult;
 
 /// One or multiple signals are the payload of a CAN frame.
 /// To determine the actual value of a signal the following fn applies:

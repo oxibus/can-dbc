@@ -1,7 +1,8 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{MessageId, ValDescription};
-use crate::{parser, DbcResult};
+use crate::parser;
+use crate::parser::DbcResult;
 
 /// Encoding for signal raw values.
 #[derive(Clone, Debug, PartialEq)]

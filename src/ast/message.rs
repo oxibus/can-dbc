@@ -1,7 +1,8 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{MessageId, Signal, Transmitter};
-use crate::{parser, DbcResult};
+use crate::parser;
+use crate::parser::DbcResult;
 
 /// CAN message (frame) details including signal details
 #[derive(Clone, Debug, PartialEq)]
