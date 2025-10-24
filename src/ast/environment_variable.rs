@@ -32,11 +32,11 @@ impl EnvironmentVariable {
         let mut access_type = String::new();
         let mut access_nodes = Vec::new();
 
-        for pair2 in pair.into_inner() {
-            match pair2.as_rule() {
+        for pairs in pair.into_inner() {
+            match pairs.as_rule() {
                 Rule::env_var => {
                     // env_var contains env_literal ~ env_var_name
-                    for sub_pair in pair2.into_inner() {
+                    for sub_pair in pairs.into_inner() {
                         if sub_pair.as_rule() == Rule::env_var_name {
                             variable_name = sub_pair.as_str().to_string();
                         }
@@ -45,12 +45,12 @@ impl EnvironmentVariable {
                 Rule::env_var_type_int => env_type = 0, // Integer type
                 Rule::env_var_type_float => env_type = 1, // Float type
                 Rule::env_var_type_string => env_type = 2, // String type
-                Rule::min_max => (min_val, max_val) = parser::parse_min_max_int(pair2)?,
-                Rule::unit => unit = parser::parse_str(pair2),
-                Rule::init_value => initial_value = parser::parse_int(pair2)? as f64,
-                Rule::ev_id => ev_id = parser::parse_int(pair2)?,
+                Rule::min_max => (min_val, max_val) = parser::parse_min_max_int(pairs)?,
+                Rule::unit => unit = parser::parse_str(pairs),
+                Rule::init_value => initial_value = parser::parse_int(pairs)? as f64,
+                Rule::ev_id => ev_id = parser::parse_int(pairs)?,
                 Rule::node_name => {
-                    let name = pair2.as_str().to_string();
+                    let name = pairs.as_str().to_string();
                     if access_type.is_empty() {
                         // First node_name is the access type
                         access_type = name;

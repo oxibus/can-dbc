@@ -1,7 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::parser;
-use crate::parser::DbcResult;
+use crate::parser::{expect_empty, DbcResult};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -17,7 +17,7 @@ impl ValDescription {
 
         let id = parser::parse_int(parser::next_rule(&mut pairs, Rule::int)?)? as f64;
         let description = parser::parse_str(parser::next_rule(&mut pairs, Rule::quoted_str)?);
-        // Don't use expect_empty here as there might be comments or whitespace
+        expect_empty(&mut pairs)?;
 
         Ok(ValDescription { id, description })
     }

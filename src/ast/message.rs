@@ -2,7 +2,7 @@ use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{MessageId, Signal, Transmitter};
 use crate::parser;
-use crate::parser::DbcResult;
+use crate::parser::{expect_empty, DbcResult};
 
 /// CAN message (frame) details including signal details
 #[derive(Clone, Debug, PartialEq)]
@@ -39,8 +39,7 @@ impl Message {
         let transmitter = parser::next_rule(&mut pairs, Rule::transmitter)?
             .as_str()
             .to_string();
-
-        // Don't use expect_empty here as there might be comments or whitespace
+        expect_empty(&mut pairs)?;
 
         let msg_id = if message_id & (1 << 31) != 0 {
             MessageId::Extended(message_id & 0x1FFF_FFFF)

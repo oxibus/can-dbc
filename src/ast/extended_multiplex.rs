@@ -35,9 +35,9 @@ impl ExtendedMultiplex {
             if pair2.as_rule() == Rule::value_pair {
                 let mut min_val = None;
                 let mut max_val = None;
-                for pair3 in pair2.into_inner() {
-                    if pair3.as_rule() == Rule::int {
-                        let value = parser::parse_uint(pair3)?;
+                for pairs2 in pair2.into_inner() {
+                    if pairs2.as_rule() == Rule::int {
+                        let value = parser::parse_uint(pairs2)?;
                         if min_val.is_none() {
                             min_val = Some(value);
                         } else {

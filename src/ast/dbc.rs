@@ -199,8 +199,6 @@ impl<'a> TryFrom<&'a str> for Dbc {
 }
 
 pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
-    let pairs = DbcParser::parse(Rule::file, buffer)?;
-
     let mut version: Version = Version::default();
     let mut new_symbols: Vec<Symbol> = vec![];
     let mut bit_timing: Option<Vec<Baudrate>> = None;
@@ -222,48 +220,48 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
 
     let mut current_message_id: Option<MessageId> = None;
 
-    for pair in pairs {
+    for pair in DbcParser::parse(Rule::file, buffer)? {
         if !matches!(pair.as_rule(), Rule::file) {
             return Err(DbcError::ParseError);
         }
-        for pair2 in pair.into_inner() {
-            match pair2.as_rule() {
-                Rule::version => version = Version::parse(pair2)?,
-                Rule::new_symbols => new_symbols = Symbol::parse_new_symbols(pair2)?,
-                Rule::bit_timing => bit_timing = Some(Baudrate::parse_bit_timing(pair2)?),
-                Rule::nodes => nodes = Node::parse_nodes(pair2)?,
+        for pairs in pair.into_inner() {
+            match pairs.as_rule() {
+                Rule::version => version = Version::parse(pairs)?,
+                Rule::new_symbols => new_symbols = Symbol::parse_new_symbols(pairs)?,
+                Rule::bit_timing => bit_timing = Some(Baudrate::parse_bit_timing(pairs)?),
+                Rule::nodes => nodes = Node::parse_nodes(pairs)?,
                 Rule::message => {
-                    let message = Message::parse(pair2)?;
+                    let message = Message::parse(pairs)?;
                     current_message_id = Some(message.id);
                     messages.push(message);
                 }
                 Rule::signal => {
                     if let Some(msg_id) = current_message_id {
-                        signals.push((msg_id, Signal::parse(pair2)?));
+                        signals.push((msg_id, Signal::parse(pairs)?));
                     }
                 }
                 Rule::comment => {
-                    if let Some(comment) = Comment::parse(pair2)? {
+                    if let Some(comment) = Comment::parse(pairs)? {
                         comments.push(comment);
                     }
                 }
-                Rule::attr_def => attribute_definitions.push(AttributeDefinition::parse(pair2)?),
-                Rule::attr_value => attribute_values.push(AttributeValueForObject::parse(pair2)?),
-                Rule::value_table => value_tables.push(ValueTable::parse(pair2)?),
-                Rule::value_table_def => value_descriptions.push(ValueDescription::parse(pair2)?),
-                Rule::signal_group => signal_groups.push(SignalGroups::parse(pair2)?),
+                Rule::attr_def => attribute_definitions.push(AttributeDefinition::parse(pairs)?),
+                Rule::attr_value => attribute_values.push(AttributeValueForObject::parse(pairs)?),
+                Rule::value_table => value_tables.push(ValueTable::parse(pairs)?),
+                Rule::value_table_def => value_descriptions.push(ValueDescription::parse(pairs)?),
+                Rule::signal_group => signal_groups.push(SignalGroups::parse(pairs)?),
                 Rule::signal_value_type => {
                     signal_extended_value_type_list
-                        .push(SignalExtendedValueTypeList::parse(pair2)?);
+                        .push(SignalExtendedValueTypeList::parse(pairs)?);
                 }
-                Rule::bo_tx_bu => message_transmitters.push(MessageTransmitter::parse(pair2)?),
-                Rule::ba_def_def => attribute_defaults.push(AttributeDefault::parse(pair2)?),
-                Rule::sg_mul_val => extended_multiplex.push(ExtendedMultiplex::parse(pair2)?),
+                Rule::bo_tx_bu => message_transmitters.push(MessageTransmitter::parse(pairs)?),
+                Rule::ba_def_def => attribute_defaults.push(AttributeDefault::parse(pairs)?),
+                Rule::sg_mul_val => extended_multiplex.push(ExtendedMultiplex::parse(pairs)?),
                 Rule::environment_variable => {
-                    environment_variables.push(EnvironmentVariable::parse(pair2)?);
+                    environment_variables.push(EnvironmentVariable::parse(pairs)?);
                 }
                 Rule::envvar_data => {
-                    environment_variable_data.push(EnvironmentVariableData::parse(pair2)?);
+                    environment_variable_data.push(EnvironmentVariableData::parse(pairs)?);
                 }
                 Rule::ba_def_rel => return Err(DbcError::NotImplemented("ba_def_rel")),
                 Rule::ba_def_def_rel => return Err(DbcError::NotImplemented("ba_def_def_rel")),

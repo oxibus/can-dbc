@@ -23,11 +23,11 @@ impl AttributeDefinition {
         let mut object_type = None;
 
         // Collect all tokens to build the full definition string
-        for pair2 in pair.into_inner() {
-            match pair2.as_rule() {
+        for pairs in pair.into_inner() {
+            match pairs.as_rule() {
                 Rule::object_type => {
                     // This is the new rule that captures the object type
-                    let text = pair2.as_str();
+                    let text = pairs.as_str();
                     if text == "SG_" {
                         object_type = Some("signal");
                     } else if text == "BO_" {
@@ -47,7 +47,7 @@ impl AttributeDefinition {
                     if !definition_string.is_empty() {
                         definition_string.push(' ');
                     }
-                    definition_string.push_str(pair2.as_str());
+                    definition_string.push_str(pairs.as_str());
                 }
                 other => panic!("What is this? {other:?}"),
             }

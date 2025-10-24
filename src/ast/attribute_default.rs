@@ -2,7 +2,7 @@ use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::AttributeValue;
 use crate::parser;
-use crate::parser::{DbcError, DbcResult};
+use crate::parser::{expect_empty, DbcError, DbcResult};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -26,8 +26,7 @@ impl AttributeDefault {
             Rule::number => AttributeValue::Double(parser::parse_float(value_pair)?),
             _ => return Err(DbcError::ParseError),
         };
-
-        // Don't use expect_empty here as there might be comments or whitespace
+        expect_empty(&mut pairs)?;
 
         Ok(AttributeDefault {
             name: attribute_name,

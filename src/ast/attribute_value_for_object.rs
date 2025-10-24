@@ -22,24 +22,24 @@ impl AttributeValueForObject {
         let mut env_var_name = None;
         let mut value = None;
 
-        for pair2 in pair.into_inner() {
-            match pair2.as_rule() {
+        for pairs in pair.into_inner() {
+            match pairs.as_rule() {
                 Rule::attribute_name => {
-                    attribute_name = parser::parse_str(pair2);
+                    attribute_name = parser::parse_str(pairs);
                 }
                 // num_str_value is a silent rule, so we get quoted_str or number directly
                 Rule::quoted_str => {
-                    value = Some(AttributeValue::String(parser::parse_str(pair2)));
+                    value = Some(AttributeValue::String(parser::parse_str(pairs)));
                 }
                 Rule::number => {
-                    value = Some(AttributeValue::Double(parser::parse_float(pair2)?));
+                    value = Some(AttributeValue::Double(parser::parse_float(pairs)?));
                 }
                 Rule::node_var => {
                     object_type = Some("node");
                     // Parse the node name from the inner pairs
                     // node_var contains: node_literal ~ node_name
                     // node_literal is silent (_), so we get node_name directly
-                    for sub_pair in pair2.into_inner() {
+                    for sub_pair in pairs.into_inner() {
                         if sub_pair.as_rule() == Rule::node_name {
                             node_name = Some(sub_pair.as_str().to_string());
                         }
@@ -48,7 +48,7 @@ impl AttributeValueForObject {
                 Rule::msg_var => {
                     object_type = Some("message");
                     // Parse the message ID from the inner pairs
-                    for sub_pair in pair2.into_inner() {
+                    for sub_pair in pairs.into_inner() {
                         if sub_pair.as_rule() == Rule::message_id {
                             message_id = Some(parser::parse_uint(sub_pair)? as u32);
                         }
@@ -57,7 +57,7 @@ impl AttributeValueForObject {
                 Rule::signal_var => {
                     object_type = Some("signal");
                     // Parse the message ID and signal name from the inner pairs
-                    for sub_pair in pair2.into_inner() {
+                    for sub_pair in pairs.into_inner() {
                         match sub_pair.as_rule() {
                             Rule::message_id => {
                                 message_id = Some(parser::parse_uint(sub_pair)? as u32);
@@ -74,7 +74,7 @@ impl AttributeValueForObject {
                     // Parse the environment variable name from the inner pairs
                     // env_var contains: env_literal ~ env_var_name
                     // env_literal is silent (_), so we get env_var_name directly
-                    for sub_pair in pair2.into_inner() {
+                    for sub_pair in pairs.into_inner() {
                         if sub_pair.as_rule() == Rule::env_var_name {
                             env_var_name = Some(sub_pair.as_str().to_string());
                         }

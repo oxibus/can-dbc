@@ -40,12 +40,12 @@ impl Comment {
         let mut env_var_name = None;
 
         // Process all inner pairs to extract information
-        for pair2 in pair.into_inner() {
-            match pair2.as_rule() {
-                Rule::quoted_str => comment_text = parser::parse_str(pair2),
+        for pairs in pair.into_inner() {
+            match pairs.as_rule() {
+                Rule::quoted_str => comment_text = parser::parse_str(pairs),
                 Rule::msg_var => {
                     // msg_var contains msg_literal ~ message_id
-                    for sub_pair in pair2.into_inner() {
+                    for sub_pair in pairs.into_inner() {
                         if sub_pair.as_rule() == Rule::message_id {
                             message_id = Some(parser::parse_uint(sub_pair)? as u32);
                         }
@@ -53,7 +53,7 @@ impl Comment {
                 }
                 Rule::node_var => {
                     // node_var contains node_literal ~ node_name
-                    for sub_pair in pair2.into_inner() {
+                    for sub_pair in pairs.into_inner() {
                         if sub_pair.as_rule() == Rule::node_name {
                             node_name = Some(sub_pair.as_str().to_string());
                         }
@@ -61,7 +61,7 @@ impl Comment {
                 }
                 Rule::env_var => {
                     // env_var contains env_literal ~ env_var_name
-                    for sub_pair in pair2.into_inner() {
+                    for sub_pair in pairs.into_inner() {
                         if sub_pair.as_rule() == Rule::env_var_name {
                             env_var_name = Some(sub_pair.as_str().to_string());
                         }
@@ -69,7 +69,7 @@ impl Comment {
                 }
                 Rule::signal_var => {
                     // signal_var contains signal_literal ~ message_id ~ ident
-                    for sub_pair in pair2.into_inner() {
+                    for sub_pair in pairs.into_inner() {
                         match sub_pair.as_rule() {
                             Rule::message_id => {
                                 message_id = Some(parser::parse_uint(sub_pair)? as u32);
@@ -81,10 +81,10 @@ impl Comment {
                         }
                     }
                 }
-                Rule::message_id => message_id = Some(parser::parse_uint(pair2)? as u32),
-                Rule::signal_name => signal_name = Some(pair2.as_str().to_string()),
-                Rule::node_name => node_name = Some(pair2.as_str().to_string()),
-                Rule::env_var_name => env_var_name = Some(pair2.as_str().to_string()),
+                Rule::message_id => message_id = Some(parser::parse_uint(pairs)? as u32),
+                Rule::signal_name => signal_name = Some(pairs.as_str().to_string()),
+                Rule::node_name => node_name = Some(pairs.as_str().to_string()),
+                Rule::env_var_name => env_var_name = Some(pairs.as_str().to_string()),
                 other => panic!("What is this? {other:?}"),
             }
         }
