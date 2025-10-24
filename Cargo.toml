@@ -8,7 +8,7 @@ authors = ["marcelbuesing <buesing.marcel@googlemail.com>"]
 keywords = ["dbc", "can", "automotive", "ecu"]
 categories = ["embedded", "no-std", "encoding", "parsing"]
 edition = "2021"
-rust-version = "1.74"
+rust-version = "1.81"
 
 [[example]]
 name = "file_parser"
