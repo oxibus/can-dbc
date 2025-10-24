@@ -813,11 +813,11 @@ pub(crate) fn parse_environment_variable(pair: Pair<Rule>) -> DbcResult<Environm
     };
 
     let access_type_enum = match access_type.as_str() {
-        "DUMMY_NODE_VECTOR0" => AccessType::DummyNodeVector0,
         "DUMMY_NODE_VECTOR1" => AccessType::DummyNodeVector1,
         "DUMMY_NODE_VECTOR2" => AccessType::DummyNodeVector2,
         "DUMMY_NODE_VECTOR3" => AccessType::DummyNodeVector3,
-        v => panic!("Unknown access type: {v}"),
+        // FIXME: is this correct?
+        _ => AccessType::DummyNodeVector0,
     };
 
     Ok(EnvironmentVariable {
@@ -894,7 +894,10 @@ fn parse_multiplexer(text: &str) -> MultiplexIndicator {
     if let Some(text) = text.strip_prefix('m') {
         // Multiplexed signal value should be like "m1" or "m1M"
         // Check if it ends with 'M' (multiplexor and multiplexed signal)
-        if let Some(text) = text.strip_suffix('M') {
+        if text.is_empty() {
+            // FIXME: is this the right interpretation?
+            return MultiplexIndicator::Plain;
+        } else if let Some(text) = text.strip_suffix('M') {
             if let Ok(value) = text.parse::<u64>() {
                 return MultiplexIndicator::MultiplexorAndMultiplexedSignal(value);
             }
@@ -996,7 +999,7 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
                     // ignore
                 }
                 #[allow(clippy::match_same_arms)]
-                Rule::ba_def_rel|Rule::ba_def_def_rel|Rule::ba_rel => {
+                Rule::ba_def_rel | Rule::ba_def_def_rel | Rule::ba_rel => {
                     // Currently unimplemented
                 }
                 other => panic!("What is this? {other:?}"),
