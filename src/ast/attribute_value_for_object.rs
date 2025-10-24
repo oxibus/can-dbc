@@ -1,8 +1,10 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::AttributeValuedForObjectType;
-use crate::parser::DbcResult;
-use crate::{parser, AttributeValue, MessageId};
+use crate::parser::{
+    expect_empty, next_rule, parse_float, parse_str, parse_uint, single_rule, DbcResult,
+};
+use crate::{AttributeValue, MessageId};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -25,60 +27,44 @@ impl AttributeValueForObject {
         for pairs in pair.into_inner() {
             match pairs.as_rule() {
                 Rule::attribute_name => {
-                    attribute_name = parser::parse_str(pairs);
+                    attribute_name = parse_str(pairs);
                 }
                 // num_str_value is a silent rule, so we get quoted_str or number directly
                 Rule::quoted_str => {
-                    value = Some(AttributeValue::String(parser::parse_str(pairs)));
+                    value = Some(AttributeValue::String(parse_str(pairs)));
                 }
                 Rule::number => {
-                    value = Some(AttributeValue::Double(parser::parse_float(pairs)?));
+                    value = Some(AttributeValue::Double(parse_float(pairs)?));
                 }
                 Rule::node_var => {
                     object_type = Some("node");
                     // Parse the node name from the inner pairs
                     // node_var contains: node_literal ~ node_name
                     // node_literal is silent (_), so we get node_name directly
-                    for sub_pair in pairs.into_inner() {
-                        if sub_pair.as_rule() == Rule::node_name {
-                            node_name = Some(sub_pair.as_str().to_string());
-                        }
-                    }
+                    node_name = Some(single_rule(pairs, Rule::node_name)?.as_str().to_string());
                 }
                 Rule::msg_var => {
                     object_type = Some("message");
                     // Parse the message ID from the inner pairs
-                    for sub_pair in pairs.into_inner() {
-                        if sub_pair.as_rule() == Rule::message_id {
-                            message_id = Some(parser::parse_uint(sub_pair)? as u32);
-                        }
-                    }
+                    message_id = Some(parse_uint(single_rule(pairs, Rule::message_id)?)? as u32);
                 }
                 Rule::signal_var => {
                     object_type = Some("signal");
                     // Parse the message ID and signal name from the inner pairs
-                    for sub_pair in pairs.into_inner() {
-                        match sub_pair.as_rule() {
-                            Rule::message_id => {
-                                message_id = Some(parser::parse_uint(sub_pair)? as u32);
-                            }
-                            Rule::ident => {
-                                signal_name = Some(sub_pair.as_str().to_string());
-                            }
-                            other => panic!("What is this? {other:?}"),
-                        }
-                    }
+                    let mut inner_pairs = pairs.into_inner();
+                    let v = next_rule(&mut inner_pairs, Rule::message_id)?;
+                    message_id = Some(parse_uint(v)? as u32);
+                    let v = next_rule(&mut inner_pairs, Rule::ident)?;
+                    signal_name = Some(v.as_str().to_string());
+                    expect_empty(&mut inner_pairs)?;
                 }
                 Rule::env_var => {
                     object_type = Some("env_var");
                     // Parse the environment variable name from the inner pairs
                     // env_var contains: env_literal ~ env_var_name
                     // env_literal is silent (_), so we get env_var_name directly
-                    for sub_pair in pairs.into_inner() {
-                        if sub_pair.as_rule() == Rule::env_var_name {
-                            env_var_name = Some(sub_pair.as_str().to_string());
-                        }
-                    }
+                    let v = single_rule(pairs, Rule::env_var_name)?;
+                    env_var_name = Some(v.as_str().to_string());
                 }
                 other => panic!("What is this? {other:?}"),
             }

@@ -1,7 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{AccessNode, AccessType, EnvType};
-use crate::parser::{parse_int, parse_min_max_int, parse_str, DbcResult};
+use crate::parser::{parse_int, parse_min_max_int, parse_str, single_rule, DbcResult};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -34,12 +34,8 @@ impl EnvironmentVariable {
         for pairs in pair.into_inner() {
             match pairs.as_rule() {
                 Rule::env_var => {
-                    // env_var contains env_literal ~ env_var_name
-                    for sub_pair in pairs.into_inner() {
-                        if sub_pair.as_rule() == Rule::env_var_name {
-                            variable_name = sub_pair.as_str().to_string();
-                        }
-                    }
+                    let v = single_rule(pairs, Rule::env_var_name)?;
+                    variable_name = v.as_str().to_string();
                 }
                 Rule::env_var_type_int => env_type = 0, // Integer type
                 Rule::env_var_type_float => env_type = 1, // Float type

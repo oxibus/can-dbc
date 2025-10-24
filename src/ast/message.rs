@@ -1,7 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{MessageId, Signal, Transmitter};
-use crate::parser::{expect_empty, next_rule, parse_uint, DbcResult};
+use crate::parser::{expect_empty, next_rule, parse_uint, single_rule, DbcResult};
 
 /// CAN message (frame) details including signal details
 #[derive(Clone, Debug, PartialEq)]
@@ -24,12 +24,8 @@ impl Message {
 
         // Parse msg_var (contains msg_literal ~ message_id)
         let msg_var_pair = next_rule(&mut pairs, Rule::msg_var)?;
-        let mut message_id = 0u32;
-        for sub_pair in msg_var_pair.into_inner() {
-            if sub_pair.as_rule() == Rule::message_id {
-                message_id = parse_uint(sub_pair)? as u32;
-            }
-        }
+        let message_id_pair = single_rule(msg_var_pair, Rule::message_id)?;
+        let message_id = parse_uint(message_id_pair)? as u32;
 
         let message_name = next_rule(&mut pairs, Rule::message_name)?
             .as_str()

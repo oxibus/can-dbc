@@ -48,19 +48,13 @@ impl Comment {
                 }
                 Rule::node_var => {
                     // node_var contains node_literal ~ node_name
-                    for sub_pair in pairs.into_inner() {
-                        if sub_pair.as_rule() == Rule::node_name {
-                            node_name = Some(sub_pair.as_str().to_string());
-                        }
-                    }
+                    let v = single_rule(pairs, Rule::node_name)?;
+                    node_name = Some(v.as_str().to_string());
                 }
                 Rule::env_var => {
                     // env_var contains env_literal ~ env_var_name
-                    for sub_pair in pairs.into_inner() {
-                        if sub_pair.as_rule() == Rule::env_var_name {
-                            env_var_name = Some(sub_pair.as_str().to_string());
-                        }
-                    }
+                    let v = single_rule(pairs, Rule::env_var_name)?;
+                    env_var_name = Some(v.as_str().to_string());
                 }
                 Rule::signal_var => {
                     // signal_var contains signal_literal ~ message_id ~ ident
