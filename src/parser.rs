@@ -4,14 +4,12 @@
 
 use can_dbc_pest::{Error as PestError, Pair, Pairs, Rule};
 
-use crate::encodings;
-
 pub type DbcResult<T> = Result<T, DbcError>;
 
 /// A helper function to decode cp1252 bytes, as DBC files are often encoded in cp1252.
 #[cfg(feature = "encodings")]
 pub fn decode_cp1252(bytes: &[u8]) -> Option<std::borrow::Cow<'_, str>> {
-    let (cow, _, had_errors) = encodings::WINDOWS_1252.decode(bytes);
+    let (cow, _, had_errors) = crate::encodings::WINDOWS_1252.decode(bytes);
     if had_errors {
         None
     } else {

@@ -10,4 +10,6 @@ pub use ast::*;
 // Re-export of `encoding_rs` as encodings to simplify usage
 #[cfg(feature = "encodings")]
 pub use encoding_rs as encodings;
-pub use parser::{decode_cp1252, DbcError, DbcResult};
+#[cfg(feature = "encodings")]
+pub use parser::decode_cp1252;
+pub use parser::{DbcError, DbcResult};
