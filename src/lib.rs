@@ -36,6 +36,8 @@ pub enum DbcError {
     ParseError,
     #[error("Multiple multiplexors defined for a message")]
     MultipleMultiplexors,
+    #[error("Feature not implemented: {0}")]
+    NotImplemented(&'static str),
 }
 
 impl From<PestError<Rule>> for DbcError {

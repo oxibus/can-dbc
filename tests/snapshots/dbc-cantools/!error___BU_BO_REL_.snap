@@ -1,0 +1,6 @@
+---
+source: tests/snapshots.rs
+---
+NotImplemented(
+    "ba_def_rel",
+)

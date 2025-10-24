@@ -7,11 +7,13 @@ use crate::DbcResult;
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Baudrate(pub u64);
 
-/// Parse bit timing: BS_: `[baud_rate : BTR1 , BTR2 ]`
-pub(crate) fn parse_bit_timing(pair: Pair<Rule>) -> DbcResult<Vec<Baudrate>> {
-    let pairs = pair.into_inner();
-    if pairs.len() == 0 {
-        return Ok(vec![]);
+impl Baudrate {
+    /// Parse bit timing: BS_: `[baud_rate : BTR1 , BTR2 ]`
+    pub(crate) fn parse_bit_timing(pair: Pair<Rule>) -> DbcResult<Vec<Baudrate>> {
+        let pairs = pair.into_inner();
+        if pairs.len() == 0 {
+            return Ok(vec![]);
+        }
+        todo!("Bit timing parsing not implemented yet");
     }
-    todo!("Bit timing parsing not implemented yet");
 }

@@ -142,18 +142,9 @@ fn report_test_result(
                 }
                 Err(e) => {
                     let file_name = format!("!error___{file_name}");
-                    assert_debug_snapshot!(file_name, err_to_str(&e));
+                    assert_debug_snapshot!(file_name, e);
                 }
             }
         }
-    }
-}
-
-fn err_to_str(err: &DbcError) -> String {
-    match err {
-        DbcError::Pest(e) => e.to_string(),
-        DbcError::InvalidData => "invalid data".into(),
-        DbcError::ParseError => "parse error".into(),
-        DbcError::MultipleMultiplexors => "multiple multiplexors".into(),
     }
 }

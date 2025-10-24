@@ -24,54 +24,56 @@ pub struct Signal {
     pub receivers: Vec<String>,
 }
 
-/// Parse signal: `SG_ signal_name : start_bit|signal_size@byte_order+/- (factor,offset) [min|max] "unit" receiver`
-pub(crate) fn parse_signal(pair: Pair<Rule>) -> DbcResult<Signal> {
-    let mut name = String::new();
-    let mut multiplexer_indicator = MultiplexIndicator::Plain;
-    let mut start_bit = 0u64;
-    let mut size = 0u64;
-    let mut byte_order = ByteOrder::BigEndian;
-    let mut value_type = ValueType::Unsigned;
-    let mut factor = 0.0f64;
-    let mut offset = 0.0f64;
-    let mut min = 0.0f64;
-    let mut max = 0.0f64;
-    let mut unit = String::new();
-    let mut receivers = Vec::new();
+impl Signal {
+    /// Parse signal: `SG_ signal_name : start_bit|signal_size@byte_order+/- (factor,offset) [min|max] "unit" receiver`
+    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Signal> {
+        let mut name = String::new();
+        let mut multiplexer_indicator = MultiplexIndicator::Plain;
+        let mut start_bit = 0u64;
+        let mut size = 0u64;
+        let mut byte_order = ByteOrder::BigEndian;
+        let mut value_type = ValueType::Unsigned;
+        let mut factor = 0.0f64;
+        let mut offset = 0.0f64;
+        let mut min = 0.0f64;
+        let mut max = 0.0f64;
+        let mut unit = String::new();
+        let mut receivers = Vec::new();
 
-    for pair2 in pair.into_inner() {
-        match pair2.as_rule() {
-            Rule::signal_name => name = pair2.as_str().to_string(),
-            Rule::multiplexer_indicator => {
-                multiplexer_indicator = crate::parse_multiplexer(pair2.as_str());
+        for pair2 in pair.into_inner() {
+            match pair2.as_rule() {
+                Rule::signal_name => name = pair2.as_str().to_string(),
+                Rule::multiplexer_indicator => {
+                    multiplexer_indicator = crate::parse_multiplexer(pair2.as_str());
+                }
+                Rule::start_bit => start_bit = parser::parse_uint(pair2)?,
+                Rule::signal_size => size = parser::parse_uint(pair2)?,
+                Rule::big_endian => byte_order = ByteOrder::BigEndian,
+                Rule::little_endian => byte_order = ByteOrder::LittleEndian,
+                Rule::signed_type => value_type = ValueType::Signed,
+                Rule::unsigned_type => value_type = ValueType::Unsigned,
+                Rule::factor => factor = parser::parse_float(pair2)?,
+                Rule::offset => offset = parser::parse_float(pair2)?,
+                Rule::min_max => (min, max) = parser::parse_min_max_float(pair2)?,
+                Rule::unit => unit = parser::parse_str(pair2),
+                Rule::node_name => receivers.push(pair2.as_str().to_string()),
+                other => panic!("What is this? {other:?}"),
             }
-            Rule::start_bit => start_bit = parser::parse_uint(pair2)?,
-            Rule::signal_size => size = parser::parse_uint(pair2)?,
-            Rule::big_endian => byte_order = ByteOrder::BigEndian,
-            Rule::little_endian => byte_order = ByteOrder::LittleEndian,
-            Rule::signed_type => value_type = ValueType::Signed,
-            Rule::unsigned_type => value_type = ValueType::Unsigned,
-            Rule::factor => factor = parser::parse_float(pair2)?,
-            Rule::offset => offset = parser::parse_float(pair2)?,
-            Rule::min_max => (min, max) = parser::parse_min_max_float(pair2)?,
-            Rule::unit => unit = parser::parse_str(pair2),
-            Rule::node_name => receivers.push(pair2.as_str().to_string()),
-            other => panic!("What is this? {other:?}"),
         }
-    }
 
-    Ok(Signal {
-        name,
-        multiplexer_indicator,
-        start_bit,
-        size,
-        byte_order,
-        value_type,
-        factor,
-        offset,
-        min,
-        max,
-        unit,
-        receivers,
-    })
+        Ok(Signal {
+            name,
+            multiplexer_indicator,
+            start_bit,
+            size,
+            byte_order,
+            value_type,
+            factor,
+            offset,
+            min,
+            max,
+            unit,
+            receivers,
+        })
+    }
 }

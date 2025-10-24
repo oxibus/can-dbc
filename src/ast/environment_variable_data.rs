@@ -9,20 +9,20 @@ pub struct EnvironmentVariableData {
     pub data_size: u64,
 }
 
-pub(crate) fn parse_environment_variable_data(
-    pair: Pair<Rule>,
-) -> DbcResult<EnvironmentVariableData> {
-    let mut inner_pairs = pair.into_inner();
+impl EnvironmentVariableData {
+    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<EnvironmentVariableData> {
+        let mut inner_pairs = pair.into_inner();
 
-    let variable_name = parser::next_rule(&mut inner_pairs, Rule::env_var_name)?
-        .as_str()
-        .to_string();
-    let data_size = parser::parse_uint(parser::next_rule(&mut inner_pairs, Rule::data_size)?)?;
+        let variable_name = parser::next_rule(&mut inner_pairs, Rule::env_var_name)?
+            .as_str()
+            .to_string();
+        let data_size = parser::parse_uint(parser::next_rule(&mut inner_pairs, Rule::data_size)?)?;
 
-    // Don't use expect_empty here as there might be comments or whitespace
+        // Don't use expect_empty here as there might be comments or whitespace
 
-    Ok(EnvironmentVariableData {
-        env_var_name: variable_name,
-        data_size,
-    })
+        Ok(EnvironmentVariableData {
+            env_var_name: variable_name,
+            data_size,
+        })
+    }
 }

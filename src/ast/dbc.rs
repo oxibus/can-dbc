@@ -3,14 +3,11 @@ use std::str;
 use can_dbc_pest::{DbcParser, Parser as _, Rule};
 
 use crate::ast::{
-    attribute_default, attribute_definition, attribute_value_for_object, baudrate, comment,
-    environment_variable, environment_variable_data, extended_multiplex, message,
-    message_transmitter, node, signal, signal_extended_value_type_list, signal_groups, symbol,
-    value_description, value_table, version, AttributeDefault, AttributeDefinition,
-    AttributeValueForObject, Baudrate, Comment, EnvironmentVariable, EnvironmentVariableData,
-    ExtendedMultiplex, Message, MessageId, MessageTransmitter, MultiplexIndicator, Node, Signal,
-    SignalExtendedValueType, SignalExtendedValueTypeList, SignalGroups, SignalType, SignalTypeRef,
-    Symbol, ValDescription, ValueDescription, ValueTable, Version,
+    AttributeDefault, AttributeDefinition, AttributeValueForObject, Baudrate, Comment,
+    EnvironmentVariable, EnvironmentVariableData, ExtendedMultiplex, Message, MessageId,
+    MessageTransmitter, MultiplexIndicator, Node, Signal, SignalExtendedValueType,
+    SignalExtendedValueTypeList, SignalGroups, SignalType, SignalTypeRef, Symbol, ValDescription,
+    ValueDescription, ValueTable, Version,
 };
 use crate::{DbcError, DbcResult};
 
@@ -231,67 +228,48 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
         }
         for pair2 in pair.into_inner() {
             match pair2.as_rule() {
-                Rule::version => version = version::parse_version(pair2)?,
-                Rule::new_symbols => new_symbols = symbol::parse_new_symbols(pair2)?,
-                Rule::bit_timing => bit_timing = Some(baudrate::parse_bit_timing(pair2)?),
-                Rule::nodes => nodes = node::parse_nodes(pair2)?,
+                Rule::version => version = Version::parse(pair2)?,
+                Rule::new_symbols => new_symbols = Symbol::parse_new_symbols(pair2)?,
+                Rule::bit_timing => bit_timing = Some(Baudrate::parse_bit_timing(pair2)?),
+                Rule::nodes => nodes = Node::parse_nodes(pair2)?,
                 Rule::message => {
-                    let message = message::parse_message(pair2)?;
+                    let message = Message::parse(pair2)?;
                     current_message_id = Some(message.id);
                     messages.push(message);
                 }
                 Rule::signal => {
                     if let Some(msg_id) = current_message_id {
-                        signals.push((msg_id, signal::parse_signal(pair2)?));
+                        signals.push((msg_id, Signal::parse(pair2)?));
                     }
                 }
                 Rule::comment => {
-                    if let Some(comment) = comment::parse_comment(pair2)? {
+                    if let Some(comment) = Comment::parse(pair2)? {
                         comments.push(comment);
                     }
                 }
-                Rule::attr_def => {
-                    attribute_definitions
-                        .push(attribute_definition::parse_attribute_definition(pair2)?);
-                }
-                Rule::attr_value => {
-                    attribute_values.push(attribute_value_for_object::parse_attribute_value(pair2)?);
-                }
-                Rule::value_table => value_tables.push(value_table::parse_value_table(pair2)?),
-                Rule::value_table_def => {
-                    value_descriptions.push(value_description::parse_value_description(pair2)?);
-                }
-                Rule::signal_group => signal_groups.push(signal_groups::parse_signal_group(pair2)?),
+                Rule::attr_def => attribute_definitions.push(AttributeDefinition::parse(pair2)?),
+                Rule::attr_value => attribute_values.push(AttributeValueForObject::parse(pair2)?),
+                Rule::value_table => value_tables.push(ValueTable::parse(pair2)?),
+                Rule::value_table_def => value_descriptions.push(ValueDescription::parse(pair2)?),
+                Rule::signal_group => signal_groups.push(SignalGroups::parse(pair2)?),
                 Rule::signal_value_type => {
-                    signal_extended_value_type_list.push(
-                        signal_extended_value_type_list::parse_signal_value_type(pair2)?,
-                    );
+                    signal_extended_value_type_list
+                        .push(SignalExtendedValueTypeList::parse(pair2)?);
                 }
-                Rule::bo_tx_bu => {
-                    message_transmitters
-                        .push(message_transmitter::parse_message_transmitter(pair2)?);
-                }
-                Rule::ba_def_def => {
-                    attribute_defaults.push(attribute_default::parse_attribute_default(pair2)?);
-                }
-                Rule::sg_mul_val => {
-                    extended_multiplex.push(extended_multiplex::parse_extended_multiplex(pair2)?);
-                }
+                Rule::bo_tx_bu => message_transmitters.push(MessageTransmitter::parse(pair2)?),
+                Rule::ba_def_def => attribute_defaults.push(AttributeDefault::parse(pair2)?),
+                Rule::sg_mul_val => extended_multiplex.push(ExtendedMultiplex::parse(pair2)?),
                 Rule::environment_variable => {
-                    environment_variables
-                        .push(environment_variable::parse_environment_variable(pair2)?);
+                    environment_variables.push(EnvironmentVariable::parse(pair2)?);
                 }
                 Rule::envvar_data => {
-                    environment_variable_data.push(
-                        environment_variable_data::parse_environment_variable_data(pair2)?,
-                    );
+                    environment_variable_data.push(EnvironmentVariableData::parse(pair2)?);
                 }
+                Rule::ba_def_rel => return Err(DbcError::NotImplemented("ba_def_rel")),
+                Rule::ba_def_def_rel => return Err(DbcError::NotImplemented("ba_def_def_rel")),
+                Rule::ba_rel => return Err(DbcError::NotImplemented("ba_rel")),
                 Rule::EOI => {
                     // ignore
-                }
-                #[allow(clippy::match_same_arms)]
-                Rule::ba_def_rel | Rule::ba_def_def_rel | Rule::ba_rel => {
-                    // Currently unimplemented
                 }
                 other => panic!("What is this? {other:?}"),
             }

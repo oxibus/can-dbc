@@ -7,10 +7,12 @@ use crate::{parser, DbcResult};
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Version(pub String);
 
-/// Parse version: VERSION "string"
-pub(crate) fn parse_version(pair: Pair<Rule>) -> DbcResult<Version> {
-    let mut inner_pairs = pair.into_inner();
-    let version_str = parser::parse_str(parser::next_rule(&mut inner_pairs, Rule::quoted_str)?);
-    // Don't use expect_empty here as there might be comments or whitespace
-    Ok(Version(version_str))
+impl Version {
+    /// Parse version: VERSION "string"
+    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Version> {
+        let mut inner_pairs = pair.into_inner();
+        let version_str = parser::parse_str(parser::next_rule(&mut inner_pairs, Rule::quoted_str)?);
+        // Don't use expect_empty here as there might be comments or whitespace
+        Ok(Version(version_str))
+    }
 }
