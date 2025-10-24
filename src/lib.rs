@@ -29,11 +29,17 @@ pub fn decode_cp1252(bytes: &[u8]) -> Option<std::borrow::Cow<'_, str>> {
 #[derive(Debug, Clone, PartialEq, thiserror::Error)]
 pub enum DbcError {
     #[error(transparent)]
-    Pest(#[from] PestError<Rule>),
+    Pest(Box<PestError<Rule>>),
     #[error("Invalid data")]
     InvalidData,
     #[error("Unknown parse error")]
     ParseError,
     #[error("Multiple multiplexors defined for a message")]
     MultipleMultiplexors,
+}
+
+impl From<PestError<Rule>> for DbcError {
+    fn from(value: PestError<Rule>) -> Self {
+        Self::Pest(Box::new(value))
+    }
 }

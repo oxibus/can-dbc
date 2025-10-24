@@ -2,6 +2,14 @@
 //! Parser module for DBC files using pest
 //!
 
+// TODO: fix clippy warnings
+#![allow(
+    clippy::unnecessary_wraps,
+    clippy::cast_possible_truncation,
+    clippy::cast_precision_loss,
+    clippy::too_many_lines
+)]
+
 use std::str;
 
 use can_dbc_pest::{DbcParser, Pair, Pairs, Parser as _, Rule};
@@ -16,7 +24,7 @@ use crate::{
     Version,
 };
 
-/// Helper function to extract string content from quoted_str rule
+/// Helper function to extract string content from `quoted_str` rule
 fn parse_str(pair: Pair<Rule>) -> String {
     if pair.as_rule() == Rule::string {
         return pair.as_str().to_string();
@@ -69,15 +77,13 @@ pub(crate) fn parse_new_symbols(pair: Pair<Rule>) -> DbcResult<Vec<Symbol>> {
     Ok(symbols)
 }
 
-/// Parse bit timing: BS_: [baud_rate : BTR1 , BTR2 ]
+/// Parse bit timing: BS_: `[baud_rate : BTR1 , BTR2 ]`
 pub(crate) fn parse_bit_timing(pair: Pair<Rule>) -> DbcResult<Vec<Baudrate>> {
-    let baudrates = Vec::new();
-    for pair2 in pair.into_inner() {
-        match pair2.as_rule() {
-            other => panic!("What is this? {other:?}"),
-        }
+    let pairs = pair.into_inner();
+    if pairs.len() == 0 {
+        return Ok(vec![]);
     }
-    Ok(baudrates)
+    todo!("Bit timing parsing not implemented yet");
 }
 
 /// Parse nodes: BU_: node1 node2 node3 ...
@@ -93,7 +99,7 @@ pub(crate) fn parse_nodes(pair: Pair<Rule>) -> DbcResult<Vec<Node>> {
     Ok(nodes)
 }
 
-/// Parse message: BO_ message_id message_name: message_size transmitter
+/// Parse message: `BO_ message_id message_name: message_size transmitter`
 pub(crate) fn parse_message(pair: Pair<Rule>) -> DbcResult<Message> {
     let mut inner_pairs = pair.into_inner();
 
@@ -138,7 +144,7 @@ pub(crate) fn parse_message(pair: Pair<Rule>) -> DbcResult<Message> {
     })
 }
 
-/// Parse comment: CM_ [BU_|BO_|SG_|EV_] object_name "comment_text";
+/// Parse comment: `CM_ [BU_|BO_|SG_|EV_] object_name "comment_text";`
 pub(crate) fn parse_comment(pair: Pair<Rule>) -> DbcResult<Option<Comment>> {
     let mut comment_text = String::new();
     let mut message_id = None;
@@ -247,7 +253,7 @@ pub(crate) fn parse_comment(pair: Pair<Rule>) -> DbcResult<Option<Comment>> {
     Ok(None)
 }
 
-/// Parse attribute definition: BA_DEF_ [object_type] attribute_name attribute_type [min max];
+/// Parse attribute definition: `BA_DEF_ [object_type] attribute_name attribute_type [min max];`
 pub(crate) fn parse_attribute_definition(pair: Pair<Rule>) -> DbcResult<AttributeDefinition> {
     let mut definition_string = String::new();
     let mut object_type = None;
@@ -295,7 +301,7 @@ pub(crate) fn parse_attribute_definition(pair: Pair<Rule>) -> DbcResult<Attribut
     }
 }
 
-/// Parse attribute value: BA_ attribute_name [object_type] object_name value;
+/// Parse attribute value: `BA_ attribute_name [object_type] object_name value;`
 pub(crate) fn parse_attribute_value(pair: Pair<Rule>) -> DbcResult<AttributeValueForObject> {
     let mut attribute_name = String::new();
     let mut object_type = None;
@@ -441,7 +447,7 @@ pub(crate) fn parse_attribute_value(pair: Pair<Rule>) -> DbcResult<AttributeValu
     }
 }
 
-/// Parse value table: VAL_TABLE_ table_name value1 "description1" value2 "description2" ... ;
+/// Parse value table: `VAL_TABLE_ table_name value1 "description1" value2 "description2" ... ;`
 pub(crate) fn parse_value_table(pair: Pair<Rule>) -> DbcResult<ValueTable> {
     let mut inner_pairs = pair.into_inner();
 
@@ -466,10 +472,10 @@ pub(crate) fn parse_value_table(pair: Pair<Rule>) -> DbcResult<ValueTable> {
 /// Helper function to get the next pair and validate its rule
 fn next_rule<'a>(iter: &'a mut Pairs<Rule>, expected_rule: Rule) -> DbcResult<Pair<'a, Rule>> {
     let pair = iter.next().ok_or(DbcError::ParseError)?;
-    if pair.as_rule() != expected_rule {
-        Err(DbcError::ParseError)
-    } else {
+    if pair.as_rule() == expected_rule {
         Ok(pair)
+    } else {
+        Err(DbcError::ParseError)
     }
 }
 
@@ -485,7 +491,7 @@ fn peek_rule<'a>(iter: &mut Pairs<'a, Rule>, expected_rule: Rule) -> Option<Pair
 
 /// Helper function to ensure the iterator is empty (no more items)
 #[allow(dead_code)]
-fn expect_empty<'a>(iter: &mut Pairs<Rule>) -> DbcResult<()> {
+fn expect_empty(iter: &mut Pairs<Rule>) -> DbcResult<()> {
     if iter.next().is_some() {
         Err(DbcError::ParseError)
     } else {
@@ -504,7 +510,7 @@ pub(crate) fn parse_table_value_description(pair: Pair<Rule>) -> DbcResult<ValDe
     Ok(ValDescription { id, description })
 }
 
-/// Helper to parse min/max values from a min_max rule
+/// Helper to parse min/max values from a `min_max` rule
 pub(crate) fn parse_min_max_int(pair: Pair<Rule>) -> DbcResult<(i64, i64)> {
     let mut inner_pairs = pair.into_inner();
 
@@ -515,7 +521,7 @@ pub(crate) fn parse_min_max_int(pair: Pair<Rule>) -> DbcResult<(i64, i64)> {
     Ok((min_val, max_val))
 }
 
-/// Helper to parse min/max values from a min_max rule as floats
+/// Helper to parse min/max values from a `min_max` rule as floats
 pub(crate) fn parse_min_max_float(pair: Pair<Rule>) -> DbcResult<(f64, f64)> {
     let mut inner_pairs = pair.into_inner();
 
@@ -526,7 +532,7 @@ pub(crate) fn parse_min_max_float(pair: Pair<Rule>) -> DbcResult<(f64, f64)> {
     Ok((min_val, max_val))
 }
 
-/// Parse value description: VAL_ message_id signal_name value1 "description1" value2 "description2" ... ;
+/// Parse value description: `VAL_ message_id signal_name value1 "description1" value2 "description2" ... ;`
 pub(crate) fn parse_value_description(pair: Pair<Rule>) -> DbcResult<ValueDescription> {
     let mut inner_pairs = pair.into_inner();
 
@@ -582,7 +588,7 @@ pub(crate) fn parse_value_description(pair: Pair<Rule>) -> DbcResult<ValueDescri
     }
 }
 
-/// Parse signal group: SIG_GROUP_ message_id group_name multiplexer_id : signal1 signal2 ... ;
+/// Parse signal group: `SIG_GROUP_ message_id group_name multiplexer_id : signal1 signal2 ... ;`
 pub(crate) fn parse_signal_group(pair: Pair<Rule>) -> DbcResult<SignalGroups> {
     let mut inner_pairs = pair.into_inner();
 
@@ -614,7 +620,7 @@ pub(crate) fn parse_signal_group(pair: Pair<Rule>) -> DbcResult<SignalGroups> {
     })
 }
 
-/// Parse signal value type: SIG_VALTYPE_ message_id signal_name : value_type;
+/// Parse signal value type: `SIG_VALTYPE_ message_id signal_name : value_type;`
 pub(crate) fn parse_signal_value_type(pair: Pair<Rule>) -> DbcResult<SignalExtendedValueTypeList> {
     let mut inner_pairs = pair.into_inner();
 
@@ -636,7 +642,7 @@ pub(crate) fn parse_signal_value_type(pair: Pair<Rule>) -> DbcResult<SignalExten
         0 => SignalExtendedValueType::SignedOrUnsignedInteger,
         1 => SignalExtendedValueType::IEEEfloat32Bit,
         2 => SignalExtendedValueType::IEEEdouble64bit,
-        _ => SignalExtendedValueType::SignedOrUnsignedInteger,
+        v => panic!("Unknown signal extended value type: {v}"),
     };
 
     Ok(SignalExtendedValueTypeList {
@@ -646,7 +652,7 @@ pub(crate) fn parse_signal_value_type(pair: Pair<Rule>) -> DbcResult<SignalExten
     })
 }
 
-/// Parse message transmitter: BO_TX_BU_ message_id : transmitter1,transmitter2,... ;
+/// Parse message transmitter: `BO_TX_BU_ message_id : transmitter1,transmitter2,... ;`
 pub(crate) fn parse_message_transmitter(pair: Pair<Rule>) -> DbcResult<MessageTransmitter> {
     let mut inner_pairs = pair.into_inner();
 
@@ -678,7 +684,7 @@ pub(crate) fn parse_message_transmitter(pair: Pair<Rule>) -> DbcResult<MessageTr
     })
 }
 
-/// Parse attribute default: BA_DEF_DEF_ attribute_name default_value;
+/// Parse attribute default: `BA_DEF_DEF_ attribute_name default_value;`
 pub(crate) fn parse_attribute_default(pair: Pair<Rule>) -> DbcResult<AttributeDefault> {
     let mut inner_pairs = pair.into_inner();
 
@@ -700,7 +706,7 @@ pub(crate) fn parse_attribute_default(pair: Pair<Rule>) -> DbcResult<AttributeDe
     })
 }
 
-/// Parse extended multiplex: SG_MUL_VAL_ message_id signal_name multiplexor_name value_pairs;
+/// Parse extended multiplex: `SG_MUL_VAL_ message_id signal_name multiplexor_name value_pairs;`
 pub(crate) fn parse_extended_multiplex(pair: Pair<Rule>) -> DbcResult<ExtendedMultiplex> {
     let mut inner_pairs = pair.into_inner();
 
@@ -751,7 +757,7 @@ pub(crate) fn parse_extended_multiplex(pair: Pair<Rule>) -> DbcResult<ExtendedMu
     })
 }
 
-/// Parse environment variable: EV_ variable_name : type [min|max] "unit" access_type access_node node_name1 node_name2;
+/// Parse environment variable: `EV_ variable_name : type [min|max] "unit" access_type access_node node_name1 node_name2;`
 pub(crate) fn parse_environment_variable(pair: Pair<Rule>) -> DbcResult<EnvironmentVariable> {
     let mut variable_name = String::new();
     let mut env_type = 0u64;
@@ -803,7 +809,7 @@ pub(crate) fn parse_environment_variable(pair: Pair<Rule>) -> DbcResult<Environm
         0 => EnvType::Float,
         1 => EnvType::U64,
         2 => EnvType::Data,
-        _ => EnvType::Float,
+        v => panic!("Unknown environment variable type: {v}"),
     };
 
     let access_type_enum = match access_type.as_str() {
@@ -811,7 +817,7 @@ pub(crate) fn parse_environment_variable(pair: Pair<Rule>) -> DbcResult<Environm
         "DUMMY_NODE_VECTOR1" => AccessType::DummyNodeVector1,
         "DUMMY_NODE_VECTOR2" => AccessType::DummyNodeVector2,
         "DUMMY_NODE_VECTOR3" => AccessType::DummyNodeVector3,
-        _ => AccessType::DummyNodeVector0,
+        v => panic!("Unknown access type: {v}"),
     };
 
     Ok(EnvironmentVariable {
@@ -827,7 +833,7 @@ pub(crate) fn parse_environment_variable(pair: Pair<Rule>) -> DbcResult<Environm
     })
 }
 
-/// Parse signal: SG_ signal_name : start_bit|signal_size@byte_order+/- (factor,offset) [min|max] "unit" receiver
+/// Parse signal: `SG_ signal_name : start_bit|signal_size@byte_order+/- (factor,offset) [min|max] "unit" receiver`
 pub(crate) fn parse_signal(pair: Pair<Rule>) -> DbcResult<Signal> {
     let mut signal_name = String::new();
     let mut multiplexer_indicator = MultiplexIndicator::Plain;
@@ -848,30 +854,7 @@ pub(crate) fn parse_signal(pair: Pair<Rule>) -> DbcResult<Signal> {
                 signal_name = pair2.as_str().to_string();
             }
             Rule::multiplexer_indicator => {
-                let text = pair2.as_str();
-                if text == "M" {
-                    multiplexer_indicator = MultiplexIndicator::Multiplexor;
-                } else if text.starts_with('m') {
-                    // Parse multiplexed signal value from the text
-                    // The text should be like "m1" or "m1M"
-                    if text.len() > 1 {
-                        let value_str = &text[1..];
-                        // Check if it ends with 'M' (multiplexor and multiplexed signal)
-                        if value_str.ends_with('M') {
-                            let value_str = &value_str[..value_str.len() - 1];
-                            if let Ok(value) = value_str.parse::<u64>() {
-                                multiplexer_indicator =
-                                    MultiplexIndicator::MultiplexorAndMultiplexedSignal(value);
-                            }
-                        } else {
-                            // Just multiplexed signal
-                            if let Ok(value) = value_str.parse::<u64>() {
-                                multiplexer_indicator =
-                                    MultiplexIndicator::MultiplexedSignal(value);
-                            }
-                        }
-                    }
-                }
+                multiplexer_indicator = parse_multiplexer(pair2.as_str());
             }
             Rule::start_bit => start_bit = parse_uint(pair2)?,
             Rule::signal_size => signal_size = parse_uint(pair2)?,
@@ -904,6 +887,25 @@ pub(crate) fn parse_signal(pair: Pair<Rule>) -> DbcResult<Signal> {
     })
 }
 
+fn parse_multiplexer(text: &str) -> MultiplexIndicator {
+    if text == "M" {
+        return MultiplexIndicator::Multiplexor;
+    }
+    if let Some(text) = text.strip_prefix('m') {
+        // Multiplexed signal value should be like "m1" or "m1M"
+        // Check if it ends with 'M' (multiplexor and multiplexed signal)
+        if let Some(text) = text.strip_suffix('M') {
+            if let Ok(value) = text.parse::<u64>() {
+                return MultiplexIndicator::MultiplexorAndMultiplexedSignal(value);
+            }
+        } else if let Ok(value) = text.parse::<u64>() {
+            return MultiplexIndicator::MultiplexedSignal(value);
+        }
+    }
+
+    panic!("Unknown multiplex indicator: {text}");
+}
+
 pub(crate) fn parse_environment_variable_data(
     pair: Pair<Rule>,
 ) -> DbcResult<EnvironmentVariableData> {
@@ -925,26 +927,26 @@ pub(crate) fn parse_environment_variable_data(
 pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
     let pairs = DbcParser::parse(Rule::file, buffer)?;
 
-    let mut version: Version = Default::default();
-    let mut new_symbols: Vec<Symbol> = Default::default();
-    let mut bit_timing: Option<Vec<Baudrate>> = Default::default();
-    let mut nodes: Vec<Node> = Default::default();
-    let mut value_tables: Vec<ValueTable> = Default::default();
-    let mut messages: Vec<Message> = Default::default();
-    let mut signals: Vec<(MessageId, Signal)> = Default::default(); // Store signals with their message ID
-    let mut message_transmitters: Vec<MessageTransmitter> = Default::default();
-    let mut environment_variables: Vec<EnvironmentVariable> = Default::default();
-    let mut environment_variable_data: Vec<EnvironmentVariableData> = Default::default();
-    let signal_types: Vec<SignalType> = Default::default();
-    let mut comments: Vec<Comment> = Default::default();
-    let mut attribute_definitions: Vec<AttributeDefinition> = Default::default();
-    let mut attribute_defaults: Vec<AttributeDefault> = Default::default();
-    let mut attribute_values: Vec<AttributeValueForObject> = Default::default();
-    let mut value_descriptions: Vec<ValueDescription> = Default::default();
-    let signal_type_refs: Vec<SignalTypeRef> = Default::default();
-    let mut signal_groups: Vec<SignalGroups> = Default::default();
-    let mut signal_extended_value_type_list: Vec<SignalExtendedValueTypeList> = Default::default();
-    let mut extended_multiplex: Vec<ExtendedMultiplex> = Default::default();
+    let mut version: Version = Version::default();
+    let mut new_symbols: Vec<Symbol> = vec![];
+    let mut bit_timing: Option<Vec<Baudrate>> = None;
+    let mut nodes: Vec<Node> = vec![];
+    let mut value_tables: Vec<ValueTable> = vec![];
+    let mut messages: Vec<Message> = vec![];
+    let mut signals: Vec<(MessageId, Signal)> = vec![]; // Store signals with their message ID
+    let mut message_transmitters: Vec<MessageTransmitter> = vec![];
+    let mut environment_variables: Vec<EnvironmentVariable> = vec![];
+    let mut environment_variable_data: Vec<EnvironmentVariableData> = vec![];
+    let signal_types: Vec<SignalType> = vec![];
+    let mut comments: Vec<Comment> = vec![];
+    let mut attribute_definitions: Vec<AttributeDefinition> = vec![];
+    let mut attribute_defaults: Vec<AttributeDefault> = vec![];
+    let mut attribute_values: Vec<AttributeValueForObject> = vec![];
+    let mut value_descriptions: Vec<ValueDescription> = vec![];
+    let signal_type_refs: Vec<SignalTypeRef> = vec![];
+    let mut signal_groups: Vec<SignalGroups> = vec![];
+    let mut signal_extended_value_type_list: Vec<SignalExtendedValueTypeList> = vec![];
+    let mut extended_multiplex: Vec<ExtendedMultiplex> = vec![];
 
     let mut current_message_id: Option<MessageId> = None;
 
@@ -979,18 +981,24 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
                 Rule::value_table_def => value_descriptions.push(parse_value_description(pair2)?),
                 Rule::signal_group => signal_groups.push(parse_signal_group(pair2)?),
                 Rule::signal_value_type => {
-                    signal_extended_value_type_list.push(parse_signal_value_type(pair2)?)
+                    signal_extended_value_type_list.push(parse_signal_value_type(pair2)?);
                 }
                 Rule::bo_tx_bu => message_transmitters.push(parse_message_transmitter(pair2)?),
                 Rule::ba_def_def => attribute_defaults.push(parse_attribute_default(pair2)?),
                 Rule::sg_mul_val => extended_multiplex.push(parse_extended_multiplex(pair2)?),
                 Rule::environment_variable => {
-                    environment_variables.push(parse_environment_variable(pair2)?)
+                    environment_variables.push(parse_environment_variable(pair2)?);
                 }
                 Rule::envvar_data => {
-                    environment_variable_data.push(parse_environment_variable_data(pair2)?)
+                    environment_variable_data.push(parse_environment_variable_data(pair2)?);
                 }
-                Rule::EOI => {}
+                Rule::EOI => {
+                    // ignore
+                }
+                #[allow(clippy::match_same_arms)]
+                Rule::ba_def_rel|Rule::ba_def_def_rel|Rule::ba_rel => {
+                    // Currently unimplemented
+                }
                 other => panic!("What is this? {other:?}"),
             }
         }
