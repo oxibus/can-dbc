@@ -1,11 +1,18 @@
+use std::str;
+
+use can_dbc_pest::{DbcParser, Parser as _, Rule};
+
 use crate::ast::{
-    AttributeDefault, AttributeDefinition, AttributeValueForObject, Baudrate, Comment,
-    EnvironmentVariable, EnvironmentVariableData, ExtendedMultiplex, Message, MessageId,
-    MessageTransmitter, MultiplexIndicator, Node, Signal, SignalExtendedValueType,
-    SignalExtendedValueTypeList, SignalGroups, SignalType, SignalTypeRef, Symbol, ValDescription,
-    ValueDescription, ValueTable, Version,
+    attribute_default, attribute_definition, attribute_value_for_object, baudrate, comment,
+    environment_variable, environment_variable_data, extended_multiplex, message,
+    message_transmitter, node, signal, signal_extended_value_type_list, signal_groups, symbol,
+    value_description, value_table, version, AttributeDefault, AttributeDefinition,
+    AttributeValueForObject, Baudrate, Comment, EnvironmentVariable, EnvironmentVariableData,
+    ExtendedMultiplex, Message, MessageId, MessageTransmitter, MultiplexIndicator, Node, Signal,
+    SignalExtendedValueType, SignalExtendedValueTypeList, SignalGroups, SignalType, SignalTypeRef,
+    Symbol, ValDescription, ValueDescription, ValueTable, Version,
 };
-use crate::{parser, DbcError, DbcResult};
+use crate::{DbcError, DbcResult};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -190,6 +197,133 @@ impl<'a> TryFrom<&'a str> for Dbc {
     type Error = DbcError;
 
     fn try_from(dbc_in: &'a str) -> Result<Self, Self::Error> {
-        parser::dbc(dbc_in)
+        dbc(dbc_in)
     }
+}
+
+pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
+    let pairs = DbcParser::parse(Rule::file, buffer)?;
+
+    let mut version: Version = Version::default();
+    let mut new_symbols: Vec<Symbol> = vec![];
+    let mut bit_timing: Option<Vec<Baudrate>> = None;
+    let mut nodes: Vec<Node> = vec![];
+    let mut value_tables: Vec<ValueTable> = vec![];
+    let mut messages: Vec<Message> = vec![];
+    let mut signals: Vec<(MessageId, Signal)> = vec![]; // Store signals with their message ID
+    let mut message_transmitters: Vec<MessageTransmitter> = vec![];
+    let mut environment_variables: Vec<EnvironmentVariable> = vec![];
+    let mut environment_variable_data: Vec<EnvironmentVariableData> = vec![];
+    let mut comments: Vec<Comment> = vec![];
+    let mut attribute_definitions: Vec<AttributeDefinition> = vec![];
+    let mut attribute_defaults: Vec<AttributeDefault> = vec![];
+    let mut attribute_values: Vec<AttributeValueForObject> = vec![];
+    let mut value_descriptions: Vec<ValueDescription> = vec![];
+    let mut signal_groups: Vec<SignalGroups> = vec![];
+    let mut signal_extended_value_type_list: Vec<SignalExtendedValueTypeList> = vec![];
+    let mut extended_multiplex: Vec<ExtendedMultiplex> = vec![];
+
+    let mut current_message_id: Option<MessageId> = None;
+
+    for pair in pairs {
+        if !matches!(pair.as_rule(), Rule::file) {
+            return Err(DbcError::ParseError);
+        }
+        for pair2 in pair.into_inner() {
+            match pair2.as_rule() {
+                Rule::version => version = version::parse_version(pair2)?,
+                Rule::new_symbols => new_symbols = symbol::parse_new_symbols(pair2)?,
+                Rule::bit_timing => bit_timing = Some(baudrate::parse_bit_timing(pair2)?),
+                Rule::nodes => nodes = node::parse_nodes(pair2)?,
+                Rule::message => {
+                    let message = message::parse_message(pair2)?;
+                    current_message_id = Some(message.id);
+                    messages.push(message);
+                }
+                Rule::signal => {
+                    if let Some(msg_id) = current_message_id {
+                        signals.push((msg_id, signal::parse_signal(pair2)?));
+                    }
+                }
+                Rule::comment => {
+                    if let Some(comment) = comment::parse_comment(pair2)? {
+                        comments.push(comment);
+                    }
+                }
+                Rule::attr_def => {
+                    attribute_definitions
+                        .push(attribute_definition::parse_attribute_definition(pair2)?);
+                }
+                Rule::attr_value => {
+                    attribute_values.push(attribute_value_for_object::parse_attribute_value(pair2)?);
+                }
+                Rule::value_table => value_tables.push(value_table::parse_value_table(pair2)?),
+                Rule::value_table_def => {
+                    value_descriptions.push(value_description::parse_value_description(pair2)?);
+                }
+                Rule::signal_group => signal_groups.push(signal_groups::parse_signal_group(pair2)?),
+                Rule::signal_value_type => {
+                    signal_extended_value_type_list.push(
+                        signal_extended_value_type_list::parse_signal_value_type(pair2)?,
+                    );
+                }
+                Rule::bo_tx_bu => {
+                    message_transmitters
+                        .push(message_transmitter::parse_message_transmitter(pair2)?);
+                }
+                Rule::ba_def_def => {
+                    attribute_defaults.push(attribute_default::parse_attribute_default(pair2)?);
+                }
+                Rule::sg_mul_val => {
+                    extended_multiplex.push(extended_multiplex::parse_extended_multiplex(pair2)?);
+                }
+                Rule::environment_variable => {
+                    environment_variables
+                        .push(environment_variable::parse_environment_variable(pair2)?);
+                }
+                Rule::envvar_data => {
+                    environment_variable_data.push(
+                        environment_variable_data::parse_environment_variable_data(pair2)?,
+                    );
+                }
+                Rule::EOI => {
+                    // ignore
+                }
+                #[allow(clippy::match_same_arms)]
+                Rule::ba_def_rel | Rule::ba_def_def_rel | Rule::ba_rel => {
+                    // Currently unimplemented
+                }
+                other => panic!("What is this? {other:?}"),
+            }
+        }
+    }
+
+    // Associate signals with their messages
+    for (msg_id, signal) in signals {
+        if let Some(message) = messages.iter_mut().find(|m| m.id == msg_id) {
+            message.signals.push(signal);
+        }
+    }
+
+    Ok(Dbc {
+        version,
+        new_symbols,
+        bit_timing,
+        nodes,
+        value_tables,
+        messages,
+        message_transmitters,
+        environment_variables,
+        environment_variable_data,
+        signal_types: vec![], // TODO
+        comments,
+        attribute_definitions,
+        attribute_defaults,
+        attribute_values,
+        value_descriptions,
+        signal_type_refs: vec![], // TODO
+        signal_groups,
+        signal_extended_value_type_list,
+        extended_multiplex,
+    })
 }
