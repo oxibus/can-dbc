@@ -481,15 +481,15 @@ pub(crate) fn value_descriptions(s: &str) -> IResult<&str, ValueDescription> {
 }
 
 fn env_float(s: &str) -> IResult<&str, EnvType> {
-    value(EnvType::Float, char('0')).parse(s)
+    value(EnvType::Integer, char('0')).parse(s)
 }
 
 fn env_int(s: &str) -> IResult<&str, EnvType> {
-    value(EnvType::U64, char('1')).parse(s)
+    value(EnvType::Float, char('1')).parse(s)
 }
 
 fn env_data(s: &str) -> IResult<&str, EnvType> {
-    value(EnvType::U64, char('2')).parse(s)
+    value(EnvType::String, char('2')).parse(s)
 }
 
 fn env_var_type(s: &str) -> IResult<&str, EnvType> {
