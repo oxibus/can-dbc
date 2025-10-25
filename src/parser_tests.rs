@@ -56,12 +56,10 @@ SG_ NAME : 3|2@1- (1,0) [0|0] "x" UFA
 
 #[test]
 fn byte_order_test() {
-    let pair = parse("0", Rule::big_endian).unwrap();
-    let val = ByteOrder::BigEndian;
+    let val: ByteOrder = parse("0", Rule::big_endian).unwrap().try_into().unwrap();
     assert_eq!(val, ByteOrder::BigEndian);
 
-    let pair = parse("1", Rule::little_endian).unwrap();
-    let val = ByteOrder::LittleEndian;
+    let val: ByteOrder = parse("1", Rule::little_endian).unwrap().try_into().unwrap();
     assert_eq!(val, ByteOrder::LittleEndian);
 }
 
@@ -236,7 +234,7 @@ EV_ IUV: 0 [-22|20] "mm" 3 7 DUMMY_NODE_VECTOR0 VECTOR_XXX;
 "#;
     let exp = EnvironmentVariable {
         name: "IUV".to_string(),
-        typ: EnvType::Float,
+        typ: EnvType::Integer,
         min: -22,
         max: 20,
         unit: "mm".to_string(),

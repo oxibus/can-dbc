@@ -266,7 +266,7 @@ messages:
           - Vector__XXX
 environment_variables:
   - name: E12345678901234567890123456_0000
-    typ: Float
+    typ: Integer
     min: 0
     max: 0
     unit: ""
@@ -276,7 +276,7 @@ environment_variables:
     access_nodes:
       - Name: Vector__XXX
   - name: E1234567890123456789012345678901
-    typ: Float
+    typ: Integer
     min: 0
     max: 0
     unit: ""

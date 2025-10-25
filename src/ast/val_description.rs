@@ -1,19 +1,12 @@
 use can_dbc_pest::{Pair, Rule};
 
-use crate::parser::{expect_empty, next_rule, parse_int, parse_str, DbcResult};
+use crate::parser::{expect_empty, next_rule, parse_int, parse_str};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct ValDescription {
     pub id: f64,
     pub description: String,
-}
-
-impl ValDescription {
-    /// Helper to parse a single table value description pair (value + description)
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<ValDescription> {
-        pair.try_into()
-    }
 }
 
 impl TryFrom<Pair<'_, Rule>> for ValDescription {

@@ -109,7 +109,7 @@ messages:
           - Vector__XXX
 environment_variables:
   - name: EMC_TrdPower
-    typ: U64
+    typ: Float
     min: 0
     max: 20000
     unit: W
@@ -119,7 +119,7 @@ environment_variables:
     access_nodes:
       - Name: Vector__XXX
   - name: EMC_Modulation
-    typ: Float
+    typ: Integer
     min: 0
     max: 0
     unit: ""
@@ -129,7 +129,7 @@ environment_variables:
     access_nodes:
       - Name: Vector__XXX
   - name: EMC_NoGoInfo
-    typ: Float
+    typ: Integer
     min: 0
     max: 0
     unit: ""
@@ -139,7 +139,7 @@ environment_variables:
     access_nodes:
       - Name: Vector__XXX
   - name: EMC_Test_Stop
-    typ: Float
+    typ: Integer
     min: 0
     max: 1
     unit: ""
@@ -149,7 +149,7 @@ environment_variables:
     access_nodes:
       - Name: Vector__XXX
   - name: EMC_Test_Start
-    typ: Float
+    typ: Integer
     min: 0
     max: 1
     unit: ""
@@ -159,7 +159,7 @@ environment_variables:
     access_nodes:
       - Name: Vector__XXX
   - name: EMC_Test_Clear
-    typ: Float
+    typ: Integer
     min: 0
     max: 1
     unit: ""
@@ -169,7 +169,7 @@ environment_variables:
     access_nodes:
       - Name: Vector__XXX
   - name: EMC_Synchronisation
-    typ: Float
+    typ: Integer
     min: 0
     max: 1
     unit: ""
@@ -179,7 +179,7 @@ environment_variables:
     access_nodes:
       - Name: Vector__XXX
   - name: EMC_Polarisation
-    typ: Float
+    typ: Integer
     min: 0
     max: 0
     unit: ""
@@ -189,7 +189,7 @@ environment_variables:
     access_nodes:
       - Name: Vector__XXX
   - name: EMC_NoGo
-    typ: Float
+    typ: Integer
     min: 0
     max: 1
     unit: ""
@@ -199,7 +199,7 @@ environment_variables:
     access_nodes:
       - Name: Vector__XXX
   - name: EMC_Frequency
-    typ: U64
+    typ: Float
     min: 0
     max: 4000000000
     unit: Hz
@@ -209,7 +209,7 @@ environment_variables:
     access_nodes:
       - Name: Vector__XXX
   - name: EMC_TestLevel
-    typ: U64
+    typ: Float
     min: 0
     max: 600
     unit: Level
@@ -219,7 +219,7 @@ environment_variables:
     access_nodes:
       - Name: Vector__XXX
   - name: EMC_Azimuth
-    typ: U64
+    typ: Float
     min: -180
     max: 400
     unit: deg
@@ -229,7 +229,7 @@ environment_variables:
     access_nodes:
       - Name: Vector__XXX
   - name: EMC_Action_5
-    typ: Float
+    typ: Integer
     min: 0
     max: 1
     unit: ""
@@ -239,7 +239,7 @@ environment_variables:
     access_nodes:
       - Name: Vector__XXX
   - name: EMC_Action_4
-    typ: Float
+    typ: Integer
     min: 0
     max: 1
     unit: ""
@@ -249,7 +249,7 @@ environment_variables:
     access_nodes:
       - Name: Vector__XXX
   - name: EMC_Action_3
-    typ: Float
+    typ: Integer
     min: 0
     max: 1
     unit: ""
@@ -259,7 +259,7 @@ environment_variables:
     access_nodes:
       - Name: Vector__XXX
   - name: EMC_Action_2
-    typ: Float
+    typ: Integer
     min: 0
     max: 1
     unit: ""
@@ -269,7 +269,7 @@ environment_variables:
     access_nodes:
       - Name: Vector__XXX
   - name: EMC_Action_1
-    typ: Float
+    typ: Integer
     min: 0
     max: 1
     unit: ""

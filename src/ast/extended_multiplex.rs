@@ -21,7 +21,7 @@ impl ExtendedMultiplex {
 
         let message_id = parse_uint(next_rule(&mut pairs, Rule::message_id)?)? as u32;
         let signal_name = next_string(&mut pairs, Rule::signal_name)?;
-        let multiplexor_name = next_string(&mut pairs, Rule::multiplexer_name)?;
+        let multiplexor_signal_name = next_string(&mut pairs, Rule::multiplexer_name)?;
 
         // Collect value pairs
         let mut mappings = Vec::new();
@@ -39,10 +39,10 @@ impl ExtendedMultiplex {
                         }
                     }
                 }
-                if let (Some(min), Some(max)) = (min_val, max_val) {
+                if let (Some(min_value), Some(max_value)) = (min_val, max_val) {
                     mappings.push(ExtendedMultiplexMapping {
-                        min_value: min,
-                        max_value: max,
+                        min_value,
+                        max_value,
                     });
                 }
             }
@@ -51,7 +51,7 @@ impl ExtendedMultiplex {
         Ok(ExtendedMultiplex {
             message_id: MessageId::parse(message_id),
             signal_name,
-            multiplexor_signal_name: multiplexor_name,
+            multiplexor_signal_name,
             mappings,
         })
     }

@@ -18,23 +18,21 @@ impl MessageTransmitter {
 
         let message_id = parse_uint(next_rule(&mut pairs, Rule::message_id)?)? as u32;
 
-        // Collect transmitters
-        let mut transmitters = Vec::new();
+        let mut transmitter = Vec::new();
         for pair2 in pairs {
             if pair2.as_rule() == Rule::transmitter {
                 let name = pair2.as_str().to_string();
-                let transmitter = if name == "Vector__XXX" {
+                transmitter.push(if name == "Vector__XXX" {
                     Transmitter::VectorXXX
                 } else {
                     Transmitter::NodeName(name)
-                };
-                transmitters.push(transmitter);
+                });
             }
         }
 
         Ok(MessageTransmitter {
             message_id: MessageId::parse(message_id),
-            transmitter: transmitters,
+            transmitter,
         })
     }
 }

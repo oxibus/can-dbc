@@ -13,12 +13,12 @@ impl EnvironmentVariableData {
     pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<EnvironmentVariableData> {
         let mut pairs = pair.into_inner();
 
-        let variable_name = next_string(&mut pairs, Rule::env_var_name)?;
+        let env_var_name = next_string(&mut pairs, Rule::env_var_name)?;
         let data_size = parse_uint(next_rule(&mut pairs, Rule::data_size)?)?;
         expect_empty(&mut pairs)?;
 
         Ok(EnvironmentVariableData {
-            env_var_name: variable_name,
+            env_var_name,
             data_size,
         })
     }
