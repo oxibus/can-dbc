@@ -1,6 +1,6 @@
 use crate::DbcError;
 
-/// env_var_type = '0' | '1' | '2' ; (* 0=integer, 1=float, 2=string *)
+/// `env_var_type = '0' | '1' | '2' ; (* 0=integer, 1=float, 2=string *)`
 #[derive(Copy, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum EnvType {

@@ -687,7 +687,7 @@ SIG_VALTYPE_ 2000 Signal_8 : 1;
 #[test]
 fn standard_message_id_test() {
     let pair = parse("2", Rule::message_id).unwrap();
-    let val = MessageId::Standard(2);
+    let val = MessageId::try_from(pair).unwrap();
     assert_eq!(val, MessageId::Standard(2));
 }
 
@@ -695,7 +695,7 @@ fn standard_message_id_test() {
 fn extended_low_message_id_test() {
     let s = (2u32 | 1 << 31).to_string();
     let pair = parse(&s, Rule::message_id).unwrap();
-    let val = MessageId::Extended(2);
+    let val = MessageId::try_from(pair).unwrap();
     assert_eq!(val, MessageId::Extended(2));
 }
 
@@ -703,7 +703,7 @@ fn extended_low_message_id_test() {
 fn extended_message_id_test() {
     let s = (0x1FFF_FFFF_u32 | 1 << 31).to_string();
     let pair = parse(&s, Rule::message_id).unwrap();
-    let val = MessageId::Extended(0x1FFF_FFFF);
+    let val = MessageId::try_from(pair).unwrap();
     assert_eq!(val, MessageId::Extended(0x1FFF_FFFF));
 }
 
@@ -711,6 +711,6 @@ fn extended_message_id_test() {
 fn extended_message_id_test_max_29bit() {
     let s = u32::MAX.to_string();
     let pair = parse(&s, Rule::message_id).unwrap();
-    let val = MessageId::Extended(0x1FFF_FFFF);
+    let val = MessageId::try_from(pair).unwrap();
     assert_eq!(val, MessageId::Extended(0x1FFF_FFFF));
 }

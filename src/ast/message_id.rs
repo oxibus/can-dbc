@@ -1,6 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
-use crate::{ByteOrder, DbcError, DbcResult};
-use crate::parser::{next_rule, parse_uint};
+
+use crate::parser::parse_uint;
+use crate::DbcError;
 
 /// CAN id in header of CAN frame.
 /// Must be unique in DBC file.

@@ -1,9 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::AttributeValuedForObjectType;
-use crate::parser::{
-    expect_empty, next_rule, parse_float, parse_str, parse_uint, single_rule, DbcResult,
-};
+use crate::parser::{expect_empty, next_rule, parse_float, parse_str, single_rule, DbcResult};
 use crate::{AttributeValue, MessageId};
 
 #[derive(Clone, Debug, PartialEq)]
@@ -77,10 +75,7 @@ impl AttributeValueForObject {
             }
             Some(Rule::msg_var) => {
                 if let Some(msg_id) = message_id {
-                    AttributeValuedForObjectType::MessageDefinition(
-                        msg_id,
-                        Some(value),
-                    )
+                    AttributeValuedForObjectType::MessageDefinition(msg_id, Some(value))
                 } else {
                     AttributeValuedForObjectType::Raw(value)
                 }
