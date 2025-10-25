@@ -1,7 +1,8 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{MessageId, Signal, Transmitter};
-use crate::parser::{expect_empty, next_rule, next_string, parse_uint, single_rule, DbcResult};
+use crate::parser::{expect_empty, next_rule, next_string, parse_uint, single_rule};
+use crate::DbcError;
 
 /// CAN message (frame) details including signal details
 #[derive(Clone, Debug, PartialEq)]
@@ -17,9 +18,11 @@ pub struct Message {
     pub signals: Vec<Signal>,
 }
 
-impl Message {
+impl TryFrom<Pair<'_, Rule>> for Message {
+    type Error = DbcError;
+
     /// Parse message: `BO_ message_id message_name: message_size transmitter`
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Self> {
+    fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
         let mut pairs = pair.into_inner();
 
         // Parse msg_var (contains msg_literal ~ message_id)

@@ -50,8 +50,28 @@ fn signal_test() {
     let def = r#"
 SG_ NAME : 3|2@1- (1,0) [0|0] "x" UFA
 "#;
-    let pair = parse(def.trim_start(), Rule::signal).unwrap();
-    let _signal = Signal::parse(pair).unwrap();
+
+    let val: Signal = parse(def.trim_start(), Rule::signal)
+        .unwrap()
+        .try_into()
+        .unwrap();
+
+    let exp = Signal {
+        name: "NAME".to_string(),
+        start_bit: 3,
+        size: 2,
+        byte_order: ByteOrder::LittleEndian,
+        value_type: ValueType::Signed,
+        factor: 1.0,
+        offset: 0.0,
+        min: 0.0,
+        max: 0.0,
+        unit: "x".to_string(),
+        multiplexer_indicator: MultiplexIndicator::Plain,
+        receivers: vec!["UFA".to_string()],
+    };
+
+    assert_eq!(val, exp);
 }
 
 #[test]
@@ -88,20 +108,77 @@ fn value_type_test() {
     assert_eq!(val, ValueType::Unsigned);
 }
 
-// #[test]
-// fn message_definition_test() {
-//     let def = "\r\n\r\nSG_ BasL2 : 3|2@0- (1,0) [0|0] \"x\" DFA_FUS\r\n";
-//     let pair = parse(def, Rule::signal).unwrap();
-//     let _signal = Signal::parse(pair).unwrap();
-//
-//     let def = r#"
-// BO_ 1 MCA_A1: 6 MFA
-// SG_ ABC_1 : 9|2@1+ (1,0) [0|0] "x" XYZ_OUS
-// SG_ BasL2 : 3|2@0- (1,0) [0|0] "x" DFA_FUS
-//  x"#;
-//     let pair = parse(def.trim_start(), Rule::message).unwrap();
-//     let _val = Message::parse(pair).unwrap();
-// }
+#[test]
+fn message_definition_test() {
+    let def = "\r\n\r\nSG_ BasL2 : 3|2@0- (1,0) [0|0] \"x\" DFA_FUS\r\n";
+
+    let val: Signal = parse(def.trim_start(), Rule::signal)
+        .unwrap()
+        .try_into()
+        .unwrap();
+    let exp = Signal {
+        name: "BasL2".to_string(),
+        start_bit: 3,
+        size: 2,
+        byte_order: ByteOrder::BigEndian,
+        value_type: ValueType::Signed,
+        factor: 1.0,
+        offset: 0.0,
+        min: 0.0,
+        max: 0.0,
+        unit: "x".to_string(),
+        multiplexer_indicator: MultiplexIndicator::Plain,
+        receivers: vec!["DFA_FUS".to_string()],
+    };
+    assert_eq!(val, exp);
+
+    // this is disabled because message and signals are not currently parsed together
+
+    //     let def = r#"
+    // BO_ 1 MCA_A1: 6 MFA
+    // SG_ ABC_1 : 9|2@1+ (1,0) [0|0] "x" XYZ_OUS
+    // SG_ BasL2 : 3|2@0- (1,0) [0|0] "x" DFA_FUS
+    //  x"#;
+    //
+    //     let val: Message = parse(def, Rule::message).unwrap().try_into().unwrap();
+    //     let exp = Message {
+    //         id: MessageId::Standard(1),
+    //         name: "MCA_A1".to_string(),
+    //         size: 6,
+    //         transmitter: Transmitter::NodeName("MFA".to_string()),
+    //         signals: vec![
+    //             Signal {
+    //                 name: "ABC_1".to_string(),
+    //                 start_bit: 9,
+    //                 size: 2,
+    //                 byte_order: ByteOrder::LittleEndian,
+    //                 value_type: ValueType::Unsigned,
+    //                 factor: 1.0,
+    //                 offset: 0.0,
+    //                 min: 0.0,
+    //                 max: 0.0,
+    //                 unit: "x".to_string(),
+    //                 multiplexer_indicator: MultiplexIndicator::Plain,
+    //                 receivers: vec!["XYZ_OUS".to_string()],
+    //             },
+    //             Signal {
+    //                 name: "BasL2".to_string(),
+    //                 start_bit: 3,
+    //                 size: 2,
+    //                 byte_order: ByteOrder::BigEndian,
+    //                 value_type: ValueType::Signed,
+    //                 factor: 1.0,
+    //                 offset: 0.0,
+    //                 min: 0.0,
+    //                 max: 0.0,
+    //                 unit: "x".to_string(),
+    //                 multiplexer_indicator: MultiplexIndicator::Plain,
+    //                 receivers: vec!["DFA_FUS".to_string()],
+    //             },
+    //         ],
+    //     };
+    //     assert_eq!(val, exp);
+}
 
 #[test]
 fn signal_comment_test() {
@@ -451,7 +528,7 @@ fn attribute_value_f64_test() {
     let def = "80.0";
     let pair = parse(def.trim_start(), Rule::number).unwrap();
     let val = pair.as_str().parse::<f64>().unwrap();
-    assert_eq!(val, 80.0);
+    assert!((val - 80.0).abs() < f64::EPSILON);
 }
 
 #[test]

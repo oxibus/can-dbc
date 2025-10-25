@@ -231,13 +231,12 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
                 Rule::bit_timing => bit_timing = Some(Baudrate::parse(pairs)?),
                 Rule::nodes => nodes = Node::parse(pairs)?,
                 Rule::message => {
-                    let message = Message::parse(pairs)?;
-                    messages.push(message);
+                    messages.push(pairs.try_into()?);
                     current_message_index = Some(messages.len() - 1);
                 }
                 Rule::signal => {
                     if let Some(msg_idx) = current_message_index {
-                        signals.push((msg_idx, Signal::parse(pairs)?));
+                        signals.push((msg_idx, pairs.try_into()?));
                     }
                 }
                 Rule::comment => {

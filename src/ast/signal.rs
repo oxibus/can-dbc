@@ -1,7 +1,8 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{ByteOrder, MultiplexIndicator, ValueType};
-use crate::parser::{parse_float, parse_min_max_float, parse_str, parse_uint, DbcResult};
+use crate::parser::{parse_float, parse_min_max_float, parse_str, parse_uint};
+use crate::DbcError;
 
 /// One or multiple signals are the payload of a CAN frame.
 /// To determine the actual value of a signal the following fn applies:
@@ -24,9 +25,11 @@ pub struct Signal {
     pub receivers: Vec<String>,
 }
 
-impl Signal {
-    /// Parse signal: `SG_ signal_name : start_bit|signal_size@byte_order+/- (factor,offset) [min|max] "unit" receiver`
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Self> {
+/// Parse signal: `SG_ signal_name : start_bit|signal_size@byte_order+/- (factor,offset) [min|max] "unit" receiver`
+impl TryFrom<Pair<'_, Rule>> for Signal {
+    type Error = DbcError;
+
+    fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
         let mut name = String::new();
         let mut multiplexer_indicator = MultiplexIndicator::Plain;
         let mut start_bit = 0u64;
