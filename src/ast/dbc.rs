@@ -227,9 +227,9 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
         for pairs in pair.into_inner() {
             match pairs.as_rule() {
                 Rule::version => version = Version::parse(pairs)?,
-                Rule::new_symbols => new_symbols = Symbol::parse_new_symbols(pairs)?,
-                Rule::bit_timing => bit_timing = Some(Baudrate::parse_bit_timing(pairs)?),
-                Rule::nodes => nodes = Node::parse_nodes(pairs)?,
+                Rule::new_symbols => new_symbols = Symbol::parse(pairs)?,
+                Rule::bit_timing => bit_timing = Some(Baudrate::parse(pairs)?),
+                Rule::nodes => nodes = Node::parse(pairs)?,
                 Rule::message => {
                     let message = Message::parse(pairs)?;
                     messages.push(message);

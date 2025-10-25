@@ -63,11 +63,38 @@ pub(crate) fn single_rule(pair: Pair<Rule>, expected: Rule) -> DbcResult<Pair<Ru
     }
 }
 
-/// Helper function to optionally get the next pair if it matches the expected rule
-pub(crate) fn opt_rule<'a>(iter: &mut Pairs<'a, Rule>, expected: Rule) -> Option<Pair<'a, Rule>> {
-    iter.peek()
-        .filter(|pair| pair.as_rule() == expected)
-        .map(|_| iter.next().unwrap())
+/// Helper function to collect all remaining pairs of a specific rule type
+pub(crate) fn collect_all<'a, T: TryFrom<Pair<'a, Rule>, Error = DbcError>>(
+    iter: &mut Pairs<'a, Rule>,
+) -> DbcResult<Vec<T>> {
+    iter.map(|pair| pair.try_into()).collect()
+}
+
+/// Helper function to collect all remaining pairs of a specific rule type
+pub(crate) fn collect_expected<'a, T: TryFrom<Pair<'a, Rule>, Error = DbcError>>(
+    iter: &mut Pairs<'a, Rule>,
+    expected: Rule,
+) -> DbcResult<Vec<T>> {
+    iter.map(|pair| {
+        if pair.as_rule() == expected {
+            pair.try_into()
+        } else {
+            Err(DbcError::ParseError)
+        }
+    })
+    .collect()
+}
+
+/// Helper function to collect all remaining pairs of a specific rule type and convert to strings
+pub(crate) fn collect_strings(iter: &mut Pairs<Rule>, expected: Rule) -> DbcResult<Vec<String>> {
+    iter.map(|pair| {
+        if pair.as_rule() == expected {
+            Ok(pair.as_str().to_string())
+        } else {
+            Err(DbcError::ParseError)
+        }
+    })
+    .collect()
 }
 
 /// Helper function to ensure the iterator is empty (no more items)

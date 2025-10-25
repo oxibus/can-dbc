@@ -1,6 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
-use crate::parser::{expect_empty, opt_rule, DbcResult};
+use crate::parser::{collect_all, DbcResult};
+use crate::DbcError;
 
 /// CAN network nodes, names must be unique
 #[derive(Clone, Debug, PartialEq)]
@@ -9,15 +10,18 @@ pub struct Node(pub String);
 
 impl Node {
     /// Parse nodes: `BU_: node1 node2 node3 ...`
-    pub(crate) fn parse_nodes(pair: Pair<Rule>) -> DbcResult<Vec<Node>> {
-        let mut nodes = Vec::new();
+    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Vec<Node>> {
+        collect_all(&mut pair.into_inner())
+    }
+}
 
-        let mut pairs = pair.into_inner();
-        while let Some(pair) = opt_rule(&mut pairs, Rule::node_name) {
-            nodes.push(Node(pair.as_str().to_string()));
+impl TryFrom<Pair<'_, Rule>> for Node {
+    type Error = DbcError;
+
+    fn try_from(pair: Pair<Rule>) -> Result<Self, Self::Error> {
+        if pair.as_rule() != Rule::node_name {
+            return Err(Self::Error::ParseError);
         }
-        expect_empty(&mut pairs)?;
-
-        Ok(nodes)
+        Ok(Node(pair.as_str().to_string()))
     }
 }

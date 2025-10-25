@@ -42,14 +42,14 @@ impl Comment {
             match pairs.as_rule() {
                 Rule::quoted_str => comment = parse_str(pairs),
                 Rule::msg_var => {
-                    message_id = Some(parse_uint(single_rule(pairs, Rule::message_id)?)? as u32)
+                    message_id = Some(parse_uint(single_rule(pairs, Rule::message_id)?)? as u32);
                 }
                 Rule::node_var => {
-                    node_name = Some(single_rule(pairs, Rule::node_name)?.as_str().to_string())
+                    node_name = Some(single_rule(pairs, Rule::node_name)?.as_str().to_string());
                 }
                 Rule::env_var => {
                     env_var_name =
-                        Some(single_rule(pairs, Rule::env_var_name)?.as_str().to_string())
+                        Some(single_rule(pairs, Rule::env_var_name)?.as_str().to_string());
                 }
                 Rule::signal_var => {
                     for sub_pair in pairs.into_inner() {
