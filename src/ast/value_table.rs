@@ -14,12 +14,12 @@ pub struct ValueTable {
 
 impl ValueTable {
     /// Parse value table: `VAL_TABLE_ table_name value1 "description1" value2 "description2" ... ;`
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<ValueTable> {
+    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Self> {
         let mut pairs = pair.into_inner();
 
         let name = next_string(&mut pairs, Rule::table_name)?;
         let descriptions = collect_expected(&mut pairs, Rule::table_value_description)?;
 
-        Ok(ValueTable { name, descriptions })
+        Ok(Self { name, descriptions })
     }
 }

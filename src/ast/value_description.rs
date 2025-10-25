@@ -22,20 +22,20 @@ pub enum ValueDescription {
 
 impl ValueDescription {
     /// Parse value description: `VAL_ message_id signal_name value1 "description1" value2 "description2" ... ;`
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<ValueDescription> {
+    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Self> {
         let mut pairs = pair.into_inner();
 
         // Check if first item is message_id (optional)
         let mut message_id = None;
         if let Some(first_pair) = pairs.next() {
             if first_pair.as_rule() == Rule::message_id {
-                message_id = Some(parse_uint(first_pair)? as u32);
+                message_id = Some(first_pair.try_into()?);
             } else {
                 // Put it back and treat as signal_name (environment variable case)
                 let name = first_pair.as_str().to_string();
                 let value_descriptions =
                     collect_expected(&mut pairs, Rule::table_value_description)?;
-                return Ok(ValueDescription::EnvironmentVariable {
+                return Ok(Self::EnvironmentVariable {
                     name,
                     value_descriptions,
                 });
@@ -45,14 +45,14 @@ impl ValueDescription {
         let name = next_string(&mut pairs, Rule::signal_name)?;
         let value_descriptions = collect_expected(&mut pairs, Rule::table_value_description)?;
 
-        if let Some(msg_id) = message_id {
-            Ok(ValueDescription::Signal {
-                message_id: MessageId::parse(msg_id),
+        if let Some(message_id) = message_id {
+            Ok(Self::Signal {
+                message_id,
                 name,
                 value_descriptions,
             })
         } else {
-            Ok(ValueDescription::EnvironmentVariable {
+            Ok(Self::EnvironmentVariable {
                 name,
                 value_descriptions,
             })

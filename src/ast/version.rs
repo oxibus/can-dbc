@@ -11,11 +11,11 @@ pub struct Version(pub String);
 
 impl Version {
     /// Parse version: VERSION "string"
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Version> {
+    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Self> {
         let mut pairs = pair.into_inner();
         let version_str = parse_str(next_rule(&mut pairs, Rule::quoted_str)?);
         expect_empty(&mut pairs)?;
 
-        Ok(Version(version_str))
+        Ok(Self(version_str))
     }
 }

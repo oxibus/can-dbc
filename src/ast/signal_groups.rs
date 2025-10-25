@@ -16,16 +16,16 @@ pub struct SignalGroups {
 
 impl SignalGroups {
     /// Parse signal group: `SIG_GROUP_ message_id group_name multiplexer_id : signal1 signal2 ... ;`
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<SignalGroups> {
+    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Self> {
         let mut pairs = pair.into_inner();
 
-        let message_id = parse_uint(next_rule(&mut pairs, Rule::message_id)?)? as u32;
+        let message_id = next_rule(&mut pairs, Rule::message_id)?.try_into()?;
         let name = next_string(&mut pairs, Rule::group_name)?;
         let repetitions = parse_uint(next_rule(&mut pairs, Rule::multiplexer_id)?)?;
         let signal_names = collect_strings(&mut pairs, Rule::signal_name)?;
 
-        Ok(SignalGroups {
-            message_id: MessageId::parse(message_id),
+        Ok(Self {
+            message_id,
             name,
             repetitions,
             signal_names,

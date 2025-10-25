@@ -17,6 +17,6 @@ impl TryFrom<Pair<'_, Rule>> for ValDescription {
         let id = parse_int(next_rule(&mut pairs, Rule::int)?)? as f64;
         let description = parse_str(next_rule(&mut pairs, Rule::quoted_str)?);
         expect_empty(&mut pairs)?;
-        Ok(ValDescription { id, description })
+        Ok(Self { id, description })
     }
 }

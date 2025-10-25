@@ -10,14 +10,14 @@ pub struct EnvironmentVariableData {
 }
 
 impl EnvironmentVariableData {
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<EnvironmentVariableData> {
+    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Self> {
         let mut pairs = pair.into_inner();
 
         let env_var_name = next_string(&mut pairs, Rule::env_var_name)?;
         let data_size = parse_uint(next_rule(&mut pairs, Rule::data_size)?)?;
         expect_empty(&mut pairs)?;
 
-        Ok(EnvironmentVariableData {
+        Ok(Self {
             env_var_name,
             data_size,
         })

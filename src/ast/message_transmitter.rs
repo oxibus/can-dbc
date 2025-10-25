@@ -13,10 +13,10 @@ pub struct MessageTransmitter {
 
 impl MessageTransmitter {
     /// Parse message transmitter: `BO_TX_BU_ message_id : transmitter1,transmitter2,... ;`
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<MessageTransmitter> {
+    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Self> {
         let mut pairs = pair.into_inner();
 
-        let message_id = parse_uint(next_rule(&mut pairs, Rule::message_id)?)? as u32;
+        let message_id = next_rule(&mut pairs, Rule::message_id)?.try_into()?;
 
         let mut transmitter = Vec::new();
         for pair2 in pairs {
@@ -30,8 +30,8 @@ impl MessageTransmitter {
             }
         }
 
-        Ok(MessageTransmitter {
-            message_id: MessageId::parse(message_id),
+        Ok(Self {
+            message_id,
             transmitter,
         })
     }

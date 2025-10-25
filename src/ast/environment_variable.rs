@@ -20,7 +20,7 @@ pub struct EnvironmentVariable {
 
 impl EnvironmentVariable {
     /// Parse environment variable: `EV_ variable_name : type [min|max] "unit" access_type access_node node_name1 node_name2;`
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<EnvironmentVariable> {
+    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Self> {
         let mut name = String::new();
         let mut env_type = None;
         let mut min = 0i64;
@@ -71,7 +71,7 @@ impl EnvironmentVariable {
             _ => AccessType::DummyNodeVector0,
         };
 
-        Ok(EnvironmentVariable {
+        Ok(Self {
             name,
             typ: env_type.unwrap(),
             min,

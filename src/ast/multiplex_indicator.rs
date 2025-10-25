@@ -20,23 +20,23 @@ impl TryFrom<&str> for MultiplexIndicator {
 
     fn try_from(text: &str) -> Result<Self, Self::Error> {
         if text == "M" {
-            return Ok(MultiplexIndicator::Multiplexor);
+            return Ok(Self::Multiplexor);
         }
         if let Some(text) = text.strip_prefix('m') {
             // Multiplexed signal value should be like "m1" or "m1M"
             // Check if it ends with 'M' (multiplexer and multiplexed signal)
             if text.is_empty() {
                 // FIXME: is this the right interpretation?
-                return Ok(MultiplexIndicator::Plain);
+                return Ok(Self::Plain);
             } else if let Some(text) = text.strip_suffix('M') {
                 if let Ok(value) = text.parse::<u64>() {
-                    return Ok(MultiplexIndicator::MultiplexorAndMultiplexedSignal(value));
+                    return Ok(Self::MultiplexorAndMultiplexedSignal(value));
                 }
             } else if let Ok(value) = text.parse::<u64>() {
-                return Ok(MultiplexIndicator::MultiplexedSignal(value));
+                return Ok(Self::MultiplexedSignal(value));
             }
         }
 
-        Err(DbcError::ParseError)
+        Err(Self::Error::ParseError)
     }
 }

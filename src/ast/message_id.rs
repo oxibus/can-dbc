@@ -1,3 +1,7 @@
+use can_dbc_pest::{Pair, Rule};
+use crate::{ByteOrder, DbcError, DbcResult};
+use crate::parser::{next_rule, parse_uint};
+
 /// CAN id in header of CAN frame.
 /// Must be unique in DBC file.
 #[derive(Copy, Clone, Debug, PartialEq)]
@@ -10,19 +14,32 @@ pub enum MessageId {
 }
 
 impl MessageId {
-    pub(crate) fn parse(msg_id: u32) -> Self {
-        if msg_id & (1 << 31) != 0 {
-            Self::Extended(msg_id & 0x1FFF_FFFF)
-        } else {
-            Self::Standard(msg_id as u16)
-        }
-    }
-
     /// Raw value of the message id including the bit for extended identifiers
     pub fn raw(self) -> u32 {
         match self {
             Self::Standard(id) => u32::from(id),
             Self::Extended(id) => id | 1 << 31,
         }
+    }
+}
+
+impl TryFrom<u64> for MessageId {
+    type Error = DbcError;
+
+    fn try_from(value: u64) -> Result<Self, Self::Error> {
+        let value: u32 = value.try_into().map_err(|_| DbcError::ParseError)?;
+        if value & (1 << 31) != 0 {
+            Ok(Self::Extended(value & 0x1FFF_FFFF))
+        } else {
+            Ok(Self::Standard(value as u16))
+        }
+    }
+}
+
+impl TryFrom<Pair<'_, Rule>> for MessageId {
+    type Error = DbcError;
+
+    fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
+        Self::try_from(parse_uint(pair)?)
     }
 }

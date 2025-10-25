@@ -9,7 +9,7 @@ pub struct Baudrate(pub u64);
 
 impl Baudrate {
     /// Parse bit timing: `BS_: [baud_rate : BTR1 , BTR2 ]`
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Vec<Baudrate>> {
+    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Vec<Self>> {
         let pairs = pair.into_inner();
         if pairs.len() == 0 {
             return Ok(vec![]);

@@ -31,7 +31,7 @@ pub enum Comment {
 
 impl Comment {
     /// Parse comment: `CM_ [BU_|BO_|SG_|EV_] object_name "comment_text";`
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Option<Comment>> {
+    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Option<Self>> {
         let mut comment = String::new();
         let mut message_id = None;
         let mut signal_name = None;
@@ -85,15 +85,15 @@ impl Comment {
         });
 
         Ok(match (message_id, signal_name, node_name, env_var_name) {
-            (Some(message_id), Some(name), _, _) => Some(Comment::Signal {
+            (Some(message_id), Some(name), _, _) => Some(Self::Signal {
                 message_id,
                 name,
                 comment,
             }),
-            (Some(id), None, _, _) => Some(Comment::Message { id, comment }),
-            (_, _, Some(name), _) => Some(Comment::Node { name, comment }),
-            (_, _, _, Some(name)) => Some(Comment::EnvVar { name, comment }),
-            _ if !comment.is_empty() => Some(Comment::Plain { comment }),
+            (Some(id), None, _, _) => Some(Self::Message { id, comment }),
+            (_, _, Some(name), _) => Some(Self::Node { name, comment }),
+            (_, _, _, Some(name)) => Some(Self::EnvVar { name, comment }),
+            _ if !comment.is_empty() => Some(Self::Plain { comment }),
             _ => None,
         })
     }

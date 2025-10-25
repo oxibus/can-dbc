@@ -14,9 +14,9 @@ impl TryFrom<Pair<'_, Rule>> for ValueType {
 
     fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
         match pair.as_rule() {
-            Rule::signed_type => Ok(ValueType::Signed),
-            Rule::unsigned_type => Ok(ValueType::Unsigned),
-            _ => Err(DbcError::ParseError),
+            Rule::signed_type => Ok(Self::Signed),
+            Rule::unsigned_type => Ok(Self::Unsigned),
+            _ => Err(Self::Error::ParseError),
         }
     }
 }

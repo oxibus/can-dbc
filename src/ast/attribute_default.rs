@@ -12,7 +12,7 @@ pub struct AttributeDefault {
 
 impl AttributeDefault {
     /// Parse attribute default: `BA_DEF_DEF_ attribute_name default_value;`
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<AttributeDefault> {
+    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Self> {
         let mut pairs = pair.into_inner();
 
         let name = parse_str(next_rule(&mut pairs, Rule::attribute_name)?);
@@ -26,6 +26,6 @@ impl AttributeDefault {
         };
         expect_empty(&mut pairs)?;
 
-        Ok(AttributeDefault { name, value })
+        Ok(Self { name, value })
     }
 }

@@ -16,10 +16,10 @@ pub struct ExtendedMultiplex {
 
 impl ExtendedMultiplex {
     /// Parse extended multiplex: `SG_MUL_VAL_ message_id signal_name multiplexor_name value_pairs;`
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<ExtendedMultiplex> {
+    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Self> {
         let mut pairs = pair.into_inner();
 
-        let message_id = parse_uint(next_rule(&mut pairs, Rule::message_id)?)? as u32;
+        let message_id = next_rule(&mut pairs, Rule::message_id)?.try_into()?;
         let signal_name = next_string(&mut pairs, Rule::signal_name)?;
         let multiplexor_signal_name = next_string(&mut pairs, Rule::multiplexer_name)?;
 
@@ -48,8 +48,8 @@ impl ExtendedMultiplex {
             }
         }
 
-        Ok(ExtendedMultiplex {
-            message_id: MessageId::parse(message_id),
+        Ok(Self {
+            message_id,
             signal_name,
             multiplexor_signal_name,
             mappings,

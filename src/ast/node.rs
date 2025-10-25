@@ -10,7 +10,7 @@ pub struct Node(pub String);
 
 impl Node {
     /// Parse nodes: `BU_: node1 node2 node3 ...`
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Vec<Node>> {
+    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Vec<Self>> {
         collect_all(&mut pair.into_inner())
     }
 }
@@ -22,6 +22,6 @@ impl TryFrom<Pair<'_, Rule>> for Node {
         if pair.as_rule() != Rule::node_name {
             return Err(Self::Error::ParseError);
         }
-        Ok(Node(pair.as_str().to_string()))
+        Ok(Self(pair.as_str().to_string()))
     }
 }

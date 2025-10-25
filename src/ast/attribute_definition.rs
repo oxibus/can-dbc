@@ -18,7 +18,7 @@ pub enum AttributeDefinition {
 
 impl AttributeDefinition {
     /// Parse attribute definition: `BA_DEF_ [object_type] attribute_name attribute_type [min max];`
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<AttributeDefinition> {
+    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Self> {
         let mut definition_string = String::new();
         let mut object_type = "";
 
@@ -41,11 +41,11 @@ impl AttributeDefinition {
         }
 
         Ok(match object_type {
-            "SG_" => AttributeDefinition::Signal(definition_string),
-            "BO_" => AttributeDefinition::Message(definition_string),
-            "BU_" => AttributeDefinition::Node(definition_string),
-            "EV_" => AttributeDefinition::EnvironmentVariable(definition_string),
-            _ => AttributeDefinition::Plain(definition_string),
+            "SG_" => Self::Signal(definition_string),
+            "BO_" => Self::Message(definition_string),
+            "BU_" => Self::Node(definition_string),
+            "EV_" => Self::EnvironmentVariable(definition_string),
+            _ => Self::Plain(definition_string),
         })
     }
 }

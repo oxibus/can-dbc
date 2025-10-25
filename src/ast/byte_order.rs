@@ -14,9 +14,9 @@ impl TryFrom<Pair<'_, Rule>> for ByteOrder {
 
     fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
         match pair.as_rule() {
-            Rule::little_endian => Ok(ByteOrder::LittleEndian),
-            Rule::big_endian => Ok(ByteOrder::BigEndian),
-            _ => Err(DbcError::ParseError),
+            Rule::little_endian => Ok(Self::LittleEndian),
+            Rule::big_endian => Ok(Self::BigEndian),
+            _ => Err(Self::Error::ParseError),
         }
     }
 }

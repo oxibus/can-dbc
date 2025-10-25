@@ -13,25 +13,18 @@ pub struct SignalExtendedValueTypeList {
 
 impl SignalExtendedValueTypeList {
     /// Parse signal value type: `SIG_VALTYPE_ message_id signal_name : value_type;`
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<SignalExtendedValueTypeList> {
+    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Self> {
         let mut pairs = pair.into_inner();
 
-        let message_id = parse_uint(next_rule(&mut pairs, Rule::message_id)?)? as u32;
+        let message_id = next_rule(&mut pairs, Rule::message_id)?.try_into()?;
         let signal_name = next_string(&mut pairs, Rule::signal_name)?;
         let value_type = parse_uint(next_rule(&mut pairs, Rule::int)?)?;
         expect_empty(&mut pairs)?;
 
-        let signal_extended_value_type = match value_type {
-            0 => SignalExtendedValueType::SignedOrUnsignedInteger,
-            1 => SignalExtendedValueType::IEEEfloat32Bit,
-            2 => SignalExtendedValueType::IEEEdouble64bit,
-            v => panic!("Unknown signal extended value type: {v}"),
-        };
-
-        Ok(SignalExtendedValueTypeList {
-            message_id: MessageId::parse(message_id),
+        Ok(Self {
+            message_id,
             signal_name,
-            signal_extended_value_type,
+            signal_extended_value_type: value_type.try_into()?,
         })
     }
 }

@@ -15,10 +15,10 @@ pub struct AttributeValueForObject {
 
 impl AttributeValueForObject {
     /// Parse attribute value: `BA_ attribute_name [object_type] object_name value;`
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<AttributeValueForObject> {
+    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Self> {
         let mut name = String::new();
         let mut object_type = None;
-        let mut message_id = None;
+        let mut message_id: Option<MessageId> = None;
         let mut signal_name = None;
         let mut node_name = None;
         let mut env_var_name = None;
@@ -40,14 +40,13 @@ impl AttributeValueForObject {
                 Rule::msg_var => {
                     object_type = Some(pairs.as_rule());
                     // Parse the message ID from the inner pairs
-                    message_id = Some(parse_uint(single_rule(pairs, Rule::message_id)?)? as u32);
+                    message_id = Some(single_rule(pairs, Rule::message_id)?.try_into()?);
                 }
                 Rule::signal_var => {
                     object_type = Some(pairs.as_rule());
                     // Parse the message ID and signal name from the inner pairs
                     let mut inner_pairs = pairs.into_inner();
-                    let v = next_rule(&mut inner_pairs, Rule::message_id)?;
-                    message_id = Some(parse_uint(v)? as u32);
+                    message_id = Some(next_rule(&mut inner_pairs, Rule::message_id)?.try_into()?);
                     let v = next_rule(&mut inner_pairs, Rule::ident)?;
                     signal_name = Some(v.as_str().to_string());
                     expect_empty(&mut inner_pairs)?;
@@ -70,7 +69,7 @@ impl AttributeValueForObject {
         let value = match object_type {
             Some(Rule::signal_var) => {
                 if let (Some(msg_id), Some(sig_name)) = (message_id, signal_name) {
-                    AttributeValuedForObjectType::Signal(MessageId::parse(msg_id), sig_name, value)
+                    AttributeValuedForObjectType::Signal(msg_id, sig_name, value)
                 } else {
                     todo!()
                     // AttributeValuedForObjectType::Raw(value)
@@ -79,7 +78,7 @@ impl AttributeValueForObject {
             Some(Rule::msg_var) => {
                 if let Some(msg_id) = message_id {
                     AttributeValuedForObjectType::MessageDefinition(
-                        MessageId::parse(msg_id),
+                        msg_id,
                         Some(value),
                     )
                 } else {
@@ -103,6 +102,6 @@ impl AttributeValueForObject {
             _ => AttributeValuedForObjectType::Raw(value),
         };
 
-        Ok(AttributeValueForObject { name, value })
+        Ok(Self { name, value })
     }
 }

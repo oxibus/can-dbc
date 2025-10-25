@@ -8,9 +8,9 @@ pub struct Symbol(pub String);
 
 impl Symbol {
     /// Parse new symbols: NS_ : symbol1 symbol2 ...
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Vec<Symbol>> {
+    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Vec<Self>> {
         let mut pairs = pair.into_inner();
         let symbol_names = collect_strings(&mut pairs, Rule::ident)?;
-        Ok(symbol_names.into_iter().map(Symbol).collect())
+        Ok(symbol_names.into_iter().map(Self).collect())
     }
 }

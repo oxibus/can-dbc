@@ -26,7 +26,7 @@ pub struct Signal {
 
 impl Signal {
     /// Parse signal: `SG_ signal_name : start_bit|signal_size@byte_order+/- (factor,offset) [min|max] "unit" receiver`
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Signal> {
+    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Self> {
         let mut name = String::new();
         let mut multiplexer_indicator = MultiplexIndicator::Plain;
         let mut start_bit = 0u64;
@@ -57,7 +57,7 @@ impl Signal {
             }
         }
 
-        Ok(Signal {
+        Ok(Self {
             name,
             multiplexer_indicator,
             start_bit,
