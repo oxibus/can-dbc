@@ -43,9 +43,7 @@ impl Signal {
         for pair2 in pair.into_inner() {
             match pair2.as_rule() {
                 Rule::signal_name => name = pair2.as_str().to_string(),
-                Rule::multiplexer_indicator => {
-                    multiplexer_indicator = crate::parse_multiplexer(pair2.as_str());
-                }
+                Rule::multiplexer_indicator => multiplexer_indicator = pair2.as_str().try_into()?,
                 Rule::start_bit => start_bit = parse_uint(pair2)?,
                 Rule::signal_size => size = parse_uint(pair2)?,
                 Rule::big_endian => byte_order = ByteOrder::BigEndian,

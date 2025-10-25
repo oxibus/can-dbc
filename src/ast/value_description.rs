@@ -1,7 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{MessageId, ValDescription};
-use crate::parser::{next_rule, parse_uint, DbcResult};
+use crate::parser::{next_string, parse_uint, DbcResult};
 
 /// Encoding for signal raw values.
 #[derive(Clone, Debug, PartialEq)]
@@ -36,7 +36,7 @@ impl ValueDescription {
                 let mut descriptions = Vec::new();
                 for pair2 in pairs {
                     if pair2.as_rule() == Rule::table_value_description {
-                        descriptions.push(ValDescription::parse_table_value_description(pair2)?);
+                        descriptions.push(ValDescription::parse(pair2)?);
                     }
                 }
                 return Ok(ValueDescription::EnvironmentVariable {
@@ -46,15 +46,13 @@ impl ValueDescription {
             }
         }
 
-        let signal_name = next_rule(&mut pairs, Rule::signal_name)?
-            .as_str()
-            .to_string();
+        let signal_name = next_string(&mut pairs, Rule::signal_name)?;
 
         // Collect table value descriptions
         let mut descriptions = Vec::new();
         for pair2 in pairs {
             if pair2.as_rule() == Rule::table_value_description {
-                descriptions.push(ValDescription::parse_table_value_description(pair2)?);
+                descriptions.push(ValDescription::parse(pair2)?);
             }
         }
 

@@ -1,7 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::MessageId;
-use crate::parser::{collect_strings, next_rule, parse_uint, DbcResult};
+use crate::parser::{collect_strings, next_rule, next_string, parse_uint, DbcResult};
 
 /// Signal groups define a group of signals within a message
 #[derive(Clone, Debug, PartialEq)]
@@ -20,9 +20,7 @@ impl SignalGroups {
         let mut pairs = pair.into_inner();
 
         let message_id = parse_uint(next_rule(&mut pairs, Rule::message_id)?)? as u32;
-        let name = next_rule(&mut pairs, Rule::group_name)?
-            .as_str()
-            .to_string();
+        let name = next_string(&mut pairs, Rule::group_name)?;
         let repetitions = parse_uint(next_rule(&mut pairs, Rule::multiplexer_id)?)?;
         let signal_names = collect_strings(&mut pairs, Rule::signal_name)?;
 

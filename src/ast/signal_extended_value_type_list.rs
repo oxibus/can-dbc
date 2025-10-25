@@ -1,7 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{MessageId, SignalExtendedValueType};
-use crate::parser::{expect_empty, next_rule, parse_uint, DbcResult};
+use crate::parser::{expect_empty, next_rule, next_string, parse_uint, DbcResult};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -17,9 +17,7 @@ impl SignalExtendedValueTypeList {
         let mut pairs = pair.into_inner();
 
         let message_id = parse_uint(next_rule(&mut pairs, Rule::message_id)?)? as u32;
-        let signal_name = next_rule(&mut pairs, Rule::signal_name)?
-            .as_str()
-            .to_string();
+        let signal_name = next_string(&mut pairs, Rule::signal_name)?;
         let value_type = parse_uint(next_rule(&mut pairs, Rule::int)?)?;
         expect_empty(&mut pairs)?;
 

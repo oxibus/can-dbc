@@ -1,7 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::ValDescription;
-use crate::parser::{collect_expected, next_rule, DbcResult};
+use crate::parser::{collect_expected, next_string, DbcResult};
 
 /// Global value table
 #[derive(Clone, Debug, PartialEq)]
@@ -17,14 +17,9 @@ impl ValueTable {
     pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<ValueTable> {
         let mut pairs = pair.into_inner();
 
-        let name = next_rule(&mut pairs, Rule::table_name)?
-            .as_str()
-            .to_string();
+        let name = next_string(&mut pairs, Rule::table_name)?;
         let descriptions = collect_expected(&mut pairs, Rule::table_value_description)?;
 
-        Ok(ValueTable {
-            name,
-            descriptions,
-        })
+        Ok(ValueTable { name, descriptions })
     }
 }

@@ -1,5 +1,7 @@
 use std::str;
 
+use crate::parser::DbcError;
+
 #[derive(Copy, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum MultiplexIndicator {
@@ -13,24 +15,28 @@ pub enum MultiplexIndicator {
     Plain,
 }
 
-pub fn parse_multiplexer(text: &str) -> MultiplexIndicator {
-    if text == "M" {
-        return MultiplexIndicator::Multiplexor;
-    }
-    if let Some(text) = text.strip_prefix('m') {
-        // Multiplexed signal value should be like "m1" or "m1M"
-        // Check if it ends with 'M' (multiplexer and multiplexed signal)
-        if text.is_empty() {
-            // FIXME: is this the right interpretation?
-            return MultiplexIndicator::Plain;
-        } else if let Some(text) = text.strip_suffix('M') {
-            if let Ok(value) = text.parse::<u64>() {
-                return MultiplexIndicator::MultiplexorAndMultiplexedSignal(value);
-            }
-        } else if let Ok(value) = text.parse::<u64>() {
-            return MultiplexIndicator::MultiplexedSignal(value);
-        }
-    }
+impl TryFrom<&str> for MultiplexIndicator {
+    type Error = DbcError;
 
-    panic!("Unknown multiplex indicator: {text}");
+    fn try_from(text: &str) -> Result<Self, Self::Error> {
+        if text == "M" {
+            return Ok(MultiplexIndicator::Multiplexor);
+        }
+        if let Some(text) = text.strip_prefix('m') {
+            // Multiplexed signal value should be like "m1" or "m1M"
+            // Check if it ends with 'M' (multiplexer and multiplexed signal)
+            if text.is_empty() {
+                // FIXME: is this the right interpretation?
+                return Ok(MultiplexIndicator::Plain);
+            } else if let Some(text) = text.strip_suffix('M') {
+                if let Ok(value) = text.parse::<u64>() {
+                    return Ok(MultiplexIndicator::MultiplexorAndMultiplexedSignal(value));
+                }
+            } else if let Ok(value) = text.parse::<u64>() {
+                return Ok(MultiplexIndicator::MultiplexedSignal(value));
+            }
+        }
+
+        Err(DbcError::ParseError)
+    }
 }

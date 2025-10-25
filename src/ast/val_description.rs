@@ -11,7 +11,7 @@ pub struct ValDescription {
 
 impl ValDescription {
     /// Helper to parse a single table value description pair (value + description)
-    pub(crate) fn parse_table_value_description(pair: Pair<Rule>) -> DbcResult<ValDescription> {
+    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<ValDescription> {
         pair.try_into()
     }
 }

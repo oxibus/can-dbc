@@ -1,7 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{ExtendedMultiplexMapping, MessageId};
-use crate::parser::{next_rule, parse_uint, DbcResult};
+use crate::parser::{next_rule, next_string, parse_uint, DbcResult};
 
 /// Mapping between multiplexors and multiplexed signals
 #[derive(Clone, Debug, PartialEq)]
@@ -20,12 +20,8 @@ impl ExtendedMultiplex {
         let mut pairs = pair.into_inner();
 
         let message_id = parse_uint(next_rule(&mut pairs, Rule::message_id)?)? as u32;
-        let signal_name = next_rule(&mut pairs, Rule::signal_name)?
-            .as_str()
-            .to_string();
-        let multiplexor_name = next_rule(&mut pairs, Rule::multiplexer_name)?
-            .as_str()
-            .to_string();
+        let signal_name = next_string(&mut pairs, Rule::signal_name)?;
+        let multiplexor_name = next_string(&mut pairs, Rule::multiplexer_name)?;
 
         // Collect value pairs
         let mut mappings = Vec::new();

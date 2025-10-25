@@ -52,6 +52,11 @@ pub(crate) fn next_rule<'a>(
     })
 }
 
+/// Helper function to get the next pair, ensure it matches the expected rule, and convert to string
+pub(crate) fn next_string(iter: &mut Pairs<Rule>, expected: Rule) -> DbcResult<String> {
+    Ok(next_rule(iter, expected)?.as_str().to_string())
+}
+
 /// Helper function to get a single pair and validate its rule
 pub(crate) fn single_rule(pair: Pair<Rule>, expected: Rule) -> DbcResult<Pair<Rule>> {
     let mut iter = pair.into_inner();
@@ -67,7 +72,7 @@ pub(crate) fn single_rule(pair: Pair<Rule>, expected: Rule) -> DbcResult<Pair<Ru
 pub(crate) fn collect_all<'a, T: TryFrom<Pair<'a, Rule>, Error = DbcError>>(
     iter: &mut Pairs<'a, Rule>,
 ) -> DbcResult<Vec<T>> {
-    iter.map(|pair| pair.try_into()).collect()
+    iter.map(TryInto::try_into).collect()
 }
 
 /// Helper function to collect all remaining pairs of a specific rule type
