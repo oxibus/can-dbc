@@ -1,0 +1,237 @@
+---
+source: tests/snapshots.rs
+---
+version: ""
+bit_timing: ~
+messages:
+  - id:
+      Standard: 660
+    name: SCM_FEEDBACK
+    size: 8
+    transmitter:
+      NodeName: SCM
+    signals:
+      - name: RIGHT_BLINKER
+        multiplexer_indicator: Plain
+        start_bit: 6
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - EON
+      - name: LEFT_BLINKER
+        multiplexer_indicator: Plain
+        start_bit: 5
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - EON
+      - name: WIPERS_SPEED
+        multiplexer_indicator: Plain
+        start_bit: 4
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - EON
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 61
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - EON
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 59
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - EON
+  - id:
+      Standard: 422
+    name: SCM_BUTTONS
+    size: 8
+    transmitter:
+      NodeName: SCM
+    signals:
+      - name: CRUISE_BUTTONS
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 7
+        unit: ""
+        receivers:
+          - EON
+      - name: LIGHTS_SETTING
+        multiplexer_indicator: Plain
+        start_bit: 1
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - EON
+      - name: PARKING_BRAKE_ON
+        multiplexer_indicator: Plain
+        start_bit: 2
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - EON
+      - name: MAIN_ON
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - EON
+      - name: CRUISE_SETTING
+        multiplexer_indicator: Plain
+        start_bit: 43
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - EON
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 61
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - EON
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 59
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - EON
+      - name: DRIVERS_DOOR_OPEN
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - EON
+value_descriptions:
+  - Signal:
+      message_id:
+        Standard: 422
+      name: CRUISE_BUTTONS
+      value_descriptions:
+        - id: 7
+          description: tbd
+        - id: 6
+          description: tbd
+        - id: 5
+          description: tbd
+        - id: 4
+          description: accel_res
+        - id: 3
+          description: decel_set
+        - id: 2
+          description: cancel
+        - id: 1
+          description: main
+        - id: 0
+          description: none
+  - Signal:
+      message_id:
+        Standard: 422
+      name: LIGHTS_SETTING
+      value_descriptions:
+        - id: 3
+          description: high_beam
+        - id: 2
+          description: low_beam
+        - id: 1
+          description: position
+        - id: 0
+          description: no_lights
+  - Signal:
+      message_id:
+        Standard: 422
+      name: CRUISE_SETTING
+      value_descriptions:
+        - id: 3
+          description: distance_adj
+        - id: 2
+          description: tbd
+        - id: 1
+          description: lkas_button
+        - id: 0
+          description: none

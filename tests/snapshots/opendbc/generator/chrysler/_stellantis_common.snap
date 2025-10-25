@@ -1,0 +1,1951 @@
+---
+source: tests/snapshots.rs
+---
+version: ""
+bit_timing: ~
+messages:
+  - id:
+      Standard: 258
+    name: STEERING
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: STEERING_ANGLE
+        multiplexer_indicator: Plain
+        start_bit: 5
+        size: 14
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.5
+        offset: -2048
+        min: -2048
+        max: 2047
+        unit: deg
+        receivers:
+          - XXX
+      - name: STEERING_RATE
+        multiplexer_indicator: Plain
+        start_bit: 21
+        size: 14
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.5
+        offset: -2048
+        min: -2048
+        max: 2047
+        unit: deg/s
+        receivers:
+          - XXX
+      - name: STEERING_ANGLE_HP
+        multiplexer_indicator: Plain
+        start_bit: 48
+        size: 4
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.1
+        offset: -0.4
+        min: -0.4
+        max: 0.4
+        unit: deg
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 264
+    name: ECM_1
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: ENGINE_RPM
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: ENGINE_TORQUE
+        multiplexer_indicator: Plain
+        start_bit: 20
+        size: 13
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.25
+        offset: -500
+        min: -500
+        max: 1547.5
+        unit: Nm
+        receivers:
+          - XXX
+      - name: EXPECTED_ENGINE_TORQUE
+        multiplexer_indicator: Plain
+        start_bit: 36
+        size: 13
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.25
+        offset: -500
+        min: -500
+        max: 1547.5
+        unit: Nm
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 280
+    name: ECM_TRQ
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: ENGINE_TORQ_MAX
+        multiplexer_indicator: Plain
+        start_bit: 4
+        size: 13
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.25
+        offset: -500
+        min: -500
+        max: 1547.5
+        unit: NM
+        receivers:
+          - XXX
+      - name: ENGINE_TORQ_MIN
+        multiplexer_indicator: Plain
+        start_bit: 20
+        size: 13
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.25
+        offset: -500
+        min: -500
+        max: 1547.5
+        unit: NM
+        receivers:
+          - XXX
+  - id:
+      Standard: 284
+    name: ESP_8
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: BRK_PRESSURE
+        multiplexer_indicator: Plain
+        start_bit: 3
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Vehicle_Stopped
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: BRAKE_PEDAL
+        multiplexer_indicator: Plain
+        start_bit: 19
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Vehicle_Speed
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.0078125
+        offset: 0
+        min: 0
+        max: 511.984375
+        unit: km/h
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 288
+    name: ECM_2
+    size: 7
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: ACC_TORQUE_REQ_ENABLE
+        multiplexer_indicator: Plain
+        start_bit: 5
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: ESC_TORQUE_REQ_ENABLE
+        multiplexer_indicator: Plain
+        start_bit: 6
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: TCM_TORQUE_REQ_ENABLE
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: Accelerator_Position
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.4
+        offset: 0
+        min: 0
+        max: 100
+        unit: "%"
+        receivers:
+          - XXX
+      - name: CRUISE_OVERRIDE
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 320
+    name: ESP_1
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: Brake_State
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 2
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: Brake_Pedal_State
+        multiplexer_indicator: Plain
+        start_bit: 2
+        size: 2
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACC_Engaged
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACC_Enabled
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Vehicle_Speed
+        multiplexer_indicator: Plain
+        start_bit: 33
+        size: 10
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.5
+        offset: 0
+        min: 0
+        max: 511
+        unit: km/h
+        receivers:
+          - XXX
+      - name: ACC_OFF_REQ
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: BRAKE_PRESSED_ACC
+        multiplexer_indicator: Plain
+        start_bit: 6
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 268
+    name: ESP_2
+    size: 8
+    transmitter:
+      NodeName: ESC
+    signals:
+      - name: ESC_TORQUE_REQ
+        multiplexer_indicator: Plain
+        start_bit: 4
+        size: 13
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.25
+        offset: -500
+        min: -500
+        max: 1547.5
+        unit: Nm
+        receivers:
+          - XXX
+      - name: ACC_TORQUE_REQ_ENABLE
+        multiplexer_indicator: Plain
+        start_bit: 5
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: ESC_TORQUE_REQ_MAX
+        multiplexer_indicator: Plain
+        start_bit: 6
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: ESC_TORQUE_REQ_MIN
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACC_TORQUE_REQ
+        multiplexer_indicator: Plain
+        start_bit: 20
+        size: 13
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.25
+        offset: -500
+        min: -500
+        max: 1547.5
+        unit: Nm
+        receivers:
+          - XXX
+      - name: TCS_ACTIVE
+        multiplexer_indicator: Plain
+        start_bit: 21
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACC_TORQUE_REQ_MAX
+        multiplexer_indicator: Plain
+        start_bit: 22
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACC_BRK_PREP
+        multiplexer_indicator: Plain
+        start_bit: 40
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: DISABLE_FUEL_SHUTOFF
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: DAS_REQ_ACTIVE
+        multiplexer_indicator: Plain
+        start_bit: 48
+        size: 3
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: COLLISION_BRK_PREP
+        multiplexer_indicator: Plain
+        start_bit: 51
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 344
+    name: ESP_6
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: WHEEL_SPEED_FL
+        multiplexer_indicator: Plain
+        start_bit: 5
+        size: 14
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.5
+        offset: 0
+        min: 0
+        max: 8191
+        unit: rpm
+        receivers:
+          - XXX
+      - name: WHEEL_SPEED_FR
+        multiplexer_indicator: Plain
+        start_bit: 21
+        size: 14
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.5
+        offset: 0
+        min: 0
+        max: 8191
+        unit: rpm
+        receivers:
+          - XXX
+      - name: WHEEL_SPEED_RL
+        multiplexer_indicator: Plain
+        start_bit: 37
+        size: 14
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.5
+        offset: 0
+        min: 0
+        max: 8191
+        unit: rpm
+        receivers:
+          - XXX
+      - name: WHEEL_SPEED_RR
+        multiplexer_indicator: Plain
+        start_bit: 53
+        size: 14
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.5
+        offset: 0
+        min: 0
+        max: 8191
+        unit: rpm
+        receivers:
+          - XXX
+  - id:
+      Standard: 368
+    name: Transmission_Status
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: Gear_State
+        multiplexer_indicator: Plain
+        start_bit: 2
+        size: 3
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 464
+    name: ORC_1
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: SEATBELT_DRIVER_UNLATCHED
+        multiplexer_indicator: Plain
+        start_bit: 13
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 500
+    name: DAS_3
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: ENGINE_TORQUE_REQUEST
+        multiplexer_indicator: Plain
+        start_bit: 4
+        size: 13
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.25
+        offset: -500
+        min: -500
+        max: 1547.5
+        unit: Nm
+        receivers:
+          - XXX
+      - name: ENGINE_TORQUE_REQUEST_MAX
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACC_STANDSTILL
+        multiplexer_indicator: Plain
+        start_bit: 5
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACC_GO
+        multiplexer_indicator: Plain
+        start_bit: 6
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACC_DECEL
+        multiplexer_indicator: Plain
+        start_bit: 19
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.004885
+        offset: -16
+        min: -16
+        max: 4
+        unit: m/s2
+        receivers:
+          - XXX
+      - name: ACC_AVAILABLE
+        multiplexer_indicator: Plain
+        start_bit: 20
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACC_ACTIVE
+        multiplexer_indicator: Plain
+        start_bit: 21
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: DISABLE_FUEL_SHUTOFF
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: GR_MAX_REQ
+        multiplexer_indicator: Plain
+        start_bit: 32
+        size: 4
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACC_DECEL_REQ
+        multiplexer_indicator: Plain
+        start_bit: 36
+        size: 3
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACC_FAULTED
+        multiplexer_indicator: Plain
+        start_bit: 46
+        size: 2
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: COLLISION_BRK_PREP
+        multiplexer_indicator: Plain
+        start_bit: 48
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACC_BRK_PREP
+        multiplexer_indicator: Plain
+        start_bit: 49
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 501
+    name: DAS_4
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: ACC_SET_SPEED_KPH
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: km/h
+        receivers:
+          - XXX
+      - name: ACC_SET_SPEED_MPH
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: mph
+        receivers:
+          - XXX
+      - name: ACC_DISTANCE_CONFIG_1
+        multiplexer_indicator: Plain
+        start_bit: 1
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACC_DISTANCE_CONFIG_2
+        multiplexer_indicator: Plain
+        start_bit: 41
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: SPEED_DIGITAL
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: mph
+        receivers:
+          - XXX
+      - name: ACC_STATE
+        multiplexer_indicator: Plain
+        start_bit: 38
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 7
+        unit: ""
+        receivers:
+          - XXX
+      - name: FCW_OFF
+        multiplexer_indicator: Plain
+        start_bit: 25
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: FCW_ERROR
+        multiplexer_indicator: Plain
+        start_bit: 27
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: FCW_BRAKE_ENABLED
+        multiplexer_indicator: Plain
+        start_bit: 29
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: FCW_BRAKE_DISABLED
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACC_FAULTED
+        multiplexer_indicator: Plain
+        start_bit: 50
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 544
+    name: EPS_2
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: LKAS_STATE
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: COLUMN_TORQUE
+        multiplexer_indicator: Plain
+        start_bit: 2
+        size: 11
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: -1024
+        min: -1024
+        max: 1023
+        unit: ""
+        receivers:
+          - XXX
+      - name: TORQUE_OVERLAY_STATUS
+        multiplexer_indicator: Plain
+        start_bit: 6
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: EPS_TORQUE_MOTOR_RAW
+        multiplexer_indicator: Plain
+        start_bit: 19
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: -2048
+        min: -2048
+        max: 2047
+        unit: ""
+        receivers:
+          - XXX
+      - name: EPS_TORQUE_MOTOR
+        multiplexer_indicator: Plain
+        start_bit: 34
+        size: 11
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: -1024
+        min: -1024
+        max: 1023
+        unit: ""
+        receivers:
+          - XXX
+      - name: LKAS_TEMPORARY_FAULT
+        multiplexer_indicator: Plain
+        start_bit: 38
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: AUTO_PARK_HAS_CONTROL_2
+        multiplexer_indicator: Plain
+        start_bit: 51
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 559
+    name: ECM_5
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: Accelerator_Position
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.4
+        offset: 0
+        min: 0
+        max: 100
+        unit: "%"
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 571
+    name: CRUISE_BUTTONS
+    size: 3
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: ACC_Cancel
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACC_Distance_Dec
+        multiplexer_indicator: Plain
+        start_bit: 1
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACC_Accel
+        multiplexer_indicator: Plain
+        start_bit: 2
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACC_Decel
+        multiplexer_indicator: Plain
+        start_bit: 3
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACC_Resume
+        multiplexer_indicator: Plain
+        start_bit: 4
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Cruise_OnOff
+        multiplexer_indicator: Plain
+        start_bit: 6
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACC_OnOff
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACC_Distance_Inc
+        multiplexer_indicator: Plain
+        start_bit: 8
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 625
+    name: DAS_5
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: FCW_STATE
+        multiplexer_indicator: Plain
+        start_bit: 2
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: FCW_DISTANCE
+        multiplexer_indicator: Plain
+        start_bit: 3
+        size: 2
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACCFCW_MESSAGE
+        multiplexer_indicator: Plain
+        start_bit: 12
+        size: 4
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: SET_SPEED_KPH
+        multiplexer_indicator: Plain
+        start_bit: 24
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 250
+        unit: km/h
+        receivers:
+          - XXX
+      - name: WHEEL_TORQUE_REQUEST
+        multiplexer_indicator: Plain
+        start_bit: 38
+        size: 15
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: -7767
+        min: -7767
+        max: 24999
+        unit: Nm
+        receivers:
+          - XXX
+      - name: WHEEL_TORQUE_REQUEST_ACTIVE
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 669
+    name: EPB_1
+    size: 3
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: PARKING_BRAKE_STATUS
+        multiplexer_indicator: Plain
+        start_bit: 11
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 7
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 678
+    name: DAS_6
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: LKAS_ICON_COLOR
+        multiplexer_indicator: Plain
+        start_bit: 1
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: LKAS_LANE_LINES
+        multiplexer_indicator: Plain
+        start_bit: 19
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: LKAS_ALERTS
+        multiplexer_indicator: Plain
+        start_bit: 27
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: CAR_MODEL
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: AUTO_HIGH_BEAM_ON
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: LKAS_DISABLED
+        multiplexer_indicator: Plain
+        start_bit: 56
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 720
+    name: BSM_1
+    size: 6
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: RIGHT_STATUS
+        multiplexer_indicator: Plain
+        start_bit: 5
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: LEFT_STATUS
+        multiplexer_indicator: Plain
+        start_bit: 2
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 792
+    name: STEERING_LEVERS
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: TURN_SIGNALS
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 2
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: HIGH_BEAM_PRESSED
+        multiplexer_indicator: Plain
+        start_bit: 2
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 820
+    name: BCM_1
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: DOOR_OPEN_FL
+        multiplexer_indicator: Plain
+        start_bit: 17
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: DOOR_OPEN_FR
+        multiplexer_indicator: Plain
+        start_bit: 18
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: DOOR_OPEN_RL
+        multiplexer_indicator: Plain
+        start_bit: 19
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: DOOR_OPEN_RR
+        multiplexer_indicator: Plain
+        start_bit: 20
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: DOOR_OPEN_TRUNK
+        multiplexer_indicator: Plain
+        start_bit: 22
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: PARKING_BRAKE_SWITCH
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: TURN_LIGHT_LEFT
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: TURN_LIGHT_RIGHT
+        multiplexer_indicator: Plain
+        start_bit: 30
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: HIGH_BEAM_DISPLAY
+        multiplexer_indicator: Plain
+        start_bit: 58
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+comments:
+  - Signal:
+      message_id:
+        Standard: 258
+      name: STEERING_ANGLE_HP
+      comment: Steering angle high precision
+  - Signal:
+      message_id:
+        Standard: 264
+      name: ENGINE_TORQUE
+      comment: Effective engine torque
+  - Signal:
+      message_id:
+        Standard: 264
+      name: EXPECTED_ENGINE_TORQUE
+      comment: Expected Engine Torque based on target engine speed
+  - Signal:
+      message_id:
+        Standard: 678
+      name: LKAS_ICON_COLOR
+      comment: "3 is yellow, 2 is green, 1 is white, 0 is null"
+  - Signal:
+      message_id:
+        Standard: 678
+      name: LKAS_LANE_LINES
+      comment: "0x01 transparent lines, 0x02 left white, 0x03 right white, 0x04 left yellow with car on top, 0x05 left yellow with car on top, 0x06 both white, 0x07 left yellow, 0x08 left yellow right white, 0x09 right yellow, 0x0a right yellow left white, 0x0b left yellow with car on top right white, 0x0c right yellow with car on top left white, (0x00, 0x0d, 0x0e, 0x0f) null"
+  - Signal:
+      message_id:
+        Standard: 678
+      name: LKAS_ALERTS
+      comment: "(0x01, 0x02) lane sense off, (0x03, 0x04, 0x06) place hands on steering wheel, 0x07 lane departure detected + place hands on steering wheel, (0x08, 0x09) lane sense unavailable + clean front windshield, 0x0b lane sense and auto high beam unavailable + clean front windshield, 0x0c lane sense unavailable + service required, (0x00, 0x05, 0x0a, 0x0d, 0x0e, 0x0f) null"
+value_descriptions:
+  - Signal:
+      message_id:
+        Standard: 320
+      name: ACC_OFF_REQ
+      value_descriptions:
+        - id: 2
+          description: PERMANENT
+        - id: 1
+          description: TEMPORARY
+        - id: 0
+          description: NONE
+  - Signal:
+      message_id:
+        Standard: 368
+      name: Gear_State
+      value_descriptions:
+        - id: 4
+          description: D
+        - id: 2
+          description: N
+        - id: 1
+          description: R
+        - id: 0
+          description: P
+  - Signal:
+      message_id:
+        Standard: 669
+      name: PARKING_BRAKE_STATUS
+      value_descriptions:
+        - id: 3
+          description: RELEASING
+        - id: 2
+          description: APPLYING
+        - id: 1
+          description: APPLIED
+        - id: 0
+          description: "OFF"

@@ -1,0 +1,211 @@
+---
+source: tests/snapshots.rs
+---
+version: ""
+bit_timing: ~
+messages:
+  - id:
+      Standard: 228
+    name: STEERING_CONTROL
+    size: 5
+    transmitter:
+      NodeName: ADAS
+    signals:
+      - name: STEER_TORQUE
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 16
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: -3840
+        max: 3840
+        unit: ""
+        receivers:
+          - EPS
+      - name: STEER_TORQUE_REQUEST
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - EPS
+      - name: SET_ME_X00
+        multiplexer_indicator: Plain
+        start_bit: 22
+        size: 7
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 127
+        unit: ""
+        receivers:
+          - EPS
+      - name: SET_ME_X00_2
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - EPS
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 37
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - EPS
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 35
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - EPS
+  - id:
+      Standard: 399
+    name: STEER_STATUS
+    size: 7
+    transmitter:
+      NodeName: EPS
+    signals:
+      - name: STEER_TORQUE_SENSOR
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 16
+        byte_order: BigEndian
+        value_type: Signed
+        factor: -1
+        offset: 0
+        min: -31000
+        max: 31000
+        unit: tbd
+        receivers:
+          - EON
+      - name: STEER_ANGLE_RATE
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 16
+        byte_order: BigEndian
+        value_type: Signed
+        factor: -0.1
+        offset: 0
+        min: -31000
+        max: 31000
+        unit: deg/s
+        receivers:
+          - EON
+      - name: STEER_STATUS
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - EON
+      - name: STEER_CONTROL_ACTIVE
+        multiplexer_indicator: Plain
+        start_bit: 35
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - EON
+      - name: STEER_CONFIG_INDEX
+        multiplexer_indicator: Plain
+        start_bit: 43
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - EON
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 53
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - EON
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 51
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - EON
+value_descriptions:
+  - Signal:
+      message_id:
+        Standard: 399
+      name: STEER_STATUS
+      value_descriptions:
+        - id: 7
+          description: permanent_fault
+        - id: 6
+          description: tmp_fault
+        - id: 5
+          description: fault_1
+        - id: 4
+          description: no_torque_alert_2
+        - id: 3
+          description: low_speed_lockout
+        - id: 2
+          description: no_torque_alert_1
+        - id: 1
+          description: driver_steering
+        - id: 0
+          description: normal

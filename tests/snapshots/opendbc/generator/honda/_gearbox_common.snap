@@ -1,0 +1,468 @@
+---
+source: tests/snapshots.rs
+---
+version: ""
+bit_timing: ~
+messages:
+  - id:
+      Standard: 401
+    name: GEARBOX_CVT
+    size: 8
+    transmitter:
+      NodeName: PCM
+    signals:
+      - name: SELECTED_P
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: SELECTED_R
+        multiplexer_indicator: Plain
+        start_bit: 1
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: SELECTED_N
+        multiplexer_indicator: Plain
+        start_bit: 2
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: SELECTED_D
+        multiplexer_indicator: Plain
+        start_bit: 3
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: FORWARD_DRIVING_MODE
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: CVT_UNKNOWN_1
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: CVT_UNKNOWN_2
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: GEAR_SHIFTER
+        multiplexer_indicator: Plain
+        start_bit: 44
+        size: 5
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 31
+        unit: ""
+        receivers:
+          - XXX
+      - name: SHIFTER_POSITION_VALID
+        multiplexer_indicator: Plain
+        start_bit: 45
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: NOT_FORWARD_GEAR
+        multiplexer_indicator: Plain
+        start_bit: 48
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: CVT_UNKNOWN_3
+        multiplexer_indicator: Plain
+        start_bit: 53
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 59
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - EON
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 61
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - EON
+  - id:
+      Standard: 419
+    name: GEARBOX_AUTO
+    size: 8
+    transmitter:
+      NodeName: PCM
+    signals:
+      - name: TRANS_SHIFT_ACTIVITY
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 256
+        unit: ""
+        receivers:
+          - EON
+      - name: TRANS_TARGET_GEAR
+        multiplexer_indicator: Plain
+        start_bit: 11
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: REGEN_STAGE_SELECTION
+        multiplexer_indicator: Plain
+        start_bit: 14
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 7
+        unit: Stage
+        receivers:
+          - XXX
+      - name: REGEN_MEMORY
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: FORWARD_DRIVING_MODE
+        multiplexer_indicator: Plain
+        start_bit: 20
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: AUTO_UNKNOWN_1
+        multiplexer_indicator: Plain
+        start_bit: 27
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: AUTO_UNKNOWN_2
+        multiplexer_indicator: Plain
+        start_bit: 29
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: GEAR_SHIFTER
+        multiplexer_indicator: Plain
+        start_bit: 35
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - EON
+      - name: REGEN_UNKNOWN
+        multiplexer_indicator: Plain
+        start_bit: 50
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 59
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - EON
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 61
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - EON
+      - name: AUTO_UNKNOWN_3
+        multiplexer_indicator: Plain
+        start_bit: 62
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+comments:
+  - Signal:
+      message_id:
+        Standard: 401
+      name: CVT_UNKNOWN_1
+      comment: Probably measured/actual CVT ratio
+  - Signal:
+      message_id:
+        Standard: 401
+      name: CVT_UNKNOWN_2
+      comment: Probably target/commanded CVT ratio
+  - Signal:
+      message_id:
+        Standard: 419
+      name: TRANS_SHIFT_ACTIVITY
+      comment: "Tracks but trails TRANS_TARGET_GEAR with extra activity, probable solenoid activations or TC lockup"
+  - Signal:
+      message_id:
+        Standard: 419
+      name: REGEN_STAGE_SELECTION
+      comment: Driver-selected regenerative braking threshold
+  - Signal:
+      message_id:
+        Standard: 419
+      name: REGEN_MEMORY
+      comment: "Driver-selected persistence setting, M shown in instrument cluster"
+  - Signal:
+      message_id:
+        Standard: 419
+      name: REGEN_UNKNOWN
+      comment: "Both bits set when user enables regen, otherwise zero"
+value_descriptions:
+  - Signal:
+      message_id:
+        Standard: 401
+      name: GEAR_SHIFTER
+      value_descriptions:
+        - id: 1
+          description: P
+        - id: 2
+          description: R
+        - id: 3
+          description: N
+        - id: 4
+          description: D
+        - id: 7
+          description: L
+        - id: 10
+          description: S
+  - Signal:
+      message_id:
+        Standard: 419
+      name: GEAR_SHIFTER
+      value_descriptions:
+        - id: 1
+          description: P
+        - id: 2
+          description: R
+        - id: 3
+          description: N
+        - id: 4
+          description: D
+        - id: 7
+          description: L
+        - id: 10
+          description: S
+  - Signal:
+      message_id:
+        Standard: 419
+      name: TRANS_TARGET_GEAR
+      value_descriptions:
+        - id: 0
+          description: None / Neutral / Park
+        - id: 1
+          description: 1st
+        - id: 2
+          description: 2nd
+        - id: 3
+          description: 3rd
+        - id: 4
+          description: 4th
+        - id: 5
+          description: 5th
+        - id: 6
+          description: 6th
+        - id: 7
+          description: 7th
+        - id: 8
+          description: 8th
+        - id: 9
+          description: 9th
+        - id: 10
+          description: 10th
+        - id: 13
+          description: Reverse
+  - Signal:
+      message_id:
+        Standard: 419
+      name: REGEN_STAGE_SELECTION
+      value_descriptions:
+        - id: 0
+          description: disabled
+        - id: 1
+          description: stage_1
+        - id: 2
+          description: stage_2
+        - id: 3
+          description: stage_3
+        - id: 4
+          description: stage_4
+        - id: 5
+          description: stage_5
+        - id: 6
+          description: stage_6
+  - Signal:
+      message_id:
+        Standard: 419
+      name: REGEN_MEMORY
+      value_descriptions:
+        - id: 0
+          description: disabled
+        - id: 1
+          description: persistent

@@ -1,0 +1,95 @@
+---
+source: tests/snapshots.rs
+---
+version: ""
+bit_timing: ~
+messages:
+  - id:
+      Standard: 49063
+    name: BSM_STATUS_RIGHT
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: BSM_ALERT
+        multiplexer_indicator: Plain
+        start_bit: 4
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: BSM_MODE
+        multiplexer_indicator: Plain
+        start_bit: 6
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 48799
+    name: BSM_STATUS_LEFT
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: BSM_ALERT
+        multiplexer_indicator: Plain
+        start_bit: 4
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: BSM_MODE
+        multiplexer_indicator: Plain
+        start_bit: 6
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+value_descriptions:
+  - Signal:
+      message_id:
+        Standard: 49063
+      name: BSM_MODE
+      value_descriptions:
+        - id: 2
+          description: blind_spot
+        - id: 1
+          description: cross_traffic
+        - id: 0
+          description: "off"
+  - Signal:
+      message_id:
+        Standard: 48799
+      name: BSM_MODE
+      value_descriptions:
+        - id: 2
+          description: blind_spot
+        - id: 1
+          description: cross_traffic
+        - id: 0
+          description: "off"

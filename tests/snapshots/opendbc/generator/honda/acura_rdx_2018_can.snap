@@ -1,0 +1,109 @@
+---
+source: tests/snapshots.rs
+---
+version: ""
+bit_timing: ~
+messages:
+  - id:
+      Standard: 392
+    name: GEARBOX_AUTO
+    size: 6
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 43
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 45
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: GEAR_SHIFTER
+        multiplexer_indicator: Plain
+        start_bit: 27
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - EON
+      - name: GEAR
+        multiplexer_indicator: Plain
+        start_bit: 36
+        size: 5
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 31
+        unit: ""
+        receivers:
+          - EON
+comments:
+  - Plain:
+      comment: IMPORT _honda_common.dbc
+  - Plain:
+      comment: IMPORT _nidec_common.dbc
+  - Plain:
+      comment: IMPORT _lkas_hud_5byte.dbc
+  - Plain:
+      comment: IMPORT _nidec_scm_group_a.dbc
+  - Plain:
+      comment: IMPORT _steering_sensors_b.dbc
+  - Plain:
+      comment: IMPORT _steering_control_b.dbc
+value_descriptions:
+  - Signal:
+      message_id:
+        Standard: 392
+      name: GEAR_SHIFTER
+      value_descriptions:
+        - id: 0
+          description: S
+        - id: 1
+          description: P
+        - id: 2
+          description: R
+        - id: 4
+          description: N
+        - id: 8
+          description: D
+  - Signal:
+      message_id:
+        Standard: 392
+      name: GEAR
+      value_descriptions:
+        - id: 26
+          description: S
+        - id: 4
+          description: D
+        - id: 3
+          description: N
+        - id: 2
+          description: R
+        - id: 1
+          description: P

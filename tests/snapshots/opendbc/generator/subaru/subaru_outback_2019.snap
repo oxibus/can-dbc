@@ -1,0 +1,311 @@
+---
+source: tests/snapshots.rs
+---
+version: ""
+bit_timing: ~
+messages:
+  - id:
+      Standard: 358
+    name: ES_DashStatus
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: Not_Ready_Startup
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 3
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 7
+        unit: ""
+        receivers:
+          - XXX
+      - name: Seatbelt_Disengage
+        multiplexer_indicator: Plain
+        start_bit: 12
+        size: 2
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: Disengage_Alert
+        multiplexer_indicator: Plain
+        start_bit: 14
+        size: 2
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: Cruise_On
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Cruise_Activated
+        multiplexer_indicator: Plain
+        start_bit: 17
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Signal1
+        multiplexer_indicator: Plain
+        start_bit: 18
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: WHEELS_MOVING_2015
+        multiplexer_indicator: Plain
+        start_bit: 19
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Driver_Input
+        multiplexer_indicator: Plain
+        start_bit: 20
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Cruise_Distance
+        multiplexer_indicator: Plain
+        start_bit: 21
+        size: 3
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 7
+        unit: ""
+        receivers:
+          - XXX
+      - name: Cruise_Set_Speed
+        multiplexer_indicator: Plain
+        start_bit: 24
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: Cruise_Fault
+        multiplexer_indicator: Plain
+        start_bit: 32
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Cruise_On_2
+        multiplexer_indicator: Plain
+        start_bit: 34
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 37
+        size: 3
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 7
+        unit: ""
+        receivers:
+          - XXX
+      - name: Steep_Hill_Disengage
+        multiplexer_indicator: Plain
+        start_bit: 44
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: Car_Follow
+        multiplexer_indicator: Plain
+        start_bit: 46
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Far_Distance
+        multiplexer_indicator: Plain
+        start_bit: 48
+        size: 4
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 5
+        offset: 0
+        min: 0
+        max: 75
+        unit: m
+        receivers:
+          - XXX
+  - id:
+      Standard: 881
+    name: Steering_Torque
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: Steering_Motor_Flat
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 10
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 32
+        offset: 0
+        min: 0
+        max: 1000
+        unit: ""
+        receivers:
+          - XXX
+      - name: Steer_Torque_Output
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 11
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: -32
+        offset: 0
+        min: -1000
+        max: 1000
+        unit: ""
+        receivers:
+          - XXX
+      - name: Steer_Error_1
+        multiplexer_indicator: Plain
+        start_bit: 27
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Steer_Torque_Sensor
+        multiplexer_indicator: Plain
+        start_bit: 29
+        size: 11
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: -1
+        offset: 0
+        min: -1000
+        max: 1000
+        unit: ""
+        receivers:
+          - XXX
+      - name: Steering_Angle
+        multiplexer_indicator: Plain
+        start_bit: 40
+        size: 16
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: -0.033
+        offset: 0
+        min: -600
+        max: 600
+        unit: ""
+        receivers:
+          - XXX
+comments:
+  - Plain:
+      comment: IMPORT _subaru_preglobal_2015.dbc
+  - Signal:
+      message_id:
+        Standard: 358
+      name: Disengage_Alert
+      comment: seatbelt and steep hill disengage
+  - Signal:
+      message_id:
+        Standard: 358
+      name: Cruise_Fault
+      comment: No engagement until restart
+  - Signal:
+      message_id:
+        Standard: 358
+      name: Car_Follow
+      comment: lead car detected

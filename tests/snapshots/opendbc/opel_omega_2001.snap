@@ -1,0 +1,696 @@
+---
+source: tests/snapshots.rs
+---
+version: ""
+new_symbols:
+  - NS_DESC_
+  - CM_
+  - BA_DEF_
+  - BA_
+  - VAL_
+  - CAT_DEF_
+  - CAT_
+  - FILTER
+  - BA_DEF_DEF_
+  - EV_DATA_
+  - ENVVAR_DATA_
+  - SGTYPE_
+  - SGTYPE_VAL_
+  - BA_DEF_SGTYPE_
+  - BA_SGTYPE_
+  - SIG_TYPE_REF_
+  - VAL_TABLE_
+  - SIG_GROUP_
+  - SIG_VALTYPE_
+  - SIGTYPE_VALTYPE_
+  - BO_TX_BU_
+  - BA_DEF_REL_
+  - BA_REL_
+  - BA_DEF_DEF_REL_
+  - BU_SG_REL_
+  - BU_EV_REL_
+  - BU_BO_REL_
+  - SG_MUL_VAL_
+bit_timing: []
+nodes:
+  - ABS
+  - ESP
+  - ECU
+  - TCU
+  - SAS
+messages:
+  - id:
+      Standard: 272
+    name: TCU_Data1
+    size: 8
+    transmitter:
+      NodeName: TCU
+    signals:
+      - name: TorqueRequest1
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - ABS
+          - ESP
+          - ECU
+      - name: TorqueRequest2
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - ABS
+          - ESP
+          - ECU
+      - name: OutputShaftSpeed
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: rpm
+        receivers:
+          - ABS
+          - ESP
+          - ECU
+  - id:
+      Standard: 288
+    name: ESP_Data1
+    size: 8
+    transmitter:
+      NodeName: ESP
+    signals:
+      - name: ABD_Active
+        multiplexer_indicator: Plain
+        start_bit: 4
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: yes/no
+        receivers:
+          - ECU
+          - TCU
+      - name: TorqueRequestFast
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - ECU
+          - TCU
+      - name: TorqueRequestSlow
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - ECU
+          - TCU
+  - id:
+      Standard: 384
+    name: SAS_Data
+    size: 8
+    transmitter:
+      NodeName: SAS
+    signals:
+      - name: SteeringAngle
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 0.1
+        offset: 0
+        min: -3276.8
+        max: 3276.7
+        unit: yes/no
+        receivers:
+          - ECU
+          - TCU
+      - name: SteeringSpeed
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - ECU
+          - TCU
+  - id:
+      Standard: 416
+    name: ECU_Data1
+    size: 8
+    transmitter:
+      NodeName: ECU
+    signals:
+      - name: RPM
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: rpm
+        receivers:
+          - ABS
+          - ESP
+          - TCU
+      - name: TorqueResponse
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - ABS
+          - ESP
+          - TCU
+      - name: TorqueLost
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - ABS
+          - ESP
+          - TCU
+      - name: APP
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 102
+        unit: ""
+        receivers:
+          - ABS
+          - ESP
+          - TCU
+      - name: TorqueRequest
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - ABS
+          - ESP
+          - TCU
+  - id:
+      Standard: 448
+    name: ECU_Data2
+    size: 8
+    transmitter:
+      NodeName: ECU
+    signals:
+      - name: TPS
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 100
+        unit: ""
+        receivers:
+          - ABS
+          - ESP
+          - TCU
+  - id:
+      Standard: 640
+    name: ECU_Data3
+    size: 8
+    transmitter:
+      NodeName: ECU
+    signals:
+      - name: BrakeActive
+        multiplexer_indicator: Plain
+        start_bit: 18
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: yes/no
+        receivers:
+          - ABS
+          - ESP
+          - TCU
+      - name: KickdownActive
+        multiplexer_indicator: Plain
+        start_bit: 20
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: yes/no
+        receivers:
+          - ABS
+          - ESP
+          - TCU
+      - name: CruiseActive
+        multiplexer_indicator: Plain
+        start_bit: 22
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: yes/no
+        receivers:
+          - ABS
+          - ESP
+          - TCU
+  - id:
+      Standard: 736
+    name: TCU_Data2
+    size: 8
+    transmitter:
+      NodeName: TCU
+    signals:
+      - name: TOT
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 8
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 1
+        offset: -40
+        min: -40
+        max: 215
+        unit: ""
+        receivers:
+          - ECU
+      - name: InputShaftSpeed
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: rpm
+        receivers:
+          - ECU
+  - id:
+      Standard: 768
+    name: ABS_WheelSpeed
+    size: 8
+    transmitter:
+      NodeName: ABS
+    signals:
+      - name: FrontLeftWheelSpeed
+        multiplexer_indicator: Plain
+        start_bit: 5
+        size: 14
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.112
+        offset: 0
+        min: 0
+        max: 255
+        unit: km/h
+        receivers:
+          - ECU
+          - TCU
+      - name: FrontLeftWheelErrorFlag
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - ECU
+          - TCU
+      - name: FrontRightWheelSpeed
+        multiplexer_indicator: Plain
+        start_bit: 21
+        size: 14
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.112
+        offset: 0
+        min: 0
+        max: 255
+        unit: km/h
+        receivers:
+          - ECU
+          - TCU
+      - name: FrontRightWheelErrorFlag
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - ECU
+          - TCU
+      - name: RearLeftWheelSpeed
+        multiplexer_indicator: Plain
+        start_bit: 37
+        size: 14
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.112
+        offset: 0
+        min: 0
+        max: 255
+        unit: km/h
+        receivers:
+          - ECU
+          - TCU
+      - name: RearLeftWheelErrorFlag
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - ECU
+          - TCU
+      - name: RearRightWheelSpeed
+        multiplexer_indicator: Plain
+        start_bit: 53
+        size: 14
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.112
+        offset: 0
+        min: 0
+        max: 255
+        unit: km/h
+        receivers:
+          - ECU
+          - TCU
+      - name: RearRightWheelErrorFlag
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - ECU
+          - TCU
+  - id:
+      Standard: 792
+    name: ESP_Data2
+    size: 8
+    transmitter:
+      NodeName: ESP
+    signals:
+      - name: ABS_Active
+        multiplexer_indicator: Plain
+        start_bit: 12
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: yes/no
+        receivers:
+          - ECU
+          - TCU
+      - name: ESP_Off
+        multiplexer_indicator: Plain
+        start_bit: 20
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: yes/no
+        receivers:
+          - ECU
+          - TCU
+      - name: ESP_Active
+        multiplexer_indicator: Plain
+        start_bit: 21
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: yes/no
+        receivers:
+          - ECU
+          - TCU
+  - id:
+      Standard: 992
+    name: TCU_Data3
+    size: 8
+    transmitter:
+      NodeName: TCU
+    signals:
+      - name: CurrentGear
+        multiplexer_indicator: Plain
+        start_bit: 11
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - ECU
+      - name: SelectorPosition
+        multiplexer_indicator: Plain
+        start_bit: 18
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 7
+        unit: ""
+        receivers:
+          - ECU
+      - name: AutoNeutralActive
+        multiplexer_indicator: Plain
+        start_bit: 26
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: yes/no
+        receivers:
+          - ECU
+      - name: WinterModeActive
+        multiplexer_indicator: Plain
+        start_bit: 29
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: yes/no
+        receivers:
+          - ECU
+      - name: SportModeActive
+        multiplexer_indicator: Plain
+        start_bit: 30
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: yes/no
+        receivers:
+          - ECU
+      - name: TCC_State
+        multiplexer_indicator: Plain
+        start_bit: 37
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 2
+        unit: ""
+        receivers:
+          - ECU
+  - id:
+      Standard: 1472
+    name: ECU_Data4
+    size: 8
+    transmitter:
+      NodeName: ECU
+    signals:
+      - name: ECT
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 8
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 1
+        offset: -40
+        min: -40
+        max: 215
+        unit: ""
+        receivers:
+          - TCU
+      - name: IAT
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 8
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 1
+        offset: -40
+        min: -40
+        max: 215
+        unit: ""
+        receivers:
+          - TCU
+value_descriptions:
+  - Signal:
+      message_id:
+        Standard: 992
+      name: CurrentGear
+      value_descriptions:
+        - id: 5
+          description: "1"
+        - id: 6
+          description: "2"
+        - id: 7
+          description: "3"
+        - id: 8
+          description: "4"
+  - Signal:
+      message_id:
+        Standard: 992
+      name: SelectorPosition
+      value_descriptions:
+        - id: 1
+          description: P
+        - id: 2
+          description: R
+        - id: 3
+          description: N
+        - id: 4
+          description: D
+        - id: 7
+          description: "3"
+        - id: 6
+          description: "2"
+        - id: 5
+          description: "1"
+  - Signal:
+      message_id:
+        Standard: 992
+      name: TCC_State
+      value_descriptions:
+        - id: 0
+          description: "Off"
+        - id: 1
+          description: Partially Locked
+        - id: 2
+          description: Locked

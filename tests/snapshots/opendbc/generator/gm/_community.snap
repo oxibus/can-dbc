@@ -1,0 +1,168 @@
+---
+source: tests/snapshots.rs
+---
+version: ""
+bit_timing: ~
+messages:
+  - id:
+      Standard: 512
+    name: GAS_COMMAND
+    size: 6
+    transmitter:
+      NodeName: NEO
+    signals:
+      - name: GAS_COMMAND
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.125677
+        offset: -75.909
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - INTERCEPTOR
+      - name: GAS_COMMAND2
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.251976
+        offset: -76.601
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - INTERCEPTOR
+      - name: ENABLE
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - INTERCEPTOR
+      - name: COUNTER_PEDAL
+        multiplexer_indicator: Plain
+        start_bit: 35
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - INTERCEPTOR
+      - name: CHECKSUM_PEDAL
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - INTERCEPTOR
+  - id:
+      Standard: 513
+    name: GAS_SENSOR
+    size: 6
+    transmitter:
+      NodeName: INTERCEPTOR
+    signals:
+      - name: INTERCEPTOR_GAS
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.125677
+        offset: -75.909
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - NEO
+      - name: INTERCEPTOR_GAS2
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.251976
+        offset: -76.601
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - NEO
+      - name: STATE
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - NEO
+      - name: COUNTER_PEDAL
+        multiplexer_indicator: Plain
+        start_bit: 35
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - NEO
+      - name: CHECKSUM_PEDAL
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - NEO
+value_descriptions:
+  - Signal:
+      message_id:
+        Standard: 513
+      name: STATE
+      value_descriptions:
+        - id: 5
+          description: FAULT_TIMEOUT
+        - id: 4
+          description: FAULT_STARTUP
+        - id: 3
+          description: FAULT_SCE
+        - id: 2
+          description: FAULT_SEND
+        - id: 1
+          description: FAULT_BAD_CHECKSUM
+        - id: 0
+          description: NO_FAULT

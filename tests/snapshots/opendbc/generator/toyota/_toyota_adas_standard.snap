@@ -1,0 +1,588 @@
+---
+source: tests/snapshots.rs
+---
+version: ""
+bit_timing: ~
+messages:
+  - id:
+      Standard: 466
+    name: PCM_CRUISE
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: GAS_RELEASED
+        multiplexer_indicator: Plain
+        start_bit: 4
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: CRUISE_ACTIVE
+        multiplexer_indicator: Plain
+        start_bit: 5
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACC_BRAKING
+        multiplexer_indicator: Plain
+        start_bit: 12
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACCEL_NET
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 16
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 0.0009765625
+        offset: 0
+        min: -20
+        max: 20
+        unit: m/s^2
+        receivers:
+          - XXX
+      - name: NEUTRAL_FORCE
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 16
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 2
+        offset: 0
+        min: -65536
+        max: 65534
+        unit: N
+        receivers:
+          - XXX
+      - name: CRUISE_STATE
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: CANCEL_REQ
+        multiplexer_indicator: Plain
+        start_bit: 49
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 643
+    name: PRE_COLLISION
+    size: 7
+    transmitter:
+      NodeName: DSU
+    signals:
+      - name: _COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: SET_ME_X00
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: FORCE
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 16
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 2
+        offset: 0
+        min: 0
+        max: 255
+        unit: N
+        receivers:
+          - XXX
+      - name: SET_ME_X002
+        multiplexer_indicator: Plain
+        start_bit: 33
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: BRAKE_STATUS
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: STATE
+        multiplexer_indicator: Plain
+        start_bit: 36
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: SET_ME_X003
+        multiplexer_indicator: Plain
+        start_bit: 40
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: PRECOLLISION_ACTIVE
+        multiplexer_indicator: Plain
+        start_bit: 41
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 705
+    name: GAS_PEDAL
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: GAS_RELEASED
+        multiplexer_indicator: Plain
+        start_bit: 3
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: ETQLVSC
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 16
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 0.03125
+        offset: 0
+        min: 0
+        max: 0
+        unit: Nm
+        receivers:
+          - XXX
+      - name: ETQREAL
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 16
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 0.03125
+        offset: 0
+        min: 0
+        max: 0
+        unit: Nm
+        receivers:
+          - SCS
+      - name: ETQISC
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: -192
+        min: 0
+        max: 0
+        unit: Nm
+        receivers:
+          - XXX
+      - name: GAS_PEDAL
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.5
+        offset: 0
+        min: 0
+        max: 0
+        unit: "%"
+        receivers:
+          - DS1
+          - FCM
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - DS1
+          - FCM
+  - id:
+      Standard: 740
+    name: STEERING_LKA
+    size: 5
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: LKA_STATE
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: STEER_REQUEST
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 6
+        size: 6
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 63
+        unit: ""
+        receivers:
+          - XXX
+      - name: SET_ME_1
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: STEER_TORQUE_CMD
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 16
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 836
+    name: PRE_COLLISION_2
+    size: 8
+    transmitter:
+      NodeName: DSU
+    signals:
+      - name: DSS1GDRV
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 10
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 0.1
+        offset: 0
+        min: 0
+        max: 0
+        unit: m/s^2
+        receivers:
+          - Vector__XXX
+      - name: PCSALM
+        multiplexer_indicator: Plain
+        start_bit: 17
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - FCM
+      - name: IBTRGR
+        multiplexer_indicator: Plain
+        start_bit: 27
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - FCM
+      - name: PBATRGR
+        multiplexer_indicator: Plain
+        start_bit: 30
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: PREFILL
+        multiplexer_indicator: Plain
+        start_bit: 33
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: AVSTRGR
+        multiplexer_indicator: Plain
+        start_bit: 36
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - SCS
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+comments:
+  - Signal:
+      message_id:
+        Standard: 466
+      name: NEUTRAL_FORCE
+      comment: force in newtons the engine/electric motors are applying without any acceleration commands or user input
+  - Signal:
+      message_id:
+        Standard: 466
+      name: ACC_BRAKING
+      comment: whether brakes are being actuated from ACC command
+  - Signal:
+      message_id:
+        Standard: 466
+      name: ACCEL_NET
+      comment: net negative acceleration (braking) applied by the system if on flat ground
+  - Signal:
+      message_id:
+        Standard: 466
+      name: CRUISE_STATE
+      comment: "Active state is 8, if standstill is requested will switch to state 11(3 sec timer), after timer is elapsed will switch into state 7(standstill). If plus button was pressed - status 9, minus button pressed - status 10"
+  - Signal:
+      message_id:
+        Standard: 643
+      name: _COUNTER
+      comment: only used on cars that use this msg for cruise control
+  - Signal:
+      message_id:
+        Standard: 643
+      name: BRAKE_STATUS
+      comment: only used on cars that use this msg for cruise control
+  - Signal:
+      message_id:
+        Standard: 643
+      name: PRECOLLISION_ACTIVE
+      comment: set 0.5s before any braking
+value_descriptions:
+  - Signal:
+      message_id:
+        Standard: 466
+      name: CRUISE_STATE
+      value_descriptions:
+        - id: 11
+          description: timer_3sec
+        - id: 10
+          description: adaptive click down
+        - id: 9
+          description: adaptive click up
+        - id: 8
+          description: adaptive engaged
+        - id: 7
+          description: standstill
+        - id: 6
+          description: non-adaptive click up
+        - id: 5
+          description: non-adaptive click down
+        - id: 4
+          description: non-adaptive hold down
+        - id: 3
+          description: non-adaptive hold up
+        - id: 2
+          description: non-adaptive being engaged
+        - id: 1
+          description: non-adaptive engaged
+        - id: 0
+          description: "off"
+  - Signal:
+      message_id:
+        Standard: 643
+      name: STATE
+      value_descriptions:
+        - id: 0
+          description: normal
+        - id: 1
+          description: adaptive_cruise_control
+        - id: 3
+          description: emergency_braking

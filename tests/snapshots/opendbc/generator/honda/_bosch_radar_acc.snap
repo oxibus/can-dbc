@@ -1,0 +1,327 @@
+---
+source: tests/snapshots.rs
+---
+version: ""
+bit_timing: ~
+messages:
+  - id:
+      Standard: 479
+    name: ACC_CONTROL
+    size: 8
+    transmitter:
+      NodeName: EON
+    signals:
+      - name: SET_TO_0
+        multiplexer_indicator: Plain
+        start_bit: 20
+        size: 5
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: CONTROL_ON
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 5
+        unit: ""
+        receivers:
+          - XXX
+      - name: GAS_COMMAND
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 16
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACCEL_COMMAND
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 11
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 0.01
+        offset: 0
+        min: 0
+        max: 0
+        unit: m/s2
+        receivers:
+          - XXX
+      - name: BRAKE_LIGHTS
+        multiplexer_indicator: Plain
+        start_bit: 62
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: BRAKE_REQUEST
+        multiplexer_indicator: Plain
+        start_bit: 34
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: STANDSTILL
+        multiplexer_indicator: Plain
+        start_bit: 35
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: STANDSTILL_RELEASE
+        multiplexer_indicator: Plain
+        start_bit: 36
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: AEB_STATUS
+        multiplexer_indicator: Plain
+        start_bit: 33
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: AEB_BRAKING
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: AEB_PREPARE
+        multiplexer_indicator: Plain
+        start_bit: 43
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 61
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 59
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 495
+    name: ACC_CONTROL_ON
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: SET_TO_75
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: SET_TO_30
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: ZEROS_BOH
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: ZEROS_BOH2
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: SET_TO_FF
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: SET_TO_3
+        multiplexer_indicator: Plain
+        start_bit: 6
+        size: 7
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 4095
+        unit: ""
+        receivers:
+          - XXX
+      - name: CONTROL_ON
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 59
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 61
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+comments:
+  - Signal:
+      message_id:
+        Standard: 479
+      name: CONTROL_ON
+      comment: Set to 5 when car is being controlled
+  - Signal:
+      message_id:
+        Standard: 479
+      name: AEB_STATUS
+      comment: set for the duration of AEB event
+  - Signal:
+      message_id:
+        Standard: 479
+      name: AEB_BRAKING
+      comment: set when braking is commanded during AEB event
+  - Signal:
+      message_id:
+        Standard: 479
+      name: AEB_PREPARE
+      comment: set 1s before AEB

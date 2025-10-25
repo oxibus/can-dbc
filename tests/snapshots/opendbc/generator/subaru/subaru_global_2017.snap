@@ -1,0 +1,678 @@
+---
+source: tests/snapshots.rs
+---
+version: ""
+bit_timing: ~
+messages:
+  - id:
+      Standard: 72
+    name: Transmission
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 8
+        size: 4
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: Gear
+        multiplexer_indicator: Plain
+        start_bit: 24
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: RPM
+        multiplexer_indicator: Plain
+        start_bit: 40
+        size: 15
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 73
+    name: CVT
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 8
+        size: 4
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: CVT_Gear
+        multiplexer_indicator: Plain
+        start_bit: 24
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 545
+    name: ES_Distance
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 8
+        size: 4
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: Signal1
+        multiplexer_indicator: Plain
+        start_bit: 12
+        size: 3
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 7
+        unit: ""
+        receivers:
+          - XXX
+      - name: Cruise_Fault
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Cruise_Throttle
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 13
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 4095
+        unit: ""
+        receivers:
+          - XXX
+      - name: Signal2
+        multiplexer_indicator: Plain
+        start_bit: 29
+        size: 3
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: Car_Follow
+        multiplexer_indicator: Plain
+        start_bit: 32
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Low_Speed_Follow
+        multiplexer_indicator: Plain
+        start_bit: 33
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Cruise_Soft_Disable
+        multiplexer_indicator: Plain
+        start_bit: 34
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Signal7
+        multiplexer_indicator: Plain
+        start_bit: 35
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Cruise_Brake_Active
+        multiplexer_indicator: Plain
+        start_bit: 36
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Distance_Swap
+        multiplexer_indicator: Plain
+        start_bit: 37
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Cruise_EPB
+        multiplexer_indicator: Plain
+        start_bit: 38
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Signal4
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Close_Distance
+        multiplexer_indicator: Plain
+        start_bit: 40
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.019607
+        offset: 0
+        min: 0
+        max: 5
+        unit: m
+        receivers:
+          - XXX
+      - name: Signal5
+        multiplexer_indicator: Plain
+        start_bit: 48
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Cruise_Cancel
+        multiplexer_indicator: Plain
+        start_bit: 56
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Cruise_Set
+        multiplexer_indicator: Plain
+        start_bit: 57
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Cruise_Resume
+        multiplexer_indicator: Plain
+        start_bit: 58
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Signal6
+        multiplexer_indicator: Plain
+        start_bit: 59
+        size: 5
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 546
+    name: ES_Status
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 8
+        size: 4
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: Signal1
+        multiplexer_indicator: Plain
+        start_bit: 12
+        size: 3
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Cruise_Fault
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Cruise_RPM
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 13
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 4095
+        unit: ""
+        receivers:
+          - XXX
+      - name: Cruise_Activated
+        multiplexer_indicator: Plain
+        start_bit: 29
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Brake_Lights
+        multiplexer_indicator: Plain
+        start_bit: 30
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Cruise_Hold
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Signal3
+        multiplexer_indicator: Plain
+        start_bit: 32
+        size: 32
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 576
+    name: CruiseControl
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 8
+        size: 4
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: Signal1
+        multiplexer_indicator: Plain
+        start_bit: 12
+        size: 28
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 268435455
+        unit: ""
+        receivers:
+          - XXX
+      - name: Cruise_On
+        multiplexer_indicator: Plain
+        start_bit: 40
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Cruise_Activated
+        multiplexer_indicator: Plain
+        start_bit: 41
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: Signal2
+        multiplexer_indicator: Plain
+        start_bit: 42
+        size: 22
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 4194303
+        unit: ""
+        receivers:
+          - XXX
+comments:
+  - Plain:
+      comment: IMPORT _subaru_global.dbc
+  - Signal:
+      message_id:
+        Standard: 545
+      name: Cruise_Throttle
+      comment: RPM-like output signal
+  - Signal:
+      message_id:
+        Standard: 545
+      name: Cruise_EPB
+      comment: 1 = Electric Parking Brake set
+  - Signal:
+      message_id:
+        Standard: 545
+      name: Distance_Swap
+      comment: Switch from Close to Far distance
+  - Signal:
+      message_id:
+        Standard: 545
+      name: Cruise_Soft_Disable
+      comment: "Eyesight Temporary disable, sets CruiseControl Activated = 0"
+  - Signal:
+      message_id:
+        Standard: 546
+      name: Cruise_RPM
+      comment: ES RPM output for ECM and TCM
+  - Signal:
+      message_id:
+        Standard: 546
+      name: Signal3
+      comment: 0 when cruise_activated = 1
+  - Signal:
+      message_id:
+        Standard: 803
+      name: Signal1
+      comment: "Seems to be static, set only on some cars"
+  - Signal:
+      message_id:
+        Standard: 803
+      name: Signal2
+      comment: "Seems to be static, set only on some cars"
+value_descriptions:
+  - Signal:
+      message_id:
+        Standard: 803
+      name: LKAS_Blue_Lines
+      value_descriptions:
+        - id: 0
+          description: no modifier
+        - id: 2
+          description: changes lines to blue
+  - Signal:
+      message_id:
+        Standard: 803
+      name: LKAS_State_Infotainment
+      value_descriptions:
+        - id: 0
+          description: none
+        - id: 2
+          description: Obstacle Detected
+        - id: 3
+          description: Keep Hands On Wheel
+        - id: 4
+          description: Keep Hands On Wheel Off
+  - Signal:
+      message_id:
+        Standard: 72
+      name: Gear
+      value_descriptions:
+        - id: 2
+          description: N
+        - id: 3
+          description: R
+        - id: 4
+          description: P
+        - id: 121
+          description: D
+        - id: 137
+          description: "1"
+        - id: 145
+          description: "2"
+        - id: 153
+          description: "3"
+        - id: 161
+          description: "4"
+        - id: 169
+          description: "5"
+        - id: 177
+          description: "6"

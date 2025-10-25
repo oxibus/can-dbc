@@ -24,36 +24,32 @@ impl Message {
 
         // Parse msg_var (contains msg_literal ~ message_id)
         let msg_var_pair = next_rule(&mut pairs, Rule::msg_var)?;
-        let message_id_pair = single_rule(msg_var_pair, Rule::message_id)?;
-        let message_id = parse_uint(message_id_pair)? as u32;
-
-        let message_name = next_rule(&mut pairs, Rule::message_name)?
+        let message_id = parse_uint(single_rule(msg_var_pair, Rule::message_id)?)? as u32;
+        let name = next_rule(&mut pairs, Rule::message_name)?
             .as_str()
             .to_string();
-        let message_size = parse_uint(next_rule(&mut pairs, Rule::message_size)?)?;
+        let size = parse_uint(next_rule(&mut pairs, Rule::message_size)?)?;
         let transmitter = next_rule(&mut pairs, Rule::transmitter)?
             .as_str()
             .to_string();
         expect_empty(&mut pairs)?;
 
-        let msg_id = if message_id & (1 << 31) != 0 {
+        let id = if message_id & (1 << 31) != 0 {
             MessageId::Extended(message_id & 0x1FFF_FFFF)
         } else {
             MessageId::Standard(message_id as u16)
         };
 
-        let transmitter =
-            if transmitter == "Vector__XXX" || transmitter == "VectorXXX" || transmitter.is_empty()
-            {
-                Transmitter::VectorXXX
-            } else {
-                Transmitter::NodeName(transmitter)
-            };
+        let transmitter = if matches!(transmitter.as_str(), "Vector__XXX" | "VectorXXX" | "") {
+            Transmitter::VectorXXX
+        } else {
+            Transmitter::NodeName(transmitter)
+        };
 
         Ok(Message {
-            id: msg_id,
-            name: message_name,
-            size: message_size,
+            id,
+            name,
+            size,
             transmitter,
             signals: Vec::new(), // Signals will be parsed separately and associated later
         })

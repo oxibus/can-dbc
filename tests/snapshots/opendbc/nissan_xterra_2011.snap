@@ -1,0 +1,530 @@
+---
+source: tests/snapshots.rs
+---
+version: ""
+new_symbols:
+  - NS_DESC_
+  - CM_
+  - BA_DEF_
+  - BA_
+  - VAL_
+  - CAT_DEF_
+  - CAT_
+  - FILTER
+  - BA_DEF_DEF_
+  - EV_DATA_
+  - ENVVAR_DATA_
+  - SGTYPE_
+  - SGTYPE_VAL_
+  - BA_DEF_SGTYPE_
+  - BA_SGTYPE_
+  - SIG_TYPE_REF_
+  - VAL_TABLE_
+  - SIG_GROUP_
+  - SIG_VALTYPE_
+  - SIGTYPE_VALTYPE_
+  - BO_TX_BU_
+  - BA_DEF_REL_
+  - BA_REL_
+  - BA_DEF_DEF_REL_
+  - BU_SG_REL_
+  - BU_EV_REL_
+  - BU_BO_REL_
+  - SG_MUL_VAL_
+bit_timing: []
+nodes:
+  - XXX
+messages:
+  - id:
+      Standard: 2
+    name: STEERING
+    size: 5
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 35
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: STEERING_ANGLE
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 0.1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: deg
+        receivers:
+          - XXX
+      - name: POWER_STEER_RATE
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 505
+    name: ENGINE_1
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: RPM
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.125
+        offset: 0
+        min: 0
+        max: 45000
+        unit: R/min
+        receivers:
+          - XXX
+      - name: FAN_REQ
+        multiplexer_indicator: Plain
+        start_bit: 6
+        size: 2
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: AC_REQ
+        multiplexer_indicator: Plain
+        start_bit: 3
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 561
+    name: ENGINE_2
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: Pedal_position
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.5
+        offset: 0
+        min: 0
+        max: 200
+        unit: "%"
+        receivers:
+          - XXX
+  - id:
+      Standard: 563
+    name: ENGINE_7
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: CLT
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.366666
+        offset: 0
+        min: 0
+        max: 255
+        unit: C
+        receivers:
+          - XXX
+      - name: RPMlow
+        multiplexer_indicator: Plain
+        start_bit: 32
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 3.15
+        offset: 0
+        min: 0
+        max: 45000
+        unit: R/min
+        receivers:
+          - XXX
+      - name: RPMhi
+        multiplexer_indicator: Plain
+        start_bit: 56
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 3.15
+        offset: 0
+        min: 0
+        max: 45000
+        unit: R/min
+        receivers:
+          - XXX
+  - id:
+      Standard: 573
+    name: ENGINE_3
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: Pedal_position
+        multiplexer_indicator: Plain
+        start_bit: 8
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.392
+        offset: 0
+        min: 0
+        max: 255
+        unit: "%"
+        receivers:
+          - XXX
+      - name: Throttle_position_capped
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.392
+        offset: 0
+        min: 0
+        max: 255
+        unit: "%"
+        receivers:
+          - XXX
+      - name: RPM
+        multiplexer_indicator: Plain
+        start_bit: 24
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 3.15
+        offset: 0
+        min: 0
+        max: 45000
+        unit: R/min
+        receivers:
+          - XXX
+      - name: CLT
+        multiplexer_indicator: Plain
+        start_bit: 56
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.366666
+        offset: 0
+        min: 0
+        max: 255
+        unit: C
+        receivers:
+          - XXX
+  - id:
+      Standard: 574
+    name: ENGINE_4
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: Throttle_position_inverted
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.392
+        offset: 0
+        min: 0
+        max: 255
+        unit: "%"
+        receivers:
+          - XXX
+      - name: EstimatedTorque
+        multiplexer_indicator: Plain
+        start_bit: 24
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.1
+        offset: 0
+        min: 0
+        max: 45000
+        unit: nM
+        receivers:
+          - XXX
+      - name: Throttle_position
+        multiplexer_indicator: Plain
+        start_bit: 48
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.392
+        offset: 0
+        min: 0
+        max: 255
+        unit: "%"
+        receivers:
+          - XXX
+  - id:
+      Standard: 595
+    name: TCU_1
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: SHAFT_1_SPEED
+        multiplexer_indicator: Plain
+        start_bit: 32
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 45000
+        unit: r/min
+        receivers:
+          - XXX
+      - name: SHAFT_2_SPEED
+        multiplexer_indicator: Plain
+        start_bit: 48
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 45000
+        unit: r/min
+        receivers:
+          - XXX
+  - id:
+      Standard: 640
+    name: SPEED
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: SPEED
+        multiplexer_indicator: Plain
+        start_bit: 32
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.01
+        offset: 0
+        min: 0
+        max: 45000
+        unit: km/h
+        receivers:
+          - XXX
+  - id:
+      Standard: 644
+    name: ABS_1
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: WHEEL_1
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.01
+        offset: 0
+        min: 0
+        max: 45000
+        unit: km/h
+        receivers:
+          - XXX
+      - name: WHEEL_2
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.01
+        offset: 0
+        min: 0
+        max: 45000
+        unit: km/h
+        receivers:
+          - XXX
+  - id:
+      Standard: 645
+    name: ABS_2
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: WHEEL_3
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.01
+        offset: 0
+        min: 0
+        max: 45000
+        unit: km/h
+        receivers:
+          - XXX
+      - name: WHEEL_4
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.01
+        offset: 0
+        min: 0
+        max: 45000
+        unit: km/h
+        receivers:
+          - XXX
+  - id:
+      Standard: 852
+    name: SPEED_BREAK
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: BREAK_LIGHT
+        multiplexer_indicator: Plain
+        start_bit: 52
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: SPEED_MPH
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.0066
+        offset: 0
+        min: 0
+        max: 65535
+        unit: mph
+        receivers:
+          - XXX
+      - name: TCS_OFF
+        multiplexer_indicator: Plain
+        start_bit: 38
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 861
+    name: BCM
+    size: 8
+    transmitter:
+      NodeName: XXX
+  - id:
+      Standard: 1361
+    name: ENGINE_5
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: CLT
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: -45
+        min: -45
+        max: 150
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 1408
+    name: ENGINE_6
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: RPM
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1.5
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: OIL_TEMP
+        multiplexer_indicator: Plain
+        start_bit: 32
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: -40
+        min: -40
+        max: 150
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 1477
+    name: MILEAGE
+    size: 8
+    transmitter:
+      NodeName: XXX

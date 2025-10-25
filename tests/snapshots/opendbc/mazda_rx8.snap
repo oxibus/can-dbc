@@ -1,0 +1,331 @@
+---
+source: tests/snapshots.rs
+---
+version: ""
+new_symbols:
+  - NS_DESC_
+  - CM_
+  - BA_DEF_
+  - BA_
+  - VAL_
+  - CAT_DEF_
+  - CAT_
+  - FILTER
+  - BA_DEF_DEF_
+  - EV_DATA_
+  - ENVVAR_DATA_
+  - SGTYPE_
+  - SGTYPE_VAL_
+  - BA_DEF_SGTYPE_
+  - BA_SGTYPE_
+  - SIG_TYPE_REF_
+  - VAL_TABLE_
+  - SIG_GROUP_
+  - SIG_VALTYPE_
+  - SIGTYPE_VALTYPE_
+  - BO_TX_BU_
+  - BA_DEF_REL_
+  - BA_REL_
+  - BA_DEF_DEF_REL_
+  - BU_SG_REL_
+  - BU_EV_REL_
+  - BU_BO_REL_
+  - SG_MUL_VAL_
+bit_timing: []
+nodes:
+  - PowertrainControlModule
+  - InstrumentCluster
+  - ElectricPowerSteering
+  - AntilockBrakeSystem
+messages:
+  - id:
+      Standard: 129
+    name: steering
+    size: 8
+    transmitter:
+      NodeName: ElectricPowerSteering
+    signals:
+      - name: SteeringAngle
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 16
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: deg
+        receivers:
+          - Vector__XXX
+  - id:
+      Standard: 513
+    name: speed
+    size: 8
+    transmitter:
+      NodeName: PowertrainControlModule
+    signals:
+      - name: EngineRPM
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.25
+        offset: 0
+        min: 0
+        max: 0
+        unit: rpm
+        receivers:
+          - Vector__XXX
+      - name: VehicleSpeed
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.01
+        offset: -100
+        min: 0
+        max: 0
+        unit: kph
+        receivers:
+          - Vector__XXX
+      - name: AcceleratorPos
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.5
+        offset: 0
+        min: 0
+        max: 0
+        unit: "%"
+        receivers:
+          - Vector__XXX
+  - id:
+      Standard: 592
+    name: throttle_body
+    size: 8
+    transmitter:
+      NodeName: PowertrainControlModule
+    signals:
+      - name: IntakeAirTemperature
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: -40
+        min: 0
+        max: 0
+        unit: Cel
+        receivers:
+          - Vector__XXX
+      - name: AcceleratorPedalSensorRaw
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: AcceleratorPedalSensorFiltered
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+  - id:
+      Standard: 658
+    name: brake_controls
+    size: 8
+    transmitter:
+      NodeName: PowertrainControlModule
+    signals:
+      - name: BrakePedalSwitch
+        multiplexer_indicator: Plain
+        start_bit: 43
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: ParkingBrakeSwitch
+        multiplexer_indicator: Plain
+        start_bit: 38
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+  - id:
+      Standard: 1056
+    name: coolant
+    size: 8
+    transmitter:
+      NodeName: PowertrainControlModule
+    signals:
+      - name: CoolantTemperature
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: -40
+        min: 0
+        max: 0
+        unit: Cel
+        receivers:
+          - Vector__XXX
+  - id:
+      Standard: 1072
+    name: instrument_cluster
+    size: 8
+    transmitter:
+      NodeName: InstrumentCluster
+    signals:
+      - name: FuelLevel
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.392156
+        offset: 0
+        min: 0
+        max: 0
+        unit: "%"
+        receivers:
+          - Vector__XXX
+      - name: FuelTankSensorLeft
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: FuelTankSensorRight
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+  - id:
+      Standard: 1200
+    name: wheel_speed
+    size: 8
+    transmitter:
+      NodeName: AntilockBrakeSystem
+    signals:
+      - name: WheelSpeedFL
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.01
+        offset: -100
+        min: 0
+        max: 0
+        unit: kph
+        receivers:
+          - Vector__XXX
+      - name: WheelSpeedFR
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.01
+        offset: -100
+        min: 0
+        max: 0
+        unit: kph
+        receivers:
+          - Vector__XXX
+      - name: WheelSpeedRL
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.01
+        offset: -100
+        min: 0
+        max: 0
+        unit: kph
+        receivers:
+          - Vector__XXX
+      - name: WheelSpeedRR
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.01
+        offset: -100
+        min: 0
+        max: 0
+        unit: kph
+        receivers:
+          - Vector__XXX
+comments:
+  - Signal:
+      message_id:
+        Standard: 129
+      name: SteeringAngle
+      comment: "Steering wheel angle: positive is right and negative is left"
+  - Signal:
+      message_id:
+        Standard: 513
+      name: AcceleratorPos
+      comment: processed interpretation of AcceleratorPedalSensor values
+  - Signal:
+      message_id:
+        Standard: 1072
+      name: FuelTankSensorLeft
+      comment: lower sensor values indicate a more full tank
+  - Signal:
+      message_id:
+        Standard: 1072
+      name: FuelTankSensorRight
+      comment: lower sensor values indicate a more full tank

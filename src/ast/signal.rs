@@ -57,7 +57,7 @@ impl Signal {
                 Rule::min_max => (min, max) = parse_min_max_float(pair2)?,
                 Rule::unit => unit = parse_str(pair2),
                 Rule::node_name => receivers.push(pair2.as_str().to_string()),
-                other => panic!("What is this? {other:?}"),
+                _ => panic!("Unexpected rule: {:?}", pair2.as_rule()),
             }
         }
 

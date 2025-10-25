@@ -59,7 +59,7 @@ impl EnvironmentVariable {
                         access_nodes.push(access_node);
                     }
                 }
-                other => panic!("What is this? {other:?}"),
+                _ => panic!("Unexpected rule: {:?}", pairs.as_rule()),
             }
         }
 

@@ -43,44 +43,36 @@ pub(crate) fn next_rule<'a>(
     iter: &'a mut Pairs<Rule>,
     expected: Rule,
 ) -> DbcResult<Pair<'a, Rule>> {
-    let pair = iter.next().ok_or(DbcError::ParseError)?;
-    if pair.as_rule() == expected {
-        Ok(pair)
-    } else {
-        Err(DbcError::ParseError)
-    }
+    iter.next().ok_or(DbcError::ParseError).and_then(|pair| {
+        if pair.as_rule() == expected {
+            Ok(pair)
+        } else {
+            Err(DbcError::ParseError)
+        }
+    })
 }
 
 /// Helper function to get a single pair and validate its rule
 pub(crate) fn single_rule(pair: Pair<Rule>, expected: Rule) -> DbcResult<Pair<Rule>> {
     let mut iter = pair.into_inner();
     let pair = iter.next().ok_or(DbcError::ParseError)?;
-    if pair.as_rule() != expected {
-        return Err(DbcError::ParseError);
+    if pair.as_rule() != expected || iter.next().is_some() {
+        Err(DbcError::ParseError)
+    } else {
+        Ok(pair)
     }
-    if iter.next().is_some() {
-        return Err(DbcError::ParseError);
-    }
-    Ok(pair)
 }
 
 /// Helper function to optionally get the next pair if it matches the expected rule
 pub(crate) fn opt_rule<'a>(iter: &mut Pairs<'a, Rule>, expected: Rule) -> Option<Pair<'a, Rule>> {
-    if let Some(pair) = iter.peek() {
-        if pair.as_rule() == expected {
-            return Some(iter.next().unwrap());
-        }
-    }
-    None
+    iter.peek()
+        .filter(|pair| pair.as_rule() == expected)
+        .map(|_| iter.next().unwrap())
 }
 
 /// Helper function to ensure the iterator is empty (no more items)
 pub(crate) fn expect_empty(iter: &mut Pairs<Rule>) -> DbcResult<()> {
-    if iter.next().is_some() {
-        Err(DbcError::ParseError)
-    } else {
-        Ok(())
-    }
+    iter.next().map_or(Ok(()), |_| Err(DbcError::ParseError))
 }
 
 /// Helper function to extract string content from `quoted_str` rule

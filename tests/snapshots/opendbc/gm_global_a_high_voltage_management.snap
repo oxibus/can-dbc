@@ -1,0 +1,1913 @@
+---
+source: tests/snapshots.rs
+---
+version: ""
+new_symbols:
+  - NS_DESC_
+  - CM_
+  - BA_DEF_
+  - BA_
+  - VAL_
+  - CAT_DEF_
+  - CAT_
+  - FILTER
+  - BA_DEF_DEF_
+  - EV_DATA_
+  - ENVVAR_DATA_
+  - SGTYPE_
+  - SGTYPE_VAL_
+  - BA_DEF_SGTYPE_
+  - BA_SGTYPE_
+  - SIG_TYPE_REF_
+  - VAL_TABLE_
+  - SIG_GROUP_
+  - SIG_VALTYPE_
+  - SIGTYPE_VALTYPE_
+  - BO_TX_BU_
+  - BA_DEF_REL_
+  - BA_REL_
+  - BA_DEF_DEF_REL_
+  - BU_SG_REL_
+  - BU_EV_REL_
+  - BU_BO_REL_
+  - SG_MUL_VAL_
+bit_timing: []
+nodes:
+  - K16_BECM
+  - K114B_HPCM
+  - T18_BatteryCharger
+messages:
+  - id:
+      Standard: 512
+    name: Battery_Module_1
+    size: 8
+    transmitter:
+      NodeName: K16_BECM
+    signals:
+      - name: Voltage_1_0_A
+        multiplexer_indicator:
+          MultiplexedSignal: 0
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_1_0_B
+        multiplexer_indicator:
+          MultiplexedSignal: 0
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_1_0_C
+        multiplexer_indicator:
+          MultiplexedSignal: 0
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_1_1_A
+        multiplexer_indicator:
+          MultiplexedSignal: 1
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_1_1_B
+        multiplexer_indicator:
+          MultiplexedSignal: 1
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_1_1_C
+        multiplexer_indicator:
+          MultiplexedSignal: 1
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_1_2_A
+        multiplexer_indicator:
+          MultiplexedSignal: 2
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_1_2_B
+        multiplexer_indicator:
+          MultiplexedSignal: 2
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_1_2_C
+        multiplexer_indicator:
+          MultiplexedSignal: 2
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_1_3_A
+        multiplexer_indicator:
+          MultiplexedSignal: 3
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_1_3_B
+        multiplexer_indicator:
+          MultiplexedSignal: 3
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_1_3_C
+        multiplexer_indicator:
+          MultiplexedSignal: 3
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_1_4_A
+        multiplexer_indicator:
+          MultiplexedSignal: 4
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_1_4_B
+        multiplexer_indicator:
+          MultiplexedSignal: 4
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_1_4_C
+        multiplexer_indicator:
+          MultiplexedSignal: 4
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_1_5_A
+        multiplexer_indicator:
+          MultiplexedSignal: 5
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_1_5_B
+        multiplexer_indicator:
+          MultiplexedSignal: 5
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_1_5_C
+        multiplexer_indicator:
+          MultiplexedSignal: 5
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_1_6_A
+        multiplexer_indicator:
+          MultiplexedSignal: 6
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_1_6_B
+        multiplexer_indicator:
+          MultiplexedSignal: 6
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_1_6_C
+        multiplexer_indicator:
+          MultiplexedSignal: 6
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_1_7_A
+        multiplexer_indicator:
+          MultiplexedSignal: 7
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_1_7_B
+        multiplexer_indicator:
+          MultiplexedSignal: 7
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_1_7_C
+        multiplexer_indicator:
+          MultiplexedSignal: 7
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Cell_Bank_Number_1
+        multiplexer_indicator: Multiplexor
+        start_bit: 55
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - K16_BECM
+  - id:
+      Standard: 514
+    name: Battery_Module_2
+    size: 8
+    transmitter:
+      NodeName: K16_BECM
+    signals:
+      - name: Voltage_2_0_A
+        multiplexer_indicator:
+          MultiplexedSignal: 0
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_2_0_B
+        multiplexer_indicator:
+          MultiplexedSignal: 0
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_2_0_C
+        multiplexer_indicator:
+          MultiplexedSignal: 0
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_2_1_A
+        multiplexer_indicator:
+          MultiplexedSignal: 1
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_2_1_B
+        multiplexer_indicator:
+          MultiplexedSignal: 1
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_2_1_C
+        multiplexer_indicator:
+          MultiplexedSignal: 1
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_2_2_A
+        multiplexer_indicator:
+          MultiplexedSignal: 2
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_2_2_B
+        multiplexer_indicator:
+          MultiplexedSignal: 2
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_2_2_C
+        multiplexer_indicator:
+          MultiplexedSignal: 2
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_2_3_A
+        multiplexer_indicator:
+          MultiplexedSignal: 3
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_2_3_B
+        multiplexer_indicator:
+          MultiplexedSignal: 3
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_2_3_C
+        multiplexer_indicator:
+          MultiplexedSignal: 3
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_2_4_A
+        multiplexer_indicator:
+          MultiplexedSignal: 4
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_2_4_B
+        multiplexer_indicator:
+          MultiplexedSignal: 4
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_2_4_C
+        multiplexer_indicator:
+          MultiplexedSignal: 4
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_2_5_A
+        multiplexer_indicator:
+          MultiplexedSignal: 5
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_2_5_B
+        multiplexer_indicator:
+          MultiplexedSignal: 5
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_2_5_C
+        multiplexer_indicator:
+          MultiplexedSignal: 5
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_2_6_A
+        multiplexer_indicator:
+          MultiplexedSignal: 6
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_2_6_B
+        multiplexer_indicator:
+          MultiplexedSignal: 6
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_2_6_C
+        multiplexer_indicator:
+          MultiplexedSignal: 6
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_2_7_A
+        multiplexer_indicator:
+          MultiplexedSignal: 7
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_2_7_B
+        multiplexer_indicator:
+          MultiplexedSignal: 7
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_2_7_C
+        multiplexer_indicator:
+          MultiplexedSignal: 7
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Cell_Bank_Number_2
+        multiplexer_indicator: Multiplexor
+        start_bit: 55
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - K16_BECM
+  - id:
+      Standard: 516
+    name: Battery_Module_3
+    size: 8
+    transmitter:
+      NodeName: K16_BECM
+    signals:
+      - name: Voltage_3_0_A
+        multiplexer_indicator:
+          MultiplexedSignal: 0
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_3_0_B
+        multiplexer_indicator:
+          MultiplexedSignal: 0
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_3_0_C
+        multiplexer_indicator:
+          MultiplexedSignal: 0
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_3_1_A
+        multiplexer_indicator:
+          MultiplexedSignal: 1
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_3_1_B
+        multiplexer_indicator:
+          MultiplexedSignal: 1
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_3_1_C
+        multiplexer_indicator:
+          MultiplexedSignal: 1
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_3_2_A
+        multiplexer_indicator:
+          MultiplexedSignal: 2
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_3_2_B
+        multiplexer_indicator:
+          MultiplexedSignal: 2
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_3_2_C
+        multiplexer_indicator:
+          MultiplexedSignal: 2
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_3_3_A
+        multiplexer_indicator:
+          MultiplexedSignal: 3
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_3_3_B
+        multiplexer_indicator:
+          MultiplexedSignal: 3
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_3_3_C
+        multiplexer_indicator:
+          MultiplexedSignal: 3
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_3_4_A
+        multiplexer_indicator:
+          MultiplexedSignal: 4
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_3_4_B
+        multiplexer_indicator:
+          MultiplexedSignal: 4
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_3_4_C
+        multiplexer_indicator:
+          MultiplexedSignal: 4
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_3_5_A
+        multiplexer_indicator:
+          MultiplexedSignal: 5
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_3_5_B
+        multiplexer_indicator:
+          MultiplexedSignal: 5
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_3_5_C
+        multiplexer_indicator:
+          MultiplexedSignal: 5
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_3_6_A
+        multiplexer_indicator:
+          MultiplexedSignal: 6
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_3_6_B
+        multiplexer_indicator:
+          MultiplexedSignal: 6
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_3_6_C
+        multiplexer_indicator:
+          MultiplexedSignal: 6
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_3_7_A
+        multiplexer_indicator:
+          MultiplexedSignal: 7
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_3_7_B
+        multiplexer_indicator:
+          MultiplexedSignal: 7
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_3_7_C
+        multiplexer_indicator:
+          MultiplexedSignal: 7
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Cell_Bank_Number_3
+        multiplexer_indicator: Multiplexor
+        start_bit: 55
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - K16_BECM
+  - id:
+      Standard: 518
+    name: Battery_Module_4
+    size: 8
+    transmitter:
+      NodeName: K16_BECM
+    signals:
+      - name: Voltage_4_0_A
+        multiplexer_indicator:
+          MultiplexedSignal: 0
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_4_0_B
+        multiplexer_indicator:
+          MultiplexedSignal: 0
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_4_0_C
+        multiplexer_indicator:
+          MultiplexedSignal: 0
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_4_1_A
+        multiplexer_indicator:
+          MultiplexedSignal: 1
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_4_1_B
+        multiplexer_indicator:
+          MultiplexedSignal: 1
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_4_1_C
+        multiplexer_indicator:
+          MultiplexedSignal: 1
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_4_2_A
+        multiplexer_indicator:
+          MultiplexedSignal: 2
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_4_2_B
+        multiplexer_indicator:
+          MultiplexedSignal: 2
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_4_2_C
+        multiplexer_indicator:
+          MultiplexedSignal: 2
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_4_3_A
+        multiplexer_indicator:
+          MultiplexedSignal: 3
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_4_3_B
+        multiplexer_indicator:
+          MultiplexedSignal: 3
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_4_3_C
+        multiplexer_indicator:
+          MultiplexedSignal: 3
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_4_4_A
+        multiplexer_indicator:
+          MultiplexedSignal: 4
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_4_4_B
+        multiplexer_indicator:
+          MultiplexedSignal: 4
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_4_4_C
+        multiplexer_indicator:
+          MultiplexedSignal: 4
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_4_5_A
+        multiplexer_indicator:
+          MultiplexedSignal: 5
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_4_5_B
+        multiplexer_indicator:
+          MultiplexedSignal: 5
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_4_5_C
+        multiplexer_indicator:
+          MultiplexedSignal: 5
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_4_6_A
+        multiplexer_indicator:
+          MultiplexedSignal: 6
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_4_6_B
+        multiplexer_indicator:
+          MultiplexedSignal: 6
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_4_6_C
+        multiplexer_indicator:
+          MultiplexedSignal: 6
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_4_7_A
+        multiplexer_indicator:
+          MultiplexedSignal: 7
+        start_bit: 4
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_4_7_B
+        multiplexer_indicator:
+          MultiplexedSignal: 7
+        start_bit: 20
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Voltage_4_7_C
+        multiplexer_indicator:
+          MultiplexedSignal: 7
+        start_bit: 39
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.00125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Cell_Bank_Number_4
+        multiplexer_indicator: Multiplexor
+        start_bit: 55
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - K16_BECM
+  - id:
+      Standard: 528
+    name: Pack_Stats
+    size: 8
+    transmitter:
+      NodeName: K16_BECM
+    signals:
+      - name: Pack_Voltage
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 12
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.125
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: Pack_Current
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 8
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 0.1
+        offset: -0.1
+        min: 0
+        max: 0
+        unit: A
+        receivers:
+          - K16_BECM
+  - id:
+      Standard: 530
+    name: Charger_stats
+    size: 6
+    transmitter:
+      NodeName: T18_BatteryCharger
+    signals:
+      - name: Charger_HV_Current
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 13
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.05
+        offset: 0
+        min: 0
+        max: 0
+        unit: A
+        receivers:
+          - K16_BECM
+      - name: HV_Voltage
+        multiplexer_indicator: Plain
+        start_bit: 10
+        size: 10
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.5
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+      - name: LV_Current
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.2
+        offset: 0
+        min: 0
+        max: 0
+        unit: A
+        receivers:
+          - K16_BECM
+      - name: LV_Voltage
+        multiplexer_indicator: Plain
+        start_bit: 24
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.1
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - K16_BECM
+  - id:
+      Standard: 770
+    name: Battery_temp
+    size: 8
+    transmitter:
+      NodeName: K16_BECM
+    signals:
+      - name: Temp_A
+        multiplexer_indicator:
+          MultiplexedSignal: 0
+        start_bit: 8
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.5
+        offset: -40
+        min: 0
+        max: 0
+        unit: C
+        receivers:
+          - K16_BECM
+      - name: Temp_B
+        multiplexer_indicator:
+          MultiplexedSignal: 0
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.5
+        offset: -40
+        min: 0
+        max: 0
+        unit: C
+        receivers:
+          - K16_BECM
+      - name: Temp_C
+        multiplexer_indicator:
+          MultiplexedSignal: 0
+        start_bit: 24
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.5
+        offset: -40
+        min: 0
+        max: 0
+        unit: C
+        receivers:
+          - K16_BECM
+      - name: Temp_D
+        multiplexer_indicator:
+          MultiplexedSignal: 0
+        start_bit: 32
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.5
+        offset: -40
+        min: 0
+        max: 0
+        unit: C
+        receivers:
+          - K16_BECM
+      - name: Temp_E
+        multiplexer_indicator:
+          MultiplexedSignal: 0
+        start_bit: 40
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.5
+        offset: -40
+        min: 0
+        max: 0
+        unit: C
+        receivers:
+          - K16_BECM
+      - name: Temp_F
+        multiplexer_indicator:
+          MultiplexedSignal: 0
+        start_bit: 48
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.5
+        offset: -40
+        min: 0
+        max: 0
+        unit: C
+        receivers:
+          - K16_BECM
+      - name: Temp_G
+        multiplexer_indicator:
+          MultiplexedSignal: 1
+        start_bit: 8
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.5
+        offset: -40
+        min: 0
+        max: 0
+        unit: C
+        receivers:
+          - K16_BECM
+      - name: Temp_H
+        multiplexer_indicator:
+          MultiplexedSignal: 1
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.5
+        offset: -40
+        min: 0
+        max: 0
+        unit: C
+        receivers:
+          - K16_BECM
+      - name: Temp_I
+        multiplexer_indicator:
+          MultiplexedSignal: 1
+        start_bit: 24
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.5
+        offset: -40
+        min: 0
+        max: 0
+        unit: C
+        receivers:
+          - K16_BECM
+      - name: Switch
+        multiplexer_indicator: Multiplexor
+        start_bit: 2
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - K16_BECM
+  - id:
+      Standard: 782
+    name: Charger_Command
+    size: 1
+    transmitter:
+      NodeName: T18_BatteryCharger
+    signals:
+      - name: Command
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+  - id:
+      Standard: 772
+    name: Charger_parameters
+    size: 4
+    transmitter:
+      NodeName: T18_BatteryCharger
+    signals:
+      - name: Unknown
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: Current
+        multiplexer_indicator: Plain
+        start_bit: 8
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.05
+        offset: 0
+        min: 0
+        max: 0
+        unit: A
+        receivers:
+          - Vector__XXX
+      - name: Voltage
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.5
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - Vector__XXX
+  - id:
+      Standard: 1120
+    name: Coolant_Temp
+    size: 4
+    transmitter:
+      NodeName: K16_BECM
+    signals:
+      - name: Inlet_Coolant_Temp
+        multiplexer_indicator: Plain
+        start_bit: 1
+        size: 10
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.125
+        offset: -40
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: Outlet_Coolant_Temp
+        multiplexer_indicator: Plain
+        start_bit: 17
+        size: 10
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.125
+        offset: -40
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+  - id:
+      Standard: 778
+    name: AC_Stats
+    size: 7
+    transmitter:
+      NodeName: T18_BatteryCharger
+    signals:
+      - name: Mains_Voltage
+        multiplexer_indicator: Plain
+        start_bit: 10
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: V
+        receivers:
+          - Vector__XXX
+      - name: Total_Charge
+        multiplexer_indicator: Plain
+        start_bit: 19
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+  - id:
+      Standard: 776
+    name: Charger_status
+    size: 5
+    transmitter:
+      NodeName: T18_BatteryCharger
+    signals:
+      - name: Status
+        multiplexer_indicator: Plain
+        start_bit: 20
+        size: 3
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+comments:
+  - Node:
+      name: K16_BECM
+      comment: Battery Energy Control Module
+  - Node:
+      name: K114B_HPCM
+      comment: Hybrid Powertrain Control Module
+  - Node:
+      name: T18_BatteryCharger
+      comment: Battery Charger
+attribute_definitions:
+  - Message: "\"GenMsgBackgroundColor\" STRING"
+  - Message: "\"GenMsgForegroundColor\" STRING"
+  - Message: "\"isj1939dbc\" INT 0 0"
+attribute_defaults:
+  - name: GenMsgBackgroundColor
+    value:
+      String: "#ffffff"
+  - name: GenMsgForegroundColor
+    value:
+      String: "#000000"
+  - name: isj1939dbc
+    value:
+      Double: 0
+value_descriptions:
+  - Signal:
+      message_id:
+        Standard: 782
+      name: Command
+      value_descriptions:
+        - id: 1
+          description: 12V_Only
+        - id: 2
+          description: HV_Only
+        - id: 3
+          description: 12V_and_HV
+  - Signal:
+      message_id:
+        Standard: 778
+      name: Mains_Voltage
+      value_descriptions:
+        - id: 0
+          description: Unplugged
+        - id: 1
+          description: 110V
+        - id: 3
+          description: 220V
+  - Signal:
+      message_id:
+        Standard: 776
+      name: Status
+      value_descriptions:
+        - id: 0
+          description: "Off"
+        - id: 5
+          description: LV_Only
+        - id: 7
+          description: HV_and_LV
+        - id: 3
+          description: HV_Only

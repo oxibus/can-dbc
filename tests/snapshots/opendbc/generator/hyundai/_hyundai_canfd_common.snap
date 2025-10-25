@@ -1,0 +1,1814 @@
+---
+source: tests/snapshots.rs
+---
+version: ""
+new_symbols:
+  - NS_DESC_
+  - CM_
+  - BA_DEF_
+  - BA_
+  - VAL_
+  - CAT_DEF_
+  - CAT_
+  - FILTER
+  - BA_DEF_DEF_
+  - EV_DATA_
+  - ENVVAR_DATA_
+  - SGTYPE_
+  - SGTYPE_VAL_
+  - BA_DEF_SGTYPE_
+  - BA_SGTYPE_
+  - SIG_TYPE_REF_
+  - VAL_TABLE_
+  - SIG_GROUP_
+  - SIG_VALTYPE_
+  - SIGTYPE_VALTYPE_
+  - BO_TX_BU_
+  - BA_DEF_REL_
+  - BA_REL_
+  - BA_DEF_DEF_REL_
+  - BU_SG_REL_
+  - BU_EV_REL_
+  - BU_BO_REL_
+  - SG_MUL_VAL_
+bit_timing: []
+nodes:
+  - XXX
+  - CAMERA
+  - FRONT_RADAR
+  - ADRV
+  - APRK
+messages:
+  - id:
+      Standard: 80
+    name: LKAS
+    size: 16
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: LKA_MODE
+        multiplexer_indicator: Plain
+        start_bit: 24
+        size: 3
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 7
+        unit: ""
+        receivers:
+          - XXX
+      - name: LKA_AVAILABLE
+        multiplexer_indicator: Plain
+        start_bit: 27
+        size: 2
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: LKA_WARNING
+        multiplexer_indicator: Plain
+        start_bit: 32
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: LKA_ICON
+        multiplexer_indicator: Plain
+        start_bit: 38
+        size: 2
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: FCA_SYSWARN
+        multiplexer_indicator: Plain
+        start_bit: 40
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: TORQUE_REQUEST
+        multiplexer_indicator: Plain
+        start_bit: 41
+        size: 11
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: -1024
+        min: 0
+        max: 4095
+        unit: ""
+        receivers:
+          - XXX
+      - name: STEER_REQ
+        multiplexer_indicator: Plain
+        start_bit: 52
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: LFA_BUTTON
+        multiplexer_indicator: Plain
+        start_bit: 56
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: LKA_ASSIST
+        multiplexer_indicator: Plain
+        start_bit: 62
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: STEER_MODE
+        multiplexer_indicator: Plain
+        start_bit: 65
+        size: 3
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: NEW_SIGNAL_2
+        multiplexer_indicator: Plain
+        start_bit: 70
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: HAS_LANE_SAFETY
+        multiplexer_indicator: Plain
+        start_bit: 80
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: DAMP_FACTOR
+        multiplexer_indicator: Plain
+        start_bit: 64
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 81
+    name: ADRV_0x51
+    size: 32
+    transmitter:
+      NodeName: ADRV
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 384
+    name: CAM_0x180
+    size: 32
+    transmitter:
+      NodeName: CAMERA
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 385
+    name: CAM_0x181
+    size: 32
+    transmitter:
+      NodeName: CAMERA
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 386
+    name: CAM_0x182
+    size: 32
+    transmitter:
+      NodeName: CAMERA
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 387
+    name: CAM_0x183
+    size: 32
+    transmitter:
+      NodeName: CAMERA
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 388
+    name: CAM_0x184
+    size: 32
+    transmitter:
+      NodeName: CAMERA
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 389
+    name: CAM_0x185
+    size: 8
+    transmitter:
+      NodeName: CAMERA
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 438
+    name: CAM_0x1b6
+    size: 32
+    transmitter:
+      NodeName: CAMERA
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 439
+    name: CAM_0x1b7
+    size: 32
+    transmitter:
+      NodeName: CAMERA
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 440
+    name: CAM_0x1b8
+    size: 32
+    transmitter:
+      NodeName: CAMERA
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 441
+    name: CAM_0x1b9
+    size: 32
+    transmitter:
+      NodeName: CAMERA
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 513
+    name: RADAR_0x201
+    size: 32
+    transmitter:
+      NodeName: FRONT_RADAR
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 528
+    name: RADAR_0x210
+    size: 32
+    transmitter:
+      NodeName: FRONT_RADAR
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 529
+    name: RADAR_0x211
+    size: 32
+    transmitter:
+      NodeName: FRONT_RADAR
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 530
+    name: RADAR_0x212
+    size: 32
+    transmitter:
+      NodeName: FRONT_RADAR
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 531
+    name: RADAR_0x213
+    size: 32
+    transmitter:
+      NodeName: FRONT_RADAR
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 532
+    name: RADAR_0x214
+    size: 32
+    transmitter:
+      NodeName: FRONT_RADAR
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 533
+    name: RADAR_0x215
+    size: 32
+    transmitter:
+      NodeName: FRONT_RADAR
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 534
+    name: RADAR_0x216
+    size: 32
+    transmitter:
+      NodeName: FRONT_RADAR
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 535
+    name: RADAR_0x217
+    size: 32
+    transmitter:
+      NodeName: FRONT_RADAR
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 536
+    name: RADAR_0x218
+    size: 32
+    transmitter:
+      NodeName: FRONT_RADAR
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 537
+    name: RADAR_0x219
+    size: 32
+    transmitter:
+      NodeName: FRONT_RADAR
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 538
+    name: RADAR_0x21a
+    size: 32
+    transmitter:
+      NodeName: FRONT_RADAR
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 539
+    name: RADAR_0x21b
+    size: 32
+    transmitter:
+      NodeName: FRONT_RADAR
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 540
+    name: RADAR_0x21c
+    size: 32
+    transmitter:
+      NodeName: FRONT_RADAR
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 541
+    name: RADAR_0x21d
+    size: 32
+    transmitter:
+      NodeName: FRONT_RADAR
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 542
+    name: RADAR_0x21e
+    size: 32
+    transmitter:
+      NodeName: FRONT_RADAR
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 543
+    name: RADAR_0x21f
+    size: 32
+    transmitter:
+      NodeName: FRONT_RADAR
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 576
+    name: RADAR_0x240
+    size: 16
+    transmitter:
+      NodeName: FRONT_RADAR
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 674
+    name: CAM_0x2a2
+    size: 32
+    transmitter:
+      NodeName: CAMERA
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 675
+    name: CAM_0x2a3
+    size: 32
+    transmitter:
+      NodeName: CAMERA
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 676
+    name: CAM_0x2a4
+    size: 24
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: BYTE3
+        multiplexer_indicator: Plain
+        start_bit: 24
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: BYTE4
+        multiplexer_indicator: Plain
+        start_bit: 32
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: BYTE5
+        multiplexer_indicator: Plain
+        start_bit: 40
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: BYTE6
+        multiplexer_indicator: Plain
+        start_bit: 48
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: LEFT_LANE_LINE
+        multiplexer_indicator: Plain
+        start_bit: 56
+        size: 2
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: SET_ME_0
+        multiplexer_indicator: Plain
+        start_bit: 58
+        size: 2
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: RIGHT_LANE_LINE
+        multiplexer_indicator: Plain
+        start_bit: 60
+        size: 2
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: SET_ME_0_2
+        multiplexer_indicator: Plain
+        start_bit: 62
+        size: 2
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: BYTE8
+        multiplexer_indicator: Plain
+        start_bit: 64
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: BYTE9
+        multiplexer_indicator: Plain
+        start_bit: 72
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: BYTE10
+        multiplexer_indicator: Plain
+        start_bit: 80
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: BYTE11
+        multiplexer_indicator: Plain
+        start_bit: 88
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: BYTE12
+        multiplexer_indicator: Plain
+        start_bit: 96
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: BYTE13
+        multiplexer_indicator: Plain
+        start_bit: 104
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: BYTE14
+        multiplexer_indicator: Plain
+        start_bit: 112
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: BYTE15
+        multiplexer_indicator: Plain
+        start_bit: 120
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: BYTE16
+        multiplexer_indicator: Plain
+        start_bit: 128
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: BYTE17
+        multiplexer_indicator: Plain
+        start_bit: 136
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: BYTE18
+        multiplexer_indicator: Plain
+        start_bit: 144
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: BYTE19
+        multiplexer_indicator: Plain
+        start_bit: 152
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: BYTE20
+        multiplexer_indicator: Plain
+        start_bit: 160
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: BYTE21
+        multiplexer_indicator: Plain
+        start_bit: 168
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: BYTE22
+        multiplexer_indicator: Plain
+        start_bit: 176
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: BYTE23
+        multiplexer_indicator: Plain
+        start_bit: 184
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 699
+    name: CAM_0x2bb
+    size: 32
+    transmitter:
+      NodeName: CAMERA
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 700
+    name: CAM_0x2bc
+    size: 32
+    transmitter:
+      NodeName: CAMERA
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 701
+    name: CAM_0x2bd
+    size: 32
+    transmitter:
+      NodeName: CAMERA
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 702
+    name: CAM_0x2be
+    size: 32
+    transmitter:
+      NodeName: CAMERA
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 65535
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+comments:
+  - Message:
+      id:
+        Standard: 676
+      comment: Contains signals with detailed lane line information. Used by ADAS ECU on HDA 2 vehicles to operate LFA.
+  - Signal:
+      message_id:
+        Standard: 80
+      name: HAS_LANE_SAFETY
+      comment: "If 0, hides LKAS 'Lane Safety' menu from vehicle settings"
+  - Signal:
+      message_id:
+        Standard: 676
+      name: LEFT_LANE_LINE
+      comment: Left lane line confidence
+  - Signal:
+      message_id:
+        Standard: 676
+      name: RIGHT_LANE_LINE
+      comment: Right lane line confidence
+value_descriptions:
+  - Signal:
+      message_id:
+        Standard: 80
+      name: LKA_ICON
+      value_descriptions:
+        - id: 0
+          description: hidden
+        - id: 1
+          description: grey
+        - id: 2
+          description: green
+        - id: 3
+          description: flashing green
+  - Signal:
+      message_id:
+        Standard: 80
+      name: LKA_MODE
+      value_descriptions:
+        - id: 1
+          description: warning only
+        - id: 2
+          description: assist
+        - id: 6
+          description: "off"
+  - Signal:
+      message_id:
+        Standard: 676
+      name: LEFT_LANE_LINE
+      value_descriptions:
+        - id: 0
+          description: Not Detected
+        - id: 1
+          description: Low Confidence
+        - id: 2
+          description: Medium Confidence
+        - id: 3
+          description: High Confidence
+  - Signal:
+      message_id:
+        Standard: 676
+      name: RIGHT_LANE_LINE
+      value_descriptions:
+        - id: 0
+          description: Not Detected
+        - id: 1
+          description: Low Confidence
+        - id: 2
+          description: Medium Confidence
+        - id: 3
+          description: High Confidence

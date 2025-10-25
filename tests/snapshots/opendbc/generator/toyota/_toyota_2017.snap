@@ -1,0 +1,5223 @@
+---
+source: tests/snapshots.rs
+---
+version: ""
+new_symbols:
+  - NS_DESC_
+  - CM_
+  - BA_DEF_
+  - BA_
+  - VAL_
+  - CAT_DEF_
+  - CAT_
+  - FILTER
+  - BA_DEF_DEF_
+  - EV_DATA_
+  - ENVVAR_DATA_
+  - SGTYPE_
+  - SGTYPE_VAL_
+  - BA_DEF_SGTYPE_
+  - BA_SGTYPE_
+  - SIG_TYPE_REF_
+  - VAL_TABLE_
+  - SIG_GROUP_
+  - SIG_VALTYPE_
+  - SIGTYPE_VALTYPE_
+  - BO_TX_BU_
+  - BA_DEF_REL_
+  - BA_REL_
+  - BA_DEF_DEF_REL_
+  - BU_SG_REL_
+  - BU_EV_REL_
+  - BU_BO_REL_
+  - SG_MUL_VAL_
+bit_timing: []
+nodes:
+  - XXX
+  - DSU
+  - HCU
+  - EPS
+  - IPAS
+  - CGW
+  - BGM
+messages:
+  - id:
+      Standard: 36
+    name: KINEMATICS
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: ACCEL_Y
+        multiplexer_indicator: Plain
+        start_bit: 33
+        size: 10
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.03589
+        offset: -18.375
+        min: 0
+        max: 65535
+        unit: m/s^2
+        receivers:
+          - XXX
+      - name: YAW_RATE
+        multiplexer_indicator: Plain
+        start_bit: 1
+        size: 10
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.244
+        offset: -125
+        min: 0
+        max: 65535
+        unit: deg/s
+        receivers:
+          - XXX
+      - name: ACCEL_X
+        multiplexer_indicator: Plain
+        start_bit: 17
+        size: 10
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.03589
+        offset: -18.375
+        min: 0
+        max: 65535
+        unit: m/s^2
+        receivers:
+          - XXX
+  - id:
+      Standard: 37
+    name: STEER_ANGLE_SENSOR
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: STEER_ANGLE
+        multiplexer_indicator: Plain
+        start_bit: 3
+        size: 12
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 1.5
+        offset: 0
+        min: -500
+        max: 500
+        unit: deg
+        receivers:
+          - XXX
+      - name: STEER_FRACTION
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 4
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 0.1
+        offset: 0
+        min: -0.7
+        max: 0.7
+        unit: deg
+        receivers:
+          - XXX
+      - name: STEER_RATE
+        multiplexer_indicator: Plain
+        start_bit: 35
+        size: 12
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: -2000
+        max: 2000
+        unit: deg/s
+        receivers:
+          - XXX
+  - id:
+      Standard: 119
+    name: ENG2F41
+    size: 6
+    transmitter:
+      NodeName: CGW
+    signals:
+      - name: FDRV
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 16
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 2
+        offset: 0
+        min: 0
+        max: 0
+        unit: N
+        receivers:
+          - Vector__XXX
+      - name: FDRVREAL
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 13
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 10
+        offset: 0
+        min: 0
+        max: 0
+        unit: N
+        receivers:
+          - Vector__XXX
+      - name: XAECT
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: XFDRVCOL
+        multiplexer_indicator: Plain
+        start_bit: 38
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: FDRVSELP
+        multiplexer_indicator: Plain
+        start_bit: 34
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: ENG2F41S
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+  - id:
+      Standard: 120
+    name: ENG2F42
+    size: 4
+    transmitter:
+      NodeName: CGW
+    signals:
+      - name: FAVLMCHH
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 16
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 2
+        offset: 0
+        min: 0
+        max: 0
+        unit: N
+        receivers:
+          - Vector__XX228X
+      - name: CCRNG
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: FDRVTYPD
+        multiplexer_indicator: Plain
+        start_bit: 22
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: GEARHD
+        multiplexer_indicator: Plain
+        start_bit: 18
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: ENG2F42S
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+  - id:
+      Standard: 166
+    name: BRAKE
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: BRAKE_AMOUNT
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: BRAKE_FORCE
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 40
+        offset: 0
+        min: 0
+        max: 10200
+        unit: N
+        receivers:
+          - XXX
+  - id:
+      Standard: 170
+    name: WHEEL_SPEEDS
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: WHEEL_SPEED_FR
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.01
+        offset: -67.67
+        min: 0
+        max: 250
+        unit: km/h
+        receivers:
+          - XXX
+      - name: WHEEL_SPEED_FL
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.01
+        offset: -67.67
+        min: 0
+        max: 250
+        unit: km/h
+        receivers:
+          - XXX
+      - name: WHEEL_SPEED_RR
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.01
+        offset: -67.67
+        min: 0
+        max: 250
+        unit: km/h
+        receivers:
+          - XXX
+      - name: WHEEL_SPEED_RL
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.01
+        offset: -67.67
+        min: 0
+        max: 250
+        unit: km/h
+        receivers:
+          - XXX
+  - id:
+      Standard: 180
+    name: SPEED
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: ENCODER
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: SPEED
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.01
+        offset: 0
+        min: 0
+        max: 250
+        unit: km/h
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 295
+    name: GEAR_PACKET_HYBRID
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: FDRVREAL
+        multiplexer_indicator: Plain
+        start_bit: 26
+        size: 11
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 25
+        offset: 0
+        min: -25600
+        max: 25575
+        unit: N
+        receivers:
+          - XXX
+      - name: UNKNOWN
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: GEAR
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 353
+    name: DSU_SPEED
+    size: 7
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: FORWARD_SPEED
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 16
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 0.00390625
+        offset: -30
+        min: 0
+        max: 255
+        unit: km/h
+        receivers:
+          - XXX
+  - id:
+      Standard: 452
+    name: ENGINE_RPM
+    size: 8
+    transmitter:
+      NodeName: CGW
+    signals:
+      - name: RPM
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 16
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 0.78125
+        offset: 0
+        min: 0
+        max: 0
+        unit: rpm
+        receivers:
+          - SCS
+      - name: ENGINE_RUNNING
+        multiplexer_indicator: Plain
+        start_bit: 27
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 467
+    name: PCM_CRUISE_2
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: BRAKE_PRESSED
+        multiplexer_indicator: Plain
+        start_bit: 3
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: PCM_FOLLOW_DISTANCE
+        multiplexer_indicator: Plain
+        start_bit: 12
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: LOW_SPEED_LOCKOUT
+        multiplexer_indicator: Plain
+        start_bit: 14
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: MAIN_ON
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: SET_SPEED
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: km/h
+        receivers:
+          - XXX
+      - name: ACC_FAULTED
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 552
+    name: VSC1S29
+    size: 4
+    transmitter:
+      NodeName: CGW
+    signals:
+      - name: ICBACT
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - DS1
+      - name: DVS0PCS
+        multiplexer_indicator: Plain
+        start_bit: 6
+        size: 15
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 0.001
+        offset: 0
+        min: 0
+        max: 0
+        unit: m/s^2
+        receivers:
+          - DS1
+      - name: SM228
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - DS1
+  - id:
+      Standard: 560
+    name: BRAKE_2
+    size: 7
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: BRAKE_PRESSED
+        multiplexer_indicator: Plain
+        start_bit: 26
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 581
+    name: GAS_PEDAL_HYBRID
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: GAS_PEDAL
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.005
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 608
+    name: STEER_TORQUE_SENSOR
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: STEER_TORQUE_EPS
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 16
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: -32768
+        max: 32767
+        unit: ""
+        receivers:
+          - XXX
+      - name: STEER_TORQUE_DRIVER
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 16
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: -32768
+        max: 32767
+        unit: ""
+        receivers:
+          - XXX
+      - name: STEER_ANGLE
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 16
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 0.0573
+        offset: 0
+        min: -500
+        max: 500
+        unit: ""
+        receivers:
+          - XXX
+      - name: STEER_ANGLE_INITIALIZING
+        multiplexer_indicator: Plain
+        start_bit: 3
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: STEER_OVERRIDE
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 614
+    name: STEERING_IPAS
+    size: 8
+    transmitter:
+      NodeName: IPAS
+    signals:
+      - name: STATE
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: ANGLE
+        multiplexer_indicator: Plain
+        start_bit: 3
+        size: 12
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 1.5
+        offset: 0
+        min: -510
+        max: 510
+        unit: deg
+        receivers:
+          - XXX
+      - name: SET_ME_X10
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: SET_ME_X00
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: DIRECTION_CMD
+        multiplexer_indicator: Plain
+        start_bit: 38
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: SET_ME_X40
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: SET_ME_X00_1
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 742
+    name: LEAD_INFO
+    size: 8
+    transmitter:
+      NodeName: DSU
+    signals:
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - HCU
+      - name: LEAD_REL_SPEED
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 12
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 0.025
+        offset: 0
+        min: -100
+        max: 100
+        unit: m/s
+        receivers:
+          - HCU
+      - name: LEAD_LONG_DIST
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 13
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.05
+        offset: 0
+        min: 0
+        max: 300
+        unit: m
+        receivers:
+          - HCU
+  - id:
+      Standard: 800
+    name: VSC1S07
+    size: 8
+    transmitter:
+      NodeName: CGW
+    signals:
+      - name: FBKRLY
+        multiplexer_indicator: Plain
+        start_bit: 6
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - DS1
+      - name: FVSCM
+        multiplexer_indicator: Plain
+        start_bit: 4
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - DS1
+      - name: FVSCSFT
+        multiplexer_indicator: Plain
+        start_bit: 3
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - DS1
+      - name: FABS
+        multiplexer_indicator: Plain
+        start_bit: 2
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - DS1
+          - FCM
+      - name: TSVSC
+        multiplexer_indicator: Plain
+        start_bit: 1
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - DS1
+      - name: FVSCL
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - DS1
+      - name: RQCSTBKB
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: PSBSTBY
+        multiplexer_indicator: Plain
+        start_bit: 14
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - DS1
+      - name: P2BRXMK
+        multiplexer_indicator: Plain
+        start_bit: 13
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - DS1
+      - name: MCC
+        multiplexer_indicator: Plain
+        start_bit: 11
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - DS1
+      - name: RQBKB
+        multiplexer_indicator: Plain
+        start_bit: 10
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: BRSTOP
+        multiplexer_indicator: Plain
+        start_bit: 9
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - DS1
+          - FCM
+      - name: BRKON
+        multiplexer_indicator: Plain
+        start_bit: 8
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - DS1
+          - FCM
+      - name: ASLP
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 8
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: deg
+        receivers:
+          - DS1
+      - name: BRTYPACC
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - DS1
+      - name: BRKABT3
+        multiplexer_indicator: Plain
+        start_bit: 26
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: BRKABT2
+        multiplexer_indicator: Plain
+        start_bit: 25
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: BRKABT1
+        multiplexer_indicator: Plain
+        start_bit: 24
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: GVC
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 8
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 0.04
+        offset: 0
+        min: 0
+        max: 0
+        unit: m/s^2
+        receivers:
+          - DS1
+      - name: XGVCINV
+        multiplexer_indicator: Plain
+        start_bit: 43
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - DS1
+      - name: S07CNT
+        multiplexer_indicator: Plain
+        start_bit: 52
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: PCSBRSTA
+        multiplexer_indicator: Plain
+        start_bit: 50
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - DS1
+      - name: VSC07SUM
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - DS1
+          - FCM
+  - id:
+      Standard: 835
+    name: ACC_CONTROL
+    size: 8
+    transmitter:
+      NodeName: DSU
+    signals:
+      - name: ACCEL_CMD
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 16
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 0.001
+        offset: 0
+        min: -20
+        max: 20
+        unit: m/s^2
+        receivers:
+          - HCU
+      - name: ALLOW_LONG_PRESS
+        multiplexer_indicator: Plain
+        start_bit: 17
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 2
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACC_MALFUNCTION
+        multiplexer_indicator: Plain
+        start_bit: 18
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: RADAR_DIRTY
+        multiplexer_indicator: Plain
+        start_bit: 19
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: DISTANCE
+        multiplexer_indicator: Plain
+        start_bit: 20
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: MINI_CAR
+        multiplexer_indicator: Plain
+        start_bit: 21
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACC_TYPE
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - HCU
+      - name: CANCEL_REQ
+        multiplexer_indicator: Plain
+        start_bit: 24
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - HCU
+      - name: ACC_CUT_IN
+        multiplexer_indicator: Plain
+        start_bit: 25
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: LEAD_VEHICLE_STOPPED
+        multiplexer_indicator: Plain
+        start_bit: 29
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - DSU
+      - name: PERMIT_BRAKING
+        multiplexer_indicator: Plain
+        start_bit: 30
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - HCU
+      - name: RELEASE_STANDSTILL
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - HCU
+      - name: ITS_CONNECT_LEAD
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: ACCEL_CMD_ALT
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 8
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 0.05
+        offset: 0
+        min: 0
+        max: 0
+        unit: m/s^2
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 865
+    name: CLUTCH
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: ACC_FAULTED
+        multiplexer_indicator: Plain
+        start_bit: 32
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: GAS_PEDAL_ALT
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.005
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: CLUTCH_RELEASED
+        multiplexer_indicator: Plain
+        start_bit: 38
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: ACCEL_NET
+        multiplexer_indicator: Plain
+        start_bit: 48
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.0002
+        offset: -6.5536
+        min: -6.5536
+        max: 6.5534
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 869
+    name: DSU_CRUISE
+    size: 7
+    transmitter:
+      NodeName: DSU
+    signals:
+      - name: RES_BTN
+        multiplexer_indicator: Plain
+        start_bit: 3
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: SET_BTN
+        multiplexer_indicator: Plain
+        start_bit: 2
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: CANCEL_BTN
+        multiplexer_indicator: Plain
+        start_bit: 1
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: MAIN_ON
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: SET_SPEED
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: km/h
+        receivers:
+          - XXX
+      - name: CRUISE_REQUEST
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 100
+        offset: -12800
+        min: 0
+        max: 0
+        unit: N
+        receivers:
+          - XXX
+      - name: LEAD_DISTANCE
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: m
+        receivers:
+          - XXX
+  - id:
+      Standard: 898
+    name: AIR_CONDITIONER
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: CLIMATE_SET_POINT
+        multiplexer_indicator: Plain
+        start_bit: 5
+        size: 6
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 5
+        max: 33
+        unit: ""
+        receivers:
+          - XXX
+      - name: AIR_CONDITIONER_STATE
+        multiplexer_indicator: Plain
+        start_bit: 48
+        size: 7
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 127
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 921
+    name: PCM_CRUISE_SM
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: MAIN_ON
+        multiplexer_indicator: Plain
+        start_bit: 4
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: CRUISE_CONTROL_STATE
+        multiplexer_indicator: Plain
+        start_bit: 11
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: DISTANCE_LINES
+        multiplexer_indicator: Plain
+        start_bit: 14
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: TEMP_ACC_FAULTED
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: UI_SET_SPEED
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 944
+    name: AIR_CONDITIONER_2
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: WINDSCREEN_DEFOG
+        multiplexer_indicator: Plain
+        start_bit: 43
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 951
+    name: ESP_CONTROL
+    size: 8
+    transmitter:
+      NodeName: ESP
+    signals:
+      - name: TC_DISABLED
+        multiplexer_indicator: Plain
+        start_bit: 13
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: VSC_DISABLED
+        multiplexer_indicator: Plain
+        start_bit: 12
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: BRAKE_LIGHTS_ACC
+        multiplexer_indicator: Plain
+        start_bit: 18
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: BRAKE_HOLD_ENABLED
+        multiplexer_indicator: Plain
+        start_bit: 33
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: BRAKE_HOLD_ACTIVE
+        multiplexer_indicator: Plain
+        start_bit: 36
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 956
+    name: GEAR_PACKET
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: SPORT_ON
+        multiplexer_indicator: Plain
+        start_bit: 2
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: GEAR
+        multiplexer_indicator: Plain
+        start_bit: 13
+        size: 6
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 63
+        unit: ""
+        receivers:
+          - XXX
+      - name: SPORT_GEAR_ON
+        multiplexer_indicator: Plain
+        start_bit: 33
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: SPORT_GEAR
+        multiplexer_indicator: Plain
+        start_bit: 38
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 7
+        unit: ""
+        receivers:
+          - XXX
+      - name: ECON_ON
+        multiplexer_indicator: Plain
+        start_bit: 40
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: B_GEAR_ENGAGED
+        multiplexer_indicator: Plain
+        start_bit: 41
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: DRIVE_ENGAGED
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 1005
+    name: REVERSE_CAMERA_STATE
+    size: 2
+    transmitter:
+      NodeName: BGM
+    signals:
+      - name: REVERSE_CAMERA_GUIDELINES
+        multiplexer_indicator: Plain
+        start_bit: 9
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 1
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 1009
+    name: PCM_CRUISE_ALT
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: PCM_FOLLOW_DISTANCE
+        multiplexer_indicator: Plain
+        start_bit: 4
+        size: 2
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: MAIN_ON
+        multiplexer_indicator: Plain
+        start_bit: 13
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: CRUISE_STATE
+        multiplexer_indicator: Plain
+        start_bit: 10
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: UI_SET_SPEED
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: mph
+        receivers:
+          - XXX
+  - id:
+      Standard: 1020
+    name: SOLAR_SENSOR
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: LUX_SENSOR
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 13
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 1041
+    name: PCS_HUD
+    size: 8
+    transmitter:
+      NodeName: DSU
+    signals:
+      - name: PCS_INDICATOR
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: FCW
+        multiplexer_indicator: Plain
+        start_bit: 4
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: SET_ME_X20
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: PCS_DUST
+        multiplexer_indicator: Plain
+        start_bit: 34
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: PCS_TEMP
+        multiplexer_indicator: Plain
+        start_bit: 35
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: PCS_DUST2
+        multiplexer_indicator: Plain
+        start_bit: 41
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: PCS_TEMP2
+        multiplexer_indicator: Plain
+        start_bit: 42
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: SET_ME_X10
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: PCS_OFF
+        multiplexer_indicator: Plain
+        start_bit: 40
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: FRD_ADJ
+        multiplexer_indicator: Plain
+        start_bit: 53
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: PCS_SENSITIVITY
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 1042
+    name: LKAS_HUD
+    size: 8
+    transmitter:
+      NodeName: DSU
+    signals:
+      - name: BARRIERS
+        multiplexer_indicator: Plain
+        start_bit: 1
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: RIGHT_LINE
+        multiplexer_indicator: Plain
+        start_bit: 3
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: LEFT_LINE
+        multiplexer_indicator: Plain
+        start_bit: 5
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: LKAS_STATUS
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: LDA_ALERT
+        multiplexer_indicator: Plain
+        start_bit: 9
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: LDW_EXIST
+        multiplexer_indicator: Plain
+        start_bit: 10
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: TWO_BEEPS
+        multiplexer_indicator: Plain
+        start_bit: 12
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: ADJUSTING_CAMERA
+        multiplexer_indicator: Plain
+        start_bit: 13
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: LDA_UNAVAILABLE_QUIET
+        multiplexer_indicator: Plain
+        start_bit: 14
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: LDA_MALFUNCTION
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: LDA_UNAVAILABLE
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: LDA_SENSITIVITY
+        multiplexer_indicator: Plain
+        start_bit: 18
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: LDA_SA_TOGGLE
+        multiplexer_indicator: Plain
+        start_bit: 20
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: LDA_MESSAGES
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: LDA_ON_MESSAGE
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: REPEATED_BEEPS
+        multiplexer_indicator: Plain
+        start_bit: 32
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: LANE_SWAY_TOGGLE
+        multiplexer_indicator: Plain
+        start_bit: 43
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: LANE_SWAY_SENSITIVITY
+        multiplexer_indicator: Plain
+        start_bit: 45
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: TAKE_CONTROL
+        multiplexer_indicator: Plain
+        start_bit: 46
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: LDA_FRONT_CAMERA_BLOCKED
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: LANE_SWAY_BUZZER
+        multiplexer_indicator: Plain
+        start_bit: 50
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: LANE_SWAY_FLD
+        multiplexer_indicator: Plain
+        start_bit: 53
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 7
+        unit: ""
+        receivers:
+          - XXX
+      - name: LANE_SWAY_WARNING
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: SET_ME_X01
+        multiplexer_indicator: Plain
+        start_bit: 42
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: SET_ME_X02
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 1043
+    name: TIME
+    size: 8
+    transmitter:
+      NodeName: CGW
+    signals:
+      - name: YEAR
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: year
+        receivers:
+          - XXX
+      - name: MONTH
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: month
+        receivers:
+          - XXX
+      - name: DAY
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: day
+        receivers:
+          - XXX
+      - name: HOUR
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: hour
+        receivers:
+          - XXX
+      - name: MINUTE
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: minute
+        receivers:
+          - XXX
+      - name: GMT_DIFF
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: GMTDIFF_HOURS
+        multiplexer_indicator: Plain
+        start_bit: 54
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: hours
+        receivers:
+          - XXX
+      - name: GMTDIFF_MINUTES
+        multiplexer_indicator: Plain
+        start_bit: 50
+        size: 6
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: minutes
+        receivers:
+          - XXX
+      - name: SUMMER
+        multiplexer_indicator: Plain
+        start_bit: 60
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 1044
+    name: AUTO_HIGH_BEAM
+    size: 8
+    transmitter:
+      NodeName: FCM
+    signals:
+      - name: AHB_DUTY
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.5
+        offset: 0
+        min: 0
+        max: 0
+        unit: "%"
+        receivers:
+          - Vector__XXX
+      - name: F_AHB
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: C_AHB
+        multiplexer_indicator: Plain
+        start_bit: 51
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+  - id:
+      Standard: 1056
+    name: VSC1S08
+    size: 8
+    transmitter:
+      NodeName: CGW
+    signals:
+      - name: YR1Z
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 16
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: rad/s
+        receivers:
+          - DS1
+          - FCM
+          - MAV
+      - name: YR2Z
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 16
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: rad/s
+        receivers:
+          - DS1
+          - FCM
+          - MAV
+      - name: GL1Z
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 8
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 0.0359
+        offset: 0
+        min: 0
+        max: 0
+        unit: m/s^2
+        receivers:
+          - DS1
+          - FCM
+          - KSS
+          - MAV
+          - SCS
+      - name: GL2Z
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 8
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 0.0359
+        offset: 0
+        min: 0
+        max: 0
+        unit: m/s^2
+        receivers:
+          - DS1
+          - FCM
+          - KSS
+          - MAV
+          - SCS
+      - name: YRGSDIR
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - DS1
+          - FCM
+          - KSS
+          - SCS
+      - name: GLZS
+        multiplexer_indicator: Plain
+        start_bit: 51
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - DS1
+          - FCM
+          - KSS
+          - MAV
+          - SCS
+      - name: YRZF
+        multiplexer_indicator: Plain
+        start_bit: 50
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - DS1
+          - FCM
+          - MAV
+      - name: YRZS
+        multiplexer_indicator: Plain
+        start_bit: 49
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - DS1
+          - FCM
+          - MAV
+      - name: YRZKS
+        multiplexer_indicator: Plain
+        start_bit: 48
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - DS1
+          - FCM
+          - MAV
+      - name: VSC08SUM
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - DS1
+          - FCM
+          - MAV
+  - id:
+      Standard: 1083
+    name: AUTOPARK_STATUS
+    size: 8
+    transmitter:
+      NodeName: IPAS
+    signals:
+      - name: STATE
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 1161
+    name: RSA1
+    size: 8
+    transmitter:
+      NodeName: FCM
+    signals:
+      - name: TSGN1
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: TSGNGRY1
+        multiplexer_indicator: Plain
+        start_bit: 12
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: TSGNHLT1
+        multiplexer_indicator: Plain
+        start_bit: 9
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: SPDVAL1
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: km/h
+        receivers:
+          - XXX
+      - name: SPLSGN1
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: SPLSGN2
+        multiplexer_indicator: Plain
+        start_bit: 27
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: TSGN2
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: TSGNGRY2
+        multiplexer_indicator: Plain
+        start_bit: 44
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: TSGNHLT2
+        multiplexer_indicator: Plain
+        start_bit: 41
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: SPDVAL2
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: BZRRQ_P
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: BZRRQ_A
+        multiplexer_indicator: Plain
+        start_bit: 61
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: SYNCID1
+        multiplexer_indicator: Plain
+        start_bit: 59
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 1162
+    name: RSA2
+    size: 8
+    transmitter:
+      NodeName: FCM
+    signals:
+      - name: TSGN3
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: TSGNGRY3
+        multiplexer_indicator: Plain
+        start_bit: 12
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: TSGNHLT3
+        multiplexer_indicator: Plain
+        start_bit: 9
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: SPLSGN3
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: SPLSGN4
+        multiplexer_indicator: Plain
+        start_bit: 27
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: TSGN4
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: TSGNGRY4
+        multiplexer_indicator: Plain
+        start_bit: 44
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: TSGNHLT4
+        multiplexer_indicator: Plain
+        start_bit: 41
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: DPSGNREQ
+        multiplexer_indicator: Plain
+        start_bit: 54
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: SGNNUMP
+        multiplexer_indicator: Plain
+        start_bit: 53
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: SGNNUMA
+        multiplexer_indicator: Plain
+        start_bit: 50
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: SPDUNT
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: TSRWMSG
+        multiplexer_indicator: Plain
+        start_bit: 61
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: SYNCID2
+        multiplexer_indicator: Plain
+        start_bit: 59
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 1163
+    name: RSA3
+    size: 8
+    transmitter:
+      NodeName: FCM
+    signals:
+      - name: TSREQPD
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: TSRMSW
+        multiplexer_indicator: Plain
+        start_bit: 6
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: OTSGNNTM
+        multiplexer_indicator: Plain
+        start_bit: 5
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: NTLVLSPD
+        multiplexer_indicator: Plain
+        start_bit: 3
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: OVSPNTM
+        multiplexer_indicator: Plain
+        start_bit: 1
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: OVSPVALL
+        multiplexer_indicator: Plain
+        start_bit: 11
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: -5
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: OVSPVALM
+        multiplexer_indicator: Plain
+        start_bit: 19
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: -5
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: OVSPVALH
+        multiplexer_indicator: Plain
+        start_bit: 27
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: -5
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: TSRSPU
+        multiplexer_indicator: Plain
+        start_bit: 33
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 1408
+    name: VIN_PART_1
+    size: 8
+    transmitter:
+      NodeName: CGW
+    signals:
+      - name: VIN_1
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: VIN_2
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: VIN_3
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: VIN_4
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: VIN_5
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: VIN_6
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: VIN_7
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: VIN_8
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 1409
+    name: VIN_PART_2
+    size: 8
+    transmitter:
+      NodeName: CGW
+    signals:
+      - name: VIN_9
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: VIN_10
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: VIN_11
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: VIN_12
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: VIN_13
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: VIN_14
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: VIN_15
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: VIN_16
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 1410
+    name: VIN_PART_3
+    size: 8
+    transmitter:
+      NodeName: CGW
+    signals:
+      - name: VIN_17
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 1552
+    name: BODY_CONTROL_STATE_2
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: UI_SPEED
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - XXX
+      - name: METER_SLIDER_BRIGHTNESS_PCT
+        multiplexer_indicator: Plain
+        start_bit: 30
+        size: 7
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 12
+        max: 100
+        unit: "%"
+        receivers:
+          - XXX
+      - name: METER_SLIDER_LOW_BRIGHTNESS
+        multiplexer_indicator: Plain
+        start_bit: 37
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: METER_SLIDER_DIMMED
+        multiplexer_indicator: Plain
+        start_bit: 38
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: UNITS
+        multiplexer_indicator: Plain
+        start_bit: 63
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 1
+        max: 4
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 1553
+    name: UI_SETTING
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: UNITS
+        multiplexer_indicator: Plain
+        start_bit: 26
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: ODOMETER
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 32
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1048575
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 1556
+    name: BLINKERS_STATE
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: BLINKER_BUTTON_PRESSED
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: HAZARD_LIGHT
+        multiplexer_indicator: Plain
+        start_bit: 27
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: TURN_SIGNALS
+        multiplexer_indicator: Plain
+        start_bit: 29
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 1568
+    name: BODY_CONTROL_STATE
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: METER_DIMMED
+        multiplexer_indicator: Plain
+        start_bit: 38
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: PARKING_BRAKE
+        multiplexer_indicator: Plain
+        start_bit: 60
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: SEATBELT_DRIVER_UNLATCHED
+        multiplexer_indicator: Plain
+        start_bit: 62
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: DOOR_OPEN_FL
+        multiplexer_indicator: Plain
+        start_bit: 45
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: DOOR_OPEN_RL
+        multiplexer_indicator: Plain
+        start_bit: 42
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: DOOR_OPEN_RR
+        multiplexer_indicator: Plain
+        start_bit: 43
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: DOOR_OPEN_FR
+        multiplexer_indicator: Plain
+        start_bit: 44
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 1570
+    name: LIGHT_STALK
+    size: 8
+    transmitter:
+      NodeName: SCM
+    signals:
+      - name: LIGHT_STALK_MOVED
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: TAIL_LIGHT
+        multiplexer_indicator: Plain
+        start_bit: 19
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: HEADLIGHT_MODE
+        multiplexer_indicator: Plain
+        start_bit: 21
+        size: 3
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 7
+        unit: ""
+        receivers:
+          - XXX
+      - name: FRONT_FOG
+        multiplexer_indicator: Plain
+        start_bit: 27
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: PARKING_LIGHT
+        multiplexer_indicator: Plain
+        start_bit: 28
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: LOW_BEAM
+        multiplexer_indicator: Plain
+        start_bit: 29
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: HIGH_BEAM
+        multiplexer_indicator: Plain
+        start_bit: 30
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: DAYTIME_RUNNING_LIGHT
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: AUTO_HIGH_BEAM
+        multiplexer_indicator: Plain
+        start_bit: 37
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 1571
+    name: CERTIFICATION_ECU
+    size: 8
+    transmitter:
+      NodeName: CGW
+    signals:
+      - name: DOOR_LOCK_FEEDBACK_LIGHT
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: KEYFOB_LOCKING_FEEDBACK_LIGHT
+        multiplexer_indicator: Plain
+        start_bit: 61
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+      - name: KEYFOB_UNLOCKING_FEEDBACK_LIGHT
+        multiplexer_indicator: Plain
+        start_bit: 62
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 1592
+    name: DOOR_LOCKS
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: LOCK_STATUS_CHANGED
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: LOCK_STATUS
+        multiplexer_indicator: Plain
+        start_bit: 20
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: LOCKED_VIA_KEYFOB
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 1779
+    name: ADAS_TOGGLE_STATE
+    size: 8
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: OK_BUTTON_PRESSED
+        multiplexer_indicator: Plain
+        start_bit: 15
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - BCM
+      - name: SWS_TOGGLE_CMD
+        multiplexer_indicator: Plain
+        start_bit: 24
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: SWS_SENSITIVITY_CMD
+        multiplexer_indicator: Plain
+        start_bit: 26
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: LKAS_ON_CMD
+        multiplexer_indicator: Plain
+        start_bit: 28
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: LKAS_OFF_CMD
+        multiplexer_indicator: Plain
+        start_bit: 29
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: LDA_SENSITIVITY_HI_CMD
+        multiplexer_indicator: Plain
+        start_bit: 30
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: LDA_SENSITIVITY_STD_CMD
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: IPAS_TOGGLE
+        multiplexer_indicator: Plain
+        start_bit: 34
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: BSM_TOGGLE_CMD
+        multiplexer_indicator: Plain
+        start_bit: 37
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: IPAS_SONAR_TOGGLE
+        multiplexer_indicator: Plain
+        start_bit: 38
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: PCS_TOGGLE_CMD
+        multiplexer_indicator: Plain
+        start_bit: 40
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: PCS_SENSITIVITY_CMD
+        multiplexer_indicator: Plain
+        start_bit: 41
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+comments:
+  - Signal:
+      message_id:
+        Standard: 36
+      name: YAW_RATE
+      comment: verify
+  - Signal:
+      message_id:
+        Standard: 36
+      name: ACCEL_X
+      comment: x-axis accel
+  - Signal:
+      message_id:
+        Standard: 37
+      name: STEER_FRACTION
+      comment: "1/15th of the signal STEER_ANGLE, which is 1.5 deg; note that 0x8 is never set"
+  - Signal:
+      message_id:
+        Standard: 37
+      name: STEER_RATE
+      comment: factor is tbd
+  - Signal:
+      message_id:
+        Standard: 119
+      name: FDRVREAL
+      comment: "ICE only: force applied by wheels from the engine. includes creeping force, regen, and engine braking"
+  - Signal:
+      message_id:
+        Standard: 166
+      name: BRAKE_FORCE
+      comment: "hybrid only: force applied by friction brakes from user or ACC command"
+  - Signal:
+      message_id:
+        Standard: 295
+      name: FDRVREAL
+      comment: "hybrid only: force applied by wheels from the engine and/or electric motors. includes creeping force, regen, and engine braking"
+  - Signal:
+      message_id:
+        Standard: 467
+      name: ACC_FAULTED
+      comment: 1 when ACC is faulted and the PCM disallows engagement
+  - Signal:
+      message_id:
+        Standard: 467
+      name: SET_SPEED
+      comment: "43 km/h are shown as 28 mph, so conversion isn't perfect"
+  - Signal:
+      message_id:
+        Standard: 467
+      name: LOW_SPEED_LOCKOUT
+      comment: "in low speed lockout, system would always disengage below 28mph"
+  - Signal:
+      message_id:
+        Standard: 560
+      name: BRAKE_PRESSED
+      comment: another brake pressed?
+  - Signal:
+      message_id:
+        Standard: 581
+      name: GAS_PEDAL
+      comment: it seems slightly filtered
+  - Signal:
+      message_id:
+        Standard: 608
+      name: STEER_TORQUE_DRIVER
+      comment: driver torque
+  - Signal:
+      message_id:
+        Standard: 608
+      name: STEER_OVERRIDE
+      comment: set when driver torque exceeds a certain value
+  - Signal:
+      message_id:
+        Standard: 614
+      name: ANGLE
+      comment: "set to measured angle when ipas control isn't active"
+  - Signal:
+      message_id:
+        Standard: 835
+      name: ACC_TYPE
+      comment: "if 2, car is likely to have a permanent low speed lockout. 1 is ok"
+  - Signal:
+      message_id:
+        Standard: 835
+      name: RADAR_DIRTY
+      comment: Display Clean Radar Sensor message on HUD
+  - Signal:
+      message_id:
+        Standard: 835
+      name: ACC_MALFUNCTION
+      comment: display ACC fault on dash if set to 1
+  - Signal:
+      message_id:
+        Standard: 835
+      name: ACC_CUT_IN
+      comment: Display blinking yellow lead if set to 1
+  - Signal:
+      message_id:
+        Standard: 835
+      name: DISTANCE
+      comment: "Cycle through ACC following distance from long, mid, short when set to 1"
+  - Signal:
+      message_id:
+        Standard: 835
+      name: ITS_CONNECT_LEAD
+      comment: Displayed when lead car is capable of ITS Connect
+  - Signal:
+      message_id:
+        Standard: 835
+      name: LEAD_VEHICLE_STOPPED
+      comment: "Set to 1 when lead is stopped, likely only used in older TSS-P vehicles"
+  - Signal:
+      message_id:
+        Standard: 835
+      name: ALLOW_LONG_PRESS
+      comment: "Enable Toyota's factory set speed increment behaviour, available on both metrics cars and imperial unit cars"
+  - Signal:
+      message_id:
+        Standard: 835
+      name: PERMIT_BRAKING
+      comment: "Original ACC has this going high when a car in front is detected. In openpilot and before the PERMIT_BRAKING name, this was 'SET_ME_1' and is hardcoded to be high. Unsure if only informational or has an effect though existing usage in openpilot is to always set it to 1. Originally 'PMTBRKG' in the leaked toyota_2017_ref_pt.dbc file and name expansion speculated to be PerMiT BRaKinG."
+  - Signal:
+      message_id:
+        Standard: 835
+      name: ACCEL_CMD_ALT
+      comment: "Copy of main ACCEL_CMD, but across 8 bits instead of 16 bits like ACCEL_CMD. Unsure if only informational or has an effect. Likely informational as existing openpilot sets this to 0 and no loss of functionality observed. Originally 'AT_RAW' in leaked toyota_2017_ref_pt.dbc file."
+  - Signal:
+      message_id:
+        Standard: 865
+      name: GAS_PEDAL_ALT
+      comment: copy of main GAS_PEDAL. Both use 8 bits. Might indicate that this message is for pedals.
+  - Signal:
+      message_id:
+        Standard: 865
+      name: CLUTCH_RELEASED
+      comment: boolean of clutch for 6MT.
+  - Signal:
+      message_id:
+        Standard: 865
+      name: ACCEL_NET
+      comment: "net positive acceleration (gas) applied by the system if on flat ground, may not include creeping force"
+  - Signal:
+      message_id:
+        Standard: 865
+      name: ACC_FAULTED
+      comment: 1 when ACC is faulted and the PCM disallows engagement. Also describes a lockout when the ACC_CONTROL->ACC_MALFUNCTION bit is set.
+  - Signal:
+      message_id:
+        Standard: 898
+      name: AIR_CONDITIONER_STATE
+      comment: very difficult to parse with some air register motors operating without user-inputs
+  - Signal:
+      message_id:
+        Standard: 921
+      name: UI_SET_SPEED
+      comment: "set speed shown in the vehicle's UI with the vehicle's unit"
+  - Signal:
+      message_id:
+        Standard: 921
+      name: TEMP_ACC_FAULTED
+      comment: 1 when the UI is displaying or playing fault-related alerts or sounds. Also 1 when pressing main on.
+  - Signal:
+      message_id:
+        Standard: 951
+      name: BRAKE_LIGHTS_ACC
+      comment: brake lights when ACC commands decel
+  - Signal:
+      message_id:
+        Standard: 956
+      name: GEAR
+      comment: "on 6MT, only R shows."
+  - Signal:
+      message_id:
+        Standard: 1009
+      name: UI_SET_SPEED
+      comment: units seem to be whatever the car is set to
+  - Signal:
+      message_id:
+        Standard: 1041
+      name: PCS_INDICATOR
+      comment: Pre-Collision System Indicator
+  - Signal:
+      message_id:
+        Standard: 1041
+      name: PCS_SENSITIVITY
+      comment: Pre-Collision System Sensitivity
+  - Signal:
+      message_id:
+        Standard: 1041
+      name: PCS_DUST
+      comment: "alert: Front Camera Low Visibility Unavailable See Owner's Manual"
+  - Signal:
+      message_id:
+        Standard: 1041
+      name: PCS_DUST2
+      comment: "alert: Pre-Collision System Radar Sensor Blocked Unavailable Clean Radar Sensor"
+  - Signal:
+      message_id:
+        Standard: 1041
+      name: PCS_TEMP
+      comment: "alert: Front Camera Out of Temperature Range Unavailable Wait until Normal Temperature"
+  - Signal:
+      message_id:
+        Standard: 1041
+      name: PCS_TEMP2
+      comment: "alert: Pre-Collision System Out of Temperature Range Unavailable See Owner's Manual"
+  - Signal:
+      message_id:
+        Standard: 1041
+      name: FRD_ADJ
+      comment: "alert: ERROR ADJUSTING FRONT RADAR BEAM"
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: LDA_SA_TOGGLE
+      comment: LDA Steering Assist Toggle
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: LDW_EXIST
+      comment: "Unclear what this is, it's usually set to 0"
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: LDA_SENSITIVITY
+      comment: LDA Sensitivity
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: LDA_ON_MESSAGE
+      comment: Display LDA Turned ON message
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: REPEATED_BEEPS
+      comment: LDA audible warning
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: LDA_UNAVAILABLE_QUIET
+      comment: LDA toggles and sensitivity settings are greyed out if set to 1
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: LDA_MESSAGES
+      comment: Various LDA Messages
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: LDA_FRONT_CAMERA_BLOCKED
+      comment: "originally LDAFCVB, LDA related settings are greyed out if set to 1"
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: TAKE_CONTROL
+      comment: Please Control Steering Wheel warning
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: LANE_SWAY_TOGGLE
+      comment: Lane Sway Warning System SWS Switch
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: LANE_SWAY_WARNING
+      comment: Lane Sway Warning System Triggered
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: LANE_SWAY_FLD
+      comment: "Unknown signal for Lane Sway Warning System, set to 7 on stock system when SWS is enabled, 0 when SWS is disabled"
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: LANE_SWAY_BUZZER
+      comment: Similar to TWO_BEEPS
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: SET_ME_X01
+      comment: "empty bit on leaked dbc, always set to 1 during normal operations"
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: SET_ME_X02
+      comment: "empty bit on leaked dbc, always set to 2 during normal operations"
+  - Signal:
+      message_id:
+        Standard: 1083
+      name: STATE
+      comment: "when the dashboard button is pressed, the value changes from zero to non-zero"
+  - Signal:
+      message_id:
+        Standard: 1161
+      name: SPDVAL1
+      comment: "Numbers 0-199 is displayed, 200-254 displays circle without number and 255 is for no limit."
+  - Signal:
+      message_id:
+        Standard: 1161
+      name: SYNCID1
+      comment: counter from 1 to f at 1 Hz
+  - Signal:
+      message_id:
+        Standard: 1161
+      name: SPDVAL2
+      comment: conditional speed value 70
+  - Signal:
+      message_id:
+        Standard: 1162
+      name: SGNNUMP
+      comment: "1 if SPDVAL1 is set, otherwise 0"
+  - Signal:
+      message_id:
+        Standard: 1162
+      name: SYNCID2
+      comment: counter from 1 to f at 1 Hz
+  - Signal:
+      message_id:
+        Standard: 1163
+      name: TSREQPD
+      comment: always 1
+  - Signal:
+      message_id:
+        Standard: 1163
+      name: TSRMSW
+      comment: always 1
+  - Signal:
+      message_id:
+        Standard: 1163
+      name: OTSGNNTM
+      comment: always 3
+  - Signal:
+      message_id:
+        Standard: 1163
+      name: NTLVLSPD
+      comment: always 3
+  - Signal:
+      message_id:
+        Standard: 1163
+      name: OVSPNTM
+      comment: always 3
+  - Signal:
+      message_id:
+        Standard: 1163
+      name: OVSPVALL
+      comment: "-5 at start then 2 after 2 seconds"
+  - Signal:
+      message_id:
+        Standard: 1163
+      name: OVSPVALM
+      comment: "-5 at start then 5 after 2 seconds"
+  - Signal:
+      message_id:
+        Standard: 1163
+      name: OVSPVALH
+      comment: "-5 at start then 10 after 2 seconds"
+  - Signal:
+      message_id:
+        Standard: 1163
+      name: TSRSPU
+      comment: always 1
+  - Signal:
+      message_id:
+        Standard: 1552
+      name: UI_SPEED
+      comment: Does not appear to match dash
+  - Signal:
+      message_id:
+        Standard: 1552
+      name: METER_SLIDER_BRIGHTNESS_PCT
+      comment: "Combination display brightness setting, scales from 12 per cent to 100 per cent, reflects combination meter settings only, not linked with headlight state"
+  - Signal:
+      message_id:
+        Standard: 1552
+      name: METER_SLIDER_LOW_BRIGHTNESS
+      comment: "Combination display low brightness mode, also controls footwell lighting"
+  - Signal:
+      message_id:
+        Standard: 1552
+      name: METER_SLIDER_DIMMED
+      comment: "Combination display slider not at max, reflects combination meter settings only, not linked with headlight state"
+  - Signal:
+      message_id:
+        Standard: 1553
+      name: ODOMETER
+      comment: Unit is dependent upon units signal
+  - Signal:
+      message_id:
+        Standard: 1592
+      name: LOCK_STATUS_CHANGED
+      comment: 1 on rising edge of lock/unlocking
+  - Signal:
+      message_id:
+        Standard: 1592
+      name: LOCK_STATUS
+      comment: The next 3 bits always seem to follow this signal.
+  - Signal:
+      message_id:
+        Standard: 1592
+      name: LOCKED_VIA_KEYFOB
+      comment: 1 for as long as car is locked with key fob or door handle touch
+value_descriptions:
+  - Signal:
+      message_id:
+        Standard: 295
+      name: GEAR
+      value_descriptions:
+        - id: 0
+          description: P
+        - id: 1
+          description: R
+        - id: 2
+          description: N
+        - id: 3
+          description: D
+        - id: 4
+          description: B
+  - Signal:
+      message_id:
+        Standard: 467
+      name: LOW_SPEED_LOCKOUT
+      value_descriptions:
+        - id: 2
+          description: low speed locked
+        - id: 1
+          description: ok
+  - Signal:
+      message_id:
+        Standard: 467
+      name: PCM_FOLLOW_DISTANCE
+      value_descriptions:
+        - id: 1
+          description: far
+        - id: 2
+          description: medium
+        - id: 3
+          description: close
+  - Signal:
+      message_id:
+        Standard: 614
+      name: STATE
+      value_descriptions:
+        - id: 3
+          description: enabled
+        - id: 1
+          description: disabled
+  - Signal:
+      message_id:
+        Standard: 614
+      name: DIRECTION_CMD
+      value_descriptions:
+        - id: 3
+          description: right
+        - id: 2
+          description: center
+        - id: 1
+          description: left
+  - Signal:
+      message_id:
+        Standard: 835
+      name: ACC_TYPE
+      value_descriptions:
+        - id: 2
+          description: permanent low speed lockout
+        - id: 1
+          description: ok
+  - Signal:
+      message_id:
+        Standard: 835
+      name: ACC_MALFUNCTION
+      value_descriptions:
+        - id: 1
+          description: faulted
+        - id: 0
+          description: ok
+  - Signal:
+      message_id:
+        Standard: 835
+      name: ACC_CUT_IN
+      value_descriptions:
+        - id: 1
+          description: CUT-IN Detected
+        - id: 0
+          description: clear
+  - Signal:
+      message_id:
+        Standard: 835
+      name: ALLOW_LONG_PRESS
+      value_descriptions:
+        - id: 2
+          description: set speed increase by 5 speed units regardless
+        - id: 1
+          description: "set speed increase by 1 speed unit on short press, 5 speed units on long press"
+  - Signal:
+      message_id:
+        Standard: 865
+      name: CLUTCH_RELEASED
+      value_descriptions:
+        - id: 0
+          description: clutch pressed any amount
+        - id: 1
+          description: clutch released
+  - Signal:
+      message_id:
+        Standard: 898
+      name: CLIMATE_SET_POINT
+      value_descriptions:
+        - id: 0
+          description: CLIMATE LO MODE
+        - id: 55
+          description: CLIMATE HI MODE
+        - id: 57
+          description: CLIMATE OFF
+  - Signal:
+      message_id:
+        Standard: 898
+      name: AIR_CONDITIONER_STATE
+      value_descriptions:
+        - id: 20
+          description: CLIMATE OFF
+  - Signal:
+      message_id:
+        Standard: 921
+      name: CRUISE_CONTROL_STATE
+      value_descriptions:
+        - id: 2
+          description: disabled
+        - id: 11
+          description: hold
+        - id: 10
+          description: hold_waiting_user_cmd
+        - id: 6
+          description: enabled
+        - id: 5
+          description: faulted
+  - Signal:
+      message_id:
+        Standard: 921
+      name: DISTANCE_LINES
+      value_descriptions:
+        - id: 0
+          description: not displayed
+        - id: 1
+          description: close
+        - id: 2
+          description: medium
+        - id: 3
+          description: far
+  - Signal:
+      message_id:
+        Standard: 956
+      name: SPORT_ON
+      value_descriptions:
+        - id: 0
+          description: "off"
+        - id: 1
+          description: "on"
+  - Signal:
+      message_id:
+        Standard: 956
+      name: GEAR
+      value_descriptions:
+        - id: 0
+          description: D
+        - id: 1
+          description: S
+        - id: 8
+          description: N
+        - id: 16
+          description: R
+        - id: 32
+          description: P
+  - Signal:
+      message_id:
+        Standard: 956
+      name: SPORT_GEAR_ON
+      value_descriptions:
+        - id: 0
+          description: "off"
+        - id: 1
+          description: "on"
+  - Signal:
+      message_id:
+        Standard: 956
+      name: SPORT_GEAR
+      value_descriptions:
+        - id: 1
+          description: S1
+        - id: 2
+          description: S2
+        - id: 3
+          description: S3
+        - id: 4
+          description: S4
+        - id: 5
+          description: S5
+        - id: 6
+          description: S6
+  - Signal:
+      message_id:
+        Standard: 956
+      name: ECON_ON
+      value_descriptions:
+        - id: 0
+          description: "off"
+        - id: 1
+          description: "on"
+  - Signal:
+      message_id:
+        Standard: 956
+      name: B_GEAR_ENGAGED
+      value_descriptions:
+        - id: 0
+          description: "off"
+        - id: 1
+          description: "on"
+  - Signal:
+      message_id:
+        Standard: 956
+      name: DRIVE_ENGAGED
+      value_descriptions:
+        - id: 0
+          description: "off"
+        - id: 1
+          description: "on"
+  - Signal:
+      message_id:
+        Standard: 1005
+      name: REVERSE_CAMERA_GUIDELINES
+      value_descriptions:
+        - id: 3
+          description: No guidelines
+        - id: 2
+          description: Static guidelines
+        - id: 1
+          description: Active guidelines
+  - Signal:
+      message_id:
+        Standard: 1009
+      name: PCM_FOLLOW_DISTANCE
+      value_descriptions:
+        - id: 1
+          description: far
+        - id: 2
+          description: medium
+        - id: 3
+          description: close
+  - Signal:
+      message_id:
+        Standard: 1041
+      name: PCS_INDICATOR
+      value_descriptions:
+        - id: 2
+          description: PCS Faulted
+        - id: 1
+          description: PCS Turned Off By User
+        - id: 0
+          description: PCS Enabled
+  - Signal:
+      message_id:
+        Standard: 1041
+      name: PCS_SENSITIVITY
+      value_descriptions:
+        - id: 64
+          description: high sensitivity
+        - id: 128
+          description: mid sensitivity
+        - id: 192
+          description: low sensitivity
+        - id: 0
+          description: "off"
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: LDA_ALERT
+      value_descriptions:
+        - id: 3
+          description: hold with continuous beep
+        - id: 2
+          description: LDA unavailable
+        - id: 1
+          description: hold
+        - id: 0
+          description: none
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: BARRIERS
+      value_descriptions:
+        - id: 3
+          description: left
+        - id: 2
+          description: right
+        - id: 1
+          description: both
+        - id: 0
+          description: none
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: RIGHT_LINE
+      value_descriptions:
+        - id: 3
+          description: orange
+        - id: 2
+          description: faded
+        - id: 1
+          description: solid
+        - id: 0
+          description: none
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: LKAS_STATUS
+      value_descriptions:
+        - id: 1
+          description: "on"
+        - id: 0
+          description: "off"
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: LEFT_LINE
+      value_descriptions:
+        - id: 3
+          description: orange
+        - id: 2
+          description: faded
+        - id: 1
+          description: solid
+        - id: 0
+          description: none
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: LDA_ON_MESSAGE
+      value_descriptions:
+        - id: 2
+          description: "Lane Departure Alert Turned ON, Steering Assist Inactive"
+        - id: 1
+          description: "Lane Departure Alert Turned ON, Steering Assist Active"
+        - id: 0
+          description: clear
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: LDA_SA_TOGGLE
+      value_descriptions:
+        - id: 2
+          description: steering assist off
+        - id: 1
+          description: steering assist on
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: LDA_SENSITIVITY
+      value_descriptions:
+        - id: 2
+          description: standard
+        - id: 1
+          description: high
+        - id: 0
+          description: undefined
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: LDA_MESSAGES
+      value_descriptions:
+        - id: 4
+          description: lda unavailable at this speed
+        - id: 1
+          description: lda unavailable below approx 50km/h
+        - id: 0
+          description: ok
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: LDA_FRONT_CAMERA_BLOCKED
+      value_descriptions:
+        - id: 1
+          description: lda unavailable
+        - id: 0
+          description: ok
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: TAKE_CONTROL
+      value_descriptions:
+        - id: 1
+          description: take control
+        - id: 0
+          description: ok
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: LANE_SWAY_WARNING
+      value_descriptions:
+        - id: 3
+          description: ok
+        - id: 2
+          description: orange please take a break
+        - id: 1
+          description: prompt would you like to take a break
+        - id: 0
+          description: ok
+  - Signal:
+      message_id:
+        Standard: 1042
+      name: LANE_SWAY_BUZZER
+      value_descriptions:
+        - id: 3
+          description: ok
+        - id: 2
+          description: beep twice
+        - id: 1
+          description: beep twice
+        - id: 0
+          description: ok
+  - Signal:
+      message_id:
+        Standard: 1161
+      name: TSGN1
+      value_descriptions:
+        - id: 1
+          description: speed sign
+        - id: 0
+          description: none
+  - Signal:
+      message_id:
+        Standard: 1161
+      name: TSGN2
+      value_descriptions:
+        - id: 1
+          description: speed sign
+        - id: 0
+          description: none
+  - Signal:
+      message_id:
+        Standard: 1161
+      name: SPLSGN2
+      value_descriptions:
+        - id: 15
+          description: conditional blank
+        - id: 4
+          description: wet road
+        - id: 5
+          description: rain
+        - id: 0
+          description: none
+  - Signal:
+      message_id:
+        Standard: 1162
+      name: TSGN3
+      value_descriptions:
+        - id: 0
+          description: none
+        - id: 1
+          description: speed sign
+        - id: 2
+          description: 0 unlimited
+        - id: 7
+          description: unlimited
+        - id: 16
+          description: highway
+        - id: 17
+          description: no highway
+        - id: 18
+          description: motorway
+        - id: 19
+          description: no motorway
+        - id: 20
+          description: in city
+        - id: 21
+          description: outside city
+        - id: 22
+          description: pedestrian area
+        - id: 23
+          description: no pedestrian area
+        - id: 65
+          description: no overtaking left
+        - id: 66
+          description: no overtaking right
+        - id: 67
+          description: overtaking allowed again
+        - id: 81
+          description: no right turn
+        - id: 97
+          description: stop
+        - id: 105
+          description: yield
+        - id: 113
+          description: stop
+        - id: 114
+          description: yield us
+        - id: 129
+          description: no entry
+        - id: 138
+          description: no entry tss2
+        - id: 145
+          description: do not enter
+  - Signal:
+      message_id:
+        Standard: 1162
+      name: SPLSGN3
+      value_descriptions:
+        - id: 15
+          description: conditional blank
+        - id: 4
+          description: wet road
+        - id: 5
+          description: rain
+        - id: 0
+          description: none
+  - Signal:
+      message_id:
+        Standard: 1552
+      name: METER_SLIDER_LOW_BRIGHTNESS
+      value_descriptions:
+        - id: 1
+          description: "Low brightness mode, footwell lights off"
+        - id: 0
+          description: "Normal mode, footwell lights on"
+  - Signal:
+      message_id:
+        Standard: 1552
+      name: METER_SLIDER_DIMMED
+      value_descriptions:
+        - id: 1
+          description: Dimmed
+        - id: 0
+          description: Not Dimmed
+  - Signal:
+      message_id:
+        Standard: 1552
+      name: UNITS
+      value_descriptions:
+        - id: 1
+          description: km (km/L)
+        - id: 2
+          description: km (L/100km)
+        - id: 3
+          description: miles (MPG US)
+        - id: 4
+          description: miles (MPG Imperial)
+  - Signal:
+      message_id:
+        Standard: 1553
+      name: UNITS
+      value_descriptions:
+        - id: 1
+          description: km
+        - id: 2
+          description: miles
+  - Signal:
+      message_id:
+        Standard: 1556
+      name: TURN_SIGNALS
+      value_descriptions:
+        - id: 3
+          description: none
+        - id: 2
+          description: right
+        - id: 1
+          description: left
+  - Signal:
+      message_id:
+        Standard: 1556
+      name: BLINKER_BUTTON_PRESSED
+      value_descriptions:
+        - id: 1
+          description: button pressed
+        - id: 0
+          description: not pressed
+  - Signal:
+      message_id:
+        Standard: 1570
+      name: HEADLIGHT_MODE
+      value_descriptions:
+        - id: 0
+          description: headlights off
+        - id: 2
+          description: force parking lights
+        - id: 4
+          description: force low beams
+        - id: 7
+          description: auto low beams
+        - id: 6
+          description: auto parking lights
+  - Signal:
+      message_id:
+        Standard: 1592
+      name: LOCK_STATUS
+      value_descriptions:
+        - id: 0
+          description: locked
+        - id: 1
+          description: unlocked

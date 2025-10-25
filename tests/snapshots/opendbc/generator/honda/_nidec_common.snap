@@ -1,0 +1,784 @@
+---
+source: tests/snapshots.rs
+---
+version: ""
+bit_timing: ~
+messages:
+  - id:
+      Standard: 432
+    name: STANDSTILL
+    size: 7
+    transmitter:
+      NodeName: VSA
+    signals:
+      - name: CONTROLLED_STANDSTILL
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - EON
+      - name: WHEELS_MOVING
+        multiplexer_indicator: Plain
+        start_bit: 12
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - EON
+      - name: BRAKE_ERROR_1
+        multiplexer_indicator: Plain
+        start_bit: 11
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - EON
+      - name: BRAKE_ERROR_2
+        multiplexer_indicator: Plain
+        start_bit: 9
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - EON
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 53
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - EON
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 51
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - EON
+  - id:
+      Standard: 487
+    name: BRAKE_PRESSURE
+    size: 4
+    transmitter:
+      NodeName: VSA
+    signals:
+      - name: BRAKE_PRESSURE1
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 10
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.015625
+        offset: -103
+        min: 0
+        max: 1000
+        unit: ""
+        receivers:
+          - EON
+      - name: BRAKE_PRESSURE2
+        multiplexer_indicator: Plain
+        start_bit: 9
+        size: 10
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 0.015625
+        offset: -103
+        min: 0
+        max: 1000
+        unit: ""
+        receivers:
+          - EON
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 27
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - EON
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 29
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - EON
+  - id:
+      Standard: 506
+    name: BRAKE_COMMAND
+    size: 8
+    transmitter:
+      NodeName: ADAS
+    signals:
+      - name: COMPUTER_BRAKE
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 10
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - EBCM
+      - name: BRAKE_PUMP_REQUEST
+        multiplexer_indicator: Plain
+        start_bit: 8
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - EBCM
+      - name: BRAKE_PUMP_REQUEST_HYBRID
+        multiplexer_indicator: Plain
+        start_bit: 11
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - EBCM
+      - name: SET_ME_X00
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - EBCM
+      - name: CRUISE_OVERRIDE
+        multiplexer_indicator: Plain
+        start_bit: 20
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - EBCM
+      - name: SET_ME_X00_2
+        multiplexer_indicator: Plain
+        start_bit: 19
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - EBCM
+      - name: CRUISE_FAULT_CMD
+        multiplexer_indicator: Plain
+        start_bit: 18
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - EBCM
+      - name: CRUISE_CANCEL_CMD
+        multiplexer_indicator: Plain
+        start_bit: 17
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - EBCM
+      - name: COMPUTER_BRAKE_REQUEST
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - EBCM
+      - name: SET_ME_1
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - EBCM
+      - name: AEB_REQ_1
+        multiplexer_indicator: Plain
+        start_bit: 29
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: AEB_REQ_2
+        multiplexer_indicator: Plain
+        start_bit: 26
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 7
+        unit: ""
+        receivers:
+          - XXX
+      - name: BRAKE_LIGHTS
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - EBCM
+      - name: CRUISE_STATES
+        multiplexer_indicator: Plain
+        start_bit: 38
+        size: 7
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - EBCM
+      - name: CHIME
+        multiplexer_indicator: Plain
+        start_bit: 47
+        size: 3
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 7
+        unit: ""
+        receivers:
+          - EBCM
+      - name: SET_ME_X00_3
+        multiplexer_indicator: Plain
+        start_bit: 44
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - EBCM
+      - name: FCW
+        multiplexer_indicator: Plain
+        start_bit: 43
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - EBCM
+      - name: AEB_STATUS
+        multiplexer_indicator: Plain
+        start_bit: 41
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+      - name: COMPUTER_BRAKE_HYBRID
+        multiplexer_indicator: Plain
+        start_bit: 55
+        size: 10
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - EBCM
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 61
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - EBCM
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 59
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - EBCM
+  - id:
+      Standard: 547
+    name: BRAKE_HOLD_HYBRID_ALT
+    size: 6
+    transmitter:
+      NodeName: XXX
+    signals:
+      - name: BRAKE_HOLD_FAULT_BIT
+        multiplexer_indicator: Plain
+        start_bit: 33
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: BRAKE_HOLD_ENABLED
+        multiplexer_indicator: Plain
+        start_bit: 37
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 7
+        unit: ""
+        receivers:
+          - XXX
+      - name: BRAKE_HOLD_ACTIVE
+        multiplexer_indicator: Plain
+        start_bit: 38
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - XXX
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 43
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - XXX
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 45
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - XXX
+  - id:
+      Standard: 892
+    name: CRUISE_PARAMS
+    size: 8
+    transmitter:
+      NodeName: PCM
+    signals:
+      - name: CRUISE_SPEED_OFFSET
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 8
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 0.1
+        offset: 0
+        min: -128
+        max: 127
+        unit: kph
+        receivers:
+          - EON
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 59
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - EON
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 61
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - EON
+  - id:
+      Standard: 927
+    name: RADAR_HUD
+    size: 8
+    transmitter:
+      NodeName: ADAS
+    signals:
+      - name: ZEROS_BOH
+        multiplexer_indicator: Plain
+        start_bit: 7
+        size: 16
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 127
+        unit: ""
+        receivers:
+          - BDY
+      - name: ACC_ALERTS
+        multiplexer_indicator: Plain
+        start_bit: 20
+        size: 5
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - BDY
+      - name: RESUME_INSTRUCTION
+        multiplexer_indicator: Plain
+        start_bit: 21
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - BDY
+      - name: APPLY_BRAKES_FOR_CANC
+        multiplexer_indicator: Plain
+        start_bit: 23
+        size: 1
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - BDY
+      - name: ZEROS_BOH2
+        multiplexer_indicator: Plain
+        start_bit: 31
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 127
+        unit: ""
+        receivers:
+          - BDY
+      - name: LEAD_SPEED
+        multiplexer_indicator: Plain
+        start_bit: 39
+        size: 9
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 127
+        unit: ""
+        receivers:
+          - BDY
+      - name: LEAD_DISTANCE
+        multiplexer_indicator: Plain
+        start_bit: 46
+        size: 8
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 31
+        unit: ""
+        receivers:
+          - BDY
+      - name: ZEROS_BOH3
+        multiplexer_indicator: Plain
+        start_bit: 54
+        size: 7
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 127
+        unit: ""
+        receivers:
+          - BDY
+      - name: COUNTER
+        multiplexer_indicator: Plain
+        start_bit: 61
+        size: 2
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - BDY
+      - name: CHECKSUM
+        multiplexer_indicator: Plain
+        start_bit: 59
+        size: 4
+        byte_order: BigEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - BDY
+comments:
+  - Signal:
+      message_id:
+        Standard: 506
+      name: AEB_REQ_1
+      comment: set for duration of suspected AEB event
+  - Signal:
+      message_id:
+        Standard: 506
+      name: COMPUTER_BRAKE_HYBRID
+      comment: Used by Hybrid Nidec
+  - Signal:
+      message_id:
+        Standard: 506
+      name: BRAKE_PUMP_REQUEST_HYBRID
+      comment: Used by Hybrid Nidec
+value_descriptions:
+  - Signal:
+      message_id:
+        Standard: 506
+      name: FCW
+      value_descriptions:
+        - id: 3
+          description: fcw
+        - id: 2
+          description: fcw
+        - id: 1
+          description: fcw
+        - id: 0
+          description: no_fcw
+  - Signal:
+      message_id:
+        Standard: 506
+      name: CHIME
+      value_descriptions:
+        - id: 4
+          description: double_chime
+        - id: 3
+          description: single_chime
+        - id: 2
+          description: continuous_chime
+        - id: 1
+          description: repeating_chime
+        - id: 0
+          description: no_chime
+  - Signal:
+      message_id:
+        Standard: 506
+      name: AEB_STATUS
+      value_descriptions:
+        - id: 3
+          description: aeb_prepare
+        - id: 2
+          description: aeb_ready
+        - id: 1
+          description: aeb_braking
+        - id: 0
+          description: no_aeb
+  - Signal:
+      message_id:
+        Standard: 927
+      name: ACC_ALERTS
+      value_descriptions:
+        - id: 29
+          description: esp_active_acc_canceled
+        - id: 10
+          description: b_pedal_applied
+        - id: 9
+          description: speed_too_low
+        - id: 8
+          description: speed_too_high
+        - id: 7
+          description: p_brake_applied
+        - id: 6
+          description: gear_no_d
+        - id: 5
+          description: seatbelt
+        - id: 4
+          description: too_steep_downhill
+        - id: 3
+          description: too_steep_uphill
+        - id: 2
+          description: too_close
+        - id: 1
+          description: no_vehicle_ahead
+  - Signal:
+      message_id:
+        Standard: 927
+      name: LEAD_DISTANCE
+      value_descriptions:
+        - id: 254
+          description: no lead
+  - Signal:
+      message_id:
+        Standard: 927
+      name: LEAD_SPEED
+      value_descriptions:
+        - id: 510
+          description: no lead
