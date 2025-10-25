@@ -213,7 +213,7 @@ EV_ IUV: 0 [-22|20] "mm" 3 7 DUMMY_NODE_VECTOR0 VECTOR_XXX;
 "#;
     let exp = EnvironmentVariable {
         name: "IUV".to_string(),
-        typ: EnvType::Float,
+        typ: EnvType::Integer,
         min: -22,
         max: 20,
         unit: "mm".to_string(),
