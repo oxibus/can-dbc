@@ -1,4 +1,19 @@
-/// Baudrate of network in kbit/s
+use can_dbc_pest::{Pair, Rule};
+
+use crate::parser::DbcResult;
+
+/// Baudrate of network in KBit/s
 #[derive(Copy, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Baudrate(pub u64);
+
+impl Baudrate {
+    /// Parse bit timing: `BS_: [baud_rate : BTR1 , BTR2 ]`
+    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Vec<Self>> {
+        let pairs = pair.into_inner();
+        if pairs.len() == 0 {
+            return Ok(vec![]);
+        }
+        todo!("Bit timing parsing not implemented yet");
+    }
+}

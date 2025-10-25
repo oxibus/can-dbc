@@ -23,6 +23,10 @@ export RUST_BACKTRACE := env('RUST_BACKTRACE', if ci_mode == '1' {'1'} else {'0'
 bless *args:  (cargo-install 'cargo-insta')
     cargo insta test --accept --unreferenced=delete {{features}} {{args}}
 
+bless-all:  (cargo-install 'cargo-insta')
+    rm -rf tests/snapshots
+    FORCE_INSTA=1 {{just_executable()}} bless
+
 # Build the project
 build:
     cargo build {{packages}} {{features}} {{targets}}

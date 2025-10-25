@@ -1,0 +1,284 @@
+---
+source: tests/snapshots.rs
+---
+version: "HINBNYYYYYYYYYYYYYYYYYYYYYYYYYYYNNNNNNNNNN/4/%%%/4/'%**4NNN///"
+new_symbols:
+  - NS_DESC_
+  - CM_
+  - BA_DEF_
+  - BA_
+  - VAL_
+  - CAT_DEF_
+  - CAT_
+  - FILTER
+  - BA_DEF_DEF_
+  - EV_DATA_
+  - ENVVAR_DATA_
+  - SGTYPE_
+  - SGTYPE_VAL_
+  - BA_DEF_SGTYPE_
+  - BA_SGTYPE_
+  - SIG_TYPE_REF_
+  - VAL_TABLE_
+  - SIG_GROUP_
+  - SIG_VALTYPE_
+  - SIGTYPE_VALTYPE_
+  - BO_TX_BU_
+  - BA_DEF_REL_
+  - BA_REL_
+  - BA_DEF_DEF_REL_
+  - BU_SG_REL_
+  - BU_EV_REL_
+  - BU_BO_REL_
+  - SG_MUL_VAL_
+bit_timing: []
+nodes:
+  - EMV_Statusmeldungen
+messages:
+  - id:
+      Standard: 546
+    name: EMV_Stati
+    size: 8
+    transmitter:
+      NodeName: EMV_Statusmeldungen
+    signals:
+      - name: EMV_Aktion_Status_5
+        multiplexer_indicator: Plain
+        start_bit: 4
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: EMV_Aktion_Status_4
+        multiplexer_indicator: Plain
+        start_bit: 3
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: EMV_Aktion_Status_3
+        multiplexer_indicator: Plain
+        start_bit: 2
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - EMV_Statusmeldungen
+      - name: EMV_Aktion_Status_2
+        multiplexer_indicator: Plain
+        start_bit: 6
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: EMV_Aktion_Status_1
+        multiplexer_indicator: Plain
+        start_bit: 5
+        size: 1
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - Vector__XXX
+environment_variables:
+  - name: EMC_TrdPower
+    typ: Float
+    min: 0
+    max: 20000
+    unit: W
+    initial_value: 0
+    ev_id: 1
+    access_type: DummyNodeVector0
+    access_nodes:
+      - Name: Vector__XXX
+  - name: EMC_Modulation
+    typ: Integer
+    min: 0
+    max: 0
+    unit: ""
+    initial_value: 0
+    ev_id: 2
+    access_type: DummyNodeVector0
+    access_nodes:
+      - Name: Vector__XXX
+  - name: EMC_NoGoInfo
+    typ: Integer
+    min: 0
+    max: 0
+    unit: ""
+    initial_value: 0
+    ev_id: 3
+    access_type: DummyNodeVector0
+    access_nodes:
+      - Name: Vector__XXX
+  - name: EMC_Test_Stop
+    typ: Integer
+    min: 0
+    max: 1
+    unit: ""
+    initial_value: 0
+    ev_id: 4
+    access_type: DummyNodeVector0
+    access_nodes:
+      - Name: Vector__XXX
+  - name: EMC_Test_Start
+    typ: Integer
+    min: 0
+    max: 1
+    unit: ""
+    initial_value: 0
+    ev_id: 5
+    access_type: DummyNodeVector0
+    access_nodes:
+      - Name: Vector__XXX
+  - name: EMC_Test_Clear
+    typ: Integer
+    min: 0
+    max: 1
+    unit: ""
+    initial_value: 0
+    ev_id: 6
+    access_type: DummyNodeVector0
+    access_nodes:
+      - Name: Vector__XXX
+  - name: EMC_Synchronisation
+    typ: Integer
+    min: 0
+    max: 1
+    unit: ""
+    initial_value: 0
+    ev_id: 7
+    access_type: DummyNodeVector0
+    access_nodes:
+      - Name: Vector__XXX
+  - name: EMC_Polarisation
+    typ: Integer
+    min: 0
+    max: 0
+    unit: ""
+    initial_value: 0
+    ev_id: 8
+    access_type: DummyNodeVector0
+    access_nodes:
+      - Name: Vector__XXX
+  - name: EMC_NoGo
+    typ: Integer
+    min: 0
+    max: 1
+    unit: ""
+    initial_value: 0
+    ev_id: 9
+    access_type: DummyNodeVector0
+    access_nodes:
+      - Name: Vector__XXX
+  - name: EMC_Frequency
+    typ: Float
+    min: 0
+    max: 4000000000
+    unit: Hz
+    initial_value: 0
+    ev_id: 10
+    access_type: DummyNodeVector0
+    access_nodes:
+      - Name: Vector__XXX
+  - name: EMC_TestLevel
+    typ: Float
+    min: 0
+    max: 600
+    unit: Level
+    initial_value: 0
+    ev_id: 11
+    access_type: DummyNodeVector0
+    access_nodes:
+      - Name: Vector__XXX
+  - name: EMC_Azimuth
+    typ: Float
+    min: -180
+    max: 400
+    unit: deg
+    initial_value: 0
+    ev_id: 12
+    access_type: DummyNodeVector0
+    access_nodes:
+      - Name: Vector__XXX
+  - name: EMC_Action_5
+    typ: Integer
+    min: 0
+    max: 1
+    unit: ""
+    initial_value: 0
+    ev_id: 13
+    access_type: DummyNodeVector0
+    access_nodes:
+      - Name: Vector__XXX
+  - name: EMC_Action_4
+    typ: Integer
+    min: 0
+    max: 1
+    unit: ""
+    initial_value: 0
+    ev_id: 14
+    access_type: DummyNodeVector0
+    access_nodes:
+      - Name: Vector__XXX
+  - name: EMC_Action_3
+    typ: Integer
+    min: 0
+    max: 1
+    unit: ""
+    initial_value: 0
+    ev_id: 15
+    access_type: DummyNodeVector0
+    access_nodes:
+      - Name: Vector__XXX
+  - name: EMC_Action_2
+    typ: Integer
+    min: 0
+    max: 1
+    unit: ""
+    initial_value: 0
+    ev_id: 16
+    access_type: DummyNodeVector0
+    access_nodes:
+      - Name: Vector__XXX
+  - name: EMC_Action_1
+    typ: Integer
+    min: 0
+    max: 1
+    unit: ""
+    initial_value: 0
+    ev_id: 17
+    access_type: DummyNodeVector0
+    access_nodes:
+      - Name: Vector__XXX
+comments:
+  - EnvVar:
+      name: EMC_Azimuth
+      comment: Elevation Head

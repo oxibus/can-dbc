@@ -4,7 +4,7 @@ use std::fs;
 use std::str::from_utf8;
 
 use can_dbc::encodings::Encoding;
-use can_dbc::{Dbc, Error};
+use can_dbc::Dbc;
 use clap::Parser;
 
 #[derive(Parser)]
@@ -36,13 +36,6 @@ fn main() {
 
     match Dbc::try_from(data.as_ref()) {
         Ok(dbc_content) => println!("{dbc_content:#?}"),
-        Err(e) => {
-            match e {
-                Error::Nom(nom::Err::Error(e) | nom::Err::Failure(e)) => eprintln!("{e:?}"),
-                Error::Nom(nom::Err::Incomplete(needed)) => eprintln!("Nom incomplete needed: {needed:#?}"),
-                Error::Incomplete(dbc, remaining) => eprintln!("Not all data in buffer was read {dbc:#?}, remaining unparsed (length: {}): {remaining}\n...(truncated)", remaining.len()),
-                Error::MultipleMultiplexors => eprintln!("Multiple multiplexors defined"),
-            }
-        }
+        Err(e) => eprintln!("Error parsing DBC file '{path}': {e}"),
     }
 }

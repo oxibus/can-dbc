@@ -1,4 +1,6 @@
 ---
 source: tests/snapshots.rs
 ---
-"incomplete"
+NotImplemented(
+    "ba_def_rel",
+)

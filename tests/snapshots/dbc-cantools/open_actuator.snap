@@ -1,0 +1,391 @@
+---
+source: tests/snapshots.rs
+---
+version: ""
+new_symbols:
+  - NS_DESC_
+  - CM_
+  - BA_DEF_
+  - BA_
+  - VAL_
+  - CAT_DEF_
+  - CAT_
+  - FILTER
+  - BA_DEF_DEF_
+  - EV_DATA_
+  - ENVVAR_DATA_
+  - SGTYPE_
+  - SGTYPE_VAL_
+  - BA_DEF_SGTYPE_
+  - BA_SGTYPE_
+  - SIG_TYPE_REF_
+  - VAL_TABLE_
+  - SIG_GROUP_
+  - SIG_VALTYPE_
+  - SIGTYPE_VALTYPE_
+  - BO_TX_BU_
+  - BA_DEF_REL_
+  - BA_REL_
+  - BA_DEF_DEF_REL_
+  - BU_SG_REL_
+  - BU_EV_REL_
+  - BU_BO_REL_
+  - SG_MUL_VAL_
+bit_timing: []
+nodes:
+  - Actuator
+  - Driver
+  - Sensor
+messages:
+  - id:
+      Standard: 250
+    name: ControlCmd
+    size: 7
+    transmitter:
+      NodeName: Driver
+    signals:
+      - name: CRC8_CMD1
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - Actuator
+      - name: Counter_CMD1
+        multiplexer_indicator: Plain
+        start_bit: 48
+        size: 4
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - Actuator
+      - name: TargetMotorID_CMD1
+        multiplexer_indicator: Plain
+        start_bit: 12
+        size: 2
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - Actuator
+      - name: TargetMode
+        multiplexer_indicator: Plain
+        start_bit: 8
+        size: 3
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 3
+        unit: ""
+        receivers:
+          - Actuator
+      - name: PositionCmd_64
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 16
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 0.0154286
+        offset: 0
+        min: -450
+        max: 450
+        unit: deg
+        receivers:
+          - Actuator
+      - name: TorqueCommand_8
+        multiplexer_indicator: Plain
+        start_bit: 32
+        size: 10
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 0.0166667
+        offset: 0
+        min: -8
+        max: 8
+        unit: N*m
+        receivers:
+          - Actuator
+      - name: TorqueCloseLoopMax_32
+        multiplexer_indicator: Plain
+        start_bit: 42
+        size: 6
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.186666
+        offset: 0
+        min: 0
+        max: 8
+        unit: N*m
+        receivers:
+          - Actuator
+  - id:
+      Standard: 251
+    name: LimitsCmd
+    size: 6
+    transmitter:
+      NodeName: Driver
+    signals:
+      - name: CRC8_CMD2
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - Actuator
+      - name: Counter_CMD2
+        multiplexer_indicator: Plain
+        start_bit: 12
+        size: 4
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - Actuator
+      - name: VelocityLimit
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Actuator
+      - name: AccelLimit
+        multiplexer_indicator: Plain
+        start_bit: 32
+        size: 16
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Actuator
+  - id:
+      Standard: 252
+    name: ControlStatus
+    size: 4
+    transmitter:
+      NodeName: Actuator
+    signals:
+      - name: CRC8_STAT1
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - Driver
+          - Actuator
+      - name: Counter_STAT1
+        multiplexer_indicator: Plain
+        start_bit: 12
+        size: 4
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - Driver
+      - name: TorqueActual
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 10
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 0.015625
+        offset: 0
+        min: -8
+        max: 8
+        unit: N*m
+        receivers:
+          - Driver
+      - name: TorqueCloseLoopActual
+        multiplexer_indicator: Plain
+        start_bit: 26
+        size: 6
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 0.125
+        offset: 0
+        min: 0
+        max: 8
+        unit: N*m
+        receivers:
+          - Driver
+  - id:
+      Standard: 253
+    name: SystemStatus
+    size: 3
+    transmitter:
+      NodeName: Actuator
+    signals:
+      - name: CRC8_STAT2
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - Driver
+      - name: Counter_STAT2
+        multiplexer_indicator: Plain
+        start_bit: 12
+        size: 4
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - Driver
+      - name: ChipTemp
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: -60
+        min: -60
+        max: 195
+        unit: C
+        receivers:
+          - Driver
+  - id:
+      Standard: 113
+    name: TorqueSensorData
+    size: 3
+    transmitter:
+      NodeName: Sensor
+    signals:
+      - name: CRC8_DATA1
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 255
+        unit: ""
+        receivers:
+          - Driver
+      - name: Counter_DATA1
+        multiplexer_indicator: Plain
+        start_bit: 8
+        size: 4
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 15
+        unit: ""
+        receivers:
+          - Driver
+      - name: TorqueSense
+        multiplexer_indicator: Plain
+        start_bit: 12
+        size: 12
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 0.01
+        offset: 0
+        min: -20
+        max: 20
+        unit: N*m
+        receivers:
+          - Driver
+comments:
+  - Signal:
+      message_id:
+        Standard: 250
+      name: PositionCmd_64
+      comment: "Output relative position.\nAlternative usage - absolute output position\nFactor = 64_const / 200steps / 256microsteps *360deg / FinalGearRatio / GearboxRatio"
+  - Signal:
+      message_id:
+        Standard: 250
+      name: TorqueCommand_8
+      comment: "Factor: \n8_const * 1A/1000mA * MotorRatedTorque / MotorRatedCurrent * GearboxRatio * FinalGearRatio"
+  - Signal:
+      message_id:
+        Standard: 250
+      name: TorqueCloseLoopMax_32
+      comment: "For TorqueCmd > 0 \nMax positive close loop torque on top of TorqueCmd (outward torque) and below 0 (centering torque). \nFor TorqueCmd < 0;\nMax negative close loop torque on top of TorqueCmd (outward torque) and above 0 (centering torque).\nFactor: \n32_const * 1A/1000mA * MotorRatedTorque / MotorRatedCurrent * GearboxRatio * FinalGearRatio"
+  - Signal:
+      message_id:
+        Standard: 113
+      name: TorqueSense
+      comment: Strain gauge torque measured
+attribute_definitions:
+  - Plain: "\"BusType\" STRING"
+attribute_defaults:
+  - name: BusType
+    value:
+      String: CAN
+value_descriptions:
+  - Signal:
+      message_id:
+        Standard: 250
+      name: TargetMode
+      value_descriptions:
+        - id: 0
+          description: "Off"
+        - id: 1
+          description: Assist
+        - id: 2
+          description: PositionRelative
+        - id: 3
+          description: Torque
+        - id: 4
+          description: PositionAbsolute
