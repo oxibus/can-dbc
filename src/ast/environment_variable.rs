@@ -1,7 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{AccessNode, AccessType, EnvType};
-use crate::parser::{parse_int, parse_min_max_int, parse_str, single_rule, DbcResult};
+use crate::parser::{parse_int, parse_min_max_int, parse_str, single_string, DbcResult};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -28,15 +28,12 @@ impl EnvironmentVariable {
         let mut unit = String::new();
         let mut initial_value = 0.0f64;
         let mut ev_id = 0i64;
-        let mut access_type = String::new();
+        let mut access_type = AccessType::DummyNodeVector0;
         let mut access_nodes = Vec::new();
 
         for pairs in pair.into_inner() {
             match pairs.as_rule() {
-                Rule::env_var => {
-                    let v = single_rule(pairs, Rule::env_var_name)?;
-                    name = v.as_str().to_string();
-                }
+                Rule::env_var => name = single_string(pairs, Rule::env_var_name)?,
                 Rule::env_var_type_int => env_type = Some(EnvType::Integer),
                 Rule::env_var_type_float => env_type = Some(EnvType::Float),
                 Rule::env_var_type_string => env_type = Some(EnvType::String),
@@ -44,32 +41,11 @@ impl EnvironmentVariable {
                 Rule::unit => unit = parse_str(pairs),
                 Rule::init_value => initial_value = parse_int(pairs)? as f64,
                 Rule::ev_id => ev_id = parse_int(pairs)?,
-                Rule::node_name => {
-                    let node_name = pairs.as_str().to_string();
-                    if access_type.is_empty() {
-                        // First node_name is the access type
-                        access_type = node_name;
-                    } else {
-                        // Subsequent node_names are access nodes
-                        let access_node = if node_name == "VECTOR__XXX" {
-                            AccessNode::VectorXXX
-                        } else {
-                            AccessNode::Name(node_name)
-                        };
-                        access_nodes.push(access_node);
-                    }
-                }
-                _ => panic!("Unexpected rule: {:?}", pairs.as_rule()),
+                Rule::access_type => access_type = pairs.try_into()?,
+                Rule::node_name => access_nodes.push(pairs.try_into()?),
+                _ => panic!("Unexpected rule: {pairs:?}"),
             }
         }
-
-        let access_type = match access_type.as_str() {
-            "DUMMY_NODE_VECTOR1" => AccessType::DummyNodeVector1,
-            "DUMMY_NODE_VECTOR2" => AccessType::DummyNodeVector2,
-            "DUMMY_NODE_VECTOR3" => AccessType::DummyNodeVector3,
-            // FIXME: is this correct?
-            _ => AccessType::DummyNodeVector0,
-        };
 
         Ok(Self {
             name,

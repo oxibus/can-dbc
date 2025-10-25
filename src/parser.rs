@@ -68,6 +68,12 @@ pub(crate) fn single_rule(pair: Pair<Rule>, expected: Rule) -> DbcResult<Pair<Ru
     }
 }
 
+/// Helper function to get a single pair, validate its rule, and convert to string
+#[allow(dead_code)]
+pub(crate) fn single_string(pair: Pair<Rule>, expected: Rule) -> DbcResult<String> {
+    Ok(single_rule(pair, expected)?.as_str().to_string())
+}
+
 /// Helper function to collect all remaining pairs of a specific rule type
 pub(crate) fn collect_all<'a, T: TryFrom<Pair<'a, Rule>, Error = DbcError>>(
     iter: &mut Pairs<'a, Rule>,

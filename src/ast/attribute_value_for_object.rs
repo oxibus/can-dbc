@@ -1,7 +1,9 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::AttributeValuedForObjectType;
-use crate::parser::{expect_empty, next_rule, parse_float, parse_str, single_rule, DbcResult};
+use crate::parser::{
+    expect_empty, next_rule, next_string, parse_float, parse_str, single_rule, DbcResult,
+};
 use crate::{AttributeValue, MessageId};
 
 #[derive(Clone, Debug, PartialEq)]
@@ -45,8 +47,7 @@ impl AttributeValueForObject {
                     // Parse the message ID and signal name from the inner pairs
                     let mut inner_pairs = pairs.into_inner();
                     message_id = Some(next_rule(&mut inner_pairs, Rule::message_id)?.try_into()?);
-                    let v = next_rule(&mut inner_pairs, Rule::ident)?;
-                    signal_name = Some(v.as_str().to_string());
+                    signal_name = Some(next_string(&mut inner_pairs, Rule::ident)?);
                     expect_empty(&mut inner_pairs)?;
                 }
                 Rule::env_var => {
