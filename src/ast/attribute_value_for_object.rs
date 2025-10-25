@@ -70,12 +70,7 @@ impl AttributeValueForObject {
         let value = match object_type {
             Some(Rule::signal_var) => {
                 if let (Some(msg_id), Some(sig_name)) = (message_id, signal_name) {
-                    let msg_id = if msg_id & (1 << 31) != 0 {
-                        MessageId::Extended(msg_id & 0x1FFF_FFFF)
-                    } else {
-                        MessageId::Standard(msg_id as u16)
-                    };
-                    AttributeValuedForObjectType::Signal(msg_id, sig_name, value)
+                    AttributeValuedForObjectType::Signal(MessageId::parse(msg_id), sig_name, value)
                 } else {
                     todo!()
                     // AttributeValuedForObjectType::Raw(value)
@@ -83,12 +78,10 @@ impl AttributeValueForObject {
             }
             Some(Rule::msg_var) => {
                 if let Some(msg_id) = message_id {
-                    let msg_id = if msg_id & (1 << 31) != 0 {
-                        MessageId::Extended(msg_id & 0x1FFF_FFFF)
-                    } else {
-                        MessageId::Standard(msg_id as u16)
-                    };
-                    AttributeValuedForObjectType::MessageDefinition(msg_id, Some(value))
+                    AttributeValuedForObjectType::MessageDefinition(
+                        MessageId::parse(msg_id),
+                        Some(value),
+                    )
                 } else {
                     AttributeValuedForObjectType::Raw(value)
                 }

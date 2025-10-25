@@ -1,7 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{MessageId, ValDescription};
-use crate::parser::{next_string, parse_uint, DbcResult};
+use crate::parser::{collect_all, collect_expected, next_string, parse_uint, DbcResult};
 
 /// Encoding for signal raw values.
 #[derive(Clone, Debug, PartialEq)]
@@ -32,45 +32,29 @@ impl ValueDescription {
                 message_id = Some(parse_uint(first_pair)? as u32);
             } else {
                 // Put it back and treat as signal_name (environment variable case)
-                let signal_name = first_pair.as_str().to_string();
-                let mut descriptions = Vec::new();
-                for pair2 in pairs {
-                    if pair2.as_rule() == Rule::table_value_description {
-                        descriptions.push(ValDescription::parse(pair2)?);
-                    }
-                }
+                let name = first_pair.as_str().to_string();
+                let value_descriptions =
+                    collect_expected(&mut pairs, Rule::table_value_description)?;
                 return Ok(ValueDescription::EnvironmentVariable {
-                    name: signal_name,
-                    value_descriptions: descriptions,
+                    name,
+                    value_descriptions,
                 });
             }
         }
 
-        let signal_name = next_string(&mut pairs, Rule::signal_name)?;
-
-        // Collect table value descriptions
-        let mut descriptions = Vec::new();
-        for pair2 in pairs {
-            if pair2.as_rule() == Rule::table_value_description {
-                descriptions.push(ValDescription::parse(pair2)?);
-            }
-        }
+        let name = next_string(&mut pairs, Rule::signal_name)?;
+        let value_descriptions = collect_expected(&mut pairs, Rule::table_value_description)?;
 
         if let Some(msg_id) = message_id {
-            let msg_id = if msg_id & (1 << 31) != 0 {
-                MessageId::Extended(msg_id & 0x1FFF_FFFF)
-            } else {
-                MessageId::Standard(msg_id as u16)
-            };
             Ok(ValueDescription::Signal {
-                message_id: msg_id,
-                name: signal_name,
-                value_descriptions: descriptions,
+                message_id: MessageId::parse(msg_id),
+                name,
+                value_descriptions,
             })
         } else {
             Ok(ValueDescription::EnvironmentVariable {
-                name: signal_name,
-                value_descriptions: descriptions,
+                name,
+                value_descriptions,
             })
         }
     }

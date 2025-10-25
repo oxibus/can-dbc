@@ -21,12 +21,6 @@ impl SignalExtendedValueTypeList {
         let value_type = parse_uint(next_rule(&mut pairs, Rule::int)?)?;
         expect_empty(&mut pairs)?;
 
-        let msg_id = if message_id & (1 << 31) != 0 {
-            MessageId::Extended(message_id & 0x1FFF_FFFF)
-        } else {
-            MessageId::Standard(message_id as u16)
-        };
-
         let signal_extended_value_type = match value_type {
             0 => SignalExtendedValueType::SignedOrUnsignedInteger,
             1 => SignalExtendedValueType::IEEEfloat32Bit,
@@ -35,7 +29,7 @@ impl SignalExtendedValueTypeList {
         };
 
         Ok(SignalExtendedValueTypeList {
-            message_id: msg_id,
+            message_id: MessageId::parse(message_id),
             signal_name,
             signal_extended_value_type,
         })

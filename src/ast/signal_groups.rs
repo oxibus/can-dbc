@@ -24,14 +24,8 @@ impl SignalGroups {
         let repetitions = parse_uint(next_rule(&mut pairs, Rule::multiplexer_id)?)?;
         let signal_names = collect_strings(&mut pairs, Rule::signal_name)?;
 
-        let message_id = if message_id & (1 << 31) != 0 {
-            MessageId::Extended(message_id & 0x1FFF_FFFF)
-        } else {
-            MessageId::Standard(message_id as u16)
-        };
-
         Ok(SignalGroups {
-            message_id,
+            message_id: MessageId::parse(message_id),
             name,
             repetitions,
             signal_names,

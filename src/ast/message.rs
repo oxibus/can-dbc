@@ -30,12 +30,6 @@ impl Message {
         let transmitter = next_string(&mut pairs, Rule::transmitter)?;
         expect_empty(&mut pairs)?;
 
-        let id = if message_id & (1 << 31) != 0 {
-            MessageId::Extended(message_id & 0x1FFF_FFFF)
-        } else {
-            MessageId::Standard(message_id as u16)
-        };
-
         let transmitter = if matches!(transmitter.as_str(), "Vector__XXX" | "VectorXXX" | "") {
             Transmitter::VectorXXX
         } else {
@@ -43,7 +37,7 @@ impl Message {
         };
 
         Ok(Message {
-            id,
+            id: MessageId::parse(message_id),
             name,
             size,
             transmitter,

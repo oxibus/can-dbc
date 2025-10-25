@@ -10,11 +10,19 @@ pub enum MessageId {
 }
 
 impl MessageId {
+    pub(crate) fn parse(msg_id: u32) -> Self {
+        if msg_id & (1 << 31) != 0 {
+            Self::Extended(msg_id & 0x1FFF_FFFF)
+        } else {
+            Self::Standard(msg_id as u16)
+        }
+    }
+
     /// Raw value of the message id including the bit for extended identifiers
     pub fn raw(self) -> u32 {
         match self {
-            MessageId::Standard(id) => u32::from(id),
-            MessageId::Extended(id) => id | 1 << 31,
+            Self::Standard(id) => u32::from(id),
+            Self::Extended(id) => id | 1 << 31,
         }
     }
 }

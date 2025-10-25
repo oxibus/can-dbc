@@ -63,13 +63,6 @@ impl EnvironmentVariable {
             }
         }
 
-        let typ = match env_type {
-            0 => EnvType::Float,
-            1 => EnvType::U64,
-            2 => EnvType::Data,
-            v => panic!("Unknown environment variable type: {v}"),
-        };
-
         let access_type_enum = match access_type.as_str() {
             "DUMMY_NODE_VECTOR1" => AccessType::DummyNodeVector1,
             "DUMMY_NODE_VECTOR2" => AccessType::DummyNodeVector2,
@@ -80,7 +73,7 @@ impl EnvironmentVariable {
 
         Ok(EnvironmentVariable {
             name: variable_name,
-            typ,
+            typ: env_type.try_into()?,
             min: min_val,
             max: max_val,
             unit,

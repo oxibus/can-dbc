@@ -48,14 +48,8 @@ impl ExtendedMultiplex {
             }
         }
 
-        let msg_id = if message_id & (1 << 31) != 0 {
-            MessageId::Extended(message_id & 0x1FFF_FFFF)
-        } else {
-            MessageId::Standard(message_id as u16)
-        };
-
         Ok(ExtendedMultiplex {
-            message_id: msg_id,
+            message_id: MessageId::parse(message_id),
             signal_name,
             multiplexor_signal_name: multiplexor_name,
             mappings,
