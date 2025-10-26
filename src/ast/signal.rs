@@ -1,7 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{ByteOrder, MultiplexIndicator, ValueType};
-use crate::parser::{parse_float, parse_min_max_float, parse_str, parse_uint};
+use crate::parser::{inner_str, parse_float, parse_min_max_float, parse_uint};
 use crate::DbcError;
 
 /// One or multiple signals are the payload of a CAN frame.
@@ -54,7 +54,7 @@ impl TryFrom<Pair<'_, Rule>> for Signal {
                 Rule::factor => factor = parse_float(pair2)?,
                 Rule::offset => offset = parse_float(pair2)?,
                 Rule::min_max => (min, max) = parse_min_max_float(pair2)?,
-                Rule::unit => unit = parse_str(pair2),
+                Rule::unit => unit = inner_str(pair2),
                 Rule::node_name => receivers.push(pair2.as_str().to_string()),
                 _ => panic!("Unexpected rule: {:?}", pair2.as_rule()),
             }

@@ -1,7 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::MessageId;
-use crate::parser::{parse_str, parse_uint, single_rule, DbcResult};
+use crate::parser::{inner_str, parse_uint, single_inner, DbcError};
 
 /// Object comments
 #[derive(Clone, Debug, PartialEq)]
@@ -29,9 +29,11 @@ pub enum Comment {
     },
 }
 
-impl Comment {
+impl TryFrom<Pair<'_, Rule>> for Comment {
+    type Error = DbcError;
+
     /// Parse comment: `CM_ [BU_|BO_|SG_|EV_] object_name "comment_text";`
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Option<Self>> {
+    fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
         let mut comment = String::new();
         let mut message_id = None;
         let mut signal_name = None;
@@ -40,16 +42,19 @@ impl Comment {
 
         for pairs in pair.into_inner() {
             match pairs.as_rule() {
-                Rule::quoted_str => comment = parse_str(pairs),
+                Rule::quoted_str => comment = inner_str(pairs),
                 Rule::msg_var => {
-                    message_id = Some(parse_uint(single_rule(pairs, Rule::message_id)?)? as u32);
+                    message_id = Some(parse_uint(single_inner(pairs, Rule::message_id)?)? as u32);
                 }
                 Rule::node_var => {
-                    node_name = Some(single_rule(pairs, Rule::node_name)?.as_str().to_string());
+                    node_name = Some(single_inner(pairs, Rule::node_name)?.as_str().to_string());
                 }
                 Rule::env_var => {
-                    env_var_name =
-                        Some(single_rule(pairs, Rule::env_var_name)?.as_str().to_string());
+                    env_var_name = Some(
+                        single_inner(pairs, Rule::env_var_name)?
+                            .as_str()
+                            .to_string(),
+                    );
                 }
                 Rule::signal_var => {
                     for sub_pair in pairs.into_inner() {
@@ -85,16 +90,16 @@ impl Comment {
         });
 
         Ok(match (message_id, signal_name, node_name, env_var_name) {
-            (Some(message_id), Some(name), _, _) => Some(Self::Signal {
+            (Some(message_id), Some(name), _, _) => Self::Signal {
                 message_id,
                 name,
                 comment,
-            }),
-            (Some(id), None, _, _) => Some(Self::Message { id, comment }),
-            (_, _, Some(name), _) => Some(Self::Node { name, comment }),
-            (_, _, _, Some(name)) => Some(Self::EnvVar { name, comment }),
-            _ if !comment.is_empty() => Some(Self::Plain { comment }),
-            _ => None,
+            },
+            (Some(id), None, _, _) => Self::Message { id, comment },
+            (_, _, Some(name), _) => Self::Node { name, comment },
+            (_, _, _, Some(name)) => Self::EnvVar { name, comment },
+            _ if !comment.is_empty() => Self::Plain { comment },
+            _ => return Err(DbcError::ParseError),
         })
     }
 }

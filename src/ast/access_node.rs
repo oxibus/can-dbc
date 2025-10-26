@@ -1,6 +1,6 @@
 use can_dbc_pest::{Pair, Rule};
 
-use crate::DbcError;
+use crate::parser::{validated, DbcError};
 
 // TODO: consider merging with Transmitter
 
@@ -15,16 +15,11 @@ impl TryFrom<Pair<'_, Rule>> for AccessNode {
     type Error = DbcError;
 
     fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
-        match pair.as_rule() {
-            Rule::node_name => {
-                let name = pair.as_str();
-                Ok(if name == "VECTOR__XXX" {
-                    Self::VectorXXX
-                } else {
-                    Self::Name(name.to_string())
-                })
-            }
-            _ => Err(Self::Error::ParseError),
-        }
+        let value = validated(pair, Rule::node_name)?.as_str();
+        Ok(if value == "VECTOR__XXX" {
+            Self::VectorXXX
+        } else {
+            Self::Name(value.to_string())
+        })
     }
 }

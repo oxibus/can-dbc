@@ -1,19 +1,17 @@
 use can_dbc_pest::{Pair, Rule};
 
-use crate::parser::DbcResult;
+use crate::parser::DbcError;
 
 /// Baudrate of network in KBit/s
 #[derive(Copy, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Baudrate(pub u64);
 
-impl Baudrate {
+impl TryFrom<Pair<'_, Rule>> for Baudrate {
+    type Error = DbcError;
+
     /// Parse bit timing: `BS_: [baud_rate : BTR1 , BTR2 ]`
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Vec<Self>> {
-        let pairs = pair.into_inner();
-        if pairs.len() == 0 {
-            return Ok(vec![]);
-        }
+    fn try_from(_pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
         todo!("Bit timing parsing not implemented yet");
     }
 }

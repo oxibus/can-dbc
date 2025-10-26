@@ -1,6 +1,6 @@
 use can_dbc_pest::{Pair, Rule};
 
-use crate::parser::DbcResult;
+use crate::parser::DbcError;
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -16,15 +16,21 @@ pub enum AttributeDefinition {
     Plain(String),
 }
 
-impl AttributeDefinition {
+impl TryFrom<Pair<'_, Rule>> for AttributeDefinition {
+    type Error = DbcError;
+
     /// Parse attribute definition: `BA_DEF_ [object_type] attribute_name attribute_type [min max];`
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Self> {
+    fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
+        let pairs = pair.into_inner();
         let mut definition_string = String::new();
         let mut object_type = "";
 
-        for pairs in pair.into_inner() {
-            match pairs.as_rule() {
-                Rule::object_type => object_type = pairs.as_str(),
+        // Process all pairs
+        for pair in pairs {
+            match pair.as_rule() {
+                Rule::object_type => {
+                    object_type = pair.as_str();
+                }
                 Rule::attribute_name
                 | Rule::attribute_type_int
                 | Rule::attribute_type_hex
@@ -34,9 +40,9 @@ impl AttributeDefinition {
                     if !definition_string.is_empty() {
                         definition_string.push(' ');
                     }
-                    definition_string.push_str(pairs.as_str());
+                    definition_string.push_str(pair.as_str());
                 }
-                _ => panic!("Unexpected rule: {:?}", pairs.as_rule()),
+                _ => return Err(DbcError::ParseError),
             }
         }
 

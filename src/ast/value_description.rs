@@ -1,7 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{MessageId, ValDescription};
-use crate::parser::{collect_expected, next_string, DbcResult};
+use crate::parser::{collect_expected, next_string, DbcError};
 
 /// Encoding for signal raw values.
 #[derive(Clone, Debug, PartialEq)]
@@ -20,9 +20,11 @@ pub enum ValueDescription {
     },
 }
 
-impl ValueDescription {
+impl TryFrom<Pair<'_, Rule>> for ValueDescription {
+    type Error = DbcError;
+
     /// Parse value description: `VAL_ message_id signal_name value1 "description1" value2 "description2" ... ;`
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Self> {
+    fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
         let mut pairs = pair.into_inner();
 
         // Check if first item is message_id (optional)

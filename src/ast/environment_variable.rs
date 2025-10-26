@@ -1,7 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{AccessNode, AccessType, EnvType};
-use crate::parser::{parse_int, parse_min_max_int, parse_str, single_string, DbcResult};
+use crate::parser::{inner_str, parse_int, parse_min_max_int, single_inner_str, DbcError};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -18,9 +18,11 @@ pub struct EnvironmentVariable {
     pub access_nodes: Vec<AccessNode>,
 }
 
-impl EnvironmentVariable {
+impl TryFrom<Pair<'_, Rule>> for EnvironmentVariable {
+    type Error = DbcError;
+
     /// Parse environment variable: `EV_ variable_name : type [min|max] "unit" access_type access_node node_name1 node_name2;`
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Self> {
+    fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
         let mut name = String::new();
         let mut env_type = None;
         let mut min = 0i64;
@@ -33,12 +35,12 @@ impl EnvironmentVariable {
 
         for pairs in pair.into_inner() {
             match pairs.as_rule() {
-                Rule::env_var => name = single_string(pairs, Rule::env_var_name)?,
+                Rule::env_var => name = single_inner_str(pairs, Rule::env_var_name)?,
                 Rule::env_var_type_int => env_type = Some(EnvType::Integer),
                 Rule::env_var_type_float => env_type = Some(EnvType::Float),
                 Rule::env_var_type_string => env_type = Some(EnvType::String),
                 Rule::min_max => (min, max) = parse_min_max_int(pairs)?,
-                Rule::unit => unit = parse_str(pairs),
+                Rule::unit => unit = inner_str(pairs),
                 Rule::init_value => initial_value = parse_int(pairs)? as f64,
                 Rule::ev_id => ev_id = parse_int(pairs)?,
                 Rule::access_type => access_type = pairs.try_into()?,

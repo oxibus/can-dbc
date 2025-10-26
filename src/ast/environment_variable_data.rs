@@ -1,6 +1,6 @@
 use can_dbc_pest::{Pair, Rule};
 
-use crate::parser::{expect_empty, next_rule, next_string, parse_uint, DbcResult};
+use crate::parser::{expect_empty, next_rule, next_string, parse_uint, DbcError};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -9,13 +9,15 @@ pub struct EnvironmentVariableData {
     pub data_size: u64,
 }
 
-impl EnvironmentVariableData {
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Self> {
+impl TryFrom<Pair<'_, Rule>> for EnvironmentVariableData {
+    type Error = DbcError;
+
+    fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
         let mut pairs = pair.into_inner();
 
         let env_var_name = next_string(&mut pairs, Rule::env_var_name)?;
         let data_size = parse_uint(next_rule(&mut pairs, Rule::data_size)?)?;
-        expect_empty(&mut pairs)?;
+        expect_empty(&pairs)?;
 
         Ok(Self {
             env_var_name,

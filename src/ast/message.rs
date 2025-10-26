@@ -1,7 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{MessageId, Signal, Transmitter};
-use crate::parser::{expect_empty, next_rule, next_string, parse_uint, single_rule};
+use crate::parser::{expect_empty, next_rule, next_string, parse_uint, single_inner};
 use crate::DbcError;
 
 /// CAN message (frame) details including signal details
@@ -27,11 +27,11 @@ impl TryFrom<Pair<'_, Rule>> for Message {
 
         // Parse msg_var (contains msg_literal ~ message_id)
         let msg_var_pair = next_rule(&mut pairs, Rule::msg_var)?;
-        let id = single_rule(msg_var_pair, Rule::message_id)?.try_into()?;
+        let id = single_inner(msg_var_pair, Rule::message_id)?.try_into()?;
         let name = next_string(&mut pairs, Rule::message_name)?;
         let size = parse_uint(next_rule(&mut pairs, Rule::message_size)?)?;
         let transmitter = next_string(&mut pairs, Rule::transmitter)?;
-        expect_empty(&mut pairs)?;
+        expect_empty(&pairs)?;
 
         let transmitter = if matches!(transmitter.as_str(), "Vector__XXX" | "VectorXXX" | "") {
             Transmitter::VectorXXX

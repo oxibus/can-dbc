@@ -1,7 +1,6 @@
 use can_dbc_pest::{Pair, Rule};
 
-use crate::parser::{parse_float, parse_str};
-use crate::DbcError;
+use crate::parser::{inner_str, parse_float, DbcError};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -17,7 +16,7 @@ impl TryFrom<Pair<'_, Rule>> for AttributeValue {
 
     fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
         match pair.as_rule() {
-            Rule::quoted_str => Ok(Self::String(parse_str(pair))),
+            Rule::quoted_str => Ok(Self::String(inner_str(pair))),
             Rule::number => Ok(Self::Double(parse_float(pair)?)),
             // FIXME: Add u64 and i64 parsing
             _ => Err(Self::Error::ParseError),

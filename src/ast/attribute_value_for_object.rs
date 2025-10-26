@@ -2,7 +2,7 @@ use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::AttributeValuedForObjectType;
 use crate::parser::{
-    expect_empty, next_rule, next_string, parse_float, parse_str, single_rule, DbcResult,
+    expect_empty, inner_str, next_rule, next_string, parse_float, single_inner, DbcError,
 };
 use crate::{AttributeValue, MessageId};
 
@@ -13,9 +13,11 @@ pub struct AttributeValueForObject {
     pub value: AttributeValuedForObjectType,
 }
 
-impl AttributeValueForObject {
+impl TryFrom<Pair<'_, Rule>> for AttributeValueForObject {
+    type Error = DbcError;
+
     /// Parse attribute value: `BA_ attribute_name [object_type] object_name value;`
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Self> {
+    fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
         let mut name = String::new();
         let mut object_type = None;
         let mut message_id: Option<MessageId> = None;
@@ -26,21 +28,21 @@ impl AttributeValueForObject {
 
         for pairs in pair.into_inner() {
             match pairs.as_rule() {
-                Rule::attribute_name => name = parse_str(pairs),
+                Rule::attribute_name => name = inner_str(pairs),
                 // num_str_value is a silent rule, so we get quoted_str or number directly
-                Rule::quoted_str => value = Some(AttributeValue::String(parse_str(pairs))),
+                Rule::quoted_str => value = Some(AttributeValue::String(inner_str(pairs))),
                 Rule::number => value = Some(AttributeValue::Double(parse_float(pairs)?)),
                 Rule::node_var => {
                     object_type = Some(pairs.as_rule());
                     // Parse the node name from the inner pairs
                     // node_var contains: node_literal ~ node_name
                     // node_literal is silent (_), so we get node_name directly
-                    node_name = Some(single_rule(pairs, Rule::node_name)?.as_str().to_string());
+                    node_name = Some(single_inner(pairs, Rule::node_name)?.as_str().to_string());
                 }
                 Rule::msg_var => {
                     object_type = Some(pairs.as_rule());
                     // Parse the message ID from the inner pairs
-                    message_id = Some(single_rule(pairs, Rule::message_id)?.try_into()?);
+                    message_id = Some(single_inner(pairs, Rule::message_id)?.try_into()?);
                 }
                 Rule::signal_var => {
                     object_type = Some(pairs.as_rule());
@@ -48,14 +50,14 @@ impl AttributeValueForObject {
                     let mut inner_pairs = pairs.into_inner();
                     message_id = Some(next_rule(&mut inner_pairs, Rule::message_id)?.try_into()?);
                     signal_name = Some(next_string(&mut inner_pairs, Rule::ident)?);
-                    expect_empty(&mut inner_pairs)?;
+                    expect_empty(&inner_pairs)?;
                 }
                 Rule::env_var => {
                     object_type = Some(pairs.as_rule());
                     // Parse the environment variable name from the inner pairs
                     // env_var contains: env_literal ~ env_var_name
                     // env_literal is silent (_), so we get env_var_name directly
-                    let v = single_rule(pairs, Rule::env_var_name)?;
+                    let v = single_inner(pairs, Rule::env_var_name)?;
                     env_var_name = Some(v.as_str().to_string());
                 }
                 other => panic!("What is this? {other:?}"),

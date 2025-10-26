@@ -1,6 +1,6 @@
 use can_dbc_pest::{Pair, Rule};
 
-use crate::parser::{expect_empty, next_rule, parse_str, DbcResult};
+use crate::parser::{inner_str, single_inner, validated, DbcError};
 
 /// Version identifier of the DBC file.
 ///
@@ -9,13 +9,11 @@ use crate::parser::{expect_empty, next_rule, parse_str, DbcResult};
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Version(pub String);
 
-impl Version {
-    /// Parse version: VERSION "string"
-    pub(crate) fn parse(pair: Pair<Rule>) -> DbcResult<Self> {
-        let mut pairs = pair.into_inner();
-        let version_str = parse_str(next_rule(&mut pairs, Rule::quoted_str)?);
-        expect_empty(&mut pairs)?;
+impl TryFrom<Pair<'_, Rule>> for Version {
+    type Error = DbcError;
 
-        Ok(Self(version_str))
+    fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
+        let v = single_inner(validated(pair, Rule::version)?, Rule::quoted_str)?;
+        Ok(Self(inner_str(v)))
     }
 }

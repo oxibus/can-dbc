@@ -39,6 +39,11 @@ impl From<PestError<Rule>> for DbcError {
 }
 
 /// Helper function to get the next pair and validate its rule
+pub(crate) fn next<'a>(iter: &'a mut Pairs<Rule>) -> DbcResult<Pair<'a, Rule>> {
+    iter.next().ok_or(DbcError::ParseError)
+}
+
+/// Helper function to get the next pair and validate its rule
 pub(crate) fn next_rule<'a>(
     iter: &'a mut Pairs<Rule>,
     expected: Rule,
@@ -52,13 +57,26 @@ pub(crate) fn next_rule<'a>(
     })
 }
 
+#[allow(dead_code)]
+pub(crate) fn next_optional_rule<'a>(
+    iter: &'a mut Pairs<Rule>,
+    expected: Rule,
+) -> DbcResult<Option<Pair<'a, Rule>>> {
+    if let Some(pair) = iter.peek() {
+        if pair.as_rule() == expected {
+            return Ok(Some(iter.next().unwrap()));
+        }
+    }
+    Ok(None)
+}
+
 /// Helper function to get the next pair, ensure it matches the expected rule, and convert to string
 pub(crate) fn next_string(iter: &mut Pairs<Rule>, expected: Rule) -> DbcResult<String> {
     Ok(next_rule(iter, expected)?.as_str().to_string())
 }
 
 /// Helper function to get a single pair and validate its rule
-pub(crate) fn single_rule(pair: Pair<Rule>, expected: Rule) -> DbcResult<Pair<Rule>> {
+pub(crate) fn single_inner(pair: Pair<Rule>, expected: Rule) -> DbcResult<Pair<Rule>> {
     let mut iter = pair.into_inner();
     let pair = iter.next().ok_or(DbcError::ParseError)?;
     if pair.as_rule() != expected || iter.next().is_some() {
@@ -68,10 +86,20 @@ pub(crate) fn single_rule(pair: Pair<Rule>, expected: Rule) -> DbcResult<Pair<Ru
     }
 }
 
+/// Helper function to validate a pair's rule matches the expected rule
+#[allow(dead_code)]
+pub(crate) fn validated(pair: Pair<Rule>, expected: Rule) -> DbcResult<Pair<Rule>> {
+    if pair.as_rule() == expected {
+        Ok(pair)
+    } else {
+        Err(DbcError::ParseError)
+    }
+}
+
 /// Helper function to get a single pair, validate its rule, and convert to string
 #[allow(dead_code)]
-pub(crate) fn single_string(pair: Pair<Rule>, expected: Rule) -> DbcResult<String> {
-    Ok(single_rule(pair, expected)?.as_str().to_string())
+pub(crate) fn single_inner_str(pair: Pair<Rule>, expected: Rule) -> DbcResult<String> {
+    Ok(single_inner(pair, expected)?.as_str().to_string())
 }
 
 /// Helper function to collect all remaining pairs of a specific rule type
@@ -109,12 +137,12 @@ pub(crate) fn collect_strings(iter: &mut Pairs<Rule>, expected: Rule) -> DbcResu
 }
 
 /// Helper function to ensure the iterator is empty (no more items)
-pub(crate) fn expect_empty(iter: &mut Pairs<Rule>) -> DbcResult<()> {
-    iter.next().map_or(Ok(()), |_| Err(DbcError::ParseError))
+pub(crate) fn expect_empty(iter: &Pairs<Rule>) -> DbcResult<()> {
+    iter.peek().map_or(Ok(()), |_| Err(DbcError::ParseError))
 }
 
 /// Helper function to extract string content from `quoted_str` rule
-pub(crate) fn parse_str(pair: Pair<Rule>) -> String {
+pub(crate) fn inner_str(pair: Pair<Rule>) -> String {
     // panics because pest grammar ensures this
     next_rule(&mut pair.into_inner(), Rule::string)
         .expect("string")
@@ -149,7 +177,7 @@ pub(crate) fn parse_min_max_int(pair: Pair<Rule>) -> DbcResult<(i64, i64)> {
 
     let min_val = parse_int(next_rule(&mut pairs, Rule::minimum)?)?;
     let max_val = parse_int(next_rule(&mut pairs, Rule::maximum)?)?;
-    expect_empty(&mut pairs).expect("pest grammar ensures no extra items");
+    expect_empty(&pairs).expect("pest grammar ensures no extra items");
 
     Ok((min_val, max_val))
 }
@@ -160,7 +188,7 @@ pub(crate) fn parse_min_max_float(pair: Pair<Rule>) -> DbcResult<(f64, f64)> {
 
     let min_val = parse_float(next_rule(&mut pairs, Rule::minimum)?)?;
     let max_val = parse_float(next_rule(&mut pairs, Rule::maximum)?)?;
-    expect_empty(&mut pairs).expect("pest grammar ensures no extra items");
+    expect_empty(&pairs).expect("pest grammar ensures no extra items");
 
     Ok((min_val, max_val))
 }

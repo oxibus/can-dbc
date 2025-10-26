@@ -1,6 +1,6 @@
 use can_dbc_pest::{Pair, Rule};
 
-use crate::parser::{parse_uint, single_rule};
+use crate::parser::{parse_uint, single_inner, validated};
 use crate::DbcError;
 
 #[derive(Copy, Clone, Debug, PartialEq)]
@@ -16,18 +16,18 @@ impl TryFrom<Pair<'_, Rule>> for AccessType {
     type Error = DbcError;
 
     fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
-        match pair.as_rule() {
-            Rule::access_type => {
-                match parse_uint(single_rule(pair, Rule::uint)?)? {
-                    0 => Ok(Self::DummyNodeVector0),
-                    1 => Ok(Self::DummyNodeVector1),
-                    2 => Ok(Self::DummyNodeVector2),
-                    3 => Ok(Self::DummyNodeVector3),
-                    // FIXME: is this correct?
-                    _ => Ok(AccessType::DummyNodeVector0),
-                }
-            }
-            _ => Err(Self::Error::ParseError),
-        }
+        let value = parse_uint(single_inner(
+            validated(pair, Rule::access_type)?,
+            Rule::uint,
+        )?)?;
+
+        Ok(match value {
+            0 => Self::DummyNodeVector0,
+            1 => Self::DummyNodeVector1,
+            2 => Self::DummyNodeVector2,
+            3 => Self::DummyNodeVector3,
+            // FIXME: is this correct?
+            _ => AccessType::DummyNodeVector0,
+        })
     }
 }
