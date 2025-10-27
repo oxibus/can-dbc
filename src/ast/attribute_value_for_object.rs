@@ -29,38 +29,38 @@ impl TryFrom<Pair<'_, Rule>> for AttributeValueForObject {
         let mut env_var_name = None;
         let mut value = None;
 
-        for pairs in inner_pairs {
-            match pairs.as_rule() {
-                Rule::attribute_name => name = inner_str(pairs),
+        for pair in inner_pairs {
+            match pair.as_rule() {
+                Rule::attribute_name => name = inner_str(pair),
                 // num_str_value is a silent rule, so we get quoted_str or number directly
-                Rule::quoted_str => value = Some(AttributeValue::String(inner_str(pairs))),
-                Rule::number => value = Some(AttributeValue::Double(parse_float(pairs)?)),
+                Rule::quoted_str => value = Some(AttributeValue::String(inner_str(pair))),
+                Rule::number => value = Some(AttributeValue::Double(parse_float(pair)?)),
                 Rule::node_var => {
-                    object_type = Some(pairs.as_rule());
+                    object_type = Some(pair.as_rule());
                     // Parse the node name from the inner pairs
                     // node_var contains: node_literal ~ node_name
                     // node_literal is silent (_), so we get node_name directly
-                    node_name = Some(single_inner(pairs, Rule::node_name)?.as_str().to_string());
+                    node_name = Some(single_inner(pair, Rule::node_name)?.as_str().to_string());
                 }
                 Rule::msg_var => {
-                    object_type = Some(pairs.as_rule());
+                    object_type = Some(pair.as_rule());
                     // Parse the message ID from the inner pairs
-                    message_id = Some(single_inner(pairs, Rule::message_id)?.try_into()?);
+                    message_id = Some(single_inner(pair, Rule::message_id)?.try_into()?);
                 }
                 Rule::signal_var => {
-                    object_type = Some(pairs.as_rule());
+                    object_type = Some(pair.as_rule());
                     // Parse the message ID and signal name from the inner pairs
-                    let mut inner_pairs = pairs.into_inner();
+                    let mut inner_pairs = pair.into_inner();
                     message_id = Some(next_rule(&mut inner_pairs, Rule::message_id)?.try_into()?);
                     signal_name = Some(next_string(&mut inner_pairs, Rule::ident)?);
                     expect_empty(&inner_pairs)?;
                 }
                 Rule::env_var => {
-                    object_type = Some(pairs.as_rule());
+                    object_type = Some(pair.as_rule());
                     // Parse the environment variable name from the inner pairs
                     // env_var contains: env_literal ~ env_var_name
                     // env_literal is silent (_), so we get env_var_name directly
-                    let v = single_inner(pairs, Rule::env_var_name)?;
+                    let v = single_inner(pair, Rule::env_var_name)?;
                     env_var_name = Some(v.as_str().to_string());
                 }
                 other => panic!("What is this? {other:?}"),
