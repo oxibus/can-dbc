@@ -2,8 +2,8 @@ use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::AttributeValuedForObjectType;
 use crate::parser::{
-    expect_empty, inner_str, next_rule, next_string, parse_float, single_inner, validated_inner,
-    DbcError,
+    expect_empty, inner_str, next_optional_rule, next_rule, next_string, parse_float, single_inner,
+    single_inner_str, validated_inner, DbcError,
 };
 use crate::{AttributeValue, MessageId};
 
@@ -19,55 +19,50 @@ impl TryFrom<Pair<'_, Rule>> for AttributeValueForObject {
 
     /// Parse attribute value: `BA_ attribute_name [object_type] object_name value;`
     fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
-        let inner_pairs = validated_inner(value, Rule::attr_value)?;
+        // 1) Validate wrapper and get inner pairs iterator
+        let mut pairs = validated_inner(value, Rule::attr_value)?;
 
-        let mut name = String::new();
+        // 2) Read attribute name (quoted_str -> inner string)
+        let name = inner_str(next_rule(&mut pairs, Rule::attribute_name)?);
+
+        // 3) Optionally parse an object specifier (at most one)
+        // Try each expected object-rule in sequence using next_optional_rule
         let mut object_type = None;
         let mut message_id: Option<MessageId> = None;
-        let mut signal_name = None;
-        let mut node_name = None;
-        let mut env_var_name = None;
-        let mut value = None;
+        let mut signal_name: Option<String> = None;
+        let mut node_name: Option<String> = None;
+        let mut env_var_name: Option<String> = None;
 
-        for pair in inner_pairs {
-            match pair.as_rule() {
-                Rule::attribute_name => name = inner_str(pair),
-                // num_str_value is a silent rule, so we get quoted_str or number directly
-                Rule::quoted_str => value = Some(AttributeValue::String(inner_str(pair))),
-                Rule::number => value = Some(AttributeValue::Double(parse_float(pair)?)),
-                Rule::node_var => {
-                    object_type = Some(pair.as_rule());
-                    // Parse the node name from the inner pairs
-                    // node_var contains: node_literal ~ node_name
-                    // node_literal is silent (_), so we get node_name directly
-                    node_name = Some(single_inner(pair, Rule::node_name)?.as_str().to_string());
-                }
-                Rule::msg_var => {
-                    object_type = Some(pair.as_rule());
-                    // Parse the message ID from the inner pairs
-                    message_id = Some(single_inner(pair, Rule::message_id)?.try_into()?);
-                }
-                Rule::signal_var => {
-                    object_type = Some(pair.as_rule());
-                    // Parse the message ID and signal name from the inner pairs
-                    let mut inner_pairs = pair.into_inner();
-                    message_id = Some(next_rule(&mut inner_pairs, Rule::message_id)?.try_into()?);
-                    signal_name = Some(next_string(&mut inner_pairs, Rule::ident)?);
-                    expect_empty(&inner_pairs)?;
-                }
-                Rule::env_var => {
-                    object_type = Some(pair.as_rule());
-                    // Parse the environment variable name from the inner pairs
-                    // env_var contains: env_literal ~ env_var_name
-                    // env_literal is silent (_), so we get env_var_name directly
-                    let v = single_inner(pair, Rule::env_var_name)?;
-                    env_var_name = Some(v.as_str().to_string());
-                }
-                other => panic!("What is this? {other:?}"),
-            }
+        if let Some(node_var_pair) = next_optional_rule(&mut pairs, Rule::node_var)? {
+            object_type = Some(Rule::node_var);
+            node_name = Some(single_inner_str(node_var_pair, Rule::node_name)?);
+        } else if let Some(msg_var_pair) = next_optional_rule(&mut pairs, Rule::msg_var)? {
+            object_type = Some(Rule::msg_var);
+            message_id = Some(single_inner(msg_var_pair, Rule::message_id)?.try_into()?);
+        } else if let Some(signal_var_pair) = next_optional_rule(&mut pairs, Rule::signal_var)? {
+            object_type = Some(Rule::signal_var);
+            let mut inner = signal_var_pair.into_inner();
+            message_id = Some(next_rule(&mut inner, Rule::message_id)?.try_into()?);
+            signal_name = Some(next_string(&mut inner, Rule::ident)?);
+            expect_empty(&inner)?;
+        } else if let Some(env_var_pair) = next_optional_rule(&mut pairs, Rule::env_var)? {
+            object_type = Some(Rule::env_var);
+            let v = single_inner(env_var_pair, Rule::env_var_name)?;
+            env_var_name = Some(v.as_str().to_string());
         }
 
-        let value = value.unwrap_or(AttributeValue::String(String::new()));
+        // Parse the value (either quoted_str or number). If missing, default to empty string.
+        let value = if let Some(pair) = pairs.next() {
+            match pair.as_rule() {
+                Rule::quoted_str => AttributeValue::String(inner_str(pair)),
+                Rule::number => AttributeValue::Double(parse_float(pair)?),
+                _ => return Err(DbcError::ParseError),
+            }
+        } else {
+            AttributeValue::String(String::new())
+        };
+
+        expect_empty(&pairs)?;
 
         // Determine attribute value type based on parsed components
         let value = match object_type {
