@@ -2,7 +2,8 @@ use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::AttributeValuedForObjectType;
 use crate::parser::{
-    expect_empty, inner_str, next_rule, next_string, parse_float, single_inner, DbcError,
+    expect_empty, inner_str, next_rule, next_string, parse_float, single_inner, validated_inner,
+    DbcError,
 };
 use crate::{AttributeValue, MessageId};
 
@@ -17,7 +18,9 @@ impl TryFrom<Pair<'_, Rule>> for AttributeValueForObject {
     type Error = DbcError;
 
     /// Parse attribute value: `BA_ attribute_name [object_type] object_name value;`
-    fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
+    fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
+        let inner_pairs = validated_inner(value, Rule::attr_value)?;
+
         let mut name = String::new();
         let mut object_type = None;
         let mut message_id: Option<MessageId> = None;
@@ -26,7 +29,7 @@ impl TryFrom<Pair<'_, Rule>> for AttributeValueForObject {
         let mut env_var_name = None;
         let mut value = None;
 
-        for pairs in pair.into_inner() {
+        for pairs in inner_pairs {
             match pairs.as_rule() {
                 Rule::attribute_name => name = inner_str(pairs),
                 // num_str_value is a silent rule, so we get quoted_str or number directly

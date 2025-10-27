@@ -14,8 +14,8 @@ pub enum AccessNode {
 impl TryFrom<Pair<'_, Rule>> for AccessNode {
     type Error = DbcError;
 
-    fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
-        let value = validated(pair, Rule::node_name)?.as_str();
+    fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
+        let value = validated(value, Rule::node_name)?.as_str();
         Ok(if value == "VECTOR__XXX" {
             Self::VectorXXX
         } else {

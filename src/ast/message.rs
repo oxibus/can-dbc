@@ -1,7 +1,9 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{MessageId, Signal, Transmitter};
-use crate::parser::{expect_empty, next_rule, next_string, parse_uint, single_inner};
+use crate::parser::{
+    expect_empty, next_rule, next_string, parse_uint, single_inner, validated_inner,
+};
 use crate::DbcError;
 
 /// CAN message (frame) details including signal details
@@ -22,8 +24,8 @@ impl TryFrom<Pair<'_, Rule>> for Message {
     type Error = DbcError;
 
     /// Parse message: `BO_ message_id message_name: message_size transmitter`
-    fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
-        let mut pairs = pair.into_inner();
+    fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
+        let mut pairs = validated_inner(value, Rule::message)?;
 
         // Parse msg_var (contains msg_literal ~ message_id)
         let msg_var_pair = next_rule(&mut pairs, Rule::msg_var)?;

@@ -12,8 +12,8 @@ pub struct Version(pub String);
 impl TryFrom<Pair<'_, Rule>> for Version {
     type Error = DbcError;
 
-    fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
-        let v = single_inner(validated(pair, Rule::version)?, Rule::quoted_str)?;
+    fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
+        let v = single_inner(validated(value, Rule::version)?, Rule::quoted_str)?;
         Ok(Self(inner_str(v)))
     }
 }

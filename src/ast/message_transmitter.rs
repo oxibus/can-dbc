@@ -1,7 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{MessageId, Transmitter};
-use crate::parser::{collect_expected, next_rule, DbcError};
+use crate::parser::{collect_expected, next_rule, validated_inner, DbcError};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -14,9 +14,8 @@ pub struct MessageTransmitter {
 impl TryFrom<Pair<'_, Rule>> for MessageTransmitter {
     type Error = DbcError;
 
-    fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
-        let mut pairs = pair.into_inner();
-
+    fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
+        let mut pairs = validated_inner(value, Rule::bo_tx_bu)?;
         let message_id = next_rule(&mut pairs, Rule::message_id)?.try_into()?;
         let transmitter = collect_expected(&mut pairs, Rule::transmitter)?;
 

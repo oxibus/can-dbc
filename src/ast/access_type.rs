@@ -15,11 +15,9 @@ pub enum AccessType {
 impl TryFrom<Pair<'_, Rule>> for AccessType {
     type Error = DbcError;
 
-    fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
-        let value = parse_uint(single_inner(
-            validated(pair, Rule::access_type)?,
-            Rule::uint,
-        )?)?;
+    fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
+        let pair = validated(value, Rule::access_type)?;
+        let value = parse_uint(single_inner(pair, Rule::uint)?)?;
 
         Ok(match value {
             0 => Self::DummyNodeVector0,

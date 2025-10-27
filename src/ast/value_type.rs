@@ -12,8 +12,8 @@ pub enum ValueType {
 impl TryFrom<Pair<'_, Rule>> for ValueType {
     type Error = DbcError;
 
-    fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
-        match pair.as_rule() {
+    fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
+        match value.as_rule() {
             Rule::signed_type => Ok(Self::Signed),
             Rule::unsigned_type => Ok(Self::Unsigned),
             _ => Err(Self::Error::ParseError),

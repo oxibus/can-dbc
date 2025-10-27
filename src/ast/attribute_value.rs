@@ -14,10 +14,10 @@ pub enum AttributeValue {
 impl TryFrom<Pair<'_, Rule>> for AttributeValue {
     type Error = DbcError;
 
-    fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
-        match pair.as_rule() {
-            Rule::quoted_str => Ok(Self::String(inner_str(pair))),
-            Rule::number => Ok(Self::Double(parse_float(pair)?)),
+    fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
+        match value.as_rule() {
+            Rule::quoted_str => Ok(Self::String(inner_str(value))),
+            Rule::number => Ok(Self::Double(parse_float(value)?)),
             // FIXME: Add u64 and i64 parsing
             _ => Err(Self::Error::ParseError),
         }

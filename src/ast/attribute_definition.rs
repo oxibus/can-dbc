@@ -1,6 +1,6 @@
 use can_dbc_pest::{Pair, Rule};
 
-use crate::parser::DbcError;
+use crate::parser::{validated_inner, DbcError};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -20,13 +20,13 @@ impl TryFrom<Pair<'_, Rule>> for AttributeDefinition {
     type Error = DbcError;
 
     /// Parse attribute definition: `BA_DEF_ [object_type] attribute_name attribute_type [min max];`
-    fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
-        let pairs = pair.into_inner();
+    fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
+        let inner_pairs = validated_inner(value, Rule::attr_def)?;
         let mut definition_string = String::new();
         let mut object_type = "";
 
         // Process all pairs
-        for pair in pairs {
+        for pair in inner_pairs {
             match pair.as_rule() {
                 Rule::object_type => {
                     object_type = pair.as_str();

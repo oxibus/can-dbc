@@ -1,7 +1,9 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{AccessNode, AccessType, EnvType};
-use crate::parser::{inner_str, parse_int, parse_min_max_int, single_inner_str, DbcError};
+use crate::parser::{
+    inner_str, parse_int, parse_min_max_int, single_inner_str, validated_inner, DbcError,
+};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -22,7 +24,9 @@ impl TryFrom<Pair<'_, Rule>> for EnvironmentVariable {
     type Error = DbcError;
 
     /// Parse environment variable: `EV_ variable_name : type [min|max] "unit" access_type access_node node_name1 node_name2;`
-    fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
+    fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
+        let inner_pairs = validated_inner(value, Rule::environment_variable)?;
+
         let mut name = String::new();
         let mut env_type = None;
         let mut min = 0i64;
@@ -33,19 +37,19 @@ impl TryFrom<Pair<'_, Rule>> for EnvironmentVariable {
         let mut access_type = AccessType::DummyNodeVector0;
         let mut access_nodes = Vec::new();
 
-        for pairs in pair.into_inner() {
-            match pairs.as_rule() {
-                Rule::env_var => name = single_inner_str(pairs, Rule::env_var_name)?,
+        for pair in inner_pairs {
+            match pair.as_rule() {
+                Rule::env_var => name = single_inner_str(pair, Rule::env_var_name)?,
                 Rule::env_var_type_int => env_type = Some(EnvType::Integer),
                 Rule::env_var_type_float => env_type = Some(EnvType::Float),
                 Rule::env_var_type_string => env_type = Some(EnvType::String),
-                Rule::min_max => (min, max) = parse_min_max_int(pairs)?,
-                Rule::unit => unit = inner_str(pairs),
-                Rule::init_value => initial_value = parse_int(pairs)? as f64,
-                Rule::ev_id => ev_id = parse_int(pairs)?,
-                Rule::access_type => access_type = pairs.try_into()?,
-                Rule::node_name => access_nodes.push(pairs.try_into()?),
-                _ => panic!("Unexpected rule: {pairs:?}"),
+                Rule::min_max => (min, max) = parse_min_max_int(pair)?,
+                Rule::unit => unit = inner_str(pair),
+                Rule::init_value => initial_value = parse_int(pair)? as f64,
+                Rule::ev_id => ev_id = parse_int(pair)?,
+                Rule::access_type => access_type = pair.try_into()?,
+                Rule::node_name => access_nodes.push(pair.try_into()?),
+                _ => panic!("Unexpected rule: {pair:?}"),
             }
         }
 

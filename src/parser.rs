@@ -30,6 +30,8 @@ pub enum DbcError {
     MultipleMultiplexors,
     #[error("Feature not implemented: {0}")]
     NotImplemented(&'static str),
+    #[error("Expected rule: {0:?}, found: {1:?}")]
+    Expected(Rule, Rule),
 }
 
 impl From<PestError<Rule>> for DbcError {
@@ -87,13 +89,16 @@ pub(crate) fn single_inner(pair: Pair<Rule>, expected: Rule) -> DbcResult<Pair<R
 }
 
 /// Helper function to validate a pair's rule matches the expected rule
-#[allow(dead_code)]
 pub(crate) fn validated(pair: Pair<Rule>, expected: Rule) -> DbcResult<Pair<Rule>> {
     if pair.as_rule() == expected {
         Ok(pair)
     } else {
-        Err(DbcError::ParseError)
+        Err(DbcError::Expected(expected, pair.as_rule()))
     }
+}
+
+pub(crate) fn validated_inner(pair: Pair<'_, Rule>, expected: Rule) -> DbcResult<Pairs<'_, Rule>> {
+    Ok(validated(pair, expected)?.into_inner())
 }
 
 /// Helper function to get a single pair, validate its rule, and convert to string

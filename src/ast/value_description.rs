@@ -1,7 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{MessageId, ValDescription};
-use crate::parser::{collect_expected, next_string, DbcError};
+use crate::parser::{collect_expected, next_string, validated_inner, DbcError};
 
 /// Encoding for signal raw values.
 #[derive(Clone, Debug, PartialEq)]
@@ -24,8 +24,8 @@ impl TryFrom<Pair<'_, Rule>> for ValueDescription {
     type Error = DbcError;
 
     /// Parse value description: `VAL_ message_id signal_name value1 "description1" value2 "description2" ... ;`
-    fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
-        let mut pairs = pair.into_inner();
+    fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
+        let mut pairs = validated_inner(value, Rule::value_table_def)?;
 
         // Check if first item is message_id (optional)
         let mut message_id = None;

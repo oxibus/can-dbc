@@ -16,8 +16,8 @@ pub enum Transmitter {
 impl TryFrom<Pair<'_, Rule>> for Transmitter {
     type Error = DbcError;
 
-    fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
-        let value = validated(pair, Rule::transmitter)?.as_str();
+    fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
+        let value = validated(value, Rule::transmitter)?.as_str();
         Ok(if value == "Vector__XXX" {
             Self::VectorXXX
         } else {

@@ -1,7 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{ByteOrder, MultiplexIndicator, ValueType};
-use crate::parser::{inner_str, parse_float, parse_min_max_float, parse_uint};
+use crate::parser::{inner_str, parse_float, parse_min_max_float, parse_uint, validated_inner};
 use crate::DbcError;
 
 /// One or multiple signals are the payload of a CAN frame.
@@ -29,7 +29,9 @@ pub struct Signal {
 impl TryFrom<Pair<'_, Rule>> for Signal {
     type Error = DbcError;
 
-    fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
+    fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
+        let pairs = validated_inner(value, Rule::signal)?;
+
         let mut name = String::new();
         let mut multiplexer_indicator = MultiplexIndicator::Plain;
         let mut start_bit = 0u64;
@@ -43,7 +45,7 @@ impl TryFrom<Pair<'_, Rule>> for Signal {
         let mut unit = String::new();
         let mut receivers = Vec::new();
 
-        for pair2 in pair.into_inner() {
+        for pair2 in pairs {
             match pair2.as_rule() {
                 Rule::signal_name => name = pair2.as_str().to_string(),
                 Rule::multiplexer_indicator => multiplexer_indicator = pair2.as_str().try_into()?,

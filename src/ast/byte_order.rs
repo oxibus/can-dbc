@@ -12,8 +12,8 @@ pub enum ByteOrder {
 impl TryFrom<Pair<'_, Rule>> for ByteOrder {
     type Error = DbcError;
 
-    fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
-        match pair.as_rule() {
+    fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
+        match value.as_rule() {
             Rule::little_endian => Ok(Self::LittleEndian),
             Rule::big_endian => Ok(Self::BigEndian),
             _ => Err(Self::Error::ParseError),

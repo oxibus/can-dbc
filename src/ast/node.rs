@@ -10,7 +10,9 @@ pub struct Node(pub String);
 impl TryFrom<Pair<'_, Rule>> for Node {
     type Error = DbcError;
 
-    fn try_from(pair: Pair<Rule>) -> Result<Self, Self::Error> {
-        Ok(Self(validated(pair, Rule::node_name)?.as_str().to_string()))
+    fn try_from(value: Pair<Rule>) -> Result<Self, Self::Error> {
+        Ok(Self(
+            validated(value, Rule::node_name)?.as_str().to_string(),
+        ))
     }
 }
