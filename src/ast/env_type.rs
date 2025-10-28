@@ -1,3 +1,5 @@
+use can_dbc_pest::Rule;
+
 use crate::DbcError;
 
 /// `env_var_type = '0' | '1' | '2' ; (* 0=integer, 1=float, 2=string *)`
@@ -9,15 +11,15 @@ pub enum EnvType {
     String,
 }
 
-impl TryFrom<u64> for EnvType {
+impl TryFrom<Rule> for EnvType {
     type Error = DbcError;
 
-    fn try_from(value: u64) -> Result<Self, Self::Error> {
+    fn try_from(value: Rule) -> Result<Self, Self::Error> {
         match value {
-            0 => Ok(Self::Float),
-            1 => Ok(Self::Integer),
-            2 => Ok(Self::String),
-            _ => Err(Self::Error::ParseError),
+            Rule::env_var_type_int => Ok(Self::Integer),
+            Rule::env_var_type_float => Ok(Self::Float),
+            Rule::env_var_type_string => Ok(Self::String),
+            v => Err(DbcError::UnknownRule(v)),
         }
     }
 }

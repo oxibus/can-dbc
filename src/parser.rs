@@ -36,6 +36,12 @@ pub enum DbcError {
     ExpectedNumber(Rule),
     #[error("Unknown rule: {0:?}")]
     UnknownRule(Rule),
+    #[error("No more parsing rules available")]
+    NoMoreRules,
+    #[error("No more rules expected, but found: {0:?}")]
+    UnexpectedRule(Rule),
+    #[error("Signal defined without an associated message")]
+    SignalWithoutMessage,
 }
 
 impl From<PestError<Rule>> for DbcError {

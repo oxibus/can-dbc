@@ -2,7 +2,7 @@ use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{AccessNode, AccessType, EnvType};
 use crate::parser::{
-    collect_expected, expect_empty, inner_str, next_optional_rule, next_rule, parse_int,
+    collect_expected, expect_empty, inner_str, next, next_optional_rule, next_rule, parse_int,
     parse_min_max_int, single_inner_str, validated_inner, DbcError,
 };
 
@@ -33,19 +33,12 @@ impl TryFrom<Pair<'_, Rule>> for EnvironmentVariable {
         let name = single_inner_str(next_rule(&mut pairs, Rule::env_var)?, Rule::env_var_name)?;
 
         // 3) Required: env var type (one of three rules)
-        let typ = match pairs.next().ok_or(DbcError::ParseError)?.as_rule() {
-            Rule::env_var_type_int => EnvType::Integer,
-            Rule::env_var_type_float => EnvType::Float,
-            Rule::env_var_type_string => EnvType::String,
-            v => return Err(DbcError::UnknownRule(v)),
-        };
+        let typ = next(&mut pairs)?.as_rule().try_into()?;
 
         // 4) Optional: min_max
         let (mut min, mut max) = (0i64, 0i64);
         if let Some(min_max_pair) = next_optional_rule(&mut pairs, Rule::min_max)? {
-            let parsed = parse_min_max_int(min_max_pair)?;
-            min = parsed.0;
-            max = parsed.1;
+            (min, max) = parse_min_max_int(min_max_pair)?;
         }
 
         // 5) Optional: unit

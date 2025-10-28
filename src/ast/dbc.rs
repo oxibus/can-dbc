@@ -222,7 +222,7 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
 
     for pair in DbcParser::parse(Rule::file, buffer)? {
         if !matches!(pair.as_rule(), Rule::file) {
-            return Err(DbcError::ParseError);
+            return Err(DbcError::Expected(Rule::file, pair.as_rule()));
         }
         for pairs in pair.into_inner() {
             match pairs.as_rule() {
@@ -250,7 +250,7 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
                     if let Some(msg_idx) = current_message_index {
                         signals.push((msg_idx, pairs.try_into()?));
                     } else {
-                        return Err(DbcError::ParseError);
+                        return Err(DbcError::SignalWithoutMessage);
                     }
                 }
                 Rule::comment => {

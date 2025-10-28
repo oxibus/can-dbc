@@ -19,9 +19,9 @@ impl TryFrom<Pairs<'_, Rule>> for AttributeValuedForObjectType {
 
     fn try_from(mut value: Pairs<Rule>) -> Result<Self, Self::Error> {
         // Expect exactly one remaining pair (the object-specific value)
-        let pair = value.next().ok_or(DbcError::ParseError)?;
-        if value.next().is_some() {
-            return Err(DbcError::ParseError);
+        let pair = value.next().ok_or(DbcError::NoMoreRules)?;
+        if let Some(more) = value.next() {
+            return Err(DbcError::UnexpectedRule(more.as_rule()));
         }
 
         if matches!(&pair.as_rule(), Rule::quoted_str | Rule::number) {

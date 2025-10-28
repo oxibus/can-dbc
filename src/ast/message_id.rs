@@ -15,6 +15,21 @@ pub enum MessageId {
 }
 
 impl MessageId {
+    /// Create MessageId from raw value including the extended bit flag
+    ///
+    /// If bit 31 is set, creates an Extended MessageId with bits 0-28.
+    /// Otherwise, creates a Standard MessageId.
+    pub fn from_raw(raw_id: u32) -> Self {
+        const EXTENDED_ID_FLAG: u32 = 1 << 31;
+        const EXTENDED_ID_MASK: u32 = 0x1FFF_FFFF;
+
+        if raw_id & EXTENDED_ID_FLAG != 0 {
+            Self::Extended(raw_id & EXTENDED_ID_MASK)
+        } else {
+            Self::Standard(raw_id as u16)
+        }
+    }
+
     /// Raw value of the message id including the bit for extended identifiers
     pub fn raw(self) -> u32 {
         match self {
@@ -29,11 +44,7 @@ impl TryFrom<u64> for MessageId {
 
     fn try_from(value: u64) -> Result<Self, Self::Error> {
         let value = u32::try_from(value).map_err(|_| DbcError::ParseError)?;
-        if value & (1 << 31) != 0 {
-            Ok(Self::Extended(value & 0x1FFF_FFFF))
-        } else {
-            Ok(Self::Standard(value as u16))
-        }
+        Ok(Self::from_raw(value))
     }
 }
 
