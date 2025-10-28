@@ -1,7 +1,10 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{ByteOrder, MultiplexIndicator, ValueType};
-use crate::parser::{inner_str, parse_float, parse_min_max_float, parse_uint, validated_inner};
+use crate::parser::{
+    collect_strings, inner_str, next, next_optional_rule, next_rule, next_string, parse_float,
+    parse_min_max_float, parse_uint, validated_inner,
+};
 use crate::DbcError;
 
 /// One or multiple signals are the payload of a CAN frame.
@@ -30,37 +33,24 @@ impl TryFrom<Pair<'_, Rule>> for Signal {
     type Error = DbcError;
 
     fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
-        let pairs = validated_inner(value, Rule::signal)?;
+        let mut pairs = validated_inner(value, Rule::signal)?;
 
-        let mut name = String::new();
-        let mut multiplexer_indicator = MultiplexIndicator::Plain;
-        let mut start_bit = 0u64;
-        let mut size = 0u64;
-        let mut byte_order = ByteOrder::BigEndian;
-        let mut value_type = ValueType::Unsigned;
-        let mut factor = 0.0f64;
-        let mut offset = 0.0f64;
-        let mut min = 0.0f64;
-        let mut max = 0.0f64;
-        let mut unit = String::new();
-        let mut receivers = Vec::new();
-
-        for pair2 in pairs {
-            match pair2.as_rule() {
-                Rule::signal_name => name = pair2.as_str().to_string(),
-                Rule::multiplexer_indicator => multiplexer_indicator = pair2.as_str().try_into()?,
-                Rule::start_bit => start_bit = parse_uint(pair2)?,
-                Rule::signal_size => size = parse_uint(pair2)?,
-                Rule::big_endian | Rule::little_endian => byte_order = pair2.try_into()?,
-                Rule::signed_type | Rule::unsigned_type => value_type = pair2.try_into()?,
-                Rule::factor => factor = parse_float(pair2)?,
-                Rule::offset => offset = parse_float(pair2)?,
-                Rule::min_max => (min, max) = parse_min_max_float(pair2)?,
-                Rule::unit => unit = inner_str(pair2),
-                Rule::node_name => receivers.push(pair2.as_str().to_string()),
-                v => return Err(DbcError::UnknownRule(v)),
-            }
-        }
+        let name = next_string(&mut pairs, Rule::signal_name)?;
+        let multiplexer_indicator =
+            if let Some(v) = next_optional_rule(&mut pairs, Rule::multiplexer_indicator)? {
+                v.as_str().try_into()?
+            } else {
+                MultiplexIndicator::Plain
+            };
+        let start_bit = parse_uint(next_rule(&mut pairs, Rule::start_bit)?)?;
+        let size = parse_uint(next_rule(&mut pairs, Rule::signal_size)?)?;
+        let byte_order = next(&mut pairs)?.try_into()?;
+        let value_type = next(&mut pairs)?.try_into()?;
+        let factor = parse_float(next_rule(&mut pairs, Rule::factor)?)?;
+        let offset = parse_float(next_rule(&mut pairs, Rule::offset)?)?;
+        let (min, max) = parse_min_max_float(next_rule(&mut pairs, Rule::min_max)?)?;
+        let unit = inner_str(next_rule(&mut pairs, Rule::unit)?);
+        let receivers = collect_strings(&mut pairs, Rule::node_name)?;
 
         Ok(Self {
             name,

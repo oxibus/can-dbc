@@ -253,9 +253,7 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
                         return Err(DbcError::SignalWithoutMessage);
                     }
                 }
-                Rule::comment => {
-                    comments.push(pairs.try_into()?);
-                }
+                Rule::comment => comments.push(pairs.try_into()?),
                 Rule::attr_def => attribute_definitions.push(pairs.try_into()?),
                 Rule::attr_value => attribute_values.push(pairs.try_into()?),
                 Rule::value_table => value_tables.push(pairs.try_into()?),

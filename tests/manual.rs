@@ -7,7 +7,7 @@ use can_dbc::{decode_cp1252, Dbc};
 use insta::assert_yaml_snapshot;
 
 #[test]
-// #[ignore]
+#[ignore]
 fn manual_test() {
     let path = Path::new("tests/fixtures/opendbc/opendbc/dbc/generator/honda/_honda_common.dbc");
     let buffer = fs::read(path).unwrap();
@@ -16,220 +16,2286 @@ fn manual_test() {
             panic!("{e:?}:\n{buffer:#?}");
         });
         assert_yaml_snapshot!(buffer, @r#"
-        BO_ 145 KINEMATICS_ALT: 8 XXX
-         SG_ LAT_ACCEL : 7|10@0+ (0.02,-512) [-20|20] "m/s2" EON
-         SG_ COUNTER : 61|2@0+ (1,0) [0|3] "" EON
-         SG_ CHECKSUM : 59|4@0+ (1,0) [0|3] "" EON
-
-        BO_ 148 KINEMATICS: 8 XXX
-         SG_ LAT_ACCEL : 7|10@0+ (0.02,-512) [-20|20] "m/s2" EON
-         SG_ LONG_ACCEL : 24|9@0- (-0.02,0) [-20|20] "m/s2" EON
-         SG_ CHECKSUM : 59|4@0+ (1,0) [0|3] "" EON
-         SG_ COUNTER : 61|2@0+ (1,0) [0|3] "" EON
-
-        BO_ 304 GAS_PEDAL_2: 8 PCM
-         SG_ ENGINE_TORQUE_ESTIMATE : 7|16@0- (1,0) [-1000|1000] "Nm" EON
-         SG_ ENGINE_TORQUE_REQUEST : 23|16@0- (1,0) [-1000|1000] "Nm" EON
-         SG_ CAR_GAS : 39|8@0+ (1,0) [0|255] "" EON
-         SG_ COUNTER : 61|2@0+ (1,0) [0|3] "" EON
-         SG_ CHECKSUM : 59|4@0+ (1,0) [0|15] "" EON
-
-        BO_ 316 GAS_PEDAL: 8 PCM
-         SG_ CAR_GAS : 39|8@0+ (1,0) [0|255] "" EON
-         SG_ COUNTER : 61|2@0+ (1,0) [0|3] "" EON
-         SG_ CHECKSUM : 59|4@0+ (1,0) [0|15] "" EON
-
-        BO_ 344 ENGINE_DATA: 8 PCM
-         SG_ XMISSION_SPEED : 7|16@0+ (0.01,0) [0|250] "kph" EON
-         SG_ ENGINE_RPM : 23|16@0+ (1,0) [0|15000] "rpm" EON
-         SG_ XMISSION_SPEED2 : 39|16@0+ (0.01,0) [0|250] "kph" EON
-         SG_ ODOMETER : 55|8@0+ (10,0) [0|2550] "m" XXX
-         SG_ COUNTER : 61|2@0+ (1,0) [0|3] "" EON
-         SG_ CHECKSUM : 59|4@0+ (1,0) [0|15] "" EON
-
-        BO_ 380 POWERTRAIN_DATA: 8 PCM
-         SG_ PEDAL_GAS : 7|8@0+ (1,0) [0|255] "" EON
-         SG_ ENGINE_RPM : 23|16@0+ (1,0) [0|15000] "rpm" EON
-         SG_ GAS_PRESSED : 39|1@0+ (1,0) [0|1] "" EON
-         SG_ ACC_STATUS : 38|1@0+ (1,0) [0|1] "" EON
-         SG_ BOH_17C : 37|5@0+ (1,0) [0|1] "" EON
-         SG_ BRAKE_SWITCH : 32|1@0+ (1,0) [0|1] "" EON
-         SG_ BOH2_17C : 47|10@0+ (1,0) [0|1] "" EON
-         SG_ BRAKE_PRESSED : 53|1@0+ (1,0) [0|1] "" EON
-         SG_ BOH3_17C : 52|5@0+ (1,0) [0|1] "" EON
-         SG_ COUNTER : 61|2@0+ (1,0) [0|3] "" EON
-         SG_ CHECKSUM : 59|4@0+ (1,0) [0|15] "" EON
-
-        BO_ 388 HYBRID_BRAKE_ERROR: 8 XXX
-         SG_ BRAKE_ERROR_1 : 32|1@0+ (1,0) [0|1] "" EON
-         SG_ BRAKE_ERROR_2 : 34|1@0+ (1,0) [0|1] "" EON
-         SG_ COUNTER : 61|2@0+ (1,0) [0|3] "" EON
-         SG_ CHECKSUM : 59|4@0+ (1,0) [0|3] "" EON
-
-        BO_ 420 VSA_STATUS: 8 VSA
-         SG_ USER_BRAKE : 7|16@0+ (0.015625,-1.609375) [0|1000] "" EON
-         SG_ COMPUTER_BRAKING : 23|1@0+ (1,0) [0|1] "" EON
-         SG_ ESP_DISABLED : 28|1@0+ (1,0) [0|1] "" EON
-         SG_ BRAKE_HOLD_RELATED : 52|1@0+ (1,0) [0|1] "" XXX
-         SG_ BRAKE_HOLD_ACTIVE : 46|1@0+ (1,0) [0|1] "" EON
-         SG_ BRAKE_HOLD_ENABLED : 45|1@0+ (1,0) [0|1] "" EON
-         SG_ COUNTER : 61|2@0+ (1,0) [0|3] "" EON
-         SG_ CHECKSUM : 59|4@0+ (1,0) [0|15] "" EON
-
-        BO_ 427 STEER_MOTOR_TORQUE: 3 EPS
-         SG_ CONFIG_VALID : 7|1@0+ (1,0) [0|1] "" EON
-         SG_ MOTOR_TORQUE : 1|10@0+ (1,0) [0|256] "" EON
-         SG_ OUTPUT_DISABLED : 22|1@0+ (1,0) [0|1] "" EON
-         SG_ COUNTER : 21|2@0+ (1,0) [0|3] "" EON
-         SG_ CHECKSUM : 19|4@0+ (1,0) [0|15] "" EON
-
-        BO_ 450 EPB_STATUS: 8 XXX
-         SG_ EPB_BRAKE_AND_PULL : 6|1@0+ (1,0) [0|1] "" XXX
-         SG_ EPB_ACTIVE : 3|1@0+ (1,0) [0|1] "" XXX
-         SG_ EPB_STATE : 29|2@0+ (1,0) [0|1] "" XXX
-         SG_ CHECKSUM : 59|4@0+ (1,0) [0|15] "" XXX
-         SG_ COUNTER : 61|2@0+ (1,0) [0|3] "" XXX
-
-        BO_ 464 WHEEL_SPEEDS: 8 VSA
-         SG_ WHEEL_SPEED_FL : 7|15@0+ (0.01,0) [0|250] "kph" EON
-         SG_ WHEEL_SPEED_FR : 8|15@0+ (0.01,0) [0|250] "kph" EON
-         SG_ WHEEL_SPEED_RL : 25|15@0+ (0.01,0) [0|250] "kph" EON
-         SG_ WHEEL_SPEED_RR : 42|15@0+ (0.01,0) [0|250] "kph" EON
-         SG_ CHECKSUM : 59|4@0+ (1,0) [0|3] "" EON
-
-        BO_ 490 VEHICLE_DYNAMICS: 8 VSA
-         SG_ LAT_ACCEL : 7|16@0- (0.0015,0) [-20|20] "m/s2" EON
-         SG_ LONG_ACCEL : 23|16@0- (0.0015,0) [-20|20] "m/s2" EON
-         SG_ COUNTER : 61|2@0+ (1,0) [0|3] "" EON
-         SG_ CHECKSUM : 59|4@0+ (1,0) [0|3] "" EON
-
-        BO_ 597 ROUGH_WHEEL_SPEED: 8 VSA
-         SG_ WHEEL_SPEED_FL : 7|8@0+ (1,0) [0|255] "kph" EON
-         SG_ WHEEL_SPEED_FR : 15|8@0+ (1,0) [0|255] "kph" EON
-         SG_ WHEEL_SPEED_RL : 23|8@0+ (1,0) [0|255] "kph" EON
-         SG_ WHEEL_SPEED_RR : 31|8@0+ (1,0) [0|255] "kph" EON
-         SG_ SET_TO_X55 : 39|8@0+ (1,0) [0|255] "" EON
-         SG_ SET_TO_X55_2 : 47|8@0+ (1,0) [0|255] "" EON
-         SG_ LONG_COUNTER : 55|8@0+ (1,0) [0|255] "" EON
-         SG_ CHECKSUM : 59|4@0+ (1,0) [0|15] "" EON
-         SG_ COUNTER : 61|2@0+ (1,0) [0|3] "" EON
-
-        BO_ 773 SEATBELT_STATUS: 7 BDY
-         SG_ SEATBELT_DRIVER_LAMP : 7|1@0+ (1,0) [0|1] "" EON
-         SG_ SEATBELT_PASS_UNLATCHED : 10|1@0+ (1,0) [0|1] "" EON
-         SG_ SEATBELT_PASS_LATCHED : 11|1@0+ (1,0) [0|1] "" EON
-         SG_ SEATBELT_DRIVER_UNLATCHED : 12|1@0+ (1,0) [0|1] "" EON
-         SG_ SEATBELT_DRIVER_LATCHED : 13|1@0+ (1,0) [0|1] "" EON
-         SG_ PASS_AIRBAG_OFF : 14|1@0+ (1,0) [0|1] "" EON
-         SG_ PASS_AIRBAG_ON : 15|1@0+ (1,0) [0|1] "" EON
-         SG_ COUNTER : 53|2@0+ (1,0) [0|3] "" EON
-         SG_ CHECKSUM : 51|4@0+ (1,0) [0|3] "" EON
-
-        BO_ 777 CAR_SPEED: 8 PCM
-         SG_ ROUGH_CAR_SPEED : 23|8@0+ (1,0) [0|255] "mph" XXX
-         SG_ CAR_SPEED : 7|16@0+ (0.01,0) [0|65535] "kph" XXX
-         SG_ ROUGH_CAR_SPEED_3 : 39|16@0+ (0.01,0) [0|65535] "kph" XXX
-         SG_ ROUGH_CAR_SPEED_2 : 31|8@0+ (1,0) [0|255] "mph" XXX
-         SG_ LOCK_STATUS : 55|2@0+ (1,0) [0|255] "" XXX
-         SG_ COUNTER : 61|2@0+ (1,0) [0|3] "" XXX
-         SG_ CHECKSUM : 59|4@0+ (1,0) [0|15] "" XXX
-         SG_ IMPERIAL_UNIT : 63|1@0+ (1,0) [0|1] "" XXX
-
-        BO_ 780 ACC_HUD: 8 ADAS
-         SG_ PCM_SPEED : 7|16@0+ (0.01,0) [0|250] "kph" BDY
-         SG_ PCM_GAS : 23|8@0+ (1,0) [0|127] "" BDY
-         SG_ CRUISE_SPEED : 31|8@0+ (1,0) [0|255] "kph" BDY
-         SG_ DTC_MODE : 39|1@0+ (1,0) [0|1] "" BDY
-         SG_ BRAKE_SYSTEM_ICON : 38|1@0+ (1,0) [0|1] "" BDY
-         SG_ ACC_PROBLEM : 37|1@0+ (1,0) [0|1] "" BDY
-         SG_ FCM_OFF : 35|1@0+ (1,0) [0|1] "" BDY
-         SG_ FCM_OFF_2 : 36|1@0+ (1,0) [0|1] "" BDY
-         SG_ FCM_PROBLEM : 34|1@0+ (1,0) [0|1] "" BDY
-         SG_ RADAR_OBSTRUCTED : 33|1@0+ (1,0) [0|1] "" BDY
-         SG_ ENABLE_MINI_CAR : 32|1@0+ (1,0) [0|1] "" BDY
-         SG_ HUD_DISTANCE : 47|2@0+ (1,0) [0|3] "" BDY
-         SG_ HUD_LEAD : 45|2@0+ (1,0) [0|3] "" BDY
-         SG_ BOH_3 : 43|1@0+ (1,0) [0|3] "" BDY
-         SG_ BOH_4 : 42|1@0+ (1,0) [0|3] "" BDY
-         SG_ BOH_5 : 41|1@0+ (1,0) [0|3] "" BDY
-         SG_ CRUISE_CONTROL_LABEL : 40|1@0+ (1,0) [0|3] "" BDY
-         SG_ SET_ME_X01_2 : 55|1@0+ (1,0) [0|1] "" BDY
-         SG_ IMPERIAL_UNIT : 54|1@0+ (1,0) [0|1] "" BDY
-         SG_ ACC_ON : 52|1@0+ (1,0) [0|1] "" BDY
-         SG_ CHIME : 51|3@0+ (1,0) [0|1] "" BDY
-         SG_ SET_ME_X01 : 48|1@0+ (1,0) [0|1] "" BDY
-         SG_ ICONS : 63|2@0+ (1,0) [0|1] "" BDY
-         SG_ COUNTER : 61|2@0+ (1,0) [0|3] "" BDY
-         SG_ CHECKSUM : 59|4@0+ (1,0) [0|3] "" BDY
-
-        BO_ 804 CRUISE: 8 PCM
-         SG_ HUD_SPEED_KPH : 7|8@0+ (1,0) [0|255] "kph" EON
-         SG_ HUD_SPEED_MPH : 15|8@0+ (1,0) [0|255] "mph" EON
-         SG_ TRIP_FUEL_CONSUMED : 23|16@0+ (1,0) [0|255] "" EON
-         SG_ CRUISE_SPEED_PCM : 39|8@0+ (1,0) [0|255] "" EON
-         SG_ BOH2 : 47|8@0- (1,0) [0|255] "" EON
-         SG_ BOH3 : 55|8@0+ (1,0) [0|255] "" EON
-         SG_ COUNTER : 61|2@0+ (1,0) [0|3] "" EON
-         SG_ CHECKSUM : 59|4@0+ (1,0) [0|15] "" EON
-
-        BO_ 862 CAMERA_MESSAGES: 8 CAM
-         SG_ ZEROS_BOH : 7|16@0+ (1,0) [0|127] "" BDY
-         SG_ SPEED_LIMIT_SIGN : 23|8@0+ (1,0) [0|255] "" XXX
-         SG_ ROAD_SIGN : 31|8@0+ (1,0) [0|255] "" XXX
-         SG_ ZEROS_BOH_2 : 51|4@0+ (1,0) [0|15] "" XXX
-         SG_ HIGHBEAMS_ON : 52|1@0+ (1,0) [0|1] "" XXX
-         SG_ AUTO_HIGHBEAMS_ACTIVE : 53|1@0+ (1,0) [0|1] "" XXX
-         SG_ CHECKSUM : 59|4@0+ (1,0) [0|15] "" XXX
-         SG_ COUNTER : 61|2@0+ (1,0) [0|3] "" XXX
-
-        BO_ 884 STALK_STATUS: 8 XXX
-         SG_ DASHBOARD_ALERT : 39|8@0+ (1,0) [0|255] "" EON
-         SG_ AUTO_HEADLIGHTS : 46|1@0+ (1,0) [0|1] "" EON
-         SG_ HIGH_BEAM_HOLD : 47|1@0+ (1,0) [0|1] "" EON
-         SG_ HIGH_BEAM_FLASH : 45|1@0+ (1,0) [0|1] "" EON
-         SG_ HEADLIGHTS_ON : 54|1@0+ (1,0) [0|1] "" EON
-         SG_ WIPER_SWITCH : 53|2@0+ (1,0) [0|3] "" XXX
-         SG_ COUNTER : 61|2@0+ (1,0) [0|3] "" EON
-         SG_ CHECKSUM : 59|4@0+ (1,0) [0|15] "" EON
-
-        BO_ 891 STALK_STATUS_2: 8 XXX
-         SG_ WIPERS : 17|2@0+ (1,0) [0|3] "" EON
-         SG_ LOW_BEAMS : 35|1@0+ (1,0) [0|1] "" XXX
-         SG_ HIGH_BEAMS : 34|1@0+ (1,0) [0|1] "" XXX
-         SG_ PARK_LIGHTS : 36|1@0+ (1,0) [0|1] "" XXX
-         SG_ COUNTER : 61|2@0+ (1,0) [0|3] "" EON
-         SG_ CHECKSUM : 59|4@0+ (1,0) [0|15] "" EON
-
-        BO_ 1029 DOORS_STATUS: 8 BDY
-         SG_ DOOR_OPEN_FL : 37|1@0+ (1,0) [0|1] "" EON
-         SG_ DOOR_OPEN_FR : 38|1@0+ (1,0) [0|1] "" EON
-         SG_ DOOR_OPEN_RL : 39|1@0+ (1,0) [0|1] "" EON
-         SG_ DOOR_OPEN_RR : 40|1@0+ (1,0) [0|1] "" EON
-         SG_ TRUNK_OPEN : 41|1@0+ (1,0) [0|1] "" EON
-         SG_ COUNTER : 61|2@0+ (1,0) [0|3] "" EON
-         SG_ CHECKSUM : 59|4@0+ (1,0) [0|15] "" EON
-
-        BO_ 1302 ODOMETER: 8 XXX
-         SG_ ODOMETER : 7|24@0+ (1,0) [0|16777215] "km" EON
-         SG_ COUNTER : 61|2@0+ (1,0) [0|3] "" EON
-         SG_ CHECKSUM : 59|4@0+ (1,0) [0|3] "" EON
-
-        CM_ SG_ 304 "Seems to be platform-agnostic";
-        CM_ SG_ 316 "Should exist on Nidec";
-        CM_ SG_ 420 BRAKE_HOLD_RELATED "On when Brake Hold engaged";
-        CM_ SG_ 490 LONG_ACCEL "wheel speed derivative, noisy and zero snapping";
-        CM_ SG_ 773 PASS_AIRBAG_ON "Might just be indicator light";
-        CM_ SG_ 773 PASS_AIRBAG_OFF "Might just be indicator light";
-        CM_ SG_ 780 CRUISE_SPEED "255 = no speed";
-        CM_ SG_ 780 PCM_SPEED "Used by Nidec";
-        CM_ SG_ 780 PCM_GAS "Used by Nidec";
-        CM_ SG_ 804 CRUISE_SPEED_PCM "255 = no speed";
-
-        VAL_ 450 EPB_STATE 3 "engaged" 2 "disengaging" 1 "engaging" 0 "disengaged" ;
-        VAL_ 780 CRUISE_SPEED 255 "no_speed" 252 "stopped";
-        VAL_ 780 HUD_LEAD 3 "acc_off" 2 "solid_car" 1 "dashed_car" 0 "no_car";
-        VAL_ 884 DASHBOARD_ALERT 0 "none" 51 "acc_problem" 55 "cmbs_problem" 75 "key_not_detected" 79 "fasten_seatbelt" 111 "lkas_problem" 131 "brake_system_problem" 132 "brake_hold_problem" 139 "tbd" 161 "door_open";
-        VAL_ 891 WIPERS 4 "High" 2 "Low" 0 "Off";
+        version: ""
+        bit_timing: ~
+        messages:
+          - id:
+              Standard: 145
+            name: KINEMATICS_ALT
+            size: 8
+            transmitter:
+              NodeName: XXX
+            signals:
+              - name: LAT_ACCEL
+                multiplexer_indicator: Plain
+                start_bit: 7
+                size: 10
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 0.02
+                offset: -512
+                min: -20
+                max: 20
+                unit: m/s2
+                receivers:
+                  - EON
+              - name: COUNTER
+                multiplexer_indicator: Plain
+                start_bit: 61
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - EON
+              - name: CHECKSUM
+                multiplexer_indicator: Plain
+                start_bit: 59
+                size: 4
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - EON
+          - id:
+              Standard: 148
+            name: KINEMATICS
+            size: 8
+            transmitter:
+              NodeName: XXX
+            signals:
+              - name: LAT_ACCEL
+                multiplexer_indicator: Plain
+                start_bit: 7
+                size: 10
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 0.02
+                offset: -512
+                min: -20
+                max: 20
+                unit: m/s2
+                receivers:
+                  - EON
+              - name: LONG_ACCEL
+                multiplexer_indicator: Plain
+                start_bit: 24
+                size: 9
+                byte_order: BigEndian
+                value_type: Signed
+                factor: -0.02
+                offset: 0
+                min: -20
+                max: 20
+                unit: m/s2
+                receivers:
+                  - EON
+              - name: CHECKSUM
+                multiplexer_indicator: Plain
+                start_bit: 59
+                size: 4
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - EON
+              - name: COUNTER
+                multiplexer_indicator: Plain
+                start_bit: 61
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - EON
+          - id:
+              Standard: 304
+            name: GAS_PEDAL_2
+            size: 8
+            transmitter:
+              NodeName: PCM
+            signals:
+              - name: ENGINE_TORQUE_ESTIMATE
+                multiplexer_indicator: Plain
+                start_bit: 7
+                size: 16
+                byte_order: BigEndian
+                value_type: Signed
+                factor: 1
+                offset: 0
+                min: -1000
+                max: 1000
+                unit: Nm
+                receivers:
+                  - EON
+              - name: ENGINE_TORQUE_REQUEST
+                multiplexer_indicator: Plain
+                start_bit: 23
+                size: 16
+                byte_order: BigEndian
+                value_type: Signed
+                factor: 1
+                offset: 0
+                min: -1000
+                max: 1000
+                unit: Nm
+                receivers:
+                  - EON
+              - name: CAR_GAS
+                multiplexer_indicator: Plain
+                start_bit: 39
+                size: 8
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 255
+                unit: ""
+                receivers:
+                  - EON
+              - name: COUNTER
+                multiplexer_indicator: Plain
+                start_bit: 61
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - EON
+              - name: CHECKSUM
+                multiplexer_indicator: Plain
+                start_bit: 59
+                size: 4
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 15
+                unit: ""
+                receivers:
+                  - EON
+          - id:
+              Standard: 316
+            name: GAS_PEDAL
+            size: 8
+            transmitter:
+              NodeName: PCM
+            signals:
+              - name: CAR_GAS
+                multiplexer_indicator: Plain
+                start_bit: 39
+                size: 8
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 255
+                unit: ""
+                receivers:
+                  - EON
+              - name: COUNTER
+                multiplexer_indicator: Plain
+                start_bit: 61
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - EON
+              - name: CHECKSUM
+                multiplexer_indicator: Plain
+                start_bit: 59
+                size: 4
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 15
+                unit: ""
+                receivers:
+                  - EON
+          - id:
+              Standard: 344
+            name: ENGINE_DATA
+            size: 8
+            transmitter:
+              NodeName: PCM
+            signals:
+              - name: XMISSION_SPEED
+                multiplexer_indicator: Plain
+                start_bit: 7
+                size: 16
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 0.01
+                offset: 0
+                min: 0
+                max: 250
+                unit: kph
+                receivers:
+                  - EON
+              - name: ENGINE_RPM
+                multiplexer_indicator: Plain
+                start_bit: 23
+                size: 16
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 15000
+                unit: rpm
+                receivers:
+                  - EON
+              - name: XMISSION_SPEED2
+                multiplexer_indicator: Plain
+                start_bit: 39
+                size: 16
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 0.01
+                offset: 0
+                min: 0
+                max: 250
+                unit: kph
+                receivers:
+                  - EON
+              - name: ODOMETER
+                multiplexer_indicator: Plain
+                start_bit: 55
+                size: 8
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 10
+                offset: 0
+                min: 0
+                max: 2550
+                unit: m
+                receivers:
+                  - XXX
+              - name: COUNTER
+                multiplexer_indicator: Plain
+                start_bit: 61
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - EON
+              - name: CHECKSUM
+                multiplexer_indicator: Plain
+                start_bit: 59
+                size: 4
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 15
+                unit: ""
+                receivers:
+                  - EON
+          - id:
+              Standard: 380
+            name: POWERTRAIN_DATA
+            size: 8
+            transmitter:
+              NodeName: PCM
+            signals:
+              - name: PEDAL_GAS
+                multiplexer_indicator: Plain
+                start_bit: 7
+                size: 8
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 255
+                unit: ""
+                receivers:
+                  - EON
+              - name: ENGINE_RPM
+                multiplexer_indicator: Plain
+                start_bit: 23
+                size: 16
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 15000
+                unit: rpm
+                receivers:
+                  - EON
+              - name: GAS_PRESSED
+                multiplexer_indicator: Plain
+                start_bit: 39
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: ACC_STATUS
+                multiplexer_indicator: Plain
+                start_bit: 38
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: BOH_17C
+                multiplexer_indicator: Plain
+                start_bit: 37
+                size: 5
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: BRAKE_SWITCH
+                multiplexer_indicator: Plain
+                start_bit: 32
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: BOH2_17C
+                multiplexer_indicator: Plain
+                start_bit: 47
+                size: 10
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: BRAKE_PRESSED
+                multiplexer_indicator: Plain
+                start_bit: 53
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: BOH3_17C
+                multiplexer_indicator: Plain
+                start_bit: 52
+                size: 5
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: COUNTER
+                multiplexer_indicator: Plain
+                start_bit: 61
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - EON
+              - name: CHECKSUM
+                multiplexer_indicator: Plain
+                start_bit: 59
+                size: 4
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 15
+                unit: ""
+                receivers:
+                  - EON
+          - id:
+              Standard: 388
+            name: HYBRID_BRAKE_ERROR
+            size: 8
+            transmitter:
+              NodeName: XXX
+            signals:
+              - name: BRAKE_ERROR_1
+                multiplexer_indicator: Plain
+                start_bit: 32
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: BRAKE_ERROR_2
+                multiplexer_indicator: Plain
+                start_bit: 34
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: COUNTER
+                multiplexer_indicator: Plain
+                start_bit: 61
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - EON
+              - name: CHECKSUM
+                multiplexer_indicator: Plain
+                start_bit: 59
+                size: 4
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - EON
+          - id:
+              Standard: 420
+            name: VSA_STATUS
+            size: 8
+            transmitter:
+              NodeName: VSA
+            signals:
+              - name: USER_BRAKE
+                multiplexer_indicator: Plain
+                start_bit: 7
+                size: 16
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 0.015625
+                offset: -1.609375
+                min: 0
+                max: 1000
+                unit: ""
+                receivers:
+                  - EON
+              - name: COMPUTER_BRAKING
+                multiplexer_indicator: Plain
+                start_bit: 23
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: ESP_DISABLED
+                multiplexer_indicator: Plain
+                start_bit: 28
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: BRAKE_HOLD_RELATED
+                multiplexer_indicator: Plain
+                start_bit: 52
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - XXX
+              - name: BRAKE_HOLD_ACTIVE
+                multiplexer_indicator: Plain
+                start_bit: 46
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: BRAKE_HOLD_ENABLED
+                multiplexer_indicator: Plain
+                start_bit: 45
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: COUNTER
+                multiplexer_indicator: Plain
+                start_bit: 61
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - EON
+              - name: CHECKSUM
+                multiplexer_indicator: Plain
+                start_bit: 59
+                size: 4
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 15
+                unit: ""
+                receivers:
+                  - EON
+          - id:
+              Standard: 427
+            name: STEER_MOTOR_TORQUE
+            size: 3
+            transmitter:
+              NodeName: EPS
+            signals:
+              - name: CONFIG_VALID
+                multiplexer_indicator: Plain
+                start_bit: 7
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: MOTOR_TORQUE
+                multiplexer_indicator: Plain
+                start_bit: 1
+                size: 10
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 256
+                unit: ""
+                receivers:
+                  - EON
+              - name: OUTPUT_DISABLED
+                multiplexer_indicator: Plain
+                start_bit: 22
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: COUNTER
+                multiplexer_indicator: Plain
+                start_bit: 21
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - EON
+              - name: CHECKSUM
+                multiplexer_indicator: Plain
+                start_bit: 19
+                size: 4
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 15
+                unit: ""
+                receivers:
+                  - EON
+          - id:
+              Standard: 450
+            name: EPB_STATUS
+            size: 8
+            transmitter:
+              NodeName: XXX
+            signals:
+              - name: EPB_BRAKE_AND_PULL
+                multiplexer_indicator: Plain
+                start_bit: 6
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - XXX
+              - name: EPB_ACTIVE
+                multiplexer_indicator: Plain
+                start_bit: 3
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - XXX
+              - name: EPB_STATE
+                multiplexer_indicator: Plain
+                start_bit: 29
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - XXX
+              - name: CHECKSUM
+                multiplexer_indicator: Plain
+                start_bit: 59
+                size: 4
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 15
+                unit: ""
+                receivers:
+                  - XXX
+              - name: COUNTER
+                multiplexer_indicator: Plain
+                start_bit: 61
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - XXX
+          - id:
+              Standard: 464
+            name: WHEEL_SPEEDS
+            size: 8
+            transmitter:
+              NodeName: VSA
+            signals:
+              - name: WHEEL_SPEED_FL
+                multiplexer_indicator: Plain
+                start_bit: 7
+                size: 15
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 0.01
+                offset: 0
+                min: 0
+                max: 250
+                unit: kph
+                receivers:
+                  - EON
+              - name: WHEEL_SPEED_FR
+                multiplexer_indicator: Plain
+                start_bit: 8
+                size: 15
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 0.01
+                offset: 0
+                min: 0
+                max: 250
+                unit: kph
+                receivers:
+                  - EON
+              - name: WHEEL_SPEED_RL
+                multiplexer_indicator: Plain
+                start_bit: 25
+                size: 15
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 0.01
+                offset: 0
+                min: 0
+                max: 250
+                unit: kph
+                receivers:
+                  - EON
+              - name: WHEEL_SPEED_RR
+                multiplexer_indicator: Plain
+                start_bit: 42
+                size: 15
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 0.01
+                offset: 0
+                min: 0
+                max: 250
+                unit: kph
+                receivers:
+                  - EON
+              - name: CHECKSUM
+                multiplexer_indicator: Plain
+                start_bit: 59
+                size: 4
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - EON
+          - id:
+              Standard: 490
+            name: VEHICLE_DYNAMICS
+            size: 8
+            transmitter:
+              NodeName: VSA
+            signals:
+              - name: LAT_ACCEL
+                multiplexer_indicator: Plain
+                start_bit: 7
+                size: 16
+                byte_order: BigEndian
+                value_type: Signed
+                factor: 0.0015
+                offset: 0
+                min: -20
+                max: 20
+                unit: m/s2
+                receivers:
+                  - EON
+              - name: LONG_ACCEL
+                multiplexer_indicator: Plain
+                start_bit: 23
+                size: 16
+                byte_order: BigEndian
+                value_type: Signed
+                factor: 0.0015
+                offset: 0
+                min: -20
+                max: 20
+                unit: m/s2
+                receivers:
+                  - EON
+              - name: COUNTER
+                multiplexer_indicator: Plain
+                start_bit: 61
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - EON
+              - name: CHECKSUM
+                multiplexer_indicator: Plain
+                start_bit: 59
+                size: 4
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - EON
+          - id:
+              Standard: 597
+            name: ROUGH_WHEEL_SPEED
+            size: 8
+            transmitter:
+              NodeName: VSA
+            signals:
+              - name: WHEEL_SPEED_FL
+                multiplexer_indicator: Plain
+                start_bit: 7
+                size: 8
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 255
+                unit: kph
+                receivers:
+                  - EON
+              - name: WHEEL_SPEED_FR
+                multiplexer_indicator: Plain
+                start_bit: 15
+                size: 8
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 255
+                unit: kph
+                receivers:
+                  - EON
+              - name: WHEEL_SPEED_RL
+                multiplexer_indicator: Plain
+                start_bit: 23
+                size: 8
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 255
+                unit: kph
+                receivers:
+                  - EON
+              - name: WHEEL_SPEED_RR
+                multiplexer_indicator: Plain
+                start_bit: 31
+                size: 8
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 255
+                unit: kph
+                receivers:
+                  - EON
+              - name: SET_TO_X55
+                multiplexer_indicator: Plain
+                start_bit: 39
+                size: 8
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 255
+                unit: ""
+                receivers:
+                  - EON
+              - name: SET_TO_X55_2
+                multiplexer_indicator: Plain
+                start_bit: 47
+                size: 8
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 255
+                unit: ""
+                receivers:
+                  - EON
+              - name: LONG_COUNTER
+                multiplexer_indicator: Plain
+                start_bit: 55
+                size: 8
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 255
+                unit: ""
+                receivers:
+                  - EON
+              - name: CHECKSUM
+                multiplexer_indicator: Plain
+                start_bit: 59
+                size: 4
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 15
+                unit: ""
+                receivers:
+                  - EON
+              - name: COUNTER
+                multiplexer_indicator: Plain
+                start_bit: 61
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - EON
+          - id:
+              Standard: 773
+            name: SEATBELT_STATUS
+            size: 7
+            transmitter:
+              NodeName: BDY
+            signals:
+              - name: SEATBELT_DRIVER_LAMP
+                multiplexer_indicator: Plain
+                start_bit: 7
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: SEATBELT_PASS_UNLATCHED
+                multiplexer_indicator: Plain
+                start_bit: 10
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: SEATBELT_PASS_LATCHED
+                multiplexer_indicator: Plain
+                start_bit: 11
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: SEATBELT_DRIVER_UNLATCHED
+                multiplexer_indicator: Plain
+                start_bit: 12
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: SEATBELT_DRIVER_LATCHED
+                multiplexer_indicator: Plain
+                start_bit: 13
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: PASS_AIRBAG_OFF
+                multiplexer_indicator: Plain
+                start_bit: 14
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: PASS_AIRBAG_ON
+                multiplexer_indicator: Plain
+                start_bit: 15
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: COUNTER
+                multiplexer_indicator: Plain
+                start_bit: 53
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - EON
+              - name: CHECKSUM
+                multiplexer_indicator: Plain
+                start_bit: 51
+                size: 4
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - EON
+          - id:
+              Standard: 777
+            name: CAR_SPEED
+            size: 8
+            transmitter:
+              NodeName: PCM
+            signals:
+              - name: ROUGH_CAR_SPEED
+                multiplexer_indicator: Plain
+                start_bit: 23
+                size: 8
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 255
+                unit: mph
+                receivers:
+                  - XXX
+              - name: CAR_SPEED
+                multiplexer_indicator: Plain
+                start_bit: 7
+                size: 16
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 0.01
+                offset: 0
+                min: 0
+                max: 65535
+                unit: kph
+                receivers:
+                  - XXX
+              - name: ROUGH_CAR_SPEED_3
+                multiplexer_indicator: Plain
+                start_bit: 39
+                size: 16
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 0.01
+                offset: 0
+                min: 0
+                max: 65535
+                unit: kph
+                receivers:
+                  - XXX
+              - name: ROUGH_CAR_SPEED_2
+                multiplexer_indicator: Plain
+                start_bit: 31
+                size: 8
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 255
+                unit: mph
+                receivers:
+                  - XXX
+              - name: LOCK_STATUS
+                multiplexer_indicator: Plain
+                start_bit: 55
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 255
+                unit: ""
+                receivers:
+                  - XXX
+              - name: COUNTER
+                multiplexer_indicator: Plain
+                start_bit: 61
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - XXX
+              - name: CHECKSUM
+                multiplexer_indicator: Plain
+                start_bit: 59
+                size: 4
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 15
+                unit: ""
+                receivers:
+                  - XXX
+              - name: IMPERIAL_UNIT
+                multiplexer_indicator: Plain
+                start_bit: 63
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - XXX
+          - id:
+              Standard: 780
+            name: ACC_HUD
+            size: 8
+            transmitter:
+              NodeName: ADAS
+            signals:
+              - name: PCM_SPEED
+                multiplexer_indicator: Plain
+                start_bit: 7
+                size: 16
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 0.01
+                offset: 0
+                min: 0
+                max: 250
+                unit: kph
+                receivers:
+                  - BDY
+              - name: PCM_GAS
+                multiplexer_indicator: Plain
+                start_bit: 23
+                size: 8
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 127
+                unit: ""
+                receivers:
+                  - BDY
+              - name: CRUISE_SPEED
+                multiplexer_indicator: Plain
+                start_bit: 31
+                size: 8
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 255
+                unit: kph
+                receivers:
+                  - BDY
+              - name: DTC_MODE
+                multiplexer_indicator: Plain
+                start_bit: 39
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - BDY
+              - name: BRAKE_SYSTEM_ICON
+                multiplexer_indicator: Plain
+                start_bit: 38
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - BDY
+              - name: ACC_PROBLEM
+                multiplexer_indicator: Plain
+                start_bit: 37
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - BDY
+              - name: FCM_OFF
+                multiplexer_indicator: Plain
+                start_bit: 35
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - BDY
+              - name: FCM_OFF_2
+                multiplexer_indicator: Plain
+                start_bit: 36
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - BDY
+              - name: FCM_PROBLEM
+                multiplexer_indicator: Plain
+                start_bit: 34
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - BDY
+              - name: RADAR_OBSTRUCTED
+                multiplexer_indicator: Plain
+                start_bit: 33
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - BDY
+              - name: ENABLE_MINI_CAR
+                multiplexer_indicator: Plain
+                start_bit: 32
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - BDY
+              - name: HUD_DISTANCE
+                multiplexer_indicator: Plain
+                start_bit: 47
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - BDY
+              - name: HUD_LEAD
+                multiplexer_indicator: Plain
+                start_bit: 45
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - BDY
+              - name: BOH_3
+                multiplexer_indicator: Plain
+                start_bit: 43
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - BDY
+              - name: BOH_4
+                multiplexer_indicator: Plain
+                start_bit: 42
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - BDY
+              - name: BOH_5
+                multiplexer_indicator: Plain
+                start_bit: 41
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - BDY
+              - name: CRUISE_CONTROL_LABEL
+                multiplexer_indicator: Plain
+                start_bit: 40
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - BDY
+              - name: SET_ME_X01_2
+                multiplexer_indicator: Plain
+                start_bit: 55
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - BDY
+              - name: IMPERIAL_UNIT
+                multiplexer_indicator: Plain
+                start_bit: 54
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - BDY
+              - name: ACC_ON
+                multiplexer_indicator: Plain
+                start_bit: 52
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - BDY
+              - name: CHIME
+                multiplexer_indicator: Plain
+                start_bit: 51
+                size: 3
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - BDY
+              - name: SET_ME_X01
+                multiplexer_indicator: Plain
+                start_bit: 48
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - BDY
+              - name: ICONS
+                multiplexer_indicator: Plain
+                start_bit: 63
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - BDY
+              - name: COUNTER
+                multiplexer_indicator: Plain
+                start_bit: 61
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - BDY
+              - name: CHECKSUM
+                multiplexer_indicator: Plain
+                start_bit: 59
+                size: 4
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - BDY
+          - id:
+              Standard: 804
+            name: CRUISE
+            size: 8
+            transmitter:
+              NodeName: PCM
+            signals:
+              - name: HUD_SPEED_KPH
+                multiplexer_indicator: Plain
+                start_bit: 7
+                size: 8
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 255
+                unit: kph
+                receivers:
+                  - EON
+              - name: HUD_SPEED_MPH
+                multiplexer_indicator: Plain
+                start_bit: 15
+                size: 8
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 255
+                unit: mph
+                receivers:
+                  - EON
+              - name: TRIP_FUEL_CONSUMED
+                multiplexer_indicator: Plain
+                start_bit: 23
+                size: 16
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 255
+                unit: ""
+                receivers:
+                  - EON
+              - name: CRUISE_SPEED_PCM
+                multiplexer_indicator: Plain
+                start_bit: 39
+                size: 8
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 255
+                unit: ""
+                receivers:
+                  - EON
+              - name: BOH2
+                multiplexer_indicator: Plain
+                start_bit: 47
+                size: 8
+                byte_order: BigEndian
+                value_type: Signed
+                factor: 1
+                offset: 0
+                min: 0
+                max: 255
+                unit: ""
+                receivers:
+                  - EON
+              - name: BOH3
+                multiplexer_indicator: Plain
+                start_bit: 55
+                size: 8
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 255
+                unit: ""
+                receivers:
+                  - EON
+              - name: COUNTER
+                multiplexer_indicator: Plain
+                start_bit: 61
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - EON
+              - name: CHECKSUM
+                multiplexer_indicator: Plain
+                start_bit: 59
+                size: 4
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 15
+                unit: ""
+                receivers:
+                  - EON
+          - id:
+              Standard: 862
+            name: CAMERA_MESSAGES
+            size: 8
+            transmitter:
+              NodeName: CAM
+            signals:
+              - name: ZEROS_BOH
+                multiplexer_indicator: Plain
+                start_bit: 7
+                size: 16
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 127
+                unit: ""
+                receivers:
+                  - BDY
+              - name: SPEED_LIMIT_SIGN
+                multiplexer_indicator: Plain
+                start_bit: 23
+                size: 8
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 255
+                unit: ""
+                receivers:
+                  - XXX
+              - name: ROAD_SIGN
+                multiplexer_indicator: Plain
+                start_bit: 31
+                size: 8
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 255
+                unit: ""
+                receivers:
+                  - XXX
+              - name: ZEROS_BOH_2
+                multiplexer_indicator: Plain
+                start_bit: 51
+                size: 4
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 15
+                unit: ""
+                receivers:
+                  - XXX
+              - name: HIGHBEAMS_ON
+                multiplexer_indicator: Plain
+                start_bit: 52
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - XXX
+              - name: AUTO_HIGHBEAMS_ACTIVE
+                multiplexer_indicator: Plain
+                start_bit: 53
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - XXX
+              - name: CHECKSUM
+                multiplexer_indicator: Plain
+                start_bit: 59
+                size: 4
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 15
+                unit: ""
+                receivers:
+                  - XXX
+              - name: COUNTER
+                multiplexer_indicator: Plain
+                start_bit: 61
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - XXX
+          - id:
+              Standard: 884
+            name: STALK_STATUS
+            size: 8
+            transmitter:
+              NodeName: XXX
+            signals:
+              - name: DASHBOARD_ALERT
+                multiplexer_indicator: Plain
+                start_bit: 39
+                size: 8
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 255
+                unit: ""
+                receivers:
+                  - EON
+              - name: AUTO_HEADLIGHTS
+                multiplexer_indicator: Plain
+                start_bit: 46
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: HIGH_BEAM_HOLD
+                multiplexer_indicator: Plain
+                start_bit: 47
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: HIGH_BEAM_FLASH
+                multiplexer_indicator: Plain
+                start_bit: 45
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: HEADLIGHTS_ON
+                multiplexer_indicator: Plain
+                start_bit: 54
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: WIPER_SWITCH
+                multiplexer_indicator: Plain
+                start_bit: 53
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - XXX
+              - name: COUNTER
+                multiplexer_indicator: Plain
+                start_bit: 61
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - EON
+              - name: CHECKSUM
+                multiplexer_indicator: Plain
+                start_bit: 59
+                size: 4
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 15
+                unit: ""
+                receivers:
+                  - EON
+          - id:
+              Standard: 891
+            name: STALK_STATUS_2
+            size: 8
+            transmitter:
+              NodeName: XXX
+            signals:
+              - name: WIPERS
+                multiplexer_indicator: Plain
+                start_bit: 17
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - EON
+              - name: LOW_BEAMS
+                multiplexer_indicator: Plain
+                start_bit: 35
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - XXX
+              - name: HIGH_BEAMS
+                multiplexer_indicator: Plain
+                start_bit: 34
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - XXX
+              - name: PARK_LIGHTS
+                multiplexer_indicator: Plain
+                start_bit: 36
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - XXX
+              - name: COUNTER
+                multiplexer_indicator: Plain
+                start_bit: 61
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - EON
+              - name: CHECKSUM
+                multiplexer_indicator: Plain
+                start_bit: 59
+                size: 4
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 15
+                unit: ""
+                receivers:
+                  - EON
+          - id:
+              Standard: 1029
+            name: DOORS_STATUS
+            size: 8
+            transmitter:
+              NodeName: BDY
+            signals:
+              - name: DOOR_OPEN_FL
+                multiplexer_indicator: Plain
+                start_bit: 37
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: DOOR_OPEN_FR
+                multiplexer_indicator: Plain
+                start_bit: 38
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: DOOR_OPEN_RL
+                multiplexer_indicator: Plain
+                start_bit: 39
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: DOOR_OPEN_RR
+                multiplexer_indicator: Plain
+                start_bit: 40
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: TRUNK_OPEN
+                multiplexer_indicator: Plain
+                start_bit: 41
+                size: 1
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 1
+                unit: ""
+                receivers:
+                  - EON
+              - name: COUNTER
+                multiplexer_indicator: Plain
+                start_bit: 61
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - EON
+              - name: CHECKSUM
+                multiplexer_indicator: Plain
+                start_bit: 59
+                size: 4
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 15
+                unit: ""
+                receivers:
+                  - EON
+          - id:
+              Standard: 1302
+            name: ODOMETER
+            size: 8
+            transmitter:
+              NodeName: XXX
+            signals:
+              - name: ODOMETER
+                multiplexer_indicator: Plain
+                start_bit: 7
+                size: 24
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 16777215
+                unit: km
+                receivers:
+                  - EON
+              - name: COUNTER
+                multiplexer_indicator: Plain
+                start_bit: 61
+                size: 2
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - EON
+              - name: CHECKSUM
+                multiplexer_indicator: Plain
+                start_bit: 59
+                size: 4
+                byte_order: BigEndian
+                value_type: Unsigned
+                factor: 1
+                offset: 0
+                min: 0
+                max: 3
+                unit: ""
+                receivers:
+                  - EON
+        comments:
+          - Message:
+              id:
+                Standard: 304
+              comment: Seems to be platform-agnostic
+          - Message:
+              id:
+                Standard: 316
+              comment: Should exist on Nidec
+          - Signal:
+              message_id:
+                Standard: 420
+              name: BRAKE_HOLD_RELATED
+              comment: On when Brake Hold engaged
+          - Signal:
+              message_id:
+                Standard: 490
+              name: LONG_ACCEL
+              comment: "wheel speed derivative, noisy and zero snapping"
+          - Signal:
+              message_id:
+                Standard: 773
+              name: PASS_AIRBAG_ON
+              comment: Might just be indicator light
+          - Signal:
+              message_id:
+                Standard: 773
+              name: PASS_AIRBAG_OFF
+              comment: Might just be indicator light
+          - Signal:
+              message_id:
+                Standard: 780
+              name: CRUISE_SPEED
+              comment: 255 = no speed
+          - Signal:
+              message_id:
+                Standard: 780
+              name: PCM_SPEED
+              comment: Used by Nidec
+          - Signal:
+              message_id:
+                Standard: 780
+              name: PCM_GAS
+              comment: Used by Nidec
+          - Signal:
+              message_id:
+                Standard: 804
+              name: CRUISE_SPEED_PCM
+              comment: 255 = no speed
+        value_descriptions:
+          - Signal:
+              message_id:
+                Standard: 450
+              name: EPB_STATE
+              value_descriptions:
+                - id: 3
+                  description: engaged
+                - id: 2
+                  description: disengaging
+                - id: 1
+                  description: engaging
+                - id: 0
+                  description: disengaged
+          - Signal:
+              message_id:
+                Standard: 780
+              name: CRUISE_SPEED
+              value_descriptions:
+                - id: 255
+                  description: no_speed
+                - id: 252
+                  description: stopped
+          - Signal:
+              message_id:
+                Standard: 780
+              name: HUD_LEAD
+              value_descriptions:
+                - id: 3
+                  description: acc_off
+                - id: 2
+                  description: solid_car
+                - id: 1
+                  description: dashed_car
+                - id: 0
+                  description: no_car
+          - Signal:
+              message_id:
+                Standard: 884
+              name: DASHBOARD_ALERT
+              value_descriptions:
+                - id: 0
+                  description: none
+                - id: 51
+                  description: acc_problem
+                - id: 55
+                  description: cmbs_problem
+                - id: 75
+                  description: key_not_detected
+                - id: 79
+                  description: fasten_seatbelt
+                - id: 111
+                  description: lkas_problem
+                - id: 131
+                  description: brake_system_problem
+                - id: 132
+                  description: brake_hold_problem
+                - id: 139
+                  description: tbd
+                - id: 161
+                  description: door_open
+          - Signal:
+              message_id:
+                Standard: 891
+              name: WIPERS
+              value_descriptions:
+                - id: 4
+                  description: High
+                - id: 2
+                  description: Low
+                - id: 0
+                  description: "Off"
         "#);
     }
 }

@@ -23,17 +23,14 @@ impl TryFrom<Pair<'_, Rule>> for SignalGroups {
     fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
         let mut pairs = validated_inner(value, Rule::signal_group)?;
 
-        let message_id = next_rule(&mut pairs, Rule::message_id)?.try_into()?;
-        let name = next_string(&mut pairs, Rule::group_name)?;
-        let repetitions = parse_uint(next_rule(&mut pairs, Rule::multiplexer_id)?)?;
-        let signal_names = collect_strings(&mut pairs, Rule::signal_name)?;
+        let value = Self {
+            message_id: next_rule(&mut pairs, Rule::message_id)?.try_into()?,
+            name: next_string(&mut pairs, Rule::group_name)?,
+            repetitions: parse_uint(next_rule(&mut pairs, Rule::multiplexer_id)?)?,
+            signal_names: collect_strings(&mut pairs, Rule::signal_name)?,
+        };
         expect_empty(&pairs)?;
 
-        Ok(Self {
-            message_id,
-            name,
-            repetitions,
-            signal_names,
-        })
+        Ok(value)
     }
 }

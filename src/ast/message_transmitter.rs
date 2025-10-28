@@ -16,12 +16,10 @@ impl TryFrom<Pair<'_, Rule>> for MessageTransmitter {
 
     fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
         let mut pairs = validated_inner(value, Rule::message_transmitter)?;
-        let message_id = next_rule(&mut pairs, Rule::message_id)?.try_into()?;
-        let transmitter = collect_expected(&mut pairs, Rule::transmitter)?;
 
         Ok(Self {
-            message_id,
-            transmitter,
+            message_id: next_rule(&mut pairs, Rule::message_id)?.try_into()?,
+            transmitter: collect_expected(&mut pairs, Rule::transmitter)?,
         })
     }
 }
