@@ -15,10 +15,10 @@ pub enum MessageId {
 }
 
 impl MessageId {
-    /// Create MessageId from raw value including the extended bit flag
+    /// Create `MessageId` from raw value including the extended bit flag
     ///
-    /// If bit 31 is set, creates an Extended MessageId with bits 0-28.
-    /// Otherwise, creates a Standard MessageId.
+    /// If bit 31 is set, creates an Extended `MessageId` with bits 0-28.
+    /// Otherwise, creates a Standard `MessageId`.
     pub fn from_raw(raw_id: u32) -> Self {
         const EXTENDED_ID_FLAG: u32 = 1 << 31;
         const EXTENDED_ID_MASK: u32 = 0x1FFF_FFFF;

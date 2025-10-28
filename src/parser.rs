@@ -54,7 +54,7 @@ impl From<PestError<Rule>> for DbcError {
 
 /// Helper function to get the next pair and validate its rule
 pub(crate) fn next<'a>(iter: &'a mut Pairs<Rule>) -> DbcResult<Pair<'a, Rule>> {
-    iter.next().ok_or_else(|| DbcError::NoMoreRules)
+    iter.next().ok_or(DbcError::NoMoreRules)
 }
 
 /// Helper function to get the next pair and validate its rule
@@ -92,7 +92,7 @@ pub(crate) fn next_string(iter: &mut Pairs<Rule>, expected: Rule) -> DbcResult<S
 /// Helper function to get a single pair and validate its rule
 pub(crate) fn single_inner(pair: Pair<Rule>, expected: Rule) -> DbcResult<Pair<Rule>> {
     let mut iter = pair.into_inner();
-    let pair = iter.next().ok_or_else(|| DbcError::NoMoreRules)?;
+    let pair = iter.next().ok_or(DbcError::NoMoreRules)?;
     if pair.as_rule() != expected {
         Err(DbcError::Expected(expected, pair.as_rule()))
     } else if let Some(next) = iter.next() {
