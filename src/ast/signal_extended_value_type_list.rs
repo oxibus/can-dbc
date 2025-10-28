@@ -1,7 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{MessageId, SignalExtendedValueType};
-use crate::parser::{expect_empty, next_rule, next_string, parse_uint, validated_inner, DbcError};
+use crate::parser::{expect_empty, next, next_rule, next_string, validated_inner, DbcError};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -16,16 +16,13 @@ impl TryFrom<Pair<'_, Rule>> for SignalExtendedValueTypeList {
 
     fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
         let mut pairs = validated_inner(value, Rule::signal_value_type)?;
-
-        let message_id = next_rule(&mut pairs, Rule::message_id)?.try_into()?;
-        let signal_name = next_string(&mut pairs, Rule::signal_name)?;
-        let value_type = parse_uint(next_rule(&mut pairs, Rule::int)?)?;
+        let value = Self {
+            message_id: next_rule(&mut pairs, Rule::message_id)?.try_into()?,
+            signal_name: next_string(&mut pairs, Rule::signal_name)?,
+            signal_extended_value_type: next(&mut pairs)?.as_rule().try_into()?,
+        };
         expect_empty(&pairs)?;
 
-        Ok(Self {
-            message_id,
-            signal_name,
-            signal_extended_value_type: value_type.try_into()?,
-        })
+        Ok(value)
     }
 }

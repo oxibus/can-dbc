@@ -43,7 +43,7 @@ impl TryFrom<u64> for MessageId {
     type Error = DbcError;
 
     fn try_from(value: u64) -> Result<Self, Self::Error> {
-        let value = u32::try_from(value).map_err(|_| DbcError::ParseError)?;
+        let value = u32::try_from(value).map_err(|_| DbcError::MessageIdOutOfRange(value))?;
         Ok(Self::from_raw(value))
     }
 }

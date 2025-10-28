@@ -21,7 +21,7 @@ impl TryFrom<Pairs<'_, Rule>> for AttributeValuedForObjectType {
         // Expect exactly one remaining pair (the object-specific value)
         let pair = value.next().ok_or(DbcError::NoMoreRules)?;
         if let Some(more) = value.next() {
-            return Err(DbcError::UnexpectedRule(more.as_rule()));
+            return Err(DbcError::ExpectedEmpty(more.as_rule()));
         }
 
         if matches!(&pair.as_rule(), Rule::quoted_str | Rule::number) {

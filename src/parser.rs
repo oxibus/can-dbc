@@ -24,8 +24,6 @@ pub enum DbcError {
     Pest(Box<PestError<Rule>>),
     #[error("Invalid data")]
     InvalidData,
-    #[error("Unknown parse error")]
-    ParseError,
     #[error("Multiple multiplexors defined for a message")]
     MultipleMultiplexors,
     #[error("Feature not implemented: {0}")]
@@ -39,9 +37,13 @@ pub enum DbcError {
     #[error("No more parsing rules available")]
     NoMoreRules,
     #[error("No more rules expected, but found: {0:?}")]
-    UnexpectedRule(Rule),
+    ExpectedEmpty(Rule),
     #[error("Signal defined without an associated message")]
     SignalWithoutMessage,
+    #[error("Message ID out of range: {0}")]
+    MessageIdOutOfRange(u64),
+    #[error("Unknown multiplex indicator: {0}")]
+    UnknownMultiplexIndicator(String),
 }
 
 impl From<PestError<Rule>> for DbcError {
@@ -52,7 +54,7 @@ impl From<PestError<Rule>> for DbcError {
 
 /// Helper function to get the next pair and validate its rule
 pub(crate) fn next<'a>(iter: &'a mut Pairs<Rule>) -> DbcResult<Pair<'a, Rule>> {
-    iter.next().ok_or(DbcError::ParseError)
+    iter.next().ok_or(DbcError::NoMoreRules)
 }
 
 /// Helper function to get the next pair and validate its rule
@@ -60,11 +62,11 @@ pub(crate) fn next_rule<'a>(
     iter: &'a mut Pairs<Rule>,
     expected: Rule,
 ) -> DbcResult<Pair<'a, Rule>> {
-    iter.next().ok_or(DbcError::ParseError).and_then(|pair| {
+    next(iter).and_then(|pair| {
         if pair.as_rule() == expected {
             Ok(pair)
         } else {
-            Err(DbcError::ParseError)
+            Err(DbcError::Expected(expected, pair.as_rule()))
         }
     })
 }
@@ -90,11 +92,11 @@ pub(crate) fn next_string(iter: &mut Pairs<Rule>, expected: Rule) -> DbcResult<S
 /// Helper function to get a single pair and validate its rule
 pub(crate) fn single_inner(pair: Pair<Rule>, expected: Rule) -> DbcResult<Pair<Rule>> {
     let mut iter = pair.into_inner();
-    let pair = iter.next().ok_or(DbcError::ParseError)?;
+    let pair = iter.next().ok_or(DbcError::NoMoreRules)?;
     if pair.as_rule() != expected {
         Err(DbcError::Expected(expected, pair.as_rule()))
-    } else if iter.next().is_some() {
-        Err(DbcError::ParseError)
+    } else if let Some(next) = iter.next() {
+        Err(DbcError::ExpectedEmpty(next.as_rule()))
     } else {
         Ok(pair)
     }
@@ -135,7 +137,7 @@ pub(crate) fn collect_expected<'a, T: TryFrom<Pair<'a, Rule>, Error = DbcError>>
         if pair.as_rule() == expected {
             pair.try_into()
         } else {
-            Err(DbcError::ParseError)
+            Err(DbcError::Expected(expected, pair.as_rule()))
         }
     })
     .collect()
@@ -147,7 +149,7 @@ pub(crate) fn collect_strings(iter: &mut Pairs<Rule>, expected: Rule) -> DbcResu
         if pair.as_rule() == expected {
             Ok(pair.as_str().to_string())
         } else {
-            Err(DbcError::ParseError)
+            Err(DbcError::Expected(expected, pair.as_rule()))
         }
     })
     .collect()
@@ -155,7 +157,8 @@ pub(crate) fn collect_strings(iter: &mut Pairs<Rule>, expected: Rule) -> DbcResu
 
 /// Helper function to ensure the iterator is empty (no more items)
 pub(crate) fn expect_empty(iter: &Pairs<Rule>) -> DbcResult<()> {
-    iter.peek().map_or(Ok(()), |_| Err(DbcError::ParseError))
+    iter.peek()
+        .map_or(Ok(()), |v| Err(DbcError::ExpectedEmpty(v.as_rule())))
 }
 
 /// Helper function to extract string content from `quoted_str` rule

@@ -37,6 +37,6 @@ impl TryFrom<&str> for MultiplexIndicator {
             }
         }
 
-        Err(Self::Error::ParseError)
+        Err(Self::Error::UnknownMultiplexIndicator(text.to_string()))
     }
 }

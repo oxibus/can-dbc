@@ -1,3 +1,5 @@
+use can_dbc_pest::Rule;
+
 use crate::DbcError;
 
 #[derive(Copy, Clone, Debug, PartialEq)]
@@ -8,15 +10,15 @@ pub enum SignalExtendedValueType {
     IEEEdouble64bit,
 }
 
-impl TryFrom<u64> for SignalExtendedValueType {
+impl TryFrom<Rule> for SignalExtendedValueType {
     type Error = DbcError;
 
-    fn try_from(value: u64) -> Result<Self, Self::Error> {
+    fn try_from(value: Rule) -> Result<Self, Self::Error> {
         match value {
-            0 => Ok(Self::SignedOrUnsignedInteger),
-            1 => Ok(Self::IEEEfloat32Bit),
-            2 => Ok(Self::IEEEdouble64bit),
-            _ => Err(Self::Error::ParseError),
+            Rule::sig_val_integer => Ok(Self::SignedOrUnsignedInteger),
+            Rule::sig_val_IEEE_float_32Bit => Ok(Self::IEEEfloat32Bit),
+            Rule::sig_val_IEEE_float_64Bit => Ok(Self::IEEEdouble64bit),
+            v => Err(DbcError::UnknownRule(v)),
         }
     }
 }
