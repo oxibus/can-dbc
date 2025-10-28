@@ -42,7 +42,7 @@ impl TryFrom<Pair<'_, Rule>> for AttributeDefinition {
                     }
                     definition_string.push_str(pair.as_str());
                 }
-                _ => return Err(DbcError::ParseError),
+                v => return Err(DbcError::UnknownRule(v)),
             }
         }
 

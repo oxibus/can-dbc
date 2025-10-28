@@ -264,13 +264,13 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
                 Rule::signal_value_type => {
                     signal_extended_value_type_list.push(pairs.try_into()?);
                 }
-                Rule::bo_tx_bu => message_transmitters.push(pairs.try_into()?),
+                Rule::message_transmitter => message_transmitters.push(pairs.try_into()?),
                 Rule::ba_def_def => attribute_defaults.push(pairs.try_into()?),
                 Rule::sg_mul_val => extended_multiplex.push(pairs.try_into()?),
                 Rule::environment_variable => {
                     environment_variables.push(pairs.try_into()?);
                 }
-                Rule::envvar_data => environment_variable_data.push(pairs.try_into()?),
+                Rule::env_var_data => environment_variable_data.push(pairs.try_into()?),
                 Rule::ba_def_rel => return Err(DbcError::NotImplemented("ba_def_rel")),
                 Rule::ba_def_def_rel => return Err(DbcError::NotImplemented("ba_def_def_rel")),
                 Rule::ba_rel => return Err(DbcError::NotImplemented("ba_rel")),

@@ -58,7 +58,7 @@ impl TryFrom<Pair<'_, Rule>> for Signal {
                 Rule::min_max => (min, max) = parse_min_max_float(pair2)?,
                 Rule::unit => unit = inner_str(pair2),
                 Rule::node_name => receivers.push(pair2.as_str().to_string()),
-                _ => panic!("Unexpected rule: {:?}", pair2.as_rule()),
+                v => return Err(DbcError::UnknownRule(v)),
             }
         }
 

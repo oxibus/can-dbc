@@ -32,6 +32,10 @@ pub enum DbcError {
     NotImplemented(&'static str),
     #[error("Expected rule: {0:?}, found: {1:?}")]
     Expected(Rule, Rule),
+    #[error("Expected a quoted string or a number, found: {0:?}")]
+    ExpectedNumber(Rule),
+    #[error("Unknown rule: {0:?}")]
+    UnknownRule(Rule),
 }
 
 impl From<PestError<Rule>> for DbcError {
@@ -81,7 +85,9 @@ pub(crate) fn next_string(iter: &mut Pairs<Rule>, expected: Rule) -> DbcResult<S
 pub(crate) fn single_inner(pair: Pair<Rule>, expected: Rule) -> DbcResult<Pair<Rule>> {
     let mut iter = pair.into_inner();
     let pair = iter.next().ok_or(DbcError::ParseError)?;
-    if pair.as_rule() != expected || iter.next().is_some() {
+    if pair.as_rule() != expected {
+        Err(DbcError::Expected(expected, pair.as_rule()))
+    } else if iter.next().is_some() {
         Err(DbcError::ParseError)
     } else {
         Ok(pair)

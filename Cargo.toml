@@ -57,5 +57,5 @@ cast_precision_loss = "allow"
 too_many_lines = "allow"
 missing_panics_doc = "allow"
 
-#[patch.crates-io]
-#can-dbc-pest = { path = "../can-dbc-pest" }
+[patch.crates-io]
+can-dbc-pest = { path = "../can-dbc-pest" }

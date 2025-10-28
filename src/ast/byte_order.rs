@@ -16,7 +16,7 @@ impl TryFrom<Pair<'_, Rule>> for ByteOrder {
         match value.as_rule() {
             Rule::little_endian => Ok(Self::LittleEndian),
             Rule::big_endian => Ok(Self::BigEndian),
-            _ => Err(Self::Error::ParseError),
+            v => Err(DbcError::UnknownRule(v)),
         }
     }
 }

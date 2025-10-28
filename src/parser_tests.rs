@@ -1,6 +1,8 @@
 #![allow(clippy::needless_raw_string_hashes)]
 #![allow(unused_imports)]
 
+use std::fmt::Debug;
+
 use can_dbc_pest::*;
 
 use crate::parser::*;
@@ -15,6 +17,16 @@ fn parse(input: &str, rule: Rule) -> DbcResult<Pair<'_, Rule>> {
 fn span(input: &str, rule: Rule) -> &str {
     let pair = parse(input, rule).unwrap();
     pair.as_span().as_str()
+}
+
+fn test_into<'a, T>(pair: Pair<'a, Rule>) -> T
+where
+    T: TryFrom<Pair<'a, Rule>>,
+    <T as TryFrom<Pair<'a, Rule>>>::Error: Debug,
+{
+    pair.clone().try_into().unwrap_or_else(|e| {
+        panic!("{e:?}:\n{pair:#?}");
+    })
 }
 
 #[test]
@@ -191,7 +203,7 @@ CM_ SG_ 193 KLU_R_X "This is a signal comment test";
         comment: "This is a signal comment test".to_string(),
     };
     let pair = parse(def.trim_start(), Rule::comment).unwrap();
-    let val: Comment = pair.try_into().unwrap();
+    let val = test_into::<Comment>(pair);
     assert_eq!(val, exp);
 }
 
@@ -205,7 +217,7 @@ CM_ BO_ 34544 "Some Message comment";
         comment: "Some Message comment".to_string(),
     };
     let pair = parse(def.trim_start(), Rule::comment).unwrap();
-    let val: Comment = pair.try_into().unwrap();
+    let val = test_into::<Comment>(pair);
     assert_eq!(val, exp);
 }
 
@@ -219,7 +231,7 @@ CM_ BU_ network_node "Some network node comment";
         comment: "Some network node comment".to_string(),
     };
     let pair = parse(def.trim_start(), Rule::comment).unwrap();
-    let val: Comment = pair.try_into().unwrap();
+    let val = test_into::<Comment>(pair);
     assert_eq!(val, exp);
 }
 
@@ -233,7 +245,7 @@ CM_ EV_ ENVXYZ "Some env var name comment";
         comment: "Some env var name comment".to_string(),
     };
     let pair = parse(def.trim_start(), Rule::comment).unwrap();
-    let val: Comment = pair.try_into().unwrap();
+    let val = test_into::<Comment>(pair);
     assert_eq!(val, exp);
 }
 
@@ -248,7 +260,7 @@ CM_ SG_ 2147548912 FooBar "Foo\\ \n \"Bar\"";
         comment: r#"Foo\\ \n \"Bar\""#.to_string(),
     };
     let pair = parse(def.trim_start(), Rule::comment).unwrap();
-    let val: Comment = pair.try_into().unwrap();
+    let val = test_into::<Comment>(pair);
     assert_eq!(val, exp);
 }
 
@@ -263,7 +275,7 @@ CM_ SG_ 2147548912 FooBar "";
         comment: String::new(),
     };
     let pair = parse(def.trim_start(), Rule::comment).unwrap();
-    let val: Comment = pair.try_into().unwrap();
+    let val = test_into::<Comment>(pair);
     assert_eq!(val, exp);
 }
 
@@ -281,7 +293,7 @@ VAL_ 837 UF_HZ_OI 255 "NOP";
         }],
     };
     let pair = parse(def.trim_start(), Rule::value_table_def).unwrap();
-    let val: ValueDescription = pair.try_into().unwrap();
+    let val = test_into::<ValueDescription>(pair);
     assert_eq!(val, exp);
 }
 
@@ -298,7 +310,7 @@ VAL_ MY_ENV_VAR 255 "NOP";
         }],
     };
     let pair = parse(def.trim_start(), Rule::value_table_def).unwrap();
-    let val: ValueDescription = pair.try_into().unwrap();
+    let val = test_into::<ValueDescription>(pair);
     assert_eq!(val, exp);
 }
 
@@ -319,7 +331,7 @@ EV_ IUV: 0 [-22|20] "mm" 3 7 DUMMY_NODE_VECTOR0 VECTOR_XXX;
         access_nodes: vec![AccessNode::Name("VECTOR_XXX".to_string())],
     };
     let pair = parse(def.trim_start(), Rule::environment_variable).unwrap();
-    let val: EnvironmentVariable = pair.try_into().unwrap();
+    let val = test_into::<EnvironmentVariable>(pair);
     assert_eq!(val, exp);
 }
 
@@ -336,7 +348,7 @@ BA_ "AttrName" BU_ NodeName 12;
         ),
     };
     let pair = parse(def.trim_start(), Rule::attr_value).unwrap();
-    let val: AttributeValueForObject = pair.try_into().unwrap();
+    let val = test_into::<AttributeValueForObject>(pair);
     assert_eq!(val, exp);
 }
 
@@ -353,7 +365,7 @@ BA_ "AttrName" BO_ 298 13;
         ),
     };
     let pair = parse(def.trim_start(), Rule::attr_value).unwrap();
-    let val: AttributeValueForObject = pair.try_into().unwrap();
+    let val = test_into::<AttributeValueForObject>(pair);
     assert_eq!(val, exp);
 }
 
@@ -371,7 +383,7 @@ BA_ "AttrName" SG_ 198 SGName 13;
         ),
     };
     let pair = parse(def.trim_start(), Rule::attr_value).unwrap();
-    let val: AttributeValueForObject = pair.try_into().unwrap();
+    let val = test_into::<AttributeValueForObject>(pair);
     assert_eq!(val, exp);
 }
 
@@ -388,7 +400,7 @@ BA_ "AttrName" EV_ EvName "CharStr";
         ),
     };
     let pair = parse(def.trim_start(), Rule::attr_value).unwrap();
-    let val: AttributeValueForObject = pair.try_into().unwrap();
+    let val = test_into::<AttributeValueForObject>(pair);
     assert_eq!(val, exp);
 }
 
@@ -402,7 +414,7 @@ BA_ "AttrName" "RAW";
         value: AttributeValuedForObjectType::Raw(AttributeValue::String("RAW".to_string())),
     };
     let pair = parse(def.trim_start(), Rule::attr_value).unwrap();
-    let val: AttributeValueForObject = pair.try_into().unwrap();
+    let val = test_into::<AttributeValueForObject>(pair);
     assert_eq!(val, exp);
 }
 
@@ -461,8 +473,8 @@ ENVVAR_DATA_ SomeEnvVarData: 399;
         env_var_name: "SomeEnvVarData".to_string(),
         data_size: 399,
     };
-    let pair = parse(def.trim_start(), Rule::envvar_data).unwrap();
-    let val: EnvironmentVariableData = pair.try_into().unwrap();
+    let pair = parse(def.trim_start(), Rule::env_var_data).unwrap();
+    let val = test_into::<EnvironmentVariableData>(pair);
     assert_eq!(val, exp);
 }
 
@@ -506,7 +518,7 @@ SIG_GROUP_ 23 X_3290 1 : A_b XY_Z;
     };
 
     let pair = parse(def.trim_start(), Rule::signal_group).unwrap();
-    let val: SignalGroups = pair.try_into().unwrap();
+    let val = test_into::<SignalGroups>(pair);
     assert_eq!(val, exp);
 }
 
@@ -520,7 +532,7 @@ BA_DEF_DEF_  "ZUV" "OAL";
         value: AttributeValue::String("OAL".to_string()),
     };
     let pair = parse(def.trim_start(), Rule::ba_def_def).unwrap();
-    let val: AttributeDefault = pair.try_into().unwrap();
+    let val = test_into::<AttributeDefault>(pair);
     assert_eq!(val, exp);
 }
 
@@ -550,7 +562,7 @@ fn attribute_definition_bo_txt_test() {
 BA_DEF_ BO_  "GenMsgSendType" STRING ;
 "#;
     let pair = parse(def.trim_start(), Rule::attr_def).unwrap();
-    let val: AttributeDefinition = pair.try_into().unwrap();
+    let val = test_into::<AttributeDefinition>(pair);
     let exp = AttributeDefinition::Message(r#""GenMsgSendType" STRING"#.to_string());
     assert_eq!(val, exp);
 }
@@ -561,7 +573,7 @@ fn attribute_definition_bu_test() {
 BA_DEF_ BU_ "BuDef1BO" INT 0 1000000;
 "#;
     let pair = parse(def.trim_start(), Rule::attr_def).unwrap();
-    let val: AttributeDefinition = pair.try_into().unwrap();
+    let val = test_into::<AttributeDefinition>(pair);
     let exp = AttributeDefinition::Node(r#""BuDef1BO" INT 0 1000000"#.to_string());
     assert_eq!(val, exp);
 }
@@ -572,7 +584,7 @@ fn attribute_definition_sg_test() {
 BA_DEF_ SG_ "SgDef1BO" INT 0 1000000;
 "#;
     let pair = parse(def.trim_start(), Rule::attr_def).unwrap();
-    let val: AttributeDefinition = pair.try_into().unwrap();
+    let val = test_into::<AttributeDefinition>(pair);
     let exp = AttributeDefinition::Signal(r#""SgDef1BO" INT 0 1000000"#.to_string());
     assert_eq!(val, exp);
 }
@@ -584,7 +596,7 @@ BA_DEF_ SG_ "SgDef1BO" INT 0 1000000;
 // BA_DEF_ EV_ "EvDef1BO" INT 0 1000000;
 // "#;
 //     let pair = parse(def_env_var.trim_start(), Rule::ba_def_def).unwrap();
-//     let val: AttributeDefinition = pair.try_into().unwrap();
+//     let val = test_into::<AttributeDefinition>(pair);
 //     let exp = AttributeDefinition::EnvironmentVariable(r#""EvDef1BO" INT 0 1000000"#.to_string());
 //     assert_eq!(val, exp);
 // }
@@ -596,7 +608,7 @@ VERSION "HNPBNNNYNNNNNNNNNNNNNNNNNNNNNNNNYNYYYYYYYY>4>%%%/4>'%**4YYY///"
 "#;
     let exp = Version("HNPBNNNYNNNNNNNNNNNNNNNNNNNNNNNNYNYYYYYYYY>4>%%%/4>'%**4YYY///".to_string());
     let pair = parse(def.trim_start(), Rule::version).unwrap();
-    let val: Version = pair.try_into().unwrap();
+    let val = test_into::<Version>(pair);
     assert_eq!(val, exp);
 }
 
@@ -612,16 +624,16 @@ BO_TX_BU_ 12345 : XZY,ABC;
             Transmitter::NodeName("ABC".to_string()),
         ],
     };
-    let pair = parse(def.trim_start(), Rule::bo_tx_bu).unwrap();
-    let val: MessageTransmitter = pair.try_into().unwrap();
+    let pair = parse(def.trim_start(), Rule::message_transmitter).unwrap();
+    let val = test_into::<MessageTransmitter>(pair);
     assert_eq!(val, exp);
 
     // Same as above, but without space before the colon
     let def = r#"
 BO_TX_BU_ 12345 :XZY,ABC;
 "#;
-    let pair = parse(def.trim_start(), Rule::bo_tx_bu).unwrap();
-    let val: MessageTransmitter = pair.try_into().unwrap();
+    let pair = parse(def.trim_start(), Rule::message_transmitter).unwrap();
+    let val = test_into::<MessageTransmitter>(pair);
     assert_eq!(val, exp);
 }
 
@@ -659,7 +671,7 @@ VAL_TABLE_ Tst 2 "ABC" 1 "Test A" ;
         ],
     };
     let pair = parse(def.trim_start(), Rule::value_table).unwrap();
-    let val: ValueTable = pair.try_into().unwrap();
+    let val = test_into::<ValueTable>(pair);
     assert_eq!(val, exp);
 }
 
@@ -676,7 +688,7 @@ VAL_TABLE_ Tst 2 "ABC";
         }],
     };
     let pair = parse(def.trim_start(), Rule::value_table).unwrap();
-    let val: ValueTable = pair.try_into().unwrap();
+    let val = test_into::<ValueTable>(pair);
     assert_eq!(val, exp);
 }
 
@@ -696,7 +708,7 @@ SG_MUL_VAL_ 2147483650 muxed_A_1 MUX_A 1-1;
         }],
     };
     let pair = parse(def.trim_start(), Rule::sg_mul_val).unwrap();
-    let val: ExtendedMultiplex = pair.try_into().unwrap();
+    let val = test_into::<ExtendedMultiplex>(pair);
     assert_eq!(val, exp);
 }
 
@@ -716,7 +728,7 @@ SG_MUL_VAL_ 2147483650 muxed_A_1 MUX_A 1568-2568;
         }],
     };
     let pair = parse(def.trim_start(), Rule::sg_mul_val).unwrap();
-    let val: ExtendedMultiplex = pair.try_into().unwrap();
+    let val = test_into::<ExtendedMultiplex>(pair);
     assert_eq!(val, exp);
 }
 
@@ -742,7 +754,7 @@ SG_MUL_VAL_ 2147483650 muxed_B_5 MUX_B 5-5, 16-24;
         ],
     };
     let pair = parse(def.trim_start(), Rule::sg_mul_val).unwrap();
-    let val: ExtendedMultiplex = pair.try_into().unwrap();
+    let val = test_into::<ExtendedMultiplex>(pair);
     assert_eq!(val, exp);
 }
 
@@ -758,7 +770,7 @@ SIG_VALTYPE_ 2000 Signal_8 : 1;
     };
 
     let pair = parse(def.trim_start(), Rule::signal_value_type).unwrap();
-    let val: SignalExtendedValueTypeList = pair.try_into().unwrap();
+    let val = test_into::<SignalExtendedValueTypeList>(pair);
     assert_eq!(val, exp);
 }
 

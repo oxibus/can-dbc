@@ -13,7 +13,7 @@ impl TryFrom<Pair<'_, Rule>> for EnvironmentVariableData {
     type Error = DbcError;
 
     fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
-        let mut pairs = validated_inner(value, Rule::envvar_data)?;
+        let mut pairs = validated_inner(value, Rule::env_var_data)?;
 
         let env_var_name = next_string(&mut pairs, Rule::env_var_name)?;
         let data_size = parse_uint(next_rule(&mut pairs, Rule::data_size)?)?;

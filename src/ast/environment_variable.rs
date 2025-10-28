@@ -37,7 +37,7 @@ impl TryFrom<Pair<'_, Rule>> for EnvironmentVariable {
             Rule::env_var_type_int => EnvType::Integer,
             Rule::env_var_type_float => EnvType::Float,
             Rule::env_var_type_string => EnvType::String,
-            _ => return Err(DbcError::ParseError),
+            v => return Err(DbcError::UnknownRule(v)),
         };
 
         // 4) Optional: min_max

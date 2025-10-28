@@ -19,7 +19,7 @@ impl TryFrom<Pair<'_, Rule>> for AttributeValue {
             Rule::quoted_str => Ok(Self::String(inner_str(value))),
             Rule::number => Ok(Self::Double(parse_float(value)?)),
             // FIXME: Add u64 and i64 parsing
-            _ => Err(Self::Error::ParseError),
+            _ => Err(Self::Error::ExpectedNumber(value.as_rule())),
         }
     }
 }

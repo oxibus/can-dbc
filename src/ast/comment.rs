@@ -1,7 +1,9 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::MessageId;
-use crate::parser::{inner_str, parse_uint, single_inner, validated_inner, DbcError};
+use crate::parser::{
+    inner_str, parse_uint, single_inner, single_inner_str, validated_inner, DbcError,
+};
 
 /// Object comments
 #[derive(Clone, Debug, PartialEq)]
@@ -48,19 +50,46 @@ impl TryFrom<Pair<'_, Rule>> for Comment {
                 Rule::msg_var => {
                     message_id = Some(parse_uint(single_inner(pair, Rule::message_id)?)? as u32);
                 }
-                Rule::node_var => {
-                    node_name = Some(single_inner(pair, Rule::node_name)?.as_str().to_string());
+                Rule::msg_var_str => {
+                    // msg_var_str contains a message id and a quoted string
+                    for sub in pair.into_inner() {
+                        match sub.as_rule() {
+                            Rule::message_id => {
+                                message_id = Some(parse_uint(sub)? as u32);
+                            }
+                            Rule::quoted_str => comment = inner_str(sub),
+                            v => return Err(DbcError::UnknownRule(v)),
+                        }
+                    }
+                }
+                Rule::node_var_str => {
+                    // node_var_str contains node name and quoted_str
+                    for sub in pair.into_inner() {
+                        match sub.as_rule() {
+                            Rule::node_name => node_name = Some(sub.as_str().to_string()),
+                            Rule::quoted_str => comment = inner_str(sub),
+                            v => return Err(DbcError::UnknownRule(v)),
+                        }
+                    }
                 }
                 Rule::env_var => {
-                    env_var_name =
-                        Some(single_inner(pair, Rule::env_var_name)?.as_str().to_string());
+                    env_var_name = Some(single_inner_str(pair, Rule::env_var_name)?);
+                }
+                Rule::env_var_str => {
+                    for sub in pair.into_inner() {
+                        match sub.as_rule() {
+                            Rule::env_var_name => env_var_name = Some(sub.as_str().to_string()),
+                            Rule::quoted_str => comment = inner_str(sub),
+                            v => return Err(DbcError::UnknownRule(v)),
+                        }
+                    }
                 }
                 Rule::signal_var => {
                     for sub_pair in pair.into_inner() {
                         match sub_pair.as_rule() {
                             Rule::message_id => message_id = Some(parse_uint(sub_pair)? as u32),
                             Rule::ident => signal_name = Some(sub_pair.as_str().to_string()),
-                            _ => {}
+                            v => return Err(DbcError::UnknownRule(v)),
                         }
                     }
                 }
@@ -68,7 +97,7 @@ impl TryFrom<Pair<'_, Rule>> for Comment {
                 Rule::signal_name => signal_name = Some(pair.as_str().to_string()),
                 Rule::node_name => node_name = Some(pair.as_str().to_string()),
                 Rule::env_var_name => env_var_name = Some(pair.as_str().to_string()),
-                _ => panic!("Unexpected rule: {:?}", pair.as_rule()),
+                _ => return Err(DbcError::UnknownRule(pair.as_rule())),
             }
         }
 

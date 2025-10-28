@@ -15,7 +15,7 @@ impl TryFrom<Pair<'_, Rule>> for MessageTransmitter {
     type Error = DbcError;
 
     fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
-        let mut pairs = validated_inner(value, Rule::bo_tx_bu)?;
+        let mut pairs = validated_inner(value, Rule::message_transmitter)?;
         let message_id = next_rule(&mut pairs, Rule::message_id)?.try_into()?;
         let transmitter = collect_expected(&mut pairs, Rule::transmitter)?;
 
