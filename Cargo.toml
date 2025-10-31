@@ -8,7 +8,7 @@ authors = ["marcelbuesing <buesing.marcel@googlemail.com>"]
 keywords = ["dbc", "can", "automotive", "ecu"]
 categories = ["embedded", "no-std", "encoding", "parsing"]
 edition = "2021"
-rust-version = "1.74"
+rust-version = "1.81"
 
 [[example]]
 name = "file_parser"
@@ -24,9 +24,10 @@ serde = ["dep:serde"]
 with-serde = ["serde"]
 
 [dependencies]
+can-dbc-pest = { version = "0.6.0" }
 encoding_rs = { version = "0.8", optional = true }
-nom = { version = "8.0", features = ["alloc"] }
 serde = { version = "1.0", features = ["derive"], optional = true }
+thiserror = "2.0.17"
 
 [dev-dependencies]
 clap = { version = "4.5.0", features = ["cargo", "derive"] }
@@ -50,3 +51,11 @@ must_use_candidate = "allow"     # 12
 missing_errors_doc = "allow"      # 8
 similar_names = "allow"      # 4
 needless_pass_by_value = "allow"      # 4
+unnecessary_wraps = "allow"
+cast_possible_truncation = "allow"
+cast_precision_loss = "allow"
+too_many_lines = "allow"
+missing_panics_doc = "allow"
+
+#[patch.crates-io]
+#can-dbc-pest = { path = "../can-dbc-pest" }

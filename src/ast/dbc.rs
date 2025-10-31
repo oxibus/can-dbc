@@ -1,11 +1,15 @@
+use std::str;
+
+use can_dbc_pest::{DbcParser, Parser as _, Rule};
+
 use crate::ast::{
     AttributeDefault, AttributeDefinition, AttributeValueForObject, Baudrate, Comment,
-    EnvironmentVariable, EnvironmentVariableData, Error, ExtendedMultiplex, Message, MessageId,
+    EnvironmentVariable, EnvironmentVariableData, ExtendedMultiplex, Message, MessageId,
     MessageTransmitter, MultiplexIndicator, Node, Signal, SignalExtendedValueType,
     SignalExtendedValueTypeList, SignalGroups, SignalType, SignalTypeRef, Symbol, ValDescription,
     ValueDescription, ValueTable, Version,
 };
-use crate::parser;
+use crate::parser::{collect_all, DbcError, DbcResult};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -158,13 +162,10 @@ impl Dbc {
         })
     }
 
-    /// Lookup the message multiplexor switch signal for a given message
-    /// This does not work for extended multiplexed messages, if multiple multiplexors are defined for a message a Error is returned.
+    /// Lookup the message multiplexer switch signal for a given message
+    /// This does not work for extended multiplexed messages, if multiple multiplexors are defined for a message an Error is returned.
     #[allow(clippy::result_large_err)]
-    pub fn message_multiplexor_switch(
-        &self,
-        message_id: MessageId,
-    ) -> Result<Option<&Signal>, Error<'_>> {
+    pub fn message_multiplexor_switch(&self, message_id: MessageId) -> DbcResult<Option<&Signal>> {
         let message = self
             .messages
             .iter()
@@ -176,7 +177,7 @@ impl Dbc {
                 .iter()
                 .any(|ext_mp| ext_mp.message_id == message_id)
             {
-                Err(Error::MultipleMultiplexors)
+                Err(DbcError::MultipleMultiplexors)
             } else {
                 Ok(message
                     .signals
@@ -190,13 +191,121 @@ impl Dbc {
 }
 
 impl<'a> TryFrom<&'a str> for Dbc {
-    type Error = Error<'a>;
+    type Error = DbcError;
 
     fn try_from(dbc_in: &'a str) -> Result<Self, Self::Error> {
-        let (remaining, dbc) = parser::dbc(dbc_in).map_err(Error::Nom)?;
-        if !remaining.is_empty() {
-            return Err(Error::Incomplete(dbc, remaining));
-        }
-        Ok(dbc)
+        dbc(dbc_in)
     }
+}
+
+pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
+    let mut version: Version = Version::default();
+    let mut new_symbols: Vec<Symbol> = vec![];
+    let mut bit_timing: Option<Vec<Baudrate>> = None;
+    let mut nodes: Vec<Node> = vec![];
+    let mut value_tables: Vec<ValueTable> = vec![];
+    let mut messages: Vec<Message> = vec![];
+    let mut signals: Vec<(usize, Signal)> = vec![]; // Store signals with their message index
+    let mut message_transmitters: Vec<MessageTransmitter> = vec![];
+    let mut environment_variables: Vec<EnvironmentVariable> = vec![];
+    let mut environment_variable_data: Vec<EnvironmentVariableData> = vec![];
+    let mut comments: Vec<Comment> = vec![];
+    let mut attribute_definitions: Vec<AttributeDefinition> = vec![];
+    let mut attribute_defaults: Vec<AttributeDefault> = vec![];
+    let mut attribute_values: Vec<AttributeValueForObject> = vec![];
+    let mut value_descriptions: Vec<ValueDescription> = vec![];
+    let mut signal_groups: Vec<SignalGroups> = vec![];
+    let mut signal_extended_value_type_list: Vec<SignalExtendedValueTypeList> = vec![];
+    let mut extended_multiplex: Vec<ExtendedMultiplex> = vec![];
+
+    let mut current_message_index: Option<usize> = None;
+
+    for pair in DbcParser::parse(Rule::file, buffer)? {
+        if !matches!(pair.as_rule(), Rule::file) {
+            return Err(DbcError::Expected(Rule::file, pair.as_rule()));
+        }
+        for pairs in pair.into_inner() {
+            match pairs.as_rule() {
+                Rule::version => version = pairs.try_into()?,
+                Rule::new_symbols => {
+                    let symbols: Vec<Symbol> = collect_all::<Symbol>(&mut pairs.into_inner())?;
+                    new_symbols.extend(symbols);
+                }
+                Rule::bit_timing => {
+                    let inner_pairs = pairs.into_inner();
+                    if inner_pairs.len() == 0 {
+                        bit_timing = Some(vec![]);
+                    } else {
+                        // For now, just return empty vec since bit timing parsing is not implemented
+                        bit_timing = Some(vec![]);
+                    }
+                }
+                Rule::nodes => nodes = collect_all::<Node>(&mut pairs.into_inner())?,
+                Rule::message => {
+                    messages.push(pairs.try_into()?);
+                    current_message_index = Some(messages.len() - 1);
+                }
+                Rule::signal => {
+                    // TODO: consider modifying pest grammar to directly associate signals with messages
+                    if let Some(msg_idx) = current_message_index {
+                        signals.push((msg_idx, pairs.try_into()?));
+                    } else {
+                        return Err(DbcError::SignalWithoutMessage);
+                    }
+                }
+                Rule::comment => comments.push(pairs.try_into()?),
+                Rule::attr_def => attribute_definitions.push(pairs.try_into()?),
+                Rule::attr_value => attribute_values.push(pairs.try_into()?),
+                Rule::value_table => value_tables.push(pairs.try_into()?),
+                Rule::value_table_def => value_descriptions.push(pairs.try_into()?),
+                Rule::signal_group => signal_groups.push(pairs.try_into()?),
+                Rule::signal_value_type => {
+                    signal_extended_value_type_list.push(pairs.try_into()?);
+                }
+                Rule::message_transmitter => message_transmitters.push(pairs.try_into()?),
+                Rule::ba_def_def => attribute_defaults.push(pairs.try_into()?),
+                Rule::sg_mul_val => extended_multiplex.push(pairs.try_into()?),
+                Rule::environment_variable => {
+                    environment_variables.push(pairs.try_into()?);
+                }
+                Rule::env_var_data => environment_variable_data.push(pairs.try_into()?),
+                Rule::ba_def_rel => return Err(DbcError::NotImplemented("ba_def_rel")),
+                Rule::ba_def_def_rel => return Err(DbcError::NotImplemented("ba_def_def_rel")),
+                Rule::ba_rel => return Err(DbcError::NotImplemented("ba_rel")),
+                Rule::EOI => {
+                    // ignore
+                }
+                other => panic!("Unexpected rule in DBC file: {other:?}"),
+            }
+        }
+    }
+
+    // Associate signals with their messages using index-based association
+    for (msg_idx, signal) in signals {
+        if msg_idx < messages.len() {
+            messages[msg_idx].signals.push(signal);
+        }
+    }
+
+    Ok(Dbc {
+        version,
+        new_symbols,
+        bit_timing,
+        nodes,
+        value_tables,
+        messages,
+        message_transmitters,
+        environment_variables,
+        environment_variable_data,
+        signal_types: vec![], // TODO
+        comments,
+        attribute_definitions,
+        attribute_defaults,
+        attribute_values,
+        value_descriptions,
+        signal_type_refs: vec![], // TODO
+        signal_groups,
+        signal_extended_value_type_list,
+        extended_multiplex,
+    })
 }

@@ -1,0 +1,125 @@
+---
+source: tests/snapshots.rs
+---
+version: ""
+new_symbols:
+  - NS_DESC_
+  - CM_
+  - BA_DEF_
+  - BA_
+  - VAL_
+  - CAT_DEF_
+  - CAT_
+  - FILTER
+  - BA_DEF_DEF_
+  - EV_DATA_
+  - ENVVAR_DATA_
+  - SGTYPE_
+  - SGTYPE_VAL_
+  - BA_DEF_SGTYPE_
+  - BA_SGTYPE_
+  - SIG_TYPE_REF_
+  - VAL_TABLE_
+  - SIG_GROUP_
+  - SIG_VALTYPE_
+  - SIGTYPE_VALTYPE_
+  - BO_TX_BU_
+  - BA_DEF_REL_
+  - BA_REL_
+  - BA_DEF_DEF_REL_
+  - BU_SG_REL_
+  - BU_EV_REL_
+  - BU_BO_REL_
+  - SG_MUL_VAL_
+bit_timing: []
+nodes:
+  - Tester
+messages:
+  - id:
+      Standard: 1
+    name: SGMsg
+    size: 8
+    transmitter: VectorXXX
+    signals:
+      - name: dupsig
+        multiplexer_indicator: Plain
+        start_bit: 16
+        size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: SG2
+        multiplexer_indicator: Plain
+        start_bit: 8
+        size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: SG1
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+  - id:
+      Standard: 0
+    name: NormalMsg
+    size: 8
+    transmitter: VectorXXX
+    signals:
+      - name: Sig_2
+        multiplexer_indicator: Plain
+        start_bit: 8
+        size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+      - name: Sig_1
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+attribute_definitions:
+  - Plain: "\"BusType\" STRING"
+attribute_defaults:
+  - name: BusType
+    value:
+      String: CAN
+signal_groups:
+  - message_id:
+      Standard: 1
+    name: Empty_Signal_Group
+    repetitions: 1
