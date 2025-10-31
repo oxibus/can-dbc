@@ -14,7 +14,7 @@ ci_mode := if env('CI', '') != '' {'1'} else {''}
 binstall_args := if env('CI', '') != '' {'--no-confirm --no-track --disable-telemetry'} else {''}
 export RUSTFLAGS := env('RUSTFLAGS', if ci_mode == '1' {'-D warnings'} else {''})
 export RUSTDOCFLAGS := env('RUSTDOCFLAGS', if ci_mode == '1' {'-D warnings'} else {''})
-export RUST_BACKTRACE := env('RUST_BACKTRACE', if ci_mode == '1' {'1'} else {''})
+export RUST_BACKTRACE := env('RUST_BACKTRACE', if ci_mode == '1' {'1'} else {'0'})
 
 @_default:
     {{just_executable()}} --list
@@ -27,9 +27,15 @@ bless *args:  (cargo-install 'cargo-insta')
 build:
     cargo build {{packages}} {{features}} {{targets}}
 
+build-diagram:
+    @echo "Generating docs/diagram.svg using Mermaid CLI. Make sure you have it:"
+    @echo "     npm install -g @mermaid-js/mermaid-cli"
+    mmdc -i docs/diagram.mmd -o docs/diagram.svg
+
 # Quick compile without building a binary
 check:
     cargo check {{packages}} {{features}} {{targets}}
+    cargo check {{packages}} --no-default-features {{targets}}
 
 # Generate code coverage report to upload to codecov.io
 ci-coverage: env-info && \
@@ -38,7 +44,7 @@ ci-coverage: env-info && \
     mkdir -p target/llvm-cov
 
 # Run all tests as expected by CI
-ci-test: env-info test-fmt clippy test test-doc && assert-git-is-clean
+ci-test: env-info test-fmt check clippy test test-doc deny && assert-git-is-clean
 
 # Run minimal subset of tests to ensure compatibility with MSRV
 ci-test-msrv: env-info check test
@@ -55,6 +61,9 @@ clippy *args:
 # Generate code coverage report. Will install `cargo llvm-cov` if missing.
 coverage *args='--no-clean --open':  (cargo-install 'cargo-llvm-cov')
     cargo llvm-cov {{packages}} {{features}} {{targets}} --include-build-script {{args}}
+
+deny *args='check': (cargo-install 'cargo-deny')
+    cargo deny {{args}}
 
 # Build and open code documentation
 docs *args='--open':

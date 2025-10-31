@@ -1,44 +1,48 @@
+use std::borrow::Cow;
 use std::convert::TryFrom;
-use std::fs::File;
-use std::io;
-use std::io::prelude::*;
+use std::fs;
+use std::str::from_utf8;
 
+use can_dbc::encodings::Encoding;
+use can_dbc::{Dbc, Error};
 use clap::Parser;
 
 #[derive(Parser)]
 #[command(about, version)]
 struct Args {
+    /// Input file encoding. If not specified, UTF-8 is assumed.
+    #[arg(short, long, default_value = "utf-8")]
+    encoding: Option<String>,
+
     /// DBC file path
-    #[arg(
-        short,
-        long,
-        default_value = "./examples/sample.dbc",
-        value_name = "FILE"
-    )]
+    #[arg(default_value = "./examples/sample.dbc", value_name = "FILE")]
     input: String,
 }
 
-fn main() -> io::Result<()> {
+fn main() {
     let args = Args::parse();
     let path = &args.input;
 
-    let mut f = File::open(path)?;
-    let mut buffer = Vec::new();
-    f.read_to_end(&mut buffer)?;
-    let dbc_in = std::str::from_utf8(&buffer).unwrap();
+    let data = fs::read(path).expect("Unable to read input file");
 
-    match can_dbc::DBC::try_from(dbc_in) {
-        Ok(dbc_content) => println!("DBC Content{dbc_content:#?}"),
+    let data = if let Some(enc) = &args.encoding {
+        let enc = Encoding::for_label(enc.as_bytes()).expect("Unknown encoding");
+        enc.decode_without_bom_handling_and_without_replacement(&data)
+            .expect("Unable to decode using specified encoding")
+    } else {
+        let data = from_utf8(&data).expect("Input file is not valid UTF-8. Consider specifying the encoding with the --encoding option.");
+        Cow::Borrowed(data)
+    };
+
+    match Dbc::try_from(data.as_ref()) {
+        Ok(dbc_content) => println!("{dbc_content:#?}"),
         Err(e) => {
             match e {
-                can_dbc::Error::Nom(nom::Err::Error(e) | nom::Err::Failure(e)) => eprintln!("{e:?}"),
-                can_dbc::Error::Nom(nom::Err::Incomplete(needed)) => eprintln!("Nom incomplete needed: {needed:#?}"),
-                can_dbc::Error::Incomplete(dbc, remaining) => eprintln!("Not all data in buffer was read {dbc:#?}, remaining unparsed (length: {}): {remaining}\n...(truncated)", remaining.len()),
-                can_dbc::Error::MultipleMultiplexors => eprintln!("Multiple multiplexors defined"),
-                can_dbc::Error::InvalidContent(e) => eprintln!("Invalid content: {e:?}"),
+                Error::Nom(nom::Err::Error(e) | nom::Err::Failure(e)) => eprintln!("{e:?}"),
+                Error::Nom(nom::Err::Incomplete(needed)) => eprintln!("Nom incomplete needed: {needed:#?}"),
+                Error::Incomplete(dbc, remaining) => eprintln!("Not all data in buffer was read {dbc:#?}, remaining unparsed (length: {}): {remaining}\n...(truncated)", remaining.len()),
+                Error::MultipleMultiplexors => eprintln!("Multiple multiplexors defined"),
             }
         }
     }
-
-    Ok(())
 }
