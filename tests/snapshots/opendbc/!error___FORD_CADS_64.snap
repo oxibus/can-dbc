@@ -1,0 +1,6 @@
+---
+source: tests/snapshots.rs
+---
+InvalidInt(
+    "1e+09",
+)

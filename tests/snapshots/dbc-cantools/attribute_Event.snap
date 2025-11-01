@@ -56,8 +56,14 @@ messages:
         receivers:
           - Vector__XXX
 attribute_definitions:
-  - Message: "\"GenMsgSendType\" STRING"
-  - Message: "\"GenMsgCycleTime\" INT 0 100"
+  - Message:
+      - GenMsgSendType
+      - String
+  - Message:
+      - GenMsgCycleTime
+      - Int:
+          - 0
+          - 100
 attribute_values:
   - name: GenMsgSendType
     value:

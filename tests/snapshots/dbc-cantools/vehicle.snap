@@ -8533,8 +8533,16 @@ comments:
       name: Validity_Gyro_Rate_Yaw
       comment: "Valid when bit is set, invalid when bit is clear."
 attribute_definitions:
-  - Signal: "\"GenSigStartValue\" INT -2147483648 2147483647"
-  - Message: "\"GenMsgCycleTime\" INT 0 65535"
+  - Signal:
+      - GenSigStartValue
+      - Int:
+          - -2147483648
+          - 2147483647
+  - Message:
+      - GenMsgCycleTime
+      - Int:
+          - 0
+          - 65535
 attribute_defaults:
   - name: GenSigStartValue
     value:

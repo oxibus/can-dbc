@@ -57,10 +57,22 @@ messages:
         receivers:
           - Node2
 attribute_definitions:
-  - Plain: "\"MultiplexExtEnabled\" ENUM  \"No\",\"Yes\""
-  - Plain: "\"BusType\" STRING"
-  - Plain: "\"DBName\" STRING"
-  - Signal: "\"GenSigStartValue\" INT -2147483648 2147483647"
+  - Plain:
+      - MultiplexExtEnabled
+      - Enum:
+          - "No"
+          - "Yes"
+  - Plain:
+      - BusType
+      - String
+  - Plain:
+      - DBName
+      - String
+  - Signal:
+      - GenSigStartValue
+      - Int:
+          - -2147483648
+          - 2147483647
 attribute_defaults:
   - name: MultiplexExtEnabled
     value:

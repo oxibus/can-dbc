@@ -66,7 +66,11 @@ message_transmitters:
       - NodeName: BAR
       - NodeName: FIE
 attribute_definitions:
-  - Message: "\"GenMsgCycleTime\" INT 0 65535"
+  - Message:
+      - GenMsgCycleTime
+      - Int:
+          - 0
+          - 65535
 attribute_defaults:
   - name: GenMsgCycleTime
     value:
