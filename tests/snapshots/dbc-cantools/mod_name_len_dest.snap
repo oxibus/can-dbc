@@ -60,9 +60,15 @@ comments:
       name: node_now_short
       comment: ""
 attribute_definitions:
-  - Node: "\"SystemNodeLongSymbol\" STRING"
-  - Message: "\"SystemMessageLongSymbol\" STRING"
-  - Signal: "\"SystemSignalLongSymbol\" STRING"
+  - Node:
+      - SystemNodeLongSymbol
+      - String
+  - Message:
+      - SystemMessageLongSymbol
+      - String
+  - Signal:
+      - SystemSignalLongSymbol
+      - String
 attribute_defaults:
   - name: SystemNodeLongSymbol
     value:

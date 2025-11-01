@@ -110,16 +110,62 @@ messages:
         receivers:
           - Vector__XXX
 attribute_definitions:
-  - Message: "\"CANFD_BRS\" ENUM  \"0\",\"1\""
-  - Plain: "\"DBName\" STRING"
-  - Plain: "\"BusType\" STRING"
-  - Node: "\"NodeLayerModules\" STRING"
-  - Node: "\"ECU\" STRING"
-  - Node: "\"CANoeJitterMax\" INT 0 0"
-  - Node: "\"CANoeJitterMin\" INT 0 0"
-  - Node: "\"CANoeDrift\" INT 0 0"
-  - Node: "\"CANoeStartDelay\" INT 0 0"
-  - Message: "\"VFrameFormat\" ENUM  \"StandardCAN\",\"ExtendedCAN\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"StandardCAN_FD\",\"ExtendedCAN_FD\""
+  - Message:
+      - CANFD_BRS
+      - Enum:
+          - "0"
+          - "1"
+  - Plain:
+      - DBName
+      - String
+  - Plain:
+      - BusType
+      - String
+  - Node:
+      - NodeLayerModules
+      - String
+  - Node:
+      - ECU
+      - String
+  - Node:
+      - CANoeJitterMax
+      - Int:
+          - 0
+          - 0
+  - Node:
+      - CANoeJitterMin
+      - Int:
+          - 0
+          - 0
+  - Node:
+      - CANoeDrift
+      - Int:
+          - 0
+          - 0
+  - Node:
+      - CANoeStartDelay
+      - Int:
+          - 0
+          - 0
+  - Message:
+      - VFrameFormat
+      - Enum:
+          - StandardCAN
+          - ExtendedCAN
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - StandardCAN_FD
+          - ExtendedCAN_FD
 attribute_defaults:
   - name: CANFD_BRS
     value:

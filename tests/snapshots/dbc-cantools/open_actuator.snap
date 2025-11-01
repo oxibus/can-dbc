@@ -368,7 +368,9 @@ comments:
       name: TorqueSense
       comment: Strain gauge torque measured
 attribute_definitions:
-  - Plain: "\"BusType\" STRING"
+  - Plain:
+      - BusType
+      - String
 attribute_defaults:
   - name: BusType
     value:

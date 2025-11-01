@@ -125,7 +125,11 @@ messages:
         receivers:
           - Test
 attribute_definitions:
-  - Message: "\"VFrameFormat\" INT 0 3"
+  - Message:
+      - VFrameFormat
+      - Int:
+          - 0
+          - 3
 attribute_defaults:
   - name: VFrameFormat
     value:

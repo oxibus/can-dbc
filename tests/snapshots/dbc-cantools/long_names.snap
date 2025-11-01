@@ -286,11 +286,21 @@ environment_variables:
     access_nodes:
       - Name: Vector__XXX
 attribute_definitions:
-  - Plain: "\"BusType\" STRING"
-  - Signal: "\"SystemSignalLongSymbol\" STRING"
-  - Message: "\"SystemMessageLongSymbol\" STRING"
-  - Node: "\"SystemNodeLongSymbol\" STRING"
-  - EnvironmentVariable: "\"SystemEnvVarLongSymbol\" STRING"
+  - Plain:
+      - BusType
+      - String
+  - Signal:
+      - SystemSignalLongSymbol
+      - String
+  - Message:
+      - SystemMessageLongSymbol
+      - String
+  - Node:
+      - SystemNodeLongSymbol
+      - String
+  - EnvironmentVariable:
+      - SystemEnvVarLongSymbol
+      - String
 attribute_defaults:
   - name: BusType
     value:

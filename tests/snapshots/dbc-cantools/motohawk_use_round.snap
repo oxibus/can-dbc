@@ -89,7 +89,11 @@ comments:
         Standard: 496
       comment: Example message used as template in MotoHawk models.
 attribute_definitions:
-  - Message: "\"GenMsgCycleTime\" INT 0 65535"
+  - Message:
+      - GenMsgCycleTime
+      - Int:
+          - 0
+          - 65535
 attribute_defaults:
   - name: GenMsgCycleTime
     value:

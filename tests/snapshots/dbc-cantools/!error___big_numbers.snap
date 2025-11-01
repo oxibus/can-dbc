@@ -1,0 +1,6 @@
+---
+source: tests/snapshots.rs
+---
+InvalidInt(
+    "-9.22337203685478E+018",
+)

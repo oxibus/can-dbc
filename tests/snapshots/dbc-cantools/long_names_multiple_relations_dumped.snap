@@ -281,16 +281,59 @@ message_transmitters:
       - NodeName: Node_6789_123456789_123456789_12
       - NodeName: Sender_2_aaaaaaaaaaaaaaaaaaaaaaa
 attribute_definitions:
-  - Signal: "\"GenSigSendType\" ENUM  \"Cyclic\",\"OnWrite\",\"OnWriteWithRepetition\",\"OnChange\",\"OnChangeWithRepetition\",\"IfActive\",\"IfActiveWithRepetition\",\"NoSigSendType\""
-  - Signal: "\"GenSigInactiveValue\" INT 0 0"
-  - Message: "\"GenMsgCycleTime\" INT 0 0"
-  - Message: "\"GenMsgSendType\" ENUM  \"Cyclic\",\"not_used\",\"not_used\",\"not_used\",\"not_used\",\"Cyclic\",\"not_used\",\"IfActive\",\"NoMsgSendType\""
-  - Node: "\"NmStationAddress\" HEX 0 0"
-  - Plain: "\"DBName\" STRING"
-  - Plain: "\"BusType\" STRING"
-  - Signal: "\"SystemSignalLongSymbol\" STRING"
-  - Message: "\"SystemMessageLongSymbol\" STRING"
-  - Node: "\"SystemNodeLongSymbol\" STRING"
+  - Signal:
+      - GenSigSendType
+      - Enum:
+          - Cyclic
+          - OnWrite
+          - OnWriteWithRepetition
+          - OnChange
+          - OnChangeWithRepetition
+          - IfActive
+          - IfActiveWithRepetition
+          - NoSigSendType
+  - Signal:
+      - GenSigInactiveValue
+      - Int:
+          - 0
+          - 0
+  - Message:
+      - GenMsgCycleTime
+      - Int:
+          - 0
+          - 0
+  - Message:
+      - GenMsgSendType
+      - Enum:
+          - Cyclic
+          - not_used
+          - not_used
+          - not_used
+          - not_used
+          - Cyclic
+          - not_used
+          - IfActive
+          - NoMsgSendType
+  - Node:
+      - NmStationAddress
+      - Hex:
+          - 0
+          - 0
+  - Plain:
+      - DBName
+      - String
+  - Plain:
+      - BusType
+      - String
+  - Signal:
+      - SystemSignalLongSymbol
+      - String
+  - Message:
+      - SystemMessageLongSymbol
+      - String
+  - Node:
+      - SystemNodeLongSymbol
+      - String
 attribute_defaults:
   - name: GenSigSendType
     value:
