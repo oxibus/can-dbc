@@ -1,23 +1,19 @@
 mod signal;
 
-use derive_getters::Getters;
-
 /// DBC value
-#[derive(Debug, Clone, Getters)]
+#[derive(Debug, Clone)]
 pub struct Value {
-    pub(crate) name: String,
-    #[getter(rename = "raw_value")]
-    #[getter(copy)]
-    pub(crate) raw: u64,
-    #[getter(copy)]
-    pub(crate) offset: f64,
-    #[getter(copy)]
-    pub(crate) factor: f64,
-    pub(crate) unit: String,
+    pub name: String,
+    pub raw: u64,
+    pub offset: f64,
+    pub factor: f64,
+    pub unit: String,
 }
 
-unsafe impl Send for Value {}
-unsafe impl Sync for Value {}
+// TODO: decide if these are really needed
+//       if added, the entire crate cannot use unsafe_code = "forbid" in Cargo.toml
+// unsafe impl Send for Value {}
+// unsafe impl Sync for Value {}
 
 impl Value {
     /// Get the value of the signal

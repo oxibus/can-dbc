@@ -31,7 +31,7 @@ impl Signal {
     ///
     ///   Raw signal value if the size of signal is not zero
     pub fn decode(&self, data: &[u8]) -> Option<u64> {
-        if self.signal_size == 0 {
+        if self.size == 0 {
             return None;
         }
 
@@ -41,7 +41,7 @@ impl Signal {
             ByteOrder::LittleEndian => {
                 let mut src_bit = self.start_bit as usize;
                 let mut dst_bit = 0;
-                for _ in 0..self.signal_size {
+                for _ in 0..self.size {
                     /* copy bit */
                     let index = src_bit / 8;
                     if index >= len {
@@ -58,8 +58,8 @@ impl Signal {
             }
             ByteOrder::BigEndian => {
                 let mut src_bit = self.start_bit as usize;
-                let mut dst_bit = self.signal_size - 1;
-                for _ in 0..self.signal_size {
+                let mut dst_bit = self.size - 1;
+                for _ in 0..self.size {
                     /* copy bit */
                     let index = src_bit / 8;
                     if index >= len {
@@ -80,10 +80,10 @@ impl Signal {
             }
         }
 
-        match self.value_type() {
+        match self.value_type {
             ValueType::Signed => {
-                if (result & (1 << (self.signal_size - 1))) > 0 {
-                    for i in self.signal_size..64 {
+                if (result & (1 << (self.size - 1))) > 0 {
+                    for i in self.size..64 {
                         result |= 1 << i;
                     }
                 }
@@ -102,7 +102,7 @@ impl Signal {
     ///
     ///   * value: Raw signal value
     pub fn encode(&self, data: &mut Vec<u8>, value: u64) {
-        if self.signal_size == 0 {
+        if self.size == 0 {
             return;
         }
 
@@ -110,7 +110,7 @@ impl Signal {
             ByteOrder::LittleEndian => {
                 let mut src_bit = self.start_bit as usize;
                 let mut dst_bit = 0;
-                for _ in 0..self.signal_size {
+                for _ in 0..self.size {
                     /* copy bit */
                     let index = src_bit / 8;
                     if index >= data.len() {
@@ -129,8 +129,8 @@ impl Signal {
             }
             ByteOrder::BigEndian => {
                 let mut src_bit = self.start_bit as usize;
-                let mut dst_bit = self.signal_size - 1;
-                for _ in 0..self.signal_size {
+                let mut dst_bit = self.size - 1;
+                for _ in 0..self.size {
                     /* copy bit */
                     let index = src_bit / 8;
                     if index >= data.len() {
