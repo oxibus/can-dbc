@@ -27,8 +27,12 @@ pub enum DbcError {
     ExpectedRule(Rule, Rule),
     #[error("Expected a quoted string or a number, found: {0:?}")]
     ExpectedStrNumber(Rule),
-    #[error("Invalid data")]
-    InvalidData,
+    #[error("Invalid Float value: '{0}'")]
+    InvalidFloat(String),
+    #[error("Invalid Int value: '{0}'")]
+    InvalidInt(String),
+    #[error("Invalid Uint value: '{0}'")]
+    InvalidUint(String),
     #[error("Message ID out of range: {0}")]
     MessageIdOutOfRange(u64),
     #[error("Multiple multiplexors defined for a message")]
@@ -171,16 +175,26 @@ pub(crate) fn inner_str(pair: Pair<Rule>) -> String {
 
 /// Helper function to parse an integer from a pest pair
 pub(crate) fn parse_int(pair: &Pair<Rule>) -> DbcResult<i64> {
-    pair.as_str()
+    let value = pair.as_str();
+    value
         .parse::<i64>()
-        .map_err(|_| DbcError::InvalidData)
+        .map_err(|_| DbcError::InvalidInt(value.to_string()))
 }
 
 /// Helper function to parse an unsigned integer from a pest pair
 pub(crate) fn parse_uint(pair: &Pair<Rule>) -> DbcResult<u64> {
-    pair.as_str()
+    let value = pair.as_str();
+    value
         .parse::<u64>()
-        .map_err(|_| DbcError::InvalidData)
+        .map_err(|_| DbcError::InvalidUint(value.to_string()))
+}
+
+/// Helper function to parse a float from a pest pair
+pub(crate) fn parse_float(pair: &Pair<Rule>) -> DbcResult<f64> {
+    let value = pair.as_str();
+    value
+        .parse::<f64>()
+        .map_err(|_| DbcError::InvalidFloat(value.to_string()))
 }
 
 /// Helper function to parse the next uint from the iterator
@@ -201,13 +215,6 @@ pub(crate) fn parse_next_float(iter: &mut Pairs<Rule>, expected: Rule) -> DbcRes
 /// Helper function to parse the next string from the iterator
 pub(crate) fn parse_next_inner_str(iter: &mut Pairs<Rule>, expected: Rule) -> DbcResult<String> {
     Ok(inner_str(next_rule(iter, expected)?))
-}
-
-/// Helper function to parse a float from a pest pair
-pub(crate) fn parse_float(pair: &Pair<Rule>) -> DbcResult<f64> {
-    pair.as_str()
-        .parse::<f64>()
-        .map_err(|_| DbcError::InvalidData)
 }
 
 /// Helper to parse min/max values from a `min_max` rule
