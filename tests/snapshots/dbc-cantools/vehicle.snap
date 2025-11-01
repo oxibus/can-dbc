@@ -8538,53 +8538,53 @@ attribute_definitions:
 attribute_defaults:
   - name: GenSigStartValue
     value:
-      Double: 0
+      I64: 0
   - name: GenMsgCycleTime
     value:
-      Double: 0
+      I64: 0
 attribute_values:
   - name: GenSigStartValue
     value:
       Signal:
         - Extended: 156795682
         - Validity_INS_Vel_Forwards
-        - Double: 0
+        - I64: 0
   - name: GenSigStartValue
     value:
       Signal:
         - Extended: 155872289
         - Accel_Vertical
-        - Double: 16120
+        - I64: 16120
   - name: GenSigStartValue
     value:
       Signal:
         - Extended: 155872289
         - Accel_Lateral
-        - Double: -30000
+        - I64: -30000
   - name: GenSigStartValue
     value:
       Signal:
         - Extended: 155872289
         - Accel_Longitudinal
-        - Double: 32767
+        - I64: 32767
   - name: GenSigStartValue
     value:
       Signal:
         - Extended: 155872289
         - Accuracy_Accel
-        - Double: 127
+        - I64: 127
   - name: GenSigStartValue
     value:
       Signal:
         - Extended: 155872289
         - Validity_Accel_Vertical
-        - Double: 0
+        - I64: 0
   - name: GenSigStartValue
     value:
       Signal:
         - Extended: 155872289
         - Validity_Accel_Lateral
-        - Double: 1
+        - I64: 1
 value_descriptions:
   - Signal:
       message_id:

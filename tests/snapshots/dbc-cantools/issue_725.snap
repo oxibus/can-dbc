@@ -73,7 +73,7 @@ attribute_defaults:
       String: ""
   - name: GenSigStartValue
     value:
-      Double: -2147483648
+      I64: -2147483648
 attribute_values:
   - name: DBName
     value:
@@ -84,4 +84,4 @@ attribute_values:
       Signal:
         - Standard: 1
         - Signal1
-        - Double: 254
+        - I64: 254

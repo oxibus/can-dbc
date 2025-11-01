@@ -79,7 +79,7 @@ attribute_defaults:
       String: ""
   - name: GenMsgCycleTime
     value:
-      Double: 0
+      I64: 0
 value_descriptions:
   - Signal:
       message_id:

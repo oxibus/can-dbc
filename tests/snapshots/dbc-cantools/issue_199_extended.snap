@@ -493,7 +493,7 @@ attribute_definitions:
 attribute_defaults:
   - name: UseGMParameterIDs
     value:
-      Double: 1
+      I64: 1
   - name: ProtocolType
     value:
       String: GMLAN

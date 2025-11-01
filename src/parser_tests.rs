@@ -337,7 +337,7 @@ EV_ IUV: 0 [-22|20] "mm" 3 7 DUMMY_NODE_VECTOR0 VECTOR_XXX;
 #[test]
 fn network_node_attribute_value_test() {
     let def = r#"
-BA_ "AttrName" BU_ NodeName 12;
+BA_ "AttrName" BU_ NodeName 12.0;
 "#;
     let exp = AttributeValueForObject {
         name: "AttrName".to_string(),
@@ -360,7 +360,7 @@ BA_ "AttrName" BO_ 298 13;
         name: "AttrName".to_string(),
         value: AttributeValuedForObjectType::MessageDefinition(
             MessageId::Standard(298),
-            Some(AttributeValue::Double(13.0)),
+            Some(AttributeValue::I64(13)),
         ),
     };
     let pair = parse(def.trim_start(), Rule::attr_value).unwrap();
@@ -378,7 +378,7 @@ BA_ "AttrName" SG_ 198 SGName 13;
         value: AttributeValuedForObjectType::Signal(
             MessageId::Standard(198),
             "SGName".to_string(),
-            AttributeValue::Double(13.0),
+            AttributeValue::I64(13),
         ),
     };
     let pair = parse(def.trim_start(), Rule::attr_value).unwrap();

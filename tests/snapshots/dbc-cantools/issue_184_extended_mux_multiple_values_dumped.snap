@@ -142,28 +142,28 @@ attribute_defaults:
       String: NoSigSendType
   - name: GenMsgFastOnStart
     value:
-      Double: 0
+      I64: 0
   - name: GenSigInactiveValue
     value:
-      Double: 0
+      I64: 0
   - name: GenMsgCycleTimeFast
     value:
-      Double: 0
+      I64: 0
   - name: GenMsgNrOfRepetition
     value:
-      Double: 0
+      I64: 0
   - name: GenSigStartValue
     value:
-      Double: 0
+      I64: 0
   - name: GenMsgDelayTime
     value:
-      Double: 0
+      I64: 0
   - name: GenMsgILSupport
     value:
       String: "Yes"
   - name: GenMsgStartDelayTime
     value:
-      Double: 0
+      I64: 0
   - name: NodeLayerModules
     value:
       String: ""
@@ -172,46 +172,46 @@ attribute_defaults:
       String: ""
   - name: NmJ1939SystemInstance
     value:
-      Double: 0
+      I64: 0
   - name: NmJ1939System
     value:
-      Double: 0
+      I64: 0
   - name: NmJ1939ManufacturerCode
     value:
-      Double: 0
+      I64: 0
   - name: NmJ1939IndustryGroup
     value:
-      Double: 0
+      I64: 0
   - name: NmJ1939IdentityNumber
     value:
-      Double: 0
+      I64: 0
   - name: NmJ1939FunctionInstance
     value:
-      Double: 0
+      I64: 0
   - name: NmJ1939Function
     value:
-      Double: 0
+      I64: 0
   - name: NmJ1939ECUInstance
     value:
-      Double: 0
+      I64: 0
   - name: NmJ1939AAC
     value:
-      Double: 0
+      I64: 0
   - name: NmStationAddress
     value:
-      Double: 254
+      I64: 254
   - name: GenMsgSendType
     value:
       String: noMsgSendType
   - name: GenMsgRequestable
     value:
-      Double: 1
+      I64: 1
   - name: GenMsgCycleTime
     value:
-      Double: 0
+      I64: 0
   - name: SPN
     value:
-      Double: 0
+      I64: 0
   - name: DBName
     value:
       String: ""
@@ -233,7 +233,7 @@ attribute_values:
     value:
       MessageDefinition:
         - Extended: 1
-        - Double: 1
+        - I64: 1
 extended_multiplex:
   - message_id:
       Extended: 1

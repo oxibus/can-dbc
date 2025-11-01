@@ -85,15 +85,15 @@ attribute_defaults:
       String: NoMsgSendType
   - name: GenMsgCycleTime
     value:
-      Double: 0
+      I64: 0
 attribute_values:
   - name: GenMsgCycleTime
     value:
       MessageDefinition:
         - Standard: 1
-        - Double: 200
+        - I64: 200
   - name: GenMsgSendType
     value:
       MessageDefinition:
         - Standard: 1
-        - Double: 0
+        - I64: 0

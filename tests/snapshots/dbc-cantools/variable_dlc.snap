@@ -129,4 +129,4 @@ attribute_definitions:
 attribute_defaults:
   - name: VFrameFormat
     value:
-      Double: 3
+      I64: 3

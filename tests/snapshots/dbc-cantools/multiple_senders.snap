@@ -70,4 +70,4 @@ attribute_definitions:
 attribute_defaults:
   - name: GenMsgCycleTime
     value:
-      Double: 0
+      I64: 0
