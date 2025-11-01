@@ -14,7 +14,7 @@ pub struct EnvironmentVariable {
     pub min: i64,
     pub max: i64,
     pub unit: String,
-    pub initial_value: f64,
+    pub initial_value: i64,
     pub ev_id: i64,
     pub access_type: AccessType,
     #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
@@ -37,26 +37,26 @@ impl TryFrom<Pair<'_, Rule>> for EnvironmentVariable {
 
         // 4) Optional: min_max
         let (mut min, mut max) = (0i64, 0i64);
-        if let Some(min_max_pair) = next_optional_rule(&mut pairs, Rule::min_max)? {
+        if let Some(min_max_pair) = next_optional_rule(&mut pairs, Rule::min_max) {
             (min, max) = parse_min_max_int(min_max_pair)?;
         }
 
         // 5) Optional: unit
         let mut unit = String::new();
-        if let Some(unit_pair) = next_optional_rule(&mut pairs, Rule::unit)? {
+        if let Some(unit_pair) = next_optional_rule(&mut pairs, Rule::unit) {
             unit = inner_str(unit_pair);
         }
 
         // 6) Optional: init_value
-        let mut initial_value = 0.0f64;
-        if let Some(init_pair) = next_optional_rule(&mut pairs, Rule::init_value)? {
-            initial_value = parse_int(init_pair)? as f64;
+        let mut initial_value = 0;
+        if let Some(init_pair) = next_optional_rule(&mut pairs, Rule::init_value) {
+            initial_value = parse_int(&init_pair)?;
         }
 
         // 7) Optional: ev_id
         let mut ev_id = 0i64;
-        if let Some(ev_pair) = next_optional_rule(&mut pairs, Rule::ev_id)? {
-            ev_id = parse_int(ev_pair)?;
+        if let Some(ev_pair) = next_optional_rule(&mut pairs, Rule::ev_id) {
+            ev_id = parse_int(&ev_pair)?;
         }
 
         // 8) Required: access_type

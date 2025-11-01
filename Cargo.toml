@@ -44,19 +44,9 @@ unused_qualifications = "warn"
 cargo = { level = "warn", priority = -1 }
 pedantic = { level = "warn", priority = -1 }
 # Verified allows
-ref_option = "allow"  # required by derive-getters
 redundant_feature_names = "allow"  # remove once with-serde feature is removed
 needless_doctest_main = "allow" # README code block contains main function
-# TODO: fix these if it makes sense
-must_use_candidate = "allow"     # 12
-missing_errors_doc = "allow"      # 8
-similar_names = "allow"      # 4
-needless_pass_by_value = "allow"      # 4
-unnecessary_wraps = "allow"
-cast_possible_truncation = "allow"
-cast_precision_loss = "allow"
-too_many_lines = "allow"
-missing_panics_doc = "allow"
+missing_errors_doc = "allow"
 
 #[patch.crates-io]
 #can-dbc-pest = { path = "../can-dbc-pest" }

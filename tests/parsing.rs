@@ -124,7 +124,7 @@ fn lookup_value_descriptions_for_signal() {
         .expect("Message comment missing");
 
     let exp = vec![ValDescription {
-        id: 255.0,
+        id: 255,
         description: "NOP".to_string(),
     }];
     assert_eq!(exp, val_descriptions);
@@ -185,18 +185,4 @@ fn lookup_multiplex_indicator_switch_none_when_missing() {
     let dbc_content = Dbc::try_from(SAMPLE_DBC).unwrap();
     let multiplexor_switch = dbc_content.message_multiplexor_switch(MessageId::Standard(1840));
     assert!(multiplexor_switch.unwrap().is_none());
-}
-
-#[test]
-fn extended_message_id_raw() {
-    let message_id = MessageId::Extended(2);
-    assert_eq!(message_id.raw(), 2 | 1 << 31);
-    let message_id = MessageId::Extended(2 ^ 29);
-    assert_eq!(message_id.raw(), 2 ^ 29 | 1 << 31);
-}
-
-#[test]
-fn standard_message_id_raw() {
-    let message_id = MessageId::Standard(2);
-    assert_eq!(message_id.raw(), 2);
 }
