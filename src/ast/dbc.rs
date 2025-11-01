@@ -70,6 +70,7 @@ pub struct Dbc {
 }
 
 impl Dbc {
+    #[must_use]
     pub fn signal_by_name(&self, message_id: MessageId, signal_name: &str) -> Option<&Signal> {
         let message = self
             .messages
@@ -86,6 +87,7 @@ impl Dbc {
     }
 
     /// Lookup a message comment
+    #[must_use]
     pub fn message_comment(&self, message_id: MessageId) -> Option<&str> {
         self.comments.iter().find_map(|x| match x {
             Comment::Message {
@@ -103,6 +105,7 @@ impl Dbc {
     }
 
     /// Lookup a signal comment
+    #[must_use]
     pub fn signal_comment(&self, message_id: MessageId, signal_name: &str) -> Option<&str> {
         self.comments.iter().find_map(|x| match x {
             Comment::Signal {
@@ -121,6 +124,7 @@ impl Dbc {
     }
 
     /// Lookup value descriptions for signal
+    #[must_use]
     pub fn value_descriptions_for_signal(
         &self,
         message_id: MessageId,
@@ -143,6 +147,7 @@ impl Dbc {
     }
 
     /// Lookup the extended value for a given signal
+    #[must_use]
     pub fn extended_value_type_for_signal(
         &self,
         message_id: MessageId,
@@ -164,7 +169,6 @@ impl Dbc {
 
     /// Lookup the message multiplexer switch signal for a given message
     /// This does not work for extended multiplexed messages, if multiple multiplexors are defined for a message an Error is returned.
-    #[allow(clippy::result_large_err)]
     pub fn message_multiplexor_switch(&self, message_id: MessageId) -> DbcResult<Option<&Signal>> {
         let message = self
             .messages
@@ -198,6 +202,7 @@ impl<'a> TryFrom<&'a str> for Dbc {
     }
 }
 
+#[allow(clippy::too_many_lines)] // FIXME: refactor
 pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
     let mut version: Version = Version::default();
     let mut new_symbols: Vec<Symbol> = vec![];
@@ -222,7 +227,7 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
 
     for pair in DbcParser::parse(Rule::file, buffer)? {
         if !matches!(pair.as_rule(), Rule::file) {
-            return Err(DbcError::Expected(Rule::file, pair.as_rule()));
+            return Err(DbcError::ExpectedRule(Rule::file, pair.as_rule()));
         }
         for pairs in pair.into_inner() {
             match pairs.as_rule() {

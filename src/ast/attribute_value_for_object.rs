@@ -1,7 +1,7 @@
 use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::AttributeValuedForObjectType;
-use crate::parser::{inner_str, next_rule, validated_inner, DbcError};
+use crate::parser::{parse_next_inner_str, validated_inner, DbcError};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -18,7 +18,7 @@ impl TryFrom<Pair<'_, Rule>> for AttributeValueForObject {
         let mut pairs = validated_inner(value, Rule::attr_value)?;
 
         Ok(Self {
-            name: inner_str(next_rule(&mut pairs, Rule::attribute_name)?),
+            name: parse_next_inner_str(&mut pairs, Rule::attribute_name)?,
             value: pairs.try_into()?,
         })
     }

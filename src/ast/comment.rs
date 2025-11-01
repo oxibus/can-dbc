@@ -2,8 +2,8 @@ use can_dbc_pest::{Pair, Pairs, Rule};
 
 use crate::ast::MessageId;
 use crate::parser::{
-    inner_str, next, next_optional_rule, next_rule, next_string, single_inner, validated_inner,
-    DbcError,
+    inner_str, next, next_optional_rule, next_rule, next_string, parse_next_inner_str,
+    single_inner, validated_inner, DbcError,
 };
 
 /// Object comments
@@ -55,21 +55,21 @@ impl TryFrom<Pair<'_, Rule>> for Comment {
                     //      implicit comment: `<message_id> "comment"`
                     Ok(Comment::Message {
                         id: next_rule(&mut inner, Rule::message_id)?.try_into()?,
-                        comment: inner_str(next_rule(&mut inner, Rule::quoted_str)?),
+                        comment: parse_next_inner_str(&mut inner, Rule::quoted_str)?,
                     })
                 }
                 Rule::comment_node => {
                     // Parse node comment: `BU_ <node_name> "comment"`
                     Ok(Comment::Node {
                         name: next_string(&mut inner, Rule::node_name)?,
-                        comment: inner_str(next_rule(&mut inner, Rule::quoted_str)?),
+                        comment: parse_next_inner_str(&mut inner, Rule::quoted_str)?,
                     })
                 }
                 Rule::comment_env_var => {
                     // Parse environment variable comment: `EV_ <env_var_name> "comment"`
                     Ok(Comment::EnvVar {
                         name: next_string(&mut inner, Rule::env_var_name)?,
-                        comment: inner_str(next_rule(&mut inner, Rule::quoted_str)?),
+                        comment: parse_next_inner_str(&mut inner, Rule::quoted_str)?,
                     })
                 }
                 rule => Err(DbcError::UnknownRule(rule)),
@@ -82,18 +82,18 @@ impl TryFrom<Pair<'_, Rule>> for Comment {
 /// If `signal_name` is omitted, this is treated as a message comment.
 fn parse_signal_comment(mut pairs: Pairs<Rule>) -> Result<Comment, DbcError> {
     let message_id = next_rule(&mut pairs, Rule::message_id)?.try_into()?;
-    if let Some(name) = next_optional_rule(&mut pairs, Rule::signal_name)? {
+    if let Some(name) = next_optional_rule(&mut pairs, Rule::signal_name) {
         // This is a proper signal comment with signal name
         Ok(Comment::Signal {
             message_id,
             name: name.as_str().to_string(),
-            comment: inner_str(next_rule(&mut pairs, Rule::quoted_str)?),
+            comment: parse_next_inner_str(&mut pairs, Rule::quoted_str)?,
         })
     } else {
         // No signal name - treat as message comment
         Ok(Comment::Message {
             id: message_id,
-            comment: inner_str(next_rule(&mut pairs, Rule::quoted_str)?),
+            comment: parse_next_inner_str(&mut pairs, Rule::quoted_str)?,
         })
     }
 }

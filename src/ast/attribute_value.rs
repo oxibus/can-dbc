@@ -17,9 +17,9 @@ impl TryFrom<Pair<'_, Rule>> for AttributeValue {
     fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
         match value.as_rule() {
             Rule::quoted_str => Ok(Self::String(inner_str(value))),
-            Rule::number => Ok(Self::Double(parse_float(value)?)),
+            Rule::number => Ok(Self::Double(parse_float(&value)?)),
             // FIXME: Add u64 and i64 parsing
-            _ => Err(Self::Error::ExpectedNumber(value.as_rule())),
+            _ => Err(Self::Error::ExpectedStrNumber(value.as_rule())),
         }
     }
 }

@@ -2,8 +2,8 @@ use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{ByteOrder, MultiplexIndicator, ValueType};
 use crate::parser::{
-    collect_strings, inner_str, next, next_optional_rule, next_rule, next_string, parse_float,
-    parse_min_max_float, parse_uint, validated_inner,
+    collect_strings, next, next_optional_rule, next_rule, next_string, parse_min_max_float,
+    parse_next_float, parse_next_inner_str, parse_next_uint, validated_inner,
 };
 use crate::DbcError;
 
@@ -37,19 +37,19 @@ impl TryFrom<Pair<'_, Rule>> for Signal {
 
         let name = next_string(&mut pairs, Rule::signal_name)?;
         let multiplexer_indicator =
-            if let Some(v) = next_optional_rule(&mut pairs, Rule::multiplexer_indicator)? {
+            if let Some(v) = next_optional_rule(&mut pairs, Rule::multiplexer_indicator) {
                 v.as_str().try_into()?
             } else {
                 MultiplexIndicator::Plain
             };
-        let start_bit = parse_uint(next_rule(&mut pairs, Rule::start_bit)?)?;
-        let size = parse_uint(next_rule(&mut pairs, Rule::signal_size)?)?;
+        let start_bit = parse_next_uint(&mut pairs, Rule::start_bit)?;
+        let size = parse_next_uint(&mut pairs, Rule::signal_size)?;
         let byte_order = next(&mut pairs)?.try_into()?;
         let value_type = next(&mut pairs)?.try_into()?;
-        let factor = parse_float(next_rule(&mut pairs, Rule::factor)?)?;
-        let offset = parse_float(next_rule(&mut pairs, Rule::offset)?)?;
+        let factor = parse_next_float(&mut pairs, Rule::factor)?;
+        let offset = parse_next_float(&mut pairs, Rule::offset)?;
         let (min, max) = parse_min_max_float(next_rule(&mut pairs, Rule::min_max)?)?;
-        let unit = inner_str(next_rule(&mut pairs, Rule::unit)?);
+        let unit = parse_next_inner_str(&mut pairs, Rule::unit)?;
         let receivers = collect_strings(&mut pairs, Rule::node_name)?;
 
         Ok(Self {
