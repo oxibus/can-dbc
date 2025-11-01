@@ -575,8 +575,10 @@ BA_DEF_ BU_ "BuDef1BO" INT 0 1000000;
 "#;
     let pair = parse(def.trim_start(), Rule::attr_def).unwrap();
     let val = test_into::<AttributeDefinition>(pair);
-    let exp =
-        AttributeDefinition::Node("BuDef1BO".to_string(), AttributeValueType::Int(0, 1000000));
+    let exp = AttributeDefinition::Node(
+        "BuDef1BO".to_string(),
+        AttributeValueType::Int(0, 1_000_000),
+    );
     assert_eq!(val, exp);
 }
 
@@ -587,8 +589,10 @@ BA_DEF_ SG_ "SgDef1BO" INT 0 1000000;
 "#;
     let pair = parse(def.trim_start(), Rule::attr_def).unwrap();
     let val = test_into::<AttributeDefinition>(pair);
-    let exp =
-        AttributeDefinition::Signal("SgDef1BO".to_string(), AttributeValueType::Int(0, 1000000));
+    let exp = AttributeDefinition::Signal(
+        "SgDef1BO".to_string(),
+        AttributeValueType::Int(0, 1_000_000),
+    );
     assert_eq!(val, exp);
 }
 
