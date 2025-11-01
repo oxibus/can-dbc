@@ -1,0 +1,360 @@
+---
+source: tests/snapshots.rs
+---
+version: "2.0"
+new_symbols:
+  - NS_DESC_
+  - CM_
+  - BA_DEF_
+  - BA_
+  - VAL_
+  - CAT_DEF_
+  - CAT_
+  - FILTER
+  - BA_DEF_DEF_
+  - EV_DATA_
+  - ENVVAR_DATA_
+  - SGTYPE_
+  - SGTYPE_VAL_
+  - BA_DEF_SGTYPE_
+  - BA_SGTYPE_
+  - SIG_TYPE_REF_
+  - VAL_TABLE_
+  - SIG_GROUP_
+  - SIG_VALTYPE_
+  - SIGTYPE_VALTYPE_
+  - BO_TX_BU_
+  - BA_DEF_REL_
+  - BA_REL_
+  - BA_DEF_DEF_REL_
+  - BU_SG_REL_
+  - BU_EV_REL_
+  - BU_BO_REL_
+  - SG_MUL_VAL_
+bit_timing: []
+nodes:
+  - FOO
+  - BAR
+  - FIE
+  - FUM
+value_tables:
+  - name: State
+    descriptions:
+      - id: 1
+        description: Enabled
+      - id: 0
+        description: Disabled
+messages:
+  - id:
+      Extended: 74544
+    name: Foo
+    size: 8
+    transmitter:
+      NodeName: FOO
+    signals:
+      - name: Foo
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 12
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 0.01
+        offset: 250
+        min: 229.53
+        max: 270.47
+        unit: degK
+        receivers:
+          - BAR
+      - name: Bar
+        multiplexer_indicator: Plain
+        start_bit: 24
+        size: 32
+        byte_order: BigEndian
+        value_type: Signed
+        factor: 0.1
+        offset: 0
+        min: 0
+        max: 5
+        unit: m
+        receivers:
+          - FOO
+  - id:
+      Extended: 74545
+    name: Fum
+    size: 5
+    transmitter:
+      NodeName: FOO
+    signals:
+      - name: Fum
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 12
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 10
+        unit: ""
+        receivers:
+          - BAR
+      - name: Fam
+        multiplexer_indicator: Plain
+        start_bit: 12
+        size: 12
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 8
+        unit: ""
+        receivers:
+          - BAR
+  - id:
+      Extended: 74546
+    name: Bar
+    size: 4
+    transmitter:
+      NodeName: FOO
+    signals:
+      - name: Binary32
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 32
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - FUM
+  - id:
+      Extended: 74547
+    name: CanFd
+    size: 64
+    transmitter:
+      NodeName: FOO
+    signals:
+      - name: Fie
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 64
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - FUM
+      - name: Fas
+        multiplexer_indicator: Plain
+        start_bit: 64
+        size: 64
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+  - id:
+      Standard: 780
+    name: FOOBAR
+    size: 8
+    transmitter:
+      NodeName: FIE
+    signals:
+      - name: ACC_02_CRC
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 12
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 1
+        unit: ""
+        receivers:
+          - BAR
+message_transmitters:
+  - message_id:
+      Extended: 74546
+    transmitter:
+      - NodeName: FOO
+      - NodeName: BAR
+comments:
+  - Node:
+      name: BAR
+      comment: "fam \\\"1\\\""
+  - Message:
+      id:
+        Extended: 74544
+      comment: Foo.
+  - Signal:
+      message_id:
+        Extended: 74544
+      name: Bar
+      comment: Bar.
+attribute_definitions:
+  - Plain: "\"DBName\" STRING"
+  - Plain: "\"Baudrate\" INT 0 1000000"
+  - Plain: "\"AFloat\" FLOAT 0 100"
+  - Plain: "\"BusType\" STRING"
+  - Node: "\"FOO\" INT 0 100"
+  - Node: "\"BAR\" STRING"
+  - Message: "\"VFrameFormat\" ENUM  \"StandardCAN\",\"ExtendedCAN\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"StandardCAN_FD\",\"ExtendedCAN_FD\""
+  - Message: "\"GenMsgStartValue\" STRING"
+  - Message: "\"GenMsgCycleTime\" INT 0 1000"
+relation_attribute_definitions:
+  - name: AFloat2
+    value_spec: "\"AFloat2\" FLOAT 0 65535"
+  - name: GenSigTimeoutTime
+    value_spec: "\"GenSigTimeoutTime\" INT 0 65535"
+  - name: GenSigRespComment
+    value_spec: "\"GenSigRespComment\" STRING"
+attribute_defaults:
+  - name: DBName
+    value:
+      String: ""
+  - name: Baudrate
+    value:
+      Double: 125000
+  - name: AFloat
+    value:
+      Double: 0
+  - name: BusType
+    value:
+      String: ""
+  - name: FOO
+    value:
+      Double: 0
+  - name: BAR
+    value:
+      String: ""
+  - name: VFrameFormat
+    value:
+      String: ExtendedCAN_FD
+  - name: GenMsgStartValue
+    value:
+      String: ""
+  - name: GenMsgCycleTime
+    value:
+      Double: 100
+relation_attribute_defaults:
+  - name: AFloat2
+    value:
+      Double: 0
+  - name: GenSigTimeoutTime
+    value:
+      Double: 0
+attribute_values:
+  - name: DBName
+    value:
+      Raw:
+        String: TheBusName
+  - name: Baudrate
+    value:
+      Raw:
+        Double: 125000
+  - name: AFloat
+    value:
+      Raw:
+        Double: 33.5
+  - name: BusType
+    value:
+      Raw:
+        String: CAN FD
+  - name: BAR
+    value:
+      NetworkNode:
+        - FIE
+        - String: FUM
+  - name: FOO
+    value:
+      NetworkNode:
+        - FIE
+        - Double: 1
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
+        - Extended: 74544
+        - Double: 1
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
+        - Extended: 74545
+        - Double: 1
+  - name: GenMsgCycleTime
+    value:
+      MessageDefinition:
+        - Extended: 74545
+        - Double: 1
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
+        - Extended: 74546
+        - Double: 1
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
+        - Extended: 74547
+        - Double: 15
+  - name: VFrameFormat
+    value:
+      MessageDefinition:
+        - Standard: 780
+        - Double: 0
+relation_attribute_values:
+  - name: GenSigTimeoutTime
+    details:
+      NodeToSignal:
+        node_name: FOO
+        message_id:
+          Extended: 74544
+        signal_name: Bar
+        value:
+          Double: 200
+  - name: AFloat2
+    details:
+      NodeToSignal:
+        node_name: FOO
+        message_id:
+          Extended: 74544
+        signal_name: Bar
+        value:
+          Double: 500
+value_descriptions:
+  - Signal:
+      message_id:
+        Extended: 74545
+      name: Fam
+      value_descriptions:
+        - id: 1
+          description: Enabled
+        - id: 0
+          description: Disabled
+signal_groups:
+  - message_id:
+      Extended: 74545
+    name: SigGroupName
+    repetitions: 1
+    signal_names:
+      - Fam
+      - Fum
+signal_extended_value_type_list:
+  - message_id:
+      Extended: 74544
+    signal_name: Bar
+    signal_extended_value_type: IEEEfloat32Bit
+  - message_id:
+      Extended: 74546
+    signal_name: Binary32
+    signal_extended_value_type: IEEEfloat32Bit
