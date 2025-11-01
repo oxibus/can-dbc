@@ -17,7 +17,7 @@ impl TryFrom<Pair<'_, Rule>> for AccessType {
 
     fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
         let pair = validated(value, Rule::access_type)?;
-        let value = parse_uint(single_inner(pair, Rule::uint)?)?;
+        let value = parse_uint(&single_inner(pair, Rule::uint)?)?;
 
         Ok(match value {
             0 => Self::DummyNodeVector0,

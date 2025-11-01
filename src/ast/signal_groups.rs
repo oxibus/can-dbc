@@ -26,7 +26,7 @@ impl TryFrom<Pair<'_, Rule>> for SignalGroups {
         let value = Self {
             message_id: next_rule(&mut pairs, Rule::message_id)?.try_into()?,
             name: next_string(&mut pairs, Rule::group_name)?,
-            repetitions: parse_uint(next_rule(&mut pairs, Rule::multiplexer_id)?)?,
+            repetitions: parse_uint(&next_rule(&mut pairs, Rule::multiplexer_id)?)?,
             signal_names: collect_strings(&mut pairs, Rule::signal_name)?,
         };
         expect_empty(&pairs)?;

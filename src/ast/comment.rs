@@ -82,7 +82,7 @@ impl TryFrom<Pair<'_, Rule>> for Comment {
 /// If `signal_name` is omitted, this is treated as a message comment.
 fn parse_signal_comment(mut pairs: Pairs<Rule>) -> Result<Comment, DbcError> {
     let message_id = next_rule(&mut pairs, Rule::message_id)?.try_into()?;
-    if let Some(name) = next_optional_rule(&mut pairs, Rule::signal_name)? {
+    if let Some(name) = next_optional_rule(&mut pairs, Rule::signal_name) {
         // This is a proper signal comment with signal name
         Ok(Comment::Signal {
             message_id,

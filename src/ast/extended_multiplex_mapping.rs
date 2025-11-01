@@ -15,8 +15,8 @@ impl TryFrom<Pair<'_, Rule>> for ExtendedMultiplexMapping {
     fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
         let mut pairs = validated_inner(value, Rule::value_pair)?;
         let value = ExtendedMultiplexMapping {
-            min_value: parse_uint(next_rule(&mut pairs, Rule::uint)?)?,
-            max_value: parse_uint(next_rule(&mut pairs, Rule::uint)?)?,
+            min_value: parse_uint(&next_rule(&mut pairs, Rule::uint)?)?,
+            max_value: parse_uint(&next_rule(&mut pairs, Rule::uint)?)?,
         };
         expect_empty(&pairs)?;
         Ok(value)

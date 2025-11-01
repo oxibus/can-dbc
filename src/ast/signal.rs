@@ -37,17 +37,17 @@ impl TryFrom<Pair<'_, Rule>> for Signal {
 
         let name = next_string(&mut pairs, Rule::signal_name)?;
         let multiplexer_indicator =
-            if let Some(v) = next_optional_rule(&mut pairs, Rule::multiplexer_indicator)? {
+            if let Some(v) = next_optional_rule(&mut pairs, Rule::multiplexer_indicator) {
                 v.as_str().try_into()?
             } else {
                 MultiplexIndicator::Plain
             };
-        let start_bit = parse_uint(next_rule(&mut pairs, Rule::start_bit)?)?;
-        let size = parse_uint(next_rule(&mut pairs, Rule::signal_size)?)?;
+        let start_bit = parse_uint(&next_rule(&mut pairs, Rule::start_bit)?)?;
+        let size = parse_uint(&next_rule(&mut pairs, Rule::signal_size)?)?;
         let byte_order = next(&mut pairs)?.try_into()?;
         let value_type = next(&mut pairs)?.try_into()?;
-        let factor = parse_float(next_rule(&mut pairs, Rule::factor)?)?;
-        let offset = parse_float(next_rule(&mut pairs, Rule::offset)?)?;
+        let factor = parse_float(&next_rule(&mut pairs, Rule::factor)?)?;
+        let offset = parse_float(&next_rule(&mut pairs, Rule::offset)?)?;
         let (min, max) = parse_min_max_float(next_rule(&mut pairs, Rule::min_max)?)?;
         let unit = inner_str(next_rule(&mut pairs, Rule::unit)?);
         let receivers = collect_strings(&mut pairs, Rule::node_name)?;

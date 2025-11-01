@@ -31,7 +31,7 @@ impl TryFrom<Pair<'_, Rule>> for Message {
         let msg_var_pair = next_rule(&mut pairs, Rule::msg_var)?;
         let id = single_inner(msg_var_pair, Rule::message_id)?.try_into()?;
         let name = next_string(&mut pairs, Rule::message_name)?;
-        let size = parse_uint(next_rule(&mut pairs, Rule::message_size)?)?;
+        let size = parse_uint(&next_rule(&mut pairs, Rule::message_size)?)?;
         let transmitter = next_string(&mut pairs, Rule::transmitter)?;
         expect_empty(&pairs)?;
 

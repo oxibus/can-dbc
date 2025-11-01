@@ -16,7 +16,7 @@ impl TryFrom<Pair<'_, Rule>> for EnvironmentVariableData {
         let mut pairs = validated_inner(value, Rule::env_var_data)?;
 
         let env_var_name = next_string(&mut pairs, Rule::env_var_name)?;
-        let data_size = parse_uint(next_rule(&mut pairs, Rule::data_size)?)?;
+        let data_size = parse_uint(&next_rule(&mut pairs, Rule::data_size)?)?;
         expect_empty(&pairs)?;
 
         Ok(Self {
