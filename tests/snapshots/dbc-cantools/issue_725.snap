@@ -1,6 +1,5 @@
 ---
 source: tests/snapshots.rs
-assertion_line: 143
 ---
 version: ""
 new_symbols:
@@ -75,14 +74,14 @@ attribute_defaults:
   - name: GenSigStartValue
     value:
       Int: -2147483648
-attribute_values:
+attribute_values_database:
   - name: DBName
     value:
-      Raw:
-        String: test
+      String: test
+attribute_values_signal:
   - name: GenSigStartValue
+    message_id:
+      Standard: 1
+    signal_name: Signal1
     value:
-      Signal:
-        - Standard: 1
-        - Signal1
-        - Uint: 254
+      Uint: 254

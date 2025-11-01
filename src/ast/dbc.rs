@@ -10,7 +10,10 @@ use crate::ast::{
     ValueDescription, ValueTable, Version,
 };
 use crate::parser::{collect_all, DbcError, DbcResult};
-use crate::{AttributeDefinitionForRelation, AttributeValueForRelation};
+use crate::{
+    AttributeDefinitionForRelation, AttributeValue, AttributeValueForObjectType,
+    AttributeValueForRelation,
+};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -52,9 +55,17 @@ pub struct Dbc {
     #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
     pub relation_attribute_defaults: Vec<AttributeDefault>,
     #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
-    pub attribute_values: Vec<AttributeValueForObject>,
-    #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
     pub relation_attribute_values: Vec<AttributeValueForRelation>,
+    #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
+    pub attribute_values_database: Vec<AttributeValueForDatabase>,
+    #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
+    pub attribute_values_node: Vec<AttributeValueForNode>,
+    #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
+    pub attribute_values_message: Vec<AttributeValueForMessage>,
+    #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
+    pub attribute_values_signal: Vec<AttributeValueForSignal>,
+    #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
+    pub attribute_values_env: Vec<AttributeValueForEnvVariable>,
     /// Encoding for signal raw values
     #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
     pub value_descriptions: Vec<ValueDescription>,
@@ -74,6 +85,46 @@ pub struct Dbc {
     /// Extended multiplex attributes
     #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
     pub extended_multiplex: Vec<ExtendedMultiplex>,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct AttributeValueForDatabase {
+    pub name: String,
+    pub value: AttributeValue,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct AttributeValueForNode {
+    pub name: String,
+    pub node_name: String,
+    pub value: AttributeValue,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct AttributeValueForMessage {
+    pub name: String,
+    pub message_id: MessageId,
+    pub value: AttributeValue,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct AttributeValueForSignal {
+    pub name: String,
+    pub message_id: MessageId,
+    pub signal_name: String,
+    pub value: AttributeValue,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct AttributeValueForEnvVariable {
+    pub name: String,
+    pub variable_name: String,
+    pub value: AttributeValue,
 }
 
 impl Dbc {
@@ -226,7 +277,11 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
     let mut relation_attribute_definitions = vec![];
     let mut attribute_defaults = vec![];
     let mut relation_attribute_defaults = vec![];
-    let mut attribute_values = vec![];
+    let mut attribute_values_database = vec![];
+    let mut attribute_values_node = vec![];
+    let mut attribute_values_message = vec![];
+    let mut attribute_values_signal = vec![];
+    let mut attribute_values_env = vec![];
     let mut relation_attribute_values = vec![];
     let mut value_descriptions = vec![];
     let mut signal_groups = vec![];
@@ -270,8 +325,59 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
                 Rule::comment => comments.push(pairs.try_into()?),
                 Rule::attr_def => attribute_definitions.push(pairs.try_into()?),
                 Rule::ba_def_rel => relation_attribute_definitions.push(pairs.try_into()?),
-                Rule::attr_value => attribute_values.push(pairs.try_into()?),
                 Rule::ba_rel => relation_attribute_values.push(pairs.try_into()?),
+                Rule::attr_value => {
+                    let attr_value: AttributeValueForObject = pairs.try_into()?;
+                    match attr_value.value {
+                        AttributeValueForObjectType::Raw(attribute_value) => {
+                            attribute_values_database.push(AttributeValueForDatabase {
+                                name: attr_value.name,
+                                value: attribute_value,
+                            });
+                        }
+                        AttributeValueForObjectType::NetworkNode(node_name, attribute_value) => {
+                            attribute_values_node.push(AttributeValueForNode {
+                                name: attr_value.name,
+                                node_name,
+                                value: attribute_value,
+                            });
+                        }
+                        AttributeValueForObjectType::MessageDefinition(
+                            message_id,
+                            attribute_value,
+                        ) => {
+                            if let Some(value) = attribute_value {
+                                attribute_values_message.push(AttributeValueForMessage {
+                                    name: attr_value.name,
+                                    message_id,
+                                    value,
+                                });
+                            }
+                        }
+                        AttributeValueForObjectType::Signal(
+                            message_id,
+                            signal_name,
+                            attribute_value,
+                        ) => {
+                            attribute_values_signal.push(AttributeValueForSignal {
+                                name: attr_value.name,
+                                message_id,
+                                signal_name,
+                                value: attribute_value,
+                            });
+                        }
+                        AttributeValueForObjectType::EnvVariable(
+                            variable_name,
+                            attribute_value,
+                        ) => {
+                            attribute_values_env.push(AttributeValueForEnvVariable {
+                                name: attr_value.name,
+                                variable_name,
+                                value: attribute_value,
+                            });
+                        }
+                    }
+                }
                 Rule::value_table => value_tables.push(pairs.try_into()?),
                 Rule::value_table_def => value_descriptions.push(pairs.try_into()?),
                 Rule::signal_group => signal_groups.push(pairs.try_into()?),
@@ -317,8 +423,12 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
         relation_attribute_definitions,
         attribute_defaults,
         relation_attribute_defaults,
-        attribute_values,
         relation_attribute_values,
+        attribute_values_database,
+        attribute_values_node,
+        attribute_values_message,
+        attribute_values_signal,
+        attribute_values_env,
         value_descriptions,
         signal_type_refs: vec![], // TODO
         signal_groups,

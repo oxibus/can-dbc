@@ -248,20 +248,19 @@ attribute_defaults:
   - name: BusType
     value:
       String: CAN
-attribute_values:
+attribute_values_database:
   - name: BusType
     value:
-      Raw:
-        String: CAN
+      String: CAN
   - name: DBName
     value:
-      Raw:
-        String: Network_A
+      String: Network_A
+attribute_values_message:
   - name: VFrameFormat
+    message_id:
+      Extended: 1193046
     value:
-      MessageDefinition:
-        - Extended: 1193046
-        - Uint: 3
+      Uint: 3
 extended_multiplex:
   - message_id:
       Extended: 1193046

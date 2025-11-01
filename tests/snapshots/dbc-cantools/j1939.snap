@@ -1,6 +1,5 @@
 ---
 source: tests/snapshots.rs
-assertion_line: 143
 ---
 version: ""
 new_symbols:
@@ -211,29 +210,29 @@ attribute_defaults:
   - name: VFrameFormat
     value:
       String: J1939PG
-attribute_values:
+attribute_values_database:
   - name: DBName
     value:
-      Raw:
-        String: foo
+      String: foo
+attribute_values_node:
   - name: NmStationAddress
+    node_name: Node2
     value:
-      NetworkNode:
-        - Node2
-        - Uint: 2
+      Uint: 2
   - name: NmStationAddress
+    node_name: Node1
     value:
-      NetworkNode:
-        - Node1
-        - Uint: 1
+      Uint: 1
+attribute_values_message:
   - name: VFrameFormat
+    message_id:
+      Extended: 355729921
     value:
-      MessageDefinition:
-        - Extended: 355729921
-        - Uint: 3
+      Uint: 3
+attribute_values_signal:
   - name: SPN
+    message_id:
+      Extended: 355729921
+    signal_name: Signal1
     value:
-      Signal:
-        - Extended: 355729921
-        - Signal1
-        - Uint: 500
+      Uint: 500

@@ -341,7 +341,7 @@ BA_ "AttrName" BU_ NodeName 12;
 "#;
     let exp = AttributeValueForObject {
         name: "AttrName".to_string(),
-        value: AttributeValuedForObjectType::NetworkNode(
+        value: AttributeValueForObjectType::NetworkNode(
             "NodeName".to_string(),
             AttributeValue::Uint(12),
         ),
@@ -359,7 +359,7 @@ BA_ "Attribute" BU_ NodeName 12;
 "#;
     let exp = AttributeValueForObject {
         name: "Attribute".to_string(),
-        value: AttributeValuedForObjectType::NetworkNode(
+        value: AttributeValueForObjectType::NetworkNode(
             "NodeName".to_string(),
             AttributeValue::Uint(12),
         ),
@@ -374,7 +374,7 @@ BA_ "Attribute" BU_ NodeName -12;
 "#;
     let exp = AttributeValueForObject {
         name: "Attribute".to_string(),
-        value: AttributeValuedForObjectType::NetworkNode(
+        value: AttributeValueForObjectType::NetworkNode(
             "NodeName".to_string(),
             AttributeValue::Int(-12),
         ),
@@ -389,7 +389,7 @@ BA_ "Attribute" BU_ NodeName 12;
 "#;
     let exp = AttributeValueForObject {
         name: "Attribute".to_string(),
-        value: AttributeValuedForObjectType::NetworkNode(
+        value: AttributeValueForObjectType::NetworkNode(
             "NodeName".to_string(),
             AttributeValue::Uint(12),
         ),
@@ -404,7 +404,7 @@ BA_ "Attribute" BU_ NodeName 12.1;
 "#;
     let exp = AttributeValueForObject {
         name: "Attribute".to_string(),
-        value: AttributeValuedForObjectType::NetworkNode(
+        value: AttributeValueForObjectType::NetworkNode(
             "NodeName".to_string(),
             AttributeValue::Double(12.1),
         ),
@@ -421,7 +421,7 @@ BA_ "AttrName" BO_ 298 13;
 "#;
     let exp = AttributeValueForObject {
         name: "AttrName".to_string(),
-        value: AttributeValuedForObjectType::MessageDefinition(
+        value: AttributeValueForObjectType::MessageDefinition(
             MessageId::Standard(298),
             Some(AttributeValue::Uint(13)),
         ),
@@ -438,7 +438,7 @@ BA_ "AttrName" SG_ 198 SGName 13;
 "#;
     let exp = AttributeValueForObject {
         name: "AttrName".to_string(),
-        value: AttributeValuedForObjectType::Signal(
+        value: AttributeValueForObjectType::Signal(
             MessageId::Standard(198),
             "SGName".to_string(),
             AttributeValue::Uint(13),
@@ -456,7 +456,7 @@ BA_ "AttrName" EV_ EvName "CharStr";
 "#;
     let exp = AttributeValueForObject {
         name: "AttrName".to_string(),
-        value: AttributeValuedForObjectType::EnvVariable(
+        value: AttributeValueForObjectType::EnvVariable(
             "EvName".to_string(),
             AttributeValue::String("CharStr".to_string()),
         ),
@@ -473,7 +473,7 @@ BA_ "AttrName" "RAW";
 "#;
     let exp = AttributeValueForObject {
         name: "AttrName".to_string(),
-        value: AttributeValuedForObjectType::Raw(AttributeValue::String("RAW".to_string())),
+        value: AttributeValueForObjectType::Raw(AttributeValue::String("RAW".to_string())),
     };
     let pair = parse(def.trim_start(), Rule::attr_value).unwrap();
     let val = test_into::<AttributeValueForObject>(&pair);

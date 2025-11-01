@@ -501,15 +501,13 @@ attribute_defaults:
   - name: BusType
     value:
       String: ""
-attribute_values:
+attribute_values_database:
   - name: BusType
     value:
-      Raw:
-        String: CAN
+      String: CAN
   - name: ProtocolType
     value:
-      Raw:
-        String: GMLAN
+      String: GMLAN
 value_descriptions:
   - Signal:
       message_id:

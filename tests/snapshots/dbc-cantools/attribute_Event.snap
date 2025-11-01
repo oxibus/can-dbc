@@ -58,14 +58,14 @@ messages:
 attribute_definitions:
   - Message: "\"GenMsgSendType\" STRING"
   - Message: "\"GenMsgCycleTime\" INT 0 100"
-attribute_values:
+attribute_values_message:
   - name: GenMsgSendType
+    message_id:
+      Standard: 1234
     value:
-      MessageDefinition:
-        - Standard: 1234
-        - String: Event
+      String: Event
   - name: GenMsgCycleTime
+    message_id:
+      Standard: 1234
     value:
-      MessageDefinition:
-        - Standard: 1234
-        - Uint: 0
+      Uint: 0

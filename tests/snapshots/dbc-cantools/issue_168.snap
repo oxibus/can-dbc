@@ -254,63 +254,6 @@ relation_attribute_defaults:
   - name: GenSigTimeoutTime
     value:
       Uint: 0
-attribute_values:
-  - name: DBName
-    value:
-      Raw:
-        String: TheBusName
-  - name: Baudrate
-    value:
-      Raw:
-        Uint: 125000
-  - name: AFloat
-    value:
-      Raw:
-        Double: 33.5
-  - name: BusType
-    value:
-      Raw:
-        String: CAN FD
-  - name: BAR
-    value:
-      NetworkNode:
-        - FIE
-        - String: FUM
-  - name: FOO
-    value:
-      NetworkNode:
-        - FIE
-        - Uint: 1
-  - name: VFrameFormat
-    value:
-      MessageDefinition:
-        - Extended: 74544
-        - Uint: 1
-  - name: VFrameFormat
-    value:
-      MessageDefinition:
-        - Extended: 74545
-        - Uint: 1
-  - name: GenMsgCycleTime
-    value:
-      MessageDefinition:
-        - Extended: 74545
-        - Uint: 1
-  - name: VFrameFormat
-    value:
-      MessageDefinition:
-        - Extended: 74546
-        - Uint: 1
-  - name: VFrameFormat
-    value:
-      MessageDefinition:
-        - Extended: 74547
-        - Uint: 15
-  - name: VFrameFormat
-    value:
-      MessageDefinition:
-        - Standard: 780
-        - Uint: 0
 relation_attribute_values:
   - name: GenSigTimeoutTime
     details:
@@ -330,6 +273,59 @@ relation_attribute_values:
         signal_name: Bar
         value:
           Uint: 500
+attribute_values_database:
+  - name: DBName
+    value:
+      String: TheBusName
+  - name: Baudrate
+    value:
+      Uint: 125000
+  - name: AFloat
+    value:
+      Double: 33.5
+  - name: BusType
+    value:
+      String: CAN FD
+attribute_values_node:
+  - name: BAR
+    node_name: FIE
+    value:
+      String: FUM
+  - name: FOO
+    node_name: FIE
+    value:
+      Uint: 1
+attribute_values_message:
+  - name: VFrameFormat
+    message_id:
+      Extended: 74544
+    value:
+      Uint: 1
+  - name: VFrameFormat
+    message_id:
+      Extended: 74545
+    value:
+      Uint: 1
+  - name: GenMsgCycleTime
+    message_id:
+      Extended: 74545
+    value:
+      Uint: 1
+  - name: VFrameFormat
+    message_id:
+      Extended: 74546
+    value:
+      Uint: 1
+  - name: VFrameFormat
+    message_id:
+      Extended: 74547
+    value:
+      Uint: 15
+  - name: VFrameFormat
+    message_id:
+      Standard: 780
+    value:
+      Uint: 0
 value_descriptions:
   - Signal:
       message_id:
