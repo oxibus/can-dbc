@@ -1,45 +1,41 @@
-extern crate clap;
-
-use can_dbc::{self};
-use clap::{command, Arg};
-
+use std::borrow::Cow;
 use std::convert::TryFrom;
-use std::fs::File;
-use std::io;
-use std::io::prelude::*;
+use std::fs;
+use std::str::from_utf8;
 
-fn main() -> io::Result<()> {
-    let matches = command!()
-        .version("1.0")
-        .arg(
-            Arg::new("input")
-                .short('i')
-                .long("input")
-                .value_name("FILE")
-                .help("DBC file path")
-                .default_value("./examples/sample.dbc")
-                .num_args(1),
-        )
-        .get_matches();
-    let path = matches.get_one::<String>("input").unwrap();
+use can_dbc::encodings::Encoding;
+use can_dbc::Dbc;
+use clap::Parser;
 
-    let mut f = File::open(path)?;
-    let mut buffer = Vec::new();
-    f.read_to_end(&mut buffer)?;
-    let dbc_in = std::str::from_utf8(&buffer).unwrap();
+#[derive(Parser)]
+#[command(about, version)]
+struct Args {
+    /// Input file encoding. If not specified, UTF-8 is assumed.
+    #[arg(short, long, default_value = "utf-8")]
+    encoding: Option<String>,
 
-    match can_dbc::DBC::try_from(dbc_in) {
-        Ok(dbc_content) => println!("DBC Content{:#?}", dbc_content),
-        Err(e) => {
-            match e {
-                can_dbc::Error::Nom(nom::Err::Error(e)) => eprintln!("{:?}", e),
-                can_dbc::Error::Nom(nom::Err::Failure(e)) => eprintln!("{:?}", e),
-                can_dbc::Error::Nom(nom::Err::Incomplete(needed)) => eprintln!("Nom incomplete needed: {:#?}", needed),
-                can_dbc::Error::Incomplete(dbc, remaining) => eprintln!("Not all data in buffer was read {:#?}, remaining unparsed (length: {}): {}\n...(truncated)", dbc, remaining.len(), remaining),
-                can_dbc::Error::MultipleMultiplexors => eprintln!("Multiple multiplexors defined"),
-            }
-        }
+    /// DBC file path
+    #[arg(default_value = "./examples/sample.dbc", value_name = "FILE")]
+    input: String,
+}
+
+fn main() {
+    let args = Args::parse();
+    let path = &args.input;
+
+    let data = fs::read(path).expect("Unable to read input file");
+
+    let data = if let Some(enc) = &args.encoding {
+        let enc = Encoding::for_label(enc.as_bytes()).expect("Unknown encoding");
+        enc.decode_without_bom_handling_and_without_replacement(&data)
+            .expect("Unable to decode using specified encoding")
+    } else {
+        let data = from_utf8(&data).expect("Input file is not valid UTF-8. Consider specifying the encoding with the --encoding option.");
+        Cow::Borrowed(data)
+    };
+
+    match Dbc::try_from(data.as_ref()) {
+        Ok(dbc_content) => println!("{dbc_content:#?}"),
+        Err(e) => eprintln!("Error parsing DBC file '{path}': {e}"),
     }
-
-    Ok(())
 }

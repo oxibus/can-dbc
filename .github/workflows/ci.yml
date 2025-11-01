@@ -1,70 +1,108 @@
-on: [push, pull_request]
+name: CI
 
-name: Continuous integration
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
 
 jobs:
-  check:
-    name: Check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          override: true
-      - uses: actions-rs/cargo@v1
-        with:
-          command: check
-
   test:
-    name: Test Suite
+    name: Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          override: true
-      - uses: actions-rs/cargo@v1
-        with:
-          command: test
+      - uses: actions/checkout@v5
+        with: { submodules: 'recursive' }
+      - if: github.event_name != 'release' && github.event_name != 'workflow_dispatch'
+        uses: Swatinem/rust-cache@v2
+      - uses: taiki-e/install-action@v2
+        with: { tool: 'just,cargo-binstall' }
+      - run: just ci-test
 
-  fmt:
-    name: Rustfmt
+  test-msrv:
+    name: Test MSRV
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
+      - uses: actions/checkout@v5
+        with: { submodules: 'recursive' }
+      - if: github.event_name != 'release' && github.event_name != 'workflow_dispatch'
+        uses: Swatinem/rust-cache@v2
+      - uses: taiki-e/install-action@v2
+        with: { tool: 'just' }
+      - name: Read MSRV
+        id: msrv
+        run: echo "value=$(just get-msrv)" >> $GITHUB_OUTPUT
+      - name: Install MSRV Rust ${{ steps.msrv.outputs.value }}
+        uses: dtolnay/rust-toolchain@stable
         with:
-          profile: minimal
-          toolchain: stable
-          override: true
-      - run: rustup component add rustfmt
-      - uses: actions-rs/cargo@v1
-        with:
-          command: fmt
-          args: --all -- --check
+          toolchain: ${{ steps.msrv.outputs.value }}
+      - run: just ci_mode=0 ci-test-msrv  # Ignore warnings in MSRV
 
-  clippy:
-    name: Clippy
+  coverage:
+    name: Code Coverage
+    if: github.event_name != 'release'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
+      - uses: actions/checkout@v5
+        with: { submodules: 'recursive' }
+      - uses: Swatinem/rust-cache@v2
+      - uses: taiki-e/install-action@v2
+        with: { tool: 'just,cargo-llvm-cov' }
+      - name: Generate code coverage
+        run: just ci-coverage
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
         with:
-          profile: minimal
-          toolchain: stable
-          override: true
-      - run: rustup component add clippy
-      - uses: actions-rs/cargo@v1
-        with:
-          command: clippy
-          args: -- -D warnings
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: target/llvm-cov/codecov.info
 
-  cargo-deny:
-      runs-on: ubuntu-latest
-      steps:
-      - uses: actions/checkout@v2
-      - uses: EmbarkStudios/cargo-deny-action@v1
+  # This job checks if any of the previous jobs failed or were canceled.
+  # This approach also allows some jobs to be skipped if they are not needed.
+  ci-passed:
+    needs: [ test, test-msrv ]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Result of the needed steps
+        run: echo "${{ toJSON(needs) }}"
+      - if: ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}
+        run: exit 1
+
+  # Release unpublished packages or create a PR with changes
+  release-plz:
+    needs: [ ci-passed ]
+    if: |
+      always()
+      && needs.ci-passed.result == 'success'
+      && github.event_name == 'push'
+      && github.ref == 'refs/heads/main'
+      && github.repository_owner == 'oxibus'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+      pull-requests: write
+    concurrency:
+      group: release-plz-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v5
+        with: { fetch-depth: 0 }
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Publish to crates.io if crate's version is newer
+        uses: release-plz/action@v0.5
+        id: release
+        with: { command: release }
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_PLZ_TOKEN }}
+      - if: ${{ steps.release.outputs.releases_created == 'false' }}
+        name: If version is the same, create a PR proposing new version and changelog for the next release
+        uses: release-plz/action@v0.5
+        with: { command: release-pr }
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_PLZ_TOKEN }}

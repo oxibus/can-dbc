@@ -1,0 +1,222 @@
+---
+source: tests/snapshots.rs
+---
+version: ""
+new_symbols:
+  - NS_DESC_
+  - CM_
+  - BA_DEF_
+  - BA_
+  - VAL_
+  - CAT_DEF_
+  - CAT_
+  - FILTER
+  - BA_DEF_DEF_
+  - EV_DATA_
+  - ENVVAR_DATA_
+  - SGTYPE_
+  - SGTYPE_VAL_
+  - BA_DEF_SGTYPE_
+  - BA_SGTYPE_
+  - SIG_TYPE_REF_
+  - VAL_TABLE_
+  - SIG_GROUP_
+  - SIG_VALTYPE_
+  - SIGTYPE_VALTYPE_
+  - BO_TX_BU_
+  - BA_DEF_REL_
+  - BA_REL_
+  - BA_DEF_DEF_REL_
+  - BU_SG_REL_
+  - BU_EV_REL_
+  - BU_BO_REL_
+  - SG_MUL_VAL_
+bit_timing: []
+nodes:
+  - TheNode
+messages:
+  - id:
+      Extended: 57
+    name: TheMessage
+    size: 8
+    transmitter: VectorXXX
+    signals:
+      - name: TheSignal
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+  - id:
+      Standard: 42
+    name: TheOtherMessage
+    size: 8
+    transmitter: VectorXXX
+    signals:
+      - name: TheSignal
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Vector__XXX
+comments:
+  - Node:
+      name: TheNode
+      comment: TheNodeComment
+attribute_definitions:
+  - Signal: "\"TheSignalStringAttribute\" STRING"
+  - Plain: "\"TheNetworkAttribute\" INT 0 100"
+  - Message: "\"TheUnusedAttributeDefinitionWithoutDefault\" HEX 0 8"
+  - Message: "\"TheHexAttribute\" HEX 0 8"
+  - Message: "\"TheFloatAttribute\" FLOAT 5 87"
+  - Node: "\"TheNodeAttribute\" INT -9.22337203685478E+018 1.84467440737096E+019"
+  - Node: "\"NodeLayerModules\" STRING"
+  - Message: "\"GenMsgStartDelayTime\" INT 0 65535"
+  - Signal: "\"NWM-WakeupAllowed\" ENUM  \"No\",\"Yes\""
+  - Message: "\"NmMessage\" ENUM  \"no\",\"yes\""
+  - Message: "\"GenMsgILSupport\" ENUM  \"No\",\"Yes\""
+  - Node: "\"NmNode\" ENUM  \"no\",\"yes\""
+  - Node: "\"NmStationAddress\" INT 0 63"
+  - Plain: "\"NmBaseAddress\" HEX 1024 1087"
+  - Message: "\"GenMsgCycleTimeFast\" INT 0 50000"
+  - Plain: "\"BusType\" STRING"
+  - Message: "\"GenMsgCycleTime\" INT 0 50000"
+  - Message: "\"GenMsgDelayTime\" INT 0 1000"
+  - Message: "\"GenMsgNrOfRepetition\" INT 0 999999"
+  - Message: "\"GenMsgSendType\" ENUM  \"Cyclic\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"IfActive\",\"NoMsgSendType\",\"NotUsed\",\"vector_leerstring\""
+  - Signal: "\"GenSigInactiveValue\" INT 0 100000"
+  - Signal: "\"GenSigSendType\" ENUM  \"Cyclic\",\"OnWrite\",\"OnWriteWithRepetition\",\"OnChange\",\"OnChangeWithRepetition\",\"IfActive\",\"IfActiveWithRepetition\",\"NoSigSendType\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"NotUsed\""
+  - Signal: "\"GenSigStartValue\" FLOAT 0 100000000000"
+attribute_defaults:
+  - name: TheSignalStringAttribute
+    value:
+      String: "100"
+  - name: TheNetworkAttribute
+    value:
+      Double: 50
+  - name: TheHexAttribute
+    value:
+      Double: 4
+  - name: TheFloatAttribute
+    value:
+      Double: 55
+  - name: TheNodeAttribute
+    value:
+      Double: 100
+  - name: NodeLayerModules
+    value:
+      String: CANoeILNLVector.dll
+  - name: GenMsgStartDelayTime
+    value:
+      Double: 0
+  - name: NWM-WakeupAllowed
+    value:
+      String: ""
+  - name: NmMessage
+    value:
+      String: "no"
+  - name: GenMsgILSupport
+    value:
+      String: "Yes"
+  - name: NmNode
+    value:
+      String: "no"
+  - name: NmStationAddress
+    value:
+      Double: 0
+  - name: NmBaseAddress
+    value:
+      Double: 1024
+  - name: GenMsgCycleTimeFast
+    value:
+      Double: 0
+  - name: BusType
+    value:
+      String: ""
+  - name: GenMsgCycleTime
+    value:
+      Double: 0
+  - name: GenMsgDelayTime
+    value:
+      Double: 0
+  - name: GenMsgNrOfRepetition
+    value:
+      Double: 0
+  - name: GenMsgSendType
+    value:
+      String: NoMsgSendType
+  - name: GenSigInactiveValue
+    value:
+      Double: 0
+  - name: GenSigSendType
+    value:
+      String: Cyclic
+  - name: GenSigStartValue
+    value:
+      Double: 0
+attribute_values:
+  - name: TheNetworkAttribute
+    value:
+      Raw:
+        Double: 51
+  - name: BusType
+    value:
+      Raw:
+        String: CAN
+  - name: TheNodeAttribute
+    value:
+      NetworkNode:
+        - TheNode
+        - Double: 99
+  - name: TheFloatAttribute
+    value:
+      MessageDefinition:
+        - Extended: 57
+        - Double: 58.7
+  - name: TheHexAttribute
+    value:
+      MessageDefinition:
+        - Extended: 57
+        - Double: 5
+  - name: GenMsgSendType
+    value:
+      MessageDefinition:
+        - Extended: 57
+        - Double: 0
+  - name: GenMsgCycleTime
+    value:
+      MessageDefinition:
+        - Extended: 57
+        - Double: 1000
+  - name: TheSignalStringAttribute
+    value:
+      Signal:
+        - Extended: 57
+        - TheSignal
+        - String: TestString
+  - name: GenSigSendType
+    value:
+      Signal:
+        - Extended: 57
+        - TheSignal
+        - Double: 1
+  - name: GenSigSendType
+    value:
+      Signal:
+        - Standard: 42
+        - TheSignal
+        - Double: 1
