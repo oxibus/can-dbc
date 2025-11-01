@@ -107,22 +107,22 @@ attribute_defaults:
       String: "100"
   - name: TheNetworkAttribute
     value:
-      Double: 50
+      I64: 50
   - name: TheHexAttribute
     value:
-      Double: 4
+      I64: 4
   - name: TheFloatAttribute
     value:
-      Double: 55
+      I64: 55
   - name: TheNodeAttribute
     value:
-      Double: 100
+      I64: 100
   - name: NodeLayerModules
     value:
       String: CANoeILNLVector.dll
   - name: GenMsgStartDelayTime
     value:
-      Double: 0
+      I64: 0
   - name: NWM-WakeupAllowed
     value:
       String: ""
@@ -137,42 +137,42 @@ attribute_defaults:
       String: "no"
   - name: NmStationAddress
     value:
-      Double: 0
+      I64: 0
   - name: NmBaseAddress
     value:
-      Double: 1024
+      I64: 1024
   - name: GenMsgCycleTimeFast
     value:
-      Double: 0
+      I64: 0
   - name: BusType
     value:
       String: ""
   - name: GenMsgCycleTime
     value:
-      Double: 0
+      I64: 0
   - name: GenMsgDelayTime
     value:
-      Double: 0
+      I64: 0
   - name: GenMsgNrOfRepetition
     value:
-      Double: 0
+      I64: 0
   - name: GenMsgSendType
     value:
       String: NoMsgSendType
   - name: GenSigInactiveValue
     value:
-      Double: 0
+      I64: 0
   - name: GenSigSendType
     value:
       String: Cyclic
   - name: GenSigStartValue
     value:
-      Double: 0
+      I64: 0
 attribute_values:
   - name: TheNetworkAttribute
     value:
       Raw:
-        Double: 51
+        I64: 51
   - name: BusType
     value:
       Raw:
@@ -181,7 +181,7 @@ attribute_values:
     value:
       NetworkNode:
         - TheNode
-        - Double: 99
+        - I64: 99
   - name: TheFloatAttribute
     value:
       MessageDefinition:
@@ -191,17 +191,17 @@ attribute_values:
     value:
       MessageDefinition:
         - Extended: 57
-        - Double: 5
+        - I64: 5
   - name: GenMsgSendType
     value:
       MessageDefinition:
         - Extended: 57
-        - Double: 0
+        - I64: 0
   - name: GenMsgCycleTime
     value:
       MessageDefinition:
         - Extended: 57
-        - Double: 1000
+        - I64: 1000
   - name: TheSignalStringAttribute
     value:
       Signal:
@@ -213,10 +213,10 @@ attribute_values:
       Signal:
         - Extended: 57
         - TheSignal
-        - Double: 1
+        - I64: 1
   - name: GenSigSendType
     value:
       Signal:
         - Standard: 42
         - TheSignal
-        - Double: 1
+        - I64: 1

@@ -199,4 +199,4 @@ attribute_defaults:
       String: CAN
   - name: GenMsgCycleTime
     value:
-      Double: 0
+      I64: 0
