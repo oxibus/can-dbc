@@ -86,14 +86,14 @@ attribute_defaults:
   - name: GenMsgCycleTime
     value:
       Double: 0
-attribute_values:
+attribute_values_message:
   - name: GenMsgCycleTime
+    message_id:
+      Standard: 1
     value:
-      MessageDefinition:
-        - Standard: 1
-        - Double: 200
+      Double: 200
   - name: GenMsgSendType
+    message_id:
+      Standard: 1
     value:
-      MessageDefinition:
-        - Standard: 1
-        - Double: 0
+      Double: 0
