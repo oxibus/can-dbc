@@ -2,7 +2,8 @@ use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::MessageId;
 use crate::parser::{
-    collect_strings, expect_empty, next_rule, next_string, parse_uint, validated_inner, DbcError,
+    collect_strings, expect_empty, next_rule, next_string, parse_next_uint, validated_inner,
+    DbcError,
 };
 
 /// Signal groups define a group of signals within a message
@@ -26,7 +27,7 @@ impl TryFrom<Pair<'_, Rule>> for SignalGroups {
         let value = Self {
             message_id: next_rule(&mut pairs, Rule::message_id)?.try_into()?,
             name: next_string(&mut pairs, Rule::group_name)?,
-            repetitions: parse_uint(&next_rule(&mut pairs, Rule::multiplexer_id)?)?,
+            repetitions: parse_next_uint(&mut pairs, Rule::multiplexer_id)?,
             signal_names: collect_strings(&mut pairs, Rule::signal_name)?,
         };
         expect_empty(&pairs)?;

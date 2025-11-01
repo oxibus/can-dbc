@@ -183,6 +183,26 @@ pub(crate) fn parse_uint(pair: &Pair<Rule>) -> DbcResult<u64> {
         .map_err(|_| DbcError::InvalidData)
 }
 
+/// Helper function to parse the next uint from the iterator
+pub(crate) fn parse_next_uint(iter: &mut Pairs<Rule>, expected: Rule) -> DbcResult<u64> {
+    parse_uint(&next_rule(iter, expected)?)
+}
+
+/// Helper function to parse the next int from the iterator
+pub(crate) fn parse_next_int(iter: &mut Pairs<Rule>, expected: Rule) -> DbcResult<i64> {
+    parse_int(&next_rule(iter, expected)?)
+}
+
+/// Helper function to parse the next float from the iterator
+pub(crate) fn parse_next_float(iter: &mut Pairs<Rule>, expected: Rule) -> DbcResult<f64> {
+    parse_float(&next_rule(iter, expected)?)
+}
+
+/// Helper function to parse the next string from the iterator
+pub(crate) fn parse_next_inner_str(iter: &mut Pairs<Rule>, expected: Rule) -> DbcResult<String> {
+    Ok(inner_str(next_rule(iter, expected)?))
+}
+
 /// Helper function to parse a float from a pest pair
 pub(crate) fn parse_float(pair: &Pair<Rule>) -> DbcResult<f64> {
     pair.as_str()
@@ -194,8 +214,8 @@ pub(crate) fn parse_float(pair: &Pair<Rule>) -> DbcResult<f64> {
 pub(crate) fn parse_min_max_int(pair: Pair<Rule>) -> DbcResult<(i64, i64)> {
     let mut pairs = pair.into_inner();
 
-    let min_val = parse_int(&next_rule(&mut pairs, Rule::minimum)?)?;
-    let max_val = parse_int(&next_rule(&mut pairs, Rule::maximum)?)?;
+    let min_val = parse_next_int(&mut pairs, Rule::minimum)?;
+    let max_val = parse_next_int(&mut pairs, Rule::maximum)?;
     expect_empty(&pairs).expect("pest grammar ensures no extra items");
 
     Ok((min_val, max_val))
@@ -205,8 +225,8 @@ pub(crate) fn parse_min_max_int(pair: Pair<Rule>) -> DbcResult<(i64, i64)> {
 pub(crate) fn parse_min_max_float(pair: Pair<Rule>) -> DbcResult<(f64, f64)> {
     let mut pairs = pair.into_inner();
 
-    let min_val = parse_float(&next_rule(&mut pairs, Rule::minimum)?)?;
-    let max_val = parse_float(&next_rule(&mut pairs, Rule::maximum)?)?;
+    let min_val = parse_next_float(&mut pairs, Rule::minimum)?;
+    let max_val = parse_next_float(&mut pairs, Rule::maximum)?;
     expect_empty(&pairs).expect("pest grammar ensures no extra items");
 
     Ok((min_val, max_val))

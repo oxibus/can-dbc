@@ -636,20 +636,19 @@ BO_TX_BU_ 12345 :XZY,ABC;
     assert_eq!(val, exp);
 }
 
-// #[test]
-// fn value_description_test() {
-//     // TODO: Fix rule name - value_table_def doesn't exist
-//     let def = r#"
-// 2 "ABC"
-// "#;
-//     let exp = ValDescription {
-//         id: 2f64,
-//         description: "ABC".to_string(),
-//     };
-//     let pair = parse(def.trim_start(), Rule::value_table_def).unwrap();
-//     let val = ValDescription::try_from(pair).unwrap();
-//     assert_eq!(val, exp);
-// }
+#[test]
+fn value_description_test() {
+    let def = r#"
+2 "ABC"
+"#;
+    let exp = ValDescription {
+        id: 2,
+        description: "ABC".to_string(),
+    };
+    let pair = parse(def.trim_start(), Rule::table_value_description).unwrap();
+    let val = ValDescription::try_from(pair).unwrap();
+    assert_eq!(val, exp);
+}
 
 #[test]
 fn val_table_test() {
