@@ -79,13 +79,13 @@ attribute_defaults:
   - name: GenMsgCycleTime
     value:
       Double: 0
-attribute_values:
+attribute_values_signal:
   - name: GenSigStartValue
+    message_id:
+      Standard: 496
+    signal_name: Temperature
     value:
-      Signal:
-        - Standard: 496
-        - Temperature
-        - Double: 4094
+      Double: 4094
 value_descriptions:
   - Signal:
       message_id:
