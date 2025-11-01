@@ -24,7 +24,7 @@ impl TryFrom<Pair<'_, Rule>> for AttributeDefinition {
         let mut pairs = validated_inner(value, Rule::attr_def)?;
         let mut object_type = String::new();
 
-        if let Some(value) = next_optional_rule(&mut pairs, Rule::object_type)? {
+        if let Some(value) = next_optional_rule(&mut pairs, Rule::object_type) {
             object_type = value.as_str().to_string();
         }
 
@@ -35,8 +35,8 @@ impl TryFrom<Pair<'_, Rule>> for AttributeDefinition {
         let attr_value_type = match rule {
             Rule::attribute_type_int | Rule::attribute_type_hex => {
                 let mut pairs = value.into_inner();
-                let min = parse_int(next_rule(&mut pairs, Rule::minimum)?)?;
-                let max = parse_int(next_rule(&mut pairs, Rule::maximum)?)?;
+                let min = parse_int(&next_rule(&mut pairs, Rule::minimum)?)?;
+                let max = parse_int(&next_rule(&mut pairs, Rule::maximum)?)?;
                 if rule == Rule::attribute_type_int {
                     AttributeValueType::Int(min, max)
                 } else {
@@ -45,8 +45,8 @@ impl TryFrom<Pair<'_, Rule>> for AttributeDefinition {
             }
             Rule::attribute_type_float => {
                 let mut pairs = value.into_inner();
-                let min = parse_float(next_rule(&mut pairs, Rule::minimum)?)?;
-                let max = parse_float(next_rule(&mut pairs, Rule::maximum)?)?;
+                let min = parse_float(&next_rule(&mut pairs, Rule::minimum)?)?;
+                let max = parse_float(&next_rule(&mut pairs, Rule::maximum)?)?;
                 AttributeValueType::Float(min, max)
             }
             Rule::attribute_type_string => AttributeValueType::String,
@@ -57,7 +57,7 @@ impl TryFrom<Pair<'_, Rule>> for AttributeDefinition {
                         if pair.as_rule() == Rule::quoted_str {
                             Ok(inner_str(pair))
                         } else {
-                            Err(DbcError::Expected(Rule::quoted_str, pair.as_rule()))
+                            Err(DbcError::ExpectedRule(Rule::quoted_str, pair.as_rule()))
                         }
                     })
                     .collect();
