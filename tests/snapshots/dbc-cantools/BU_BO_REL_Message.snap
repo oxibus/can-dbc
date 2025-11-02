@@ -1,5 +1,6 @@
 ---
 source: tests/snapshots.rs
+assertion_line: 152
 ---
 version: ""
 new_symbols:
@@ -64,7 +65,7 @@ relation_attribute_definitions:
 attribute_defaults:
   - name: GenMsgCycleTime
     value:
-      Double: 0
+      Uint: 0
 relation_attribute_defaults:
   - name: MsgProject
     value:
@@ -77,7 +78,7 @@ relation_attribute_values:
         message_id:
           Standard: 1
         value:
-          Double: 2
+          Uint: 2
 value_descriptions:
   - Signal:
       message_id:

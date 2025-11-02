@@ -1,5 +1,6 @@
 ---
 source: tests/snapshots.rs
+assertion_line: 152
 ---
 version: ""
 new_symbols:
@@ -63,7 +64,7 @@ relation_attribute_definitions:
 attribute_defaults:
   - name: GenMsgCycleTime
     value:
-      Double: 0
+      Uint: 0
 relation_attribute_defaults:
   - name: MsgProject
     value:
