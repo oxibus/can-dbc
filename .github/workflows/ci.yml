@@ -7,6 +7,10 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   test:
     name: Test
@@ -14,7 +18,8 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ ubuntu-latest, windows-latest, macos-latest ]
+        # FIXME: add windows-latest when justfile is fixed
+        os: [ ubuntu-latest, macos-latest ]
     steps:
       - uses: actions/checkout@v5
         with: { submodules: 'recursive' }
