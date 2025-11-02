@@ -7,8 +7,8 @@ use crate::AttributeValueForRelationType;
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct AttributeValueForRelation {
-    name: String,
-    details: AttributeValueForRelationType,
+    pub name: String,
+    pub details: AttributeValueForRelationType,
 }
 
 impl TryFrom<Pair<'_, Rule>> for AttributeValueForRelation {

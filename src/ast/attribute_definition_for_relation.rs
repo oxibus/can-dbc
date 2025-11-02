@@ -5,8 +5,8 @@ use crate::parser::{inner_str, validated_inner, DbcError};
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct AttributeDefinitionForRelation {
-    name: String,
-    value_spec: String,
+    pub name: String,
+    pub value_spec: String,
 }
 
 impl TryFrom<Pair<'_, Rule>> for AttributeDefinitionForRelation {
