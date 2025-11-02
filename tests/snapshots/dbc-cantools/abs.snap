@@ -1688,7 +1688,7 @@ attribute_definitions:
 attribute_defaults:
   - name: GenMsgCycleTime
     value:
-      I64: 10
+      Uint: 10
   - name: VFrameFormat
     value:
       String: ""
@@ -1704,92 +1704,92 @@ attribute_values:
     value:
       MessageDefinition:
         - Standard: 835
-        - I64: 0
+        - Uint: 0
   - name: VFrameFormat
     value:
       MessageDefinition:
         - Standard: 320
-        - I64: 0
+        - Uint: 0
   - name: VFrameFormat
     value:
       MessageDefinition:
         - Standard: 321
-        - I64: 0
+        - Uint: 0
   - name: VFrameFormat
     value:
       MessageDefinition:
         - Standard: 322
-        - I64: 0
+        - Uint: 0
   - name: VFrameFormat
     value:
       MessageDefinition:
         - Standard: 323
-        - I64: 0
+        - Uint: 0
   - name: VFrameFormat
     value:
       MessageDefinition:
         - Standard: 117
-        - I64: 0
+        - Uint: 0
   - name: VFrameFormat
     value:
       MessageDefinition:
         - Standard: 112
-        - I64: 0
+        - Uint: 0
   - name: VFrameFormat
     value:
       MessageDefinition:
         - Standard: 128
-        - I64: 0
+        - Uint: 0
   - name: VFrameFormat
     value:
       MessageDefinition:
         - Standard: 1398
-        - I64: 0
+        - Uint: 0
   - name: VFrameFormat
     value:
       MessageDefinition:
         - Standard: 586
-        - I64: 0
+        - Uint: 0
   - name: VFrameFormat
     value:
       MessageDefinition:
         - Standard: 588
-        - I64: 0
+        - Uint: 0
   - name: VFrameFormat
     value:
       MessageDefinition:
         - Standard: 832
-        - I64: 0
+        - Uint: 0
   - name: VFrameFormat
     value:
       MessageDefinition:
         - Standard: 833
-        - I64: 0
+        - Uint: 0
   - name: VFrameFormat
     value:
       MessageDefinition:
         - Standard: 834
-        - I64: 0
+        - Uint: 0
   - name: VFrameFormat
     value:
       MessageDefinition:
         - Standard: 1345
-        - I64: 0
+        - Uint: 0
   - name: VFrameFormat
     value:
       MessageDefinition:
         - Standard: 1346
-        - I64: 0
+        - Uint: 0
   - name: VFrameFormat
     value:
       MessageDefinition:
         - Standard: 1376
-        - I64: 0
+        - Uint: 0
   - name: VFrameFormat
     value:
       MessageDefinition:
         - Standard: 1472
-        - I64: 0
+        - Uint: 0
 value_descriptions:
   - Signal:
       message_id:

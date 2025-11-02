@@ -1,5 +1,6 @@
 ---
 source: tests/snapshots.rs
+assertion_line: 143
 ---
 version: "1.0"
 new_symbols:
@@ -93,7 +94,7 @@ attribute_definitions:
 attribute_defaults:
   - name: GenMsgCycleTime
     value:
-      I64: 0
+      Uint: 0
 value_descriptions:
   - Signal:
       message_id:

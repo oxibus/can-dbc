@@ -1,5 +1,6 @@
 ---
 source: tests/snapshots.rs
+assertion_line: 143
 ---
 version: ""
 new_symbols:
@@ -169,28 +170,28 @@ attribute_defaults:
       String: NoSigSendType
   - name: GenMsgFastOnStart
     value:
-      I64: 0
+      Uint: 0
   - name: GenSigInactiveValue
     value:
-      I64: 0
+      Uint: 0
   - name: GenMsgCycleTimeFast
     value:
-      I64: 0
+      Uint: 0
   - name: GenMsgNrOfRepetition
     value:
-      I64: 0
+      Uint: 0
   - name: GenSigStartValue
     value:
-      I64: 0
+      Uint: 0
   - name: GenMsgDelayTime
     value:
-      I64: 0
+      Uint: 0
   - name: GenMsgILSupport
     value:
       String: "Yes"
   - name: GenMsgStartDelayTime
     value:
-      I64: 0
+      Uint: 0
   - name: NodeLayerModules
     value:
       String: ""
@@ -199,46 +200,46 @@ attribute_defaults:
       String: ""
   - name: NmJ1939SystemInstance
     value:
-      I64: 0
+      Uint: 0
   - name: NmJ1939System
     value:
-      I64: 0
+      Uint: 0
   - name: NmJ1939ManufacturerCode
     value:
-      I64: 0
+      Uint: 0
   - name: NmJ1939IndustryGroup
     value:
-      I64: 0
+      Uint: 0
   - name: NmJ1939IdentityNumber
     value:
-      I64: 0
+      Uint: 0
   - name: NmJ1939FunctionInstance
     value:
-      I64: 0
+      Uint: 0
   - name: NmJ1939Function
     value:
-      I64: 0
+      Uint: 0
   - name: NmJ1939ECUInstance
     value:
-      I64: 0
+      Uint: 0
   - name: NmJ1939AAC
     value:
-      I64: 0
+      Uint: 0
   - name: NmStationAddress
     value:
-      I64: 254
+      Uint: 254
   - name: GenMsgSendType
     value:
       String: noMsgSendType
   - name: GenMsgRequestable
     value:
-      I64: 1
+      Uint: 1
   - name: GenMsgCycleTime
     value:
-      I64: 0
+      Uint: 0
   - name: SPN
     value:
-      I64: 0
+      Uint: 0
   - name: DBName
     value:
       String: ""
@@ -260,7 +261,7 @@ attribute_values:
     value:
       MessageDefinition:
         - Extended: 2
-        - I64: 1
+        - Uint: 1
 extended_multiplex:
   - message_id:
       Extended: 2

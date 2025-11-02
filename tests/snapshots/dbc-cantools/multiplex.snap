@@ -1,5 +1,6 @@
 ---
 source: tests/snapshots.rs
+assertion_line: 143
 ---
 version: ""
 new_symbols:
@@ -230,16 +231,16 @@ attribute_defaults:
       String: Cyclic
   - name: GenSigInactiveValue
     value:
-      I64: 0
+      Uint: 0
   - name: GenMsgCycleTime
     value:
-      I64: 0
+      Uint: 0
   - name: GenMsgSendType
     value:
       String: NoMsgSendType
   - name: NmStationAddress
     value:
-      I64: 0
+      Uint: 0
   - name: DBName
     value:
       String: ""
@@ -259,7 +260,7 @@ attribute_values:
     value:
       MessageDefinition:
         - Extended: 1193046
-        - I64: 3
+        - Uint: 3
 extended_multiplex:
   - message_id:
       Extended: 1193046

@@ -1,5 +1,6 @@
 ---
 source: tests/snapshots.rs
+assertion_line: 143
 ---
 version: ""
 new_symbols:
@@ -362,7 +363,7 @@ attribute_defaults:
       String: CAN
   - name: GenMsgCycleTime
     value:
-      I64: 0
+      Uint: 0
   - name: FieldType
     value:
       String: ""
@@ -371,7 +372,7 @@ attribute_values:
     value:
       MessageDefinition:
         - Standard: 100
-        - I64: 1000
+        - Uint: 1000
   - name: FieldType
     value:
       Signal:
@@ -382,7 +383,7 @@ attribute_values:
     value:
       MessageDefinition:
         - Standard: 500
-        - I64: 100
+        - Uint: 100
   - name: FieldType
     value:
       Signal:
@@ -393,17 +394,17 @@ attribute_values:
     value:
       MessageDefinition:
         - Standard: 101
-        - I64: 100
+        - Uint: 100
   - name: GenMsgCycleTime
     value:
       MessageDefinition:
         - Standard: 400
-        - I64: 100
+        - Uint: 100
   - name: GenMsgCycleTime
     value:
       MessageDefinition:
         - Standard: 200
-        - I64: 100
+        - Uint: 100
 value_descriptions:
   - Signal:
       message_id:

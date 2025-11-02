@@ -1,5 +1,6 @@
 ---
 source: tests/snapshots.rs
+assertion_line: 143
 ---
 version: ""
 new_symbols:
@@ -8538,53 +8539,53 @@ attribute_definitions:
 attribute_defaults:
   - name: GenSigStartValue
     value:
-      I64: 0
+      Uint: 0
   - name: GenMsgCycleTime
     value:
-      I64: 0
+      Uint: 0
 attribute_values:
   - name: GenSigStartValue
     value:
       Signal:
         - Extended: 156795682
         - Validity_INS_Vel_Forwards
-        - I64: 0
+        - Uint: 0
   - name: GenSigStartValue
     value:
       Signal:
         - Extended: 155872289
         - Accel_Vertical
-        - I64: 16120
+        - Uint: 16120
   - name: GenSigStartValue
     value:
       Signal:
         - Extended: 155872289
         - Accel_Lateral
-        - I64: -30000
+        - Int: -30000
   - name: GenSigStartValue
     value:
       Signal:
         - Extended: 155872289
         - Accel_Longitudinal
-        - I64: 32767
+        - Uint: 32767
   - name: GenSigStartValue
     value:
       Signal:
         - Extended: 155872289
         - Accuracy_Accel
-        - I64: 127
+        - Uint: 127
   - name: GenSigStartValue
     value:
       Signal:
         - Extended: 155872289
         - Validity_Accel_Vertical
-        - I64: 0
+        - Uint: 0
   - name: GenSigStartValue
     value:
       Signal:
         - Extended: 155872289
         - Validity_Accel_Lateral
-        - I64: 1
+        - Uint: 1
 value_descriptions:
   - Signal:
       message_id:
