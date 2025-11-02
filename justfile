@@ -1,5 +1,7 @@
 #!/usr/bin/env just --justfile
 
+set windows-shell := ["powershell.exe", "-NoLogo", "-Command"]
+
 main_crate := file_name(justfile_directory())
 packages := '--workspace'  # All crates in the workspace
 features := '--all-features'  # Enable all features
