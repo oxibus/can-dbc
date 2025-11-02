@@ -337,13 +337,13 @@ EV_ IUV: 0 [-22|20] "mm" 3 7 DUMMY_NODE_VECTOR0 VECTOR_XXX;
 #[test]
 fn network_node_attribute_value_test() {
     let def = r#"
-BA_ "AttrName" BU_ NodeName 12.0;
+BA_ "AttrName" BU_ NodeName 12;
 "#;
     let exp = AttributeValueForObject {
         name: "AttrName".to_string(),
         value: AttributeValuedForObjectType::NetworkNode(
             "NodeName".to_string(),
-            AttributeValue::Double(12.0),
+            AttributeValue::Uint(12),
         ),
     };
     let pair = parse(def.trim_start(), Rule::attr_value).unwrap();
@@ -392,6 +392,21 @@ BA_ "Attribute" BU_ NodeName 12;
         value: AttributeValuedForObjectType::NetworkNode(
             "NodeName".to_string(),
             AttributeValue::Uint(12),
+        ),
+    };
+    let pair = parse(def.trim_start(), Rule::attr_value).unwrap();
+    let val = test_into::<AttributeValueForObject>(&pair);
+    assert_eq!(val, exp);
+
+    // positive attribute value without a fractional part is parsed as I64
+    let def = r#"
+BA_ "Attribute" BU_ NodeName 12.1;
+"#;
+    let exp = AttributeValueForObject {
+        name: "Attribute".to_string(),
+        value: AttributeValuedForObjectType::NetworkNode(
+            "NodeName".to_string(),
+            AttributeValue::Double(12.1),
         ),
     };
     let pair = parse(def.trim_start(), Rule::attr_value).unwrap();
