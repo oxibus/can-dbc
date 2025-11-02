@@ -1,5 +1,6 @@
 ---
 source: tests/snapshots.rs
+assertion_line: 152
 ---
 version: "2.0"
 new_symbols:
@@ -224,16 +225,16 @@ attribute_defaults:
       String: ""
   - name: Baudrate
     value:
-      Double: 125000
+      Uint: 125000
   - name: AFloat
     value:
-      Double: 0
+      Uint: 0
   - name: BusType
     value:
       String: ""
   - name: FOO
     value:
-      Double: 0
+      Uint: 0
   - name: BAR
     value:
       String: ""
@@ -245,14 +246,14 @@ attribute_defaults:
       String: ""
   - name: GenMsgCycleTime
     value:
-      Double: 100
+      Uint: 100
 relation_attribute_defaults:
   - name: AFloat2
     value:
-      Double: 0
+      Uint: 0
   - name: GenSigTimeoutTime
     value:
-      Double: 0
+      Uint: 0
 attribute_values:
   - name: DBName
     value:
@@ -261,7 +262,7 @@ attribute_values:
   - name: Baudrate
     value:
       Raw:
-        Double: 125000
+        Uint: 125000
   - name: AFloat
     value:
       Raw:
@@ -279,37 +280,37 @@ attribute_values:
     value:
       NetworkNode:
         - FIE
-        - Double: 1
+        - Uint: 1
   - name: VFrameFormat
     value:
       MessageDefinition:
         - Extended: 74544
-        - Double: 1
+        - Uint: 1
   - name: VFrameFormat
     value:
       MessageDefinition:
         - Extended: 74545
-        - Double: 1
+        - Uint: 1
   - name: GenMsgCycleTime
     value:
       MessageDefinition:
         - Extended: 74545
-        - Double: 1
+        - Uint: 1
   - name: VFrameFormat
     value:
       MessageDefinition:
         - Extended: 74546
-        - Double: 1
+        - Uint: 1
   - name: VFrameFormat
     value:
       MessageDefinition:
         - Extended: 74547
-        - Double: 15
+        - Uint: 15
   - name: VFrameFormat
     value:
       MessageDefinition:
         - Standard: 780
-        - Double: 0
+        - Uint: 0
 relation_attribute_values:
   - name: GenSigTimeoutTime
     details:
@@ -319,7 +320,7 @@ relation_attribute_values:
           Extended: 74544
         signal_name: Bar
         value:
-          Double: 200
+          Uint: 200
   - name: AFloat2
     details:
       NodeToSignal:
@@ -328,7 +329,7 @@ relation_attribute_values:
           Extended: 74544
         signal_name: Bar
         value:
-          Double: 500
+          Uint: 500
 value_descriptions:
   - Signal:
       message_id:
