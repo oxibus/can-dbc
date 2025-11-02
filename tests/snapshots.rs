@@ -23,6 +23,9 @@ static TEST_DIRS: &[TestConfig] = &[
         create_snapshot: true,
     },
     TestConfig {
+        #[cfg(target_os = "windows")]
+        test_root: "opendbc\\opendbc\\dbc",
+        #[cfg(not(target_os = "windows"))]
         test_root: "opendbc/opendbc/dbc",
         snapshot_suffix: "opendbc",
         use_cp1251: false,
@@ -48,10 +51,10 @@ fn get_test_info(path: &Path) -> Option<(PathBuf, &'static TestConfig)> {
     let parent = path.parent().unwrap();
     for item in TEST_DIRS {
         // Ensure slashes are there for easier matching
-        let test_root = format!("/{}/", item.test_root);
+        let test_root = format!("{sep}{}{sep}", item.test_root, sep = std::path::MAIN_SEPARATOR);
         let mut path_dir = parent.to_str().unwrap().to_string();
-        if !path_dir.ends_with('/') {
-            path_dir.push('/');
+        if !path_dir.ends_with(std::path::MAIN_SEPARATOR) {
+            path_dir.push(std::path::MAIN_SEPARATOR);
         }
         if let Some(pos) = path_dir.find(&test_root) {
             let parent = PathBuf::from("snapshots")
