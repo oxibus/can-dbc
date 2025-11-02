@@ -1,6 +1,7 @@
-use can_dbc_pest::{Pair, Rule};
+use can_dbc_pest::{Pair, Pairs, Rule};
 
 use crate::parser::{validated_inner, DbcError};
+use crate::DbcResult;
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -22,29 +23,7 @@ impl TryFrom<Pair<'_, Rule>> for AttributeDefinition {
     /// Parse attribute definition: `BA_DEF_ [object_type] attribute_name attribute_type [min max];`
     fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
         let inner_pairs = validated_inner(value, Rule::attr_def)?;
-        let mut definition_string = String::new();
-        let mut object_type = "";
-
-        // Process all pairs
-        for pair in inner_pairs {
-            match pair.as_rule() {
-                Rule::object_type => {
-                    object_type = pair.as_str();
-                }
-                Rule::attribute_name
-                | Rule::attribute_type_int
-                | Rule::attribute_type_hex
-                | Rule::attribute_type_float
-                | Rule::attribute_type_string
-                | Rule::attribute_type_enum => {
-                    if !definition_string.is_empty() {
-                        definition_string.push(' ');
-                    }
-                    definition_string.push_str(pair.as_str());
-                }
-                v => return Err(DbcError::UnknownRule(v)),
-            }
-        }
+        let (definition_string, object_type) = parse_obj_type_vals(inner_pairs)?;
 
         Ok(match object_type {
             "SG_" => Self::Signal(definition_string),
@@ -54,4 +33,31 @@ impl TryFrom<Pair<'_, Rule>> for AttributeDefinition {
             _ => Self::Plain(definition_string),
         })
     }
+}
+
+pub(crate) fn parse_obj_type_vals(inner_pairs: Pairs<'_, Rule>) -> DbcResult<(String, &str)> {
+    let mut definition_string = String::new();
+    let mut object_type = "";
+
+    // Process all pairs
+    for pair in inner_pairs {
+        match pair.as_rule() {
+            Rule::object_type => {
+                object_type = pair.as_str();
+            }
+            Rule::attribute_name
+            | Rule::attribute_type_int
+            | Rule::attribute_type_hex
+            | Rule::attribute_type_float
+            | Rule::attribute_type_string
+            | Rule::attribute_type_enum => {
+                if !definition_string.is_empty() {
+                    definition_string.push(' ');
+                }
+                definition_string.push_str(pair.as_str());
+            }
+            v => return Err(DbcError::UnknownRule(v)),
+        }
+    }
+    Ok((definition_string, object_type))
 }
