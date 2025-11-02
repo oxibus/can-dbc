@@ -1,5 +1,6 @@
 ---
 source: tests/snapshots.rs
+assertion_line: 143
 ---
 version: ""
 new_symbols:
@@ -493,7 +494,7 @@ attribute_definitions:
 attribute_defaults:
   - name: UseGMParameterIDs
     value:
-      Double: 1
+      Uint: 1
   - name: ProtocolType
     value:
       String: GMLAN

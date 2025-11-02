@@ -1,5 +1,6 @@
 ---
 source: tests/snapshots.rs
+assertion_line: 143
 ---
 version: "3.0"
 new_symbols:
@@ -85,15 +86,15 @@ attribute_defaults:
       String: NoMsgSendType
   - name: GenMsgCycleTime
     value:
-      Double: 0
+      Uint: 0
 attribute_values:
   - name: GenMsgCycleTime
     value:
       MessageDefinition:
         - Standard: 1
-        - Double: 200
+        - Uint: 200
   - name: GenMsgSendType
     value:
       MessageDefinition:
         - Standard: 1
-        - Double: 0
+        - Uint: 0

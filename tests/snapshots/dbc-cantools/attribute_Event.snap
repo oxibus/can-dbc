@@ -68,4 +68,4 @@ attribute_values:
     value:
       MessageDefinition:
         - Standard: 1234
-        - Double: 0
+        - Uint: 0

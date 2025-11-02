@@ -138,16 +138,16 @@ attribute_defaults:
       String: ""
   - name: CANoeJitterMax
     value:
-      Double: 0
+      Uint: 0
   - name: CANoeJitterMin
     value:
-      Double: 0
+      Uint: 0
   - name: CANoeDrift
     value:
-      Double: 0
+      Uint: 0
   - name: CANoeStartDelay
     value:
-      Double: 0
+      Uint: 0
   - name: VFrameFormat
     value:
       String: StandardCAN
@@ -164,14 +164,14 @@ attribute_values:
     value:
       MessageDefinition:
         - Extended: 3
-        - Double: 1
+        - Uint: 1
   - name: VFrameFormat
     value:
       MessageDefinition:
         - Standard: 1
-        - Double: 14
+        - Uint: 14
   - name: VFrameFormat
     value:
       MessageDefinition:
         - Extended: 0
-        - Double: 15
+        - Uint: 15

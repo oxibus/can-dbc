@@ -1,5 +1,6 @@
 ---
 source: tests/snapshots.rs
+assertion_line: 143
 ---
 version: ""
 bit_timing: []
@@ -129,4 +130,4 @@ attribute_definitions:
 attribute_defaults:
   - name: VFrameFormat
     value:
-      Double: 3
+      Uint: 3

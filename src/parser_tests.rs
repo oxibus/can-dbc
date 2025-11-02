@@ -343,7 +343,70 @@ BA_ "AttrName" BU_ NodeName 12;
         name: "AttrName".to_string(),
         value: AttributeValuedForObjectType::NetworkNode(
             "NodeName".to_string(),
-            AttributeValue::Double(12.0),
+            AttributeValue::Uint(12),
+        ),
+    };
+    let pair = parse(def.trim_start(), Rule::attr_value).unwrap();
+    let val = test_into::<AttributeValueForObject>(&pair);
+    assert_eq!(val, exp);
+}
+
+#[test]
+fn integer_and_float_attributes() {
+    // attribute with a fractional part ".0" is parsed as Double
+    let def = r#"
+BA_ "Attribute" BU_ NodeName 12;
+"#;
+    let exp = AttributeValueForObject {
+        name: "Attribute".to_string(),
+        value: AttributeValuedForObjectType::NetworkNode(
+            "NodeName".to_string(),
+            AttributeValue::Uint(12),
+        ),
+    };
+    let pair = parse(def.trim_start(), Rule::attr_value).unwrap();
+    let val = test_into::<AttributeValueForObject>(&pair);
+    assert_eq!(val, exp);
+
+    // negative attribute value without a fractional part is parsed as I64
+    let def = r#"
+BA_ "Attribute" BU_ NodeName -12;
+"#;
+    let exp = AttributeValueForObject {
+        name: "Attribute".to_string(),
+        value: AttributeValuedForObjectType::NetworkNode(
+            "NodeName".to_string(),
+            AttributeValue::Int(-12),
+        ),
+    };
+    let pair = parse(def.trim_start(), Rule::attr_value).unwrap();
+    let val = test_into::<AttributeValueForObject>(&pair);
+    assert_eq!(val, exp);
+
+    // positive attribute value without a fractional part is parsed as I64
+    let def = r#"
+BA_ "Attribute" BU_ NodeName 12;
+"#;
+    let exp = AttributeValueForObject {
+        name: "Attribute".to_string(),
+        value: AttributeValuedForObjectType::NetworkNode(
+            "NodeName".to_string(),
+            AttributeValue::Uint(12),
+        ),
+    };
+    let pair = parse(def.trim_start(), Rule::attr_value).unwrap();
+    let val = test_into::<AttributeValueForObject>(&pair);
+    assert_eq!(val, exp);
+
+    // positive attribute value without a fractional part is parsed as I64
+    let def = r#"
+BA_ "Attribute" BU_ NodeName 12.1;
+"#;
+    let exp = AttributeValueForObject {
+        name: "Attribute".to_string(),
+        value: AttributeValuedForObjectType::NetworkNode(
+            "NodeName".to_string(),
+            AttributeValue::Double(12.1),
         ),
     };
     let pair = parse(def.trim_start(), Rule::attr_value).unwrap();
@@ -360,7 +423,7 @@ BA_ "AttrName" BO_ 298 13;
         name: "AttrName".to_string(),
         value: AttributeValuedForObjectType::MessageDefinition(
             MessageId::Standard(298),
-            Some(AttributeValue::Double(13.0)),
+            Some(AttributeValue::Uint(13)),
         ),
     };
     let pair = parse(def.trim_start(), Rule::attr_value).unwrap();
@@ -378,7 +441,7 @@ BA_ "AttrName" SG_ 198 SGName 13;
         value: AttributeValuedForObjectType::Signal(
             MessageId::Standard(198),
             "SGName".to_string(),
-            AttributeValue::Double(13.0),
+            AttributeValue::Uint(13),
         ),
     };
     let pair = parse(def.trim_start(), Rule::attr_value).unwrap();

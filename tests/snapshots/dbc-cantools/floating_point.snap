@@ -97,7 +97,7 @@ attribute_definitions:
 attribute_defaults:
   - name: GenMsgCycleTime
     value:
-      Double: 0
+      Uint: 0
 signal_extended_value_type_list:
   - message_id:
       Standard: 1024

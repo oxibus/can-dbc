@@ -232,16 +232,16 @@ attribute_defaults:
       String: Cyclic
   - name: GenSigInactiveValue
     value:
-      Double: 0
+      Uint: 0
   - name: GenMsgCycleTime
     value:
-      Double: 0
+      Uint: 0
   - name: GenMsgSendType
     value:
       String: NoMsgSendType
   - name: NmStationAddress
     value:
-      Double: 0
+      Uint: 0
   - name: DBName
     value:
       String: ""
@@ -261,7 +261,7 @@ attribute_values:
     value:
       MessageDefinition:
         - Extended: 1193046
-        - Double: 3
+        - Uint: 3
 extended_multiplex:
   - message_id:
       Extended: 1193046

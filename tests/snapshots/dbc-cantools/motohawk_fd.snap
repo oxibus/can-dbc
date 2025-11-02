@@ -1,5 +1,6 @@
 ---
 source: tests/snapshots.rs
+assertion_line: 143
 ---
 version: "1.0"
 new_symbols:
@@ -96,7 +97,7 @@ attribute_definitions:
 attribute_defaults:
   - name: GenMsgCycleTime
     value:
-      Double: 0
+      Uint: 0
   - name: BusType
     value:
       String: ""
@@ -115,7 +116,7 @@ attribute_values:
     value:
       MessageDefinition:
         - Extended: 496
-        - Double: 15
+        - Uint: 15
 value_descriptions:
   - Signal:
       message_id:

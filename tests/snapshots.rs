@@ -6,6 +6,8 @@ use std::path::{Path, PathBuf};
 
 use can_dbc::{decode_cp1252, Dbc, DbcError};
 use insta::{assert_debug_snapshot, assert_yaml_snapshot, with_settings};
+#[cfg(windows)]
+use path_slash::PathBufExt;
 use test_each_file::test_each_path;
 
 struct TestConfig {
@@ -48,11 +50,21 @@ fn get_test_info(path: &Path) -> Option<(PathBuf, &'static TestConfig)> {
     let parent = path.parent().unwrap();
     for item in TEST_DIRS {
         // Ensure slashes are there for easier matching
+        // Note that all slashes are in Linux style, automatically converted on Windows
         let test_root = format!("/{}/", item.test_root);
         let mut path_dir = parent.to_str().unwrap().to_string();
         if !path_dir.ends_with('/') {
             path_dir.push('/');
         }
+        // For windows, convert to slashes for easier matching
+        #[cfg(windows)]
+        let (test_root, path_dir) = (
+            PathBuf::from_slash(&test_root)
+                .to_str()
+                .unwrap()
+                .to_string(),
+            PathBuf::from_slash(&path_dir).to_str().unwrap().to_string(),
+        );
         if let Some(pos) = path_dir.find(&test_root) {
             let parent = PathBuf::from("snapshots")
                 .join(item.snapshot_suffix)
