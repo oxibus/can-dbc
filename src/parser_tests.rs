@@ -352,6 +352,39 @@ BA_ "AttrName" BU_ NodeName 12.0;
 }
 
 #[test]
+fn integer_and_float_attributes() {
+    // attribute with a fractional part ".0" is parsed as Double
+    let def = r#"
+BA_ "Attribute" BU_ NodeName 12.0;
+"#;
+    let exp = AttributeValueForObject {
+        name: "Attribute".to_string(),
+        value: AttributeValuedForObjectType::NetworkNode(
+            "NodeName".to_string(),
+            AttributeValue::Double(12.0),
+        ),
+    };
+    let pair = parse(def.trim_start(), Rule::attr_value).unwrap();
+    let val = test_into::<AttributeValueForObject>(&pair);
+    assert_eq!(val, exp);
+
+    // attribute without a fractional part is parsed as I64
+    let def = r#"
+BA_ "Attribute" BU_ NodeName 12;
+"#;
+    let exp = AttributeValueForObject {
+        name: "Attribute".to_string(),
+        value: AttributeValuedForObjectType::NetworkNode(
+            "NodeName".to_string(),
+            AttributeValue::I64(12),
+        ),
+    };
+    let pair = parse(def.trim_start(), Rule::attr_value).unwrap();
+    let val = test_into::<AttributeValueForObject>(&pair);
+    assert_eq!(val, exp);
+}
+
+#[test]
 fn message_definition_attribute_value_test() {
     let def = r#"
 BA_ "AttrName" BO_ 298 13;
