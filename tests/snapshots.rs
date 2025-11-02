@@ -51,7 +51,11 @@ fn get_test_info(path: &Path) -> Option<(PathBuf, &'static TestConfig)> {
     let parent = path.parent().unwrap();
     for item in TEST_DIRS {
         // Ensure slashes are there for easier matching
-        let test_root = format!("{sep}{}{sep}", item.test_root, sep = std::path::MAIN_SEPARATOR);
+        let test_root = format!(
+            "{sep}{}{sep}",
+            item.test_root,
+            sep = std::path::MAIN_SEPARATOR
+        );
         let mut path_dir = parent.to_str().unwrap().to_string();
         if !path_dir.ends_with(std::path::MAIN_SEPARATOR) {
             path_dir.push(std::path::MAIN_SEPARATOR);
