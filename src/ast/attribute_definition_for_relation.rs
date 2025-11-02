@@ -2,6 +2,8 @@ use can_dbc_pest::{Pair, Rule};
 
 use crate::parser::{inner_str, validated_inner, DbcError};
 
+// FIXME: consider using AttributeDefinition instead
+
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct AttributeDefinitionForRelation {
