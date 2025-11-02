@@ -1,7 +1,5 @@
 #!/usr/bin/env just --justfile
 
-set windows-shell := ["powershell.exe", "-NoLogo", "-Command"]
-
 main_crate := file_name(justfile_directory())
 packages := '--workspace'  # All crates in the workspace
 features := '--all-features'  # Enable all features
@@ -18,8 +16,11 @@ export RUSTFLAGS := env('RUSTFLAGS', if ci_mode == '1' {'-D warnings'} else {''}
 export RUSTDOCFLAGS := env('RUSTDOCFLAGS', if ci_mode == '1' {'-D warnings'} else {''})
 export RUST_BACKTRACE := env('RUST_BACKTRACE', if ci_mode == '1' {'1'} else {'0'})
 
+# See https://github.com/casey/just/issues/2938
+just := if os() == 'windows' { replace(just_executable(), '\\', '/') } else { just_executable() }
+
 @_default:
-    {{just_executable()}} --list
+    {{just}} --list
 
 # Run integration tests and save its output as the new expected output
 bless *args:  (cargo-install 'cargo-insta')
@@ -27,7 +28,7 @@ bless *args:  (cargo-install 'cargo-insta')
 
 bless-all:  (cargo-install 'cargo-insta')
     rm -rf tests/snapshots
-    FORCE_INSTA=1 {{just_executable()}} bless
+    FORCE_INSTA=1 {{just}} bless
 
 # Build the project
 build:
@@ -79,7 +80,7 @@ docs *args='--open':
 env-info:
     @echo "Running for '{{main_crate}}' crate {{if ci_mode == '1' {'in CI mode'} else {'in dev mode'} }} on {{os()}} / {{arch()}}"
     @echo "PWD $(pwd)"
-    {{just_executable()}} --version
+    {{just}} --version
     rustc --version
     cargo --version
     rustup --version
