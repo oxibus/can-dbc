@@ -1,6 +1,5 @@
 ---
 source: tests/snapshots.rs
-assertion_line: 143
 ---
 version: ""
 new_symbols:
@@ -453,37 +452,38 @@ attribute_defaults:
   - name: VFrameFormat
     value:
       String: J1939PG
-attribute_values:
+attribute_values_database:
   - name: DBName
     value:
-      Raw:
-        String: foo
+      String: foo
+attribute_values_message:
   - name: VFrameFormat
+    message_id:
+      Extended: 201588478
     value:
-      MessageDefinition:
-        - Extended: 201588478
-        - Uint: 3
+      Uint: 3
   - name: VFrameFormat
+    message_id:
+      Extended: 201522942
     value:
-      MessageDefinition:
-        - Extended: 201522942
-        - Uint: 3
+      Uint: 3
   - name: VFrameFormat
+    message_id:
+      Extended: 201457406
     value:
-      MessageDefinition:
-        - Extended: 201457406
-        - Uint: 3
+      Uint: 3
   - name: VFrameFormat
+    message_id:
+      Extended: 201391870
     value:
-      MessageDefinition:
-        - Extended: 201391870
-        - Uint: 3
+      Uint: 3
+attribute_values_signal:
   - name: GenSigStartValue
+    message_id:
+      Extended: 201588478
+    signal_name: S11
     value:
-      Signal:
-        - Extended: 201588478
-        - S11
-        - Uint: 2
+      Uint: 2
 signal_extended_value_type_list:
   - message_id:
       Extended: 201588478

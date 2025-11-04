@@ -151,27 +151,26 @@ attribute_defaults:
   - name: VFrameFormat
     value:
       String: StandardCAN
-attribute_values:
+attribute_values_database:
   - name: BusType
     value:
-      Raw:
-        String: CAN FD
+      String: CAN FD
   - name: DBName
     value:
-      Raw:
-        String: fd_test
+      String: fd_test
+attribute_values_message:
   - name: VFrameFormat
+    message_id:
+      Extended: 3
     value:
-      MessageDefinition:
-        - Extended: 3
-        - Uint: 1
+      Uint: 1
   - name: VFrameFormat
+    message_id:
+      Standard: 1
     value:
-      MessageDefinition:
-        - Standard: 1
-        - Uint: 14
+      Uint: 14
   - name: VFrameFormat
+    message_id:
+      Extended: 0
     value:
-      MessageDefinition:
-        - Extended: 0
-        - Uint: 15
+      Uint: 15

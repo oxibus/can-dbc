@@ -1,6 +1,5 @@
 ---
 source: tests/snapshots.rs
-assertion_line: 143
 ---
 version: "1.0"
 new_symbols:
@@ -107,16 +106,16 @@ attribute_defaults:
   - name: CANFD_BRS
     value:
       String: "1"
-attribute_values:
+attribute_values_database:
   - name: BusType
     value:
-      Raw:
-        String: CAN FD
+      String: CAN FD
+attribute_values_message:
   - name: VFrameFormat
+    message_id:
+      Extended: 496
     value:
-      MessageDefinition:
-        - Extended: 496
-        - Uint: 15
+      Uint: 15
 value_descriptions:
   - Signal:
       message_id:

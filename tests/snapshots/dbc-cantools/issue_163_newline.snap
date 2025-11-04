@@ -71,8 +71,7 @@ attribute_defaults:
   - name: BusType
     value:
       String: CAN
-attribute_values:
+attribute_values_database:
   - name: DBName
     value:
-      Raw:
-        String: issue_165_newline
+      String: issue_165_newline

@@ -1,6 +1,5 @@
 ---
 source: tests/snapshots.rs
-assertion_line: 143
 ---
 version: ""
 new_symbols:
@@ -8543,49 +8542,49 @@ attribute_defaults:
   - name: GenMsgCycleTime
     value:
       Uint: 0
-attribute_values:
+attribute_values_signal:
   - name: GenSigStartValue
+    message_id:
+      Extended: 156795682
+    signal_name: Validity_INS_Vel_Forwards
     value:
-      Signal:
-        - Extended: 156795682
-        - Validity_INS_Vel_Forwards
-        - Uint: 0
+      Uint: 0
   - name: GenSigStartValue
+    message_id:
+      Extended: 155872289
+    signal_name: Accel_Vertical
     value:
-      Signal:
-        - Extended: 155872289
-        - Accel_Vertical
-        - Uint: 16120
+      Uint: 16120
   - name: GenSigStartValue
+    message_id:
+      Extended: 155872289
+    signal_name: Accel_Lateral
     value:
-      Signal:
-        - Extended: 155872289
-        - Accel_Lateral
-        - Int: -30000
+      Int: -30000
   - name: GenSigStartValue
+    message_id:
+      Extended: 155872289
+    signal_name: Accel_Longitudinal
     value:
-      Signal:
-        - Extended: 155872289
-        - Accel_Longitudinal
-        - Uint: 32767
+      Uint: 32767
   - name: GenSigStartValue
+    message_id:
+      Extended: 155872289
+    signal_name: Accuracy_Accel
     value:
-      Signal:
-        - Extended: 155872289
-        - Accuracy_Accel
-        - Uint: 127
+      Uint: 127
   - name: GenSigStartValue
+    message_id:
+      Extended: 155872289
+    signal_name: Validity_Accel_Vertical
     value:
-      Signal:
-        - Extended: 155872289
-        - Validity_Accel_Vertical
-        - Uint: 0
+      Uint: 0
   - name: GenSigStartValue
+    message_id:
+      Extended: 155872289
+    signal_name: Validity_Accel_Lateral
     value:
-      Signal:
-        - Extended: 155872289
-        - Validity_Accel_Lateral
-        - Uint: 1
+      Uint: 1
 value_descriptions:
   - Signal:
       message_id:

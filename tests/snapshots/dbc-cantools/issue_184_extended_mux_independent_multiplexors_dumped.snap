@@ -1,6 +1,5 @@
 ---
 source: tests/snapshots.rs
-assertion_line: 143
 ---
 version: ""
 new_symbols:
@@ -252,16 +251,16 @@ attribute_defaults:
   - name: VFrameFormat
     value:
       String: J1939PG
-attribute_values:
+attribute_values_database:
   - name: DBName
     value:
-      Raw:
-        String: ext_MUX_independent_multiplexors
+      String: ext_MUX_independent_multiplexors
+attribute_values_message:
   - name: VFrameFormat
+    message_id:
+      Extended: 2
     value:
-      MessageDefinition:
-        - Extended: 2
-        - Uint: 1
+      Uint: 1
 extended_multiplex:
   - message_id:
       Extended: 2

@@ -1,13 +1,13 @@
 use can_dbc_pest::{Pair, Rule};
 
-use crate::ast::AttributeValuedForObjectType;
+use crate::ast::AttributeValueForObjectType;
 use crate::parser::{parse_next_inner_str, validated_inner, DbcError};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-pub struct AttributeValueForObject {
+pub(crate) struct AttributeValueForObject {
     pub name: String,
-    pub value: AttributeValuedForObjectType,
+    pub value: AttributeValueForObjectType,
 }
 
 impl TryFrom<Pair<'_, Rule>> for AttributeValueForObject {

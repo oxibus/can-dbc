@@ -1,6 +1,5 @@
 ---
 source: tests/snapshots.rs
-assertion_line: 143
 ---
 version: "1.0"
 new_symbols:
@@ -80,13 +79,13 @@ attribute_defaults:
   - name: GenMsgCycleTime
     value:
       Uint: 0
-attribute_values:
+attribute_values_signal:
   - name: GenSigStartValue
+    message_id:
+      Standard: 496
+    signal_name: Temperature
     value:
-      Signal:
-        - Standard: 496
-        - Temperature
-        - Uint: 4094
+      Uint: 4094
 value_descriptions:
   - Signal:
       message_id:

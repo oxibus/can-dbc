@@ -111,16 +111,6 @@ relation_attribute_defaults:
   - name: SigTimeoutTime
     value:
       Uint: 0
-attribute_values:
-  - name: BusType
-    value:
-      Raw:
-        String: CAN
-  - name: GenMsgCycleTime
-    value:
-      MessageDefinition:
-        - Standard: 83
-        - Uint: 50
 relation_attribute_values:
   - name: SigTimeoutTime
     details:
@@ -140,3 +130,13 @@ relation_attribute_values:
         signal_name: signal_1
         value:
           Uint: 24000
+attribute_values_database:
+  - name: BusType
+    value:
+      String: CAN
+attribute_values_message:
+  - name: GenMsgCycleTime
+    message_id:
+      Standard: 83
+    value:
+      Uint: 50
