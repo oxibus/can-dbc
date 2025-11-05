@@ -184,40 +184,39 @@ attribute_defaults:
       String: ""
   - name: CANoeJitterMax
     value:
-      Double: 0
+      Uint: 0
   - name: CANoeJitterMin
     value:
-      Double: 0
+      Uint: 0
   - name: CANoeDrift
     value:
-      Double: 0
+      Uint: 0
   - name: CANoeStartDelay
     value:
-      Double: 0
+      Uint: 0
   - name: VFrameFormat
     value:
       String: StandardCAN
-attribute_values:
+attribute_values_database:
   - name: BusType
     value:
-      Raw:
-        String: CAN FD
+      String: CAN FD
   - name: DBName
     value:
-      Raw:
-        String: fd_test
+      String: fd_test
+attribute_values_message:
   - name: VFrameFormat
+    message_id:
+      Extended: 3
     value:
-      MessageDefinition:
-        - Extended: 3
-        - Double: 1
+      Uint: 1
   - name: VFrameFormat
+    message_id:
+      Standard: 1
     value:
-      MessageDefinition:
-        - Standard: 1
-        - Double: 14
+      Uint: 14
   - name: VFrameFormat
+    message_id:
+      Extended: 0
     value:
-      MessageDefinition:
-        - Extended: 0
-        - Double: 15
+      Uint: 15

@@ -124,7 +124,7 @@ attribute_definitions:
 attribute_defaults:
   - name: GenMsgCycleTime
     value:
-      Double: 0
+      Uint: 0
   - name: BusType
     value:
       String: ""
@@ -134,16 +134,16 @@ attribute_defaults:
   - name: CANFD_BRS
     value:
       String: "1"
-attribute_values:
+attribute_values_database:
   - name: BusType
     value:
-      Raw:
-        String: CAN FD
+      String: CAN FD
+attribute_values_message:
   - name: VFrameFormat
+    message_id:
+      Extended: 496
     value:
-      MessageDefinition:
-        - Extended: 496
-        - Double: 15
+      Uint: 15
 value_descriptions:
   - Signal:
       message_id:

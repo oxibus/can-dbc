@@ -1,5 +1,6 @@
 ---
 source: tests/snapshots.rs
+assertion_line: 143
 ---
 version: ""
 new_symbols:
@@ -205,4 +206,4 @@ attribute_defaults:
       String: CAN
   - name: GenMsgCycleTime
     value:
-      Double: 0
+      Uint: 0

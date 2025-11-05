@@ -85,15 +85,15 @@ attribute_defaults:
       String: ""
   - name: GenSigStartValue
     value:
-      Double: -2147483648
-attribute_values:
+      Int: -2147483648
+attribute_values_database:
   - name: DBName
     value:
-      Raw:
-        String: test
+      String: test
+attribute_values_signal:
   - name: GenSigStartValue
+    message_id:
+      Standard: 1
+    signal_name: Signal1
     value:
-      Signal:
-        - Standard: 1
-        - Signal1
-        - Double: 254
+      Uint: 254

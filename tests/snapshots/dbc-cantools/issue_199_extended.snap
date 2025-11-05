@@ -1,5 +1,6 @@
 ---
 source: tests/snapshots.rs
+assertion_line: 143
 ---
 version: ""
 new_symbols:
@@ -501,22 +502,20 @@ attribute_definitions:
 attribute_defaults:
   - name: UseGMParameterIDs
     value:
-      Double: 1
+      Uint: 1
   - name: ProtocolType
     value:
       String: GMLAN
   - name: BusType
     value:
       String: ""
-attribute_values:
+attribute_values_database:
   - name: BusType
     value:
-      Raw:
-        String: CAN
+      String: CAN
   - name: ProtocolType
     value:
-      Raw:
-        String: GMLAN
+      String: GMLAN
 value_descriptions:
   - Signal:
       message_id:

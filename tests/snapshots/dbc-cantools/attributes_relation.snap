@@ -1,5 +1,6 @@
 ---
 source: tests/snapshots.rs
+assertion_line: 152
 ---
 version: ""
 new_symbols:
@@ -108,7 +109,7 @@ relation_attribute_definitions:
 attribute_defaults:
   - name: GenSigInactiveValue
     value:
-      Double: 0
+      Uint: 0
   - name: MsgProject
     value:
       String: A
@@ -117,24 +118,14 @@ attribute_defaults:
       String: ""
   - name: GenMsgCycleTime
     value:
-      Double: 0
+      Uint: 0
 relation_attribute_defaults:
   - name: SigFirstTimeoutTime
     value:
-      Double: 0
+      Uint: 0
   - name: SigTimeoutTime
     value:
-      Double: 0
-attribute_values:
-  - name: BusType
-    value:
-      Raw:
-        String: CAN
-  - name: GenMsgCycleTime
-    value:
-      MessageDefinition:
-        - Standard: 83
-        - Double: 50
+      Uint: 0
 relation_attribute_values:
   - name: SigTimeoutTime
     details:
@@ -144,7 +135,7 @@ relation_attribute_values:
           Standard: 82
         signal_name: signal_1
         value:
-          Double: 6000
+          Uint: 6000
   - name: SigFirstTimeoutTime
     details:
       NodeToSignal:
@@ -153,4 +144,14 @@ relation_attribute_values:
           Standard: 82
         signal_name: signal_1
         value:
-          Double: 24000
+          Uint: 24000
+attribute_values_database:
+  - name: BusType
+    value:
+      String: CAN
+attribute_values_message:
+  - name: GenMsgCycleTime
+    message_id:
+      Standard: 83
+    value:
+      Uint: 50

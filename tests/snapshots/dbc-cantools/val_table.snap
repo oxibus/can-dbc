@@ -1,5 +1,6 @@
 ---
 source: tests/snapshots.rs
+assertion_line: 143
 ---
 version: ""
 new_symbols:
@@ -85,7 +86,7 @@ attribute_defaults:
       String: ""
   - name: GenMsgCycleTime
     value:
-      Double: 0
+      Uint: 0
 value_descriptions:
   - Signal:
       message_id:
