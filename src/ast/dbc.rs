@@ -10,6 +10,10 @@ use crate::ast::{
     ValueDescription, ValueTable, Version,
 };
 use crate::parser::{collect_all, DbcError, DbcResult};
+use crate::{
+    AttributeDefinitionForRelation, AttributeValue, AttributeValueForObjectType,
+    AttributeValueForRelation,
+};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -42,12 +46,26 @@ pub struct Dbc {
     pub comments: Vec<Comment>,
     #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
     pub attribute_definitions: Vec<AttributeDefinition>,
+    #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
+    pub relation_attribute_definitions: Vec<AttributeDefinitionForRelation>,
     // undefined
     // sigtype_attr_list: SigtypeAttrList,
     #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
     pub attribute_defaults: Vec<AttributeDefault>,
     #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
-    pub attribute_values: Vec<AttributeValueForObject>,
+    pub relation_attribute_defaults: Vec<AttributeDefault>,
+    #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
+    pub relation_attribute_values: Vec<AttributeValueForRelation>,
+    #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
+    pub attribute_values_database: Vec<AttributeValueForDatabase>,
+    #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
+    pub attribute_values_node: Vec<AttributeValueForNode>,
+    #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
+    pub attribute_values_message: Vec<AttributeValueForMessage>,
+    #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
+    pub attribute_values_signal: Vec<AttributeValueForSignal>,
+    #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
+    pub attribute_values_env: Vec<AttributeValueForEnvVariable>,
     /// Encoding for signal raw values
     #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
     pub value_descriptions: Vec<ValueDescription>,
@@ -67,6 +85,46 @@ pub struct Dbc {
     /// Extended multiplex attributes
     #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
     pub extended_multiplex: Vec<ExtendedMultiplex>,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct AttributeValueForDatabase {
+    pub name: String,
+    pub value: AttributeValue,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct AttributeValueForNode {
+    pub name: String,
+    pub node_name: String,
+    pub value: AttributeValue,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct AttributeValueForMessage {
+    pub name: String,
+    pub message_id: MessageId,
+    pub value: AttributeValue,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct AttributeValueForSignal {
+    pub name: String,
+    pub message_id: MessageId,
+    pub signal_name: String,
+    pub value: AttributeValue,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct AttributeValueForEnvVariable {
+    pub name: String,
+    pub variable_name: String,
+    pub value: AttributeValue,
 }
 
 impl Dbc {
@@ -204,26 +262,32 @@ impl<'a> TryFrom<&'a str> for Dbc {
 
 #[allow(clippy::too_many_lines)] // FIXME: refactor
 pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
-    let mut version: Version = Version::default();
-    let mut new_symbols: Vec<Symbol> = vec![];
-    let mut bit_timing: Option<Vec<Baudrate>> = None;
-    let mut nodes: Vec<Node> = vec![];
-    let mut value_tables: Vec<ValueTable> = vec![];
+    let mut version = Version::default();
+    let mut new_symbols = vec![];
+    let mut bit_timing = None;
+    let mut nodes = vec![];
+    let mut value_tables = vec![];
     let mut messages: Vec<Message> = vec![];
-    let mut signals: Vec<(usize, Signal)> = vec![]; // Store signals with their message index
-    let mut message_transmitters: Vec<MessageTransmitter> = vec![];
-    let mut environment_variables: Vec<EnvironmentVariable> = vec![];
-    let mut environment_variable_data: Vec<EnvironmentVariableData> = vec![];
-    let mut comments: Vec<Comment> = vec![];
-    let mut attribute_definitions: Vec<AttributeDefinition> = vec![];
-    let mut attribute_defaults: Vec<AttributeDefault> = vec![];
-    let mut attribute_values: Vec<AttributeValueForObject> = vec![];
-    let mut value_descriptions: Vec<ValueDescription> = vec![];
-    let mut signal_groups: Vec<SignalGroups> = vec![];
-    let mut signal_extended_value_type_list: Vec<SignalExtendedValueTypeList> = vec![];
-    let mut extended_multiplex: Vec<ExtendedMultiplex> = vec![];
-
-    let mut current_message_index: Option<usize> = None;
+    let mut signals = vec![]; // Store signals with their message index
+    let mut message_transmitters = vec![];
+    let mut environment_variables = vec![];
+    let mut environment_variable_data = vec![];
+    let mut comments = vec![];
+    let mut attribute_definitions = vec![];
+    let mut relation_attribute_definitions = vec![];
+    let mut attribute_defaults = vec![];
+    let mut relation_attribute_defaults = vec![];
+    let mut attribute_values_database = vec![];
+    let mut attribute_values_node = vec![];
+    let mut attribute_values_message = vec![];
+    let mut attribute_values_signal = vec![];
+    let mut attribute_values_env = vec![];
+    let mut relation_attribute_values = vec![];
+    let mut value_descriptions = vec![];
+    let mut signal_groups = vec![];
+    let mut signal_extended_value_type_list = vec![];
+    let mut extended_multiplex = vec![];
+    let mut current_message_index = None;
 
     for pair in DbcParser::parse(Rule::file, buffer)? {
         if !matches!(pair.as_rule(), Rule::file) {
@@ -241,7 +305,7 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
                     if inner_pairs.len() == 0 {
                         bit_timing = Some(vec![]);
                     } else {
-                        // For now, just return empty vec since bit timing parsing is not implemented
+                        // For now, just return empty vec since bit-timing parsing is not implemented
                         bit_timing = Some(vec![]);
                     }
                 }
@@ -260,7 +324,60 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
                 }
                 Rule::comment => comments.push(pairs.try_into()?),
                 Rule::attr_def => attribute_definitions.push(pairs.try_into()?),
-                Rule::attr_value => attribute_values.push(pairs.try_into()?),
+                Rule::ba_def_rel => relation_attribute_definitions.push(pairs.try_into()?),
+                Rule::ba_rel => relation_attribute_values.push(pairs.try_into()?),
+                Rule::attr_value => {
+                    let attr_value: AttributeValueForObject = pairs.try_into()?;
+                    match attr_value.value {
+                        AttributeValueForObjectType::Raw(attribute_value) => {
+                            attribute_values_database.push(AttributeValueForDatabase {
+                                name: attr_value.name,
+                                value: attribute_value,
+                            });
+                        }
+                        AttributeValueForObjectType::NetworkNode(node_name, attribute_value) => {
+                            attribute_values_node.push(AttributeValueForNode {
+                                name: attr_value.name,
+                                node_name,
+                                value: attribute_value,
+                            });
+                        }
+                        AttributeValueForObjectType::MessageDefinition(
+                            message_id,
+                            attribute_value,
+                        ) => {
+                            if let Some(value) = attribute_value {
+                                attribute_values_message.push(AttributeValueForMessage {
+                                    name: attr_value.name,
+                                    message_id,
+                                    value,
+                                });
+                            }
+                        }
+                        AttributeValueForObjectType::Signal(
+                            message_id,
+                            signal_name,
+                            attribute_value,
+                        ) => {
+                            attribute_values_signal.push(AttributeValueForSignal {
+                                name: attr_value.name,
+                                message_id,
+                                signal_name,
+                                value: attribute_value,
+                            });
+                        }
+                        AttributeValueForObjectType::EnvVariable(
+                            variable_name,
+                            attribute_value,
+                        ) => {
+                            attribute_values_env.push(AttributeValueForEnvVariable {
+                                name: attr_value.name,
+                                variable_name,
+                                value: attribute_value,
+                            });
+                        }
+                    }
+                }
                 Rule::value_table => value_tables.push(pairs.try_into()?),
                 Rule::value_table_def => value_descriptions.push(pairs.try_into()?),
                 Rule::signal_group => signal_groups.push(pairs.try_into()?),
@@ -269,14 +386,12 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
                 }
                 Rule::message_transmitter => message_transmitters.push(pairs.try_into()?),
                 Rule::ba_def_def => attribute_defaults.push(pairs.try_into()?),
+                Rule::ba_def_def_rel => relation_attribute_defaults.push(pairs.try_into()?),
                 Rule::sg_mul_val => extended_multiplex.push(pairs.try_into()?),
                 Rule::environment_variable => {
                     environment_variables.push(pairs.try_into()?);
                 }
                 Rule::env_var_data => environment_variable_data.push(pairs.try_into()?),
-                Rule::ba_def_rel => return Err(DbcError::NotImplemented("ba_def_rel")),
-                Rule::ba_def_def_rel => return Err(DbcError::NotImplemented("ba_def_def_rel")),
-                Rule::ba_rel => return Err(DbcError::NotImplemented("ba_rel")),
                 Rule::EOI => {
                     // ignore
                 }
@@ -305,8 +420,15 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
         signal_types: vec![], // TODO
         comments,
         attribute_definitions,
+        relation_attribute_definitions,
         attribute_defaults,
-        attribute_values,
+        relation_attribute_defaults,
+        relation_attribute_values,
+        attribute_values_database,
+        attribute_values_node,
+        attribute_values_message,
+        attribute_values_signal,
+        attribute_values_env,
         value_descriptions,
         signal_type_refs: vec![], // TODO
         signal_groups,

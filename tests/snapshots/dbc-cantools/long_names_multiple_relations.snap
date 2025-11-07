@@ -281,32 +281,75 @@ message_transmitters:
       - NodeName: Node_6789_123456789_123456789_12
       - NodeName: Sender_2_aaaaaaaaaaaaaaaaaaaaaaa
 attribute_definitions:
-  - Signal: "\"GenSigSendType\" ENUM  \"Cyclic\",\"OnWrite\",\"OnWriteWithRepetition\",\"OnChange\",\"OnChangeWithRepetition\",\"IfActive\",\"IfActiveWithRepetition\",\"NoSigSendType\""
-  - Signal: "\"GenSigInactiveValue\" INT 0 0"
-  - Message: "\"GenMsgCycleTime\" INT 0 0"
-  - Message: "\"GenMsgSendType\" ENUM  \"Cyclic\",\"not_used\",\"not_used\",\"not_used\",\"not_used\",\"Cyclic\",\"not_used\",\"IfActive\",\"NoMsgSendType\""
-  - Node: "\"NmStationAddress\" HEX 0 0"
-  - Plain: "\"DBName\" STRING"
-  - Plain: "\"BusType\" STRING"
-  - Signal: "\"SystemSignalLongSymbol\" STRING"
-  - Message: "\"SystemMessageLongSymbol\" STRING"
-  - Node: "\"SystemNodeLongSymbol\" STRING"
+  - Signal:
+      - GenSigSendType
+      - Enum:
+          - Cyclic
+          - OnWrite
+          - OnWriteWithRepetition
+          - OnChange
+          - OnChangeWithRepetition
+          - IfActive
+          - IfActiveWithRepetition
+          - NoSigSendType
+  - Signal:
+      - GenSigInactiveValue
+      - Int:
+          - Uint: 0
+          - Uint: 0
+  - Message:
+      - GenMsgCycleTime
+      - Int:
+          - Uint: 0
+          - Uint: 0
+  - Message:
+      - GenMsgSendType
+      - Enum:
+          - Cyclic
+          - not_used
+          - not_used
+          - not_used
+          - not_used
+          - Cyclic
+          - not_used
+          - IfActive
+          - NoMsgSendType
+  - Node:
+      - NmStationAddress
+      - Hex:
+          - Uint: 0
+          - Uint: 0
+  - Plain:
+      - DBName
+      - String
+  - Plain:
+      - BusType
+      - String
+  - Signal:
+      - SystemSignalLongSymbol
+      - String
+  - Message:
+      - SystemMessageLongSymbol
+      - String
+  - Node:
+      - SystemNodeLongSymbol
+      - String
 attribute_defaults:
   - name: GenSigSendType
     value:
       String: Cyclic
   - name: GenSigInactiveValue
     value:
-      Double: 0
+      Uint: 0
   - name: GenMsgCycleTime
     value:
-      Double: 0
+      Uint: 0
   - name: GenMsgSendType
     value:
       String: NoMsgSendType
   - name: NmStationAddress
     value:
-      Double: 0
+      Uint: 0
   - name: DBName
     value:
       String: ""
@@ -322,71 +365,70 @@ attribute_defaults:
   - name: SystemNodeLongSymbol
     value:
       String: ""
-attribute_values:
+attribute_values_database:
   - name: DBName
     value:
-      Raw:
-        String: long_names_multiple_relations
+      String: long_names_multiple_relations
+attribute_values_node:
   - name: SystemNodeLongSymbol
+    node_name: Sender_2_aaaaaaaaaaaaaaaaaaaaaaa
     value:
-      NetworkNode:
-        - Sender_2_aaaaaaaaaaaaaaaaaaaaaaa
-        - String: Sender_2_aaaaaaaaaaaaaaaaaaaaaaaAAAAAA
+      String: Sender_2_aaaaaaaaaaaaaaaaaaaaaaaAAAAAA
   - name: SystemNodeLongSymbol
+    node_name: Receiver_2_zzzzzzzzzzzzzzzzzzzzz
     value:
-      NetworkNode:
-        - Receiver_2_zzzzzzzzzzzzzzzzzzzzz
-        - String: Receiver_2_zzzzzzzzzzzzzzzzzzzzzZZZ
+      String: Receiver_2_zzzzzzzzzzzzzzzzzzzzzZZZ
   - name: SystemNodeLongSymbol
+    node_name: Node_6789_123456789_123456789_12
     value:
-      NetworkNode:
-        - Node_6789_123456789_123456789_12
-        - String: Node_6789_123456789_123456789_123456789
+      String: Node_6789_123456789_123456789_123456789
+attribute_values_message:
   - name: SystemMessageLongSymbol
+    message_id:
+      Standard: 85
     value:
-      MessageDefinition:
-        - Standard: 85
-        - String: Msg_Long_Name_56789_123456789_123456789_Copy_2
+      String: Msg_Long_Name_56789_123456789_123456789_Copy_2
   - name: SystemMessageLongSymbol
+    message_id:
+      Standard: 1
     value:
-      MessageDefinition:
-        - Standard: 1
-        - String: Msg_Long_Name_56789_123456789_123456789_Copy_1
+      String: Msg_Long_Name_56789_123456789_123456789_Copy_1
   - name: SystemMessageLongSymbol
+    message_id:
+      Standard: 0
     value:
-      MessageDefinition:
-        - Standard: 0
-        - String: Msg_Long_Name_56789_123456789_123456789
+      String: Msg_Long_Name_56789_123456789_123456789
+attribute_values_signal:
   - name: SystemSignalLongSymbol
+    message_id:
+      Standard: 85
+    signal_name: Sig_used_twice_efgh_abcdefghi_ab
     value:
-      Signal:
-        - Standard: 85
-        - Sig_used_twice_efgh_abcdefghi_ab
-        - String: Sig_used_twice_efgh_abcdefghi_abcdefghi_abcdefghi
+      String: Sig_used_twice_efgh_abcdefghi_abcdefghi_abcdefghi
   - name: SystemSignalLongSymbol
+    message_id:
+      Standard: 6
+    signal_name: rx_twice_long_yyyyyyyyyyyyyyyyyy
     value:
-      Signal:
-        - Standard: 6
-        - rx_twice_long_yyyyyyyyyyyyyyyyyy
-        - String: rx_twice_long_yyyyyyyyyyyyyyyyyyYYY
+      String: rx_twice_long_yyyyyyyyyyyyyyyyyyYYY
   - name: SystemSignalLongSymbol
+    message_id:
+      Standard: 5
+    signal_name: Sig_used_twice_efgh_abcdefg_0000
     value:
-      Signal:
-        - Standard: 5
-        - Sig_used_twice_efgh_abcdefg_0000
-        - String: Sig_used_twice_efgh_abcdefghi_abcdefghi_abcdefghi
+      String: Sig_used_twice_efgh_abcdefghi_abcdefghi_abcdefghi
   - name: SystemSignalLongSymbol
+    message_id:
+      Standard: 1
+    signal_name: Sig_used_twice_efgh_abcdefg_0001
     value:
-      Signal:
-        - Standard: 1
-        - Sig_used_twice_efgh_abcdefg_0001
-        - String: Sig_used_twice_efgh_abcdefghi_abcdefghi_abcdefghi
+      String: Sig_used_twice_efgh_abcdefghi_abcdefghi_abcdefghi
   - name: SystemSignalLongSymbol
+    message_id:
+      Standard: 0
+    signal_name: Sig_used_twice_efgh_abcdefg_0002
     value:
-      Signal:
-        - Standard: 0
-        - Sig_used_twice_efgh_abcdefg_0002
-        - String: Sig_used_twice_efgh_abcdefghi_abcdefghi_abcdefghi
+      String: Sig_used_twice_efgh_abcdefghi_abcdefghi_abcdefghi
 value_descriptions:
   - Signal:
       message_id:

@@ -215,14 +215,57 @@ comments:
       name: Multiplexor
       comment: Defines data content for response messages.
 attribute_definitions:
-  - Message: "\"VFrameFormat\" ENUM  \"StandardCAN\",\"ExtendedCAN\",\"reserved\",\"J1939PG\""
-  - Signal: "\"GenSigSendType\" ENUM  \"Cyclic\",\"OnWrite\",\"OnWriteWithRepetition\",\"OnChange\",\"OnChangeWithRepetition\",\"IfActive\",\"IfActiveWithRepetition\",\"NoSigSendType\""
-  - Signal: "\"GenSigInactiveValue\" INT 0 0"
-  - Message: "\"GenMsgCycleTime\" INT 0 0"
-  - Message: "\"GenMsgSendType\" ENUM  \"Cyclic\",\"not_used\",\"not_used\",\"not_used\",\"not_used\",\"Cyclic\",\"not_used\",\"IfActive\",\"NoMsgSendType\""
-  - Node: "\"NmStationAddress\" HEX 0 0"
-  - Plain: "\"DBName\" STRING"
-  - Plain: "\"BusType\" STRING"
+  - Message:
+      - VFrameFormat
+      - Enum:
+          - StandardCAN
+          - ExtendedCAN
+          - reserved
+          - J1939PG
+  - Signal:
+      - GenSigSendType
+      - Enum:
+          - Cyclic
+          - OnWrite
+          - OnWriteWithRepetition
+          - OnChange
+          - OnChangeWithRepetition
+          - IfActive
+          - IfActiveWithRepetition
+          - NoSigSendType
+  - Signal:
+      - GenSigInactiveValue
+      - Int:
+          - Uint: 0
+          - Uint: 0
+  - Message:
+      - GenMsgCycleTime
+      - Int:
+          - Uint: 0
+          - Uint: 0
+  - Message:
+      - GenMsgSendType
+      - Enum:
+          - Cyclic
+          - not_used
+          - not_used
+          - not_used
+          - not_used
+          - Cyclic
+          - not_used
+          - IfActive
+          - NoMsgSendType
+  - Node:
+      - NmStationAddress
+      - Hex:
+          - Uint: 0
+          - Uint: 0
+  - Plain:
+      - DBName
+      - String
+  - Plain:
+      - BusType
+      - String
 attribute_defaults:
   - name: VFrameFormat
     value:
@@ -232,36 +275,35 @@ attribute_defaults:
       String: Cyclic
   - name: GenSigInactiveValue
     value:
-      Double: 0
+      Uint: 0
   - name: GenMsgCycleTime
     value:
-      Double: 0
+      Uint: 0
   - name: GenMsgSendType
     value:
       String: NoMsgSendType
   - name: NmStationAddress
     value:
-      Double: 0
+      Uint: 0
   - name: DBName
     value:
       String: ""
   - name: BusType
     value:
       String: CAN
-attribute_values:
+attribute_values_database:
   - name: BusType
     value:
-      Raw:
-        String: CAN
+      String: CAN
   - name: DBName
     value:
-      Raw:
-        String: Network_A
+      String: Network_A
+attribute_values_message:
   - name: VFrameFormat
+    message_id:
+      Extended: 1193046
     value:
-      MessageDefinition:
-        - Extended: 1193046
-        - Double: 3
+      Uint: 3
 extended_multiplex:
   - message_id:
       Extended: 1193046

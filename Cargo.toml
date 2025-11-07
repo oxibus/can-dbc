@@ -36,6 +36,9 @@ codegen = "0.2"  # Used in README code block
 insta = { version = "1.39", features = ["yaml"] }
 test_each_file = "0.3.6"
 
+[target.'cfg(windows)'.dev-dependencies]
+path-slash = "0.2.1"
+
 [lints.rust]
 unsafe_code = "forbid"
 unused_qualifications = "warn"

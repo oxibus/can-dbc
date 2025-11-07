@@ -110,16 +110,62 @@ messages:
         receivers:
           - Vector__XXX
 attribute_definitions:
-  - Message: "\"CANFD_BRS\" ENUM  \"0\",\"1\""
-  - Plain: "\"DBName\" STRING"
-  - Plain: "\"BusType\" STRING"
-  - Node: "\"NodeLayerModules\" STRING"
-  - Node: "\"ECU\" STRING"
-  - Node: "\"CANoeJitterMax\" INT 0 0"
-  - Node: "\"CANoeJitterMin\" INT 0 0"
-  - Node: "\"CANoeDrift\" INT 0 0"
-  - Node: "\"CANoeStartDelay\" INT 0 0"
-  - Message: "\"VFrameFormat\" ENUM  \"StandardCAN\",\"ExtendedCAN\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"StandardCAN_FD\",\"ExtendedCAN_FD\""
+  - Message:
+      - CANFD_BRS
+      - Enum:
+          - "0"
+          - "1"
+  - Plain:
+      - DBName
+      - String
+  - Plain:
+      - BusType
+      - String
+  - Node:
+      - NodeLayerModules
+      - String
+  - Node:
+      - ECU
+      - String
+  - Node:
+      - CANoeJitterMax
+      - Int:
+          - Uint: 0
+          - Uint: 0
+  - Node:
+      - CANoeJitterMin
+      - Int:
+          - Uint: 0
+          - Uint: 0
+  - Node:
+      - CANoeDrift
+      - Int:
+          - Uint: 0
+          - Uint: 0
+  - Node:
+      - CANoeStartDelay
+      - Int:
+          - Uint: 0
+          - Uint: 0
+  - Message:
+      - VFrameFormat
+      - Enum:
+          - StandardCAN
+          - ExtendedCAN
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - StandardCAN_FD
+          - ExtendedCAN_FD
 attribute_defaults:
   - name: CANFD_BRS
     value:
@@ -138,40 +184,39 @@ attribute_defaults:
       String: ""
   - name: CANoeJitterMax
     value:
-      Double: 0
+      Uint: 0
   - name: CANoeJitterMin
     value:
-      Double: 0
+      Uint: 0
   - name: CANoeDrift
     value:
-      Double: 0
+      Uint: 0
   - name: CANoeStartDelay
     value:
-      Double: 0
+      Uint: 0
   - name: VFrameFormat
     value:
       String: StandardCAN
-attribute_values:
+attribute_values_database:
   - name: BusType
     value:
-      Raw:
-        String: CAN FD
+      String: CAN FD
   - name: DBName
     value:
-      Raw:
-        String: fd_test
+      String: fd_test
+attribute_values_message:
   - name: VFrameFormat
+    message_id:
+      Extended: 3
     value:
-      MessageDefinition:
-        - Extended: 3
-        - Double: 1
+      Uint: 1
   - name: VFrameFormat
+    message_id:
+      Standard: 1
     value:
-      MessageDefinition:
-        - Standard: 1
-        - Double: 14
+      Uint: 14
   - name: VFrameFormat
+    message_id:
+      Extended: 0
     value:
-      MessageDefinition:
-        - Extended: 0
-        - Double: 15
+      Uint: 15

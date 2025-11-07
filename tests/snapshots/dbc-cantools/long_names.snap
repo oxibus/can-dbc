@@ -286,11 +286,21 @@ environment_variables:
     access_nodes:
       - Name: Vector__XXX
 attribute_definitions:
-  - Plain: "\"BusType\" STRING"
-  - Signal: "\"SystemSignalLongSymbol\" STRING"
-  - Message: "\"SystemMessageLongSymbol\" STRING"
-  - Node: "\"SystemNodeLongSymbol\" STRING"
-  - EnvironmentVariable: "\"SystemEnvVarLongSymbol\" STRING"
+  - Plain:
+      - BusType
+      - String
+  - Signal:
+      - SystemSignalLongSymbol
+      - String
+  - Message:
+      - SystemMessageLongSymbol
+      - String
+  - Node:
+      - SystemNodeLongSymbol
+      - String
+  - EnvironmentVariable:
+      - SystemEnvVarLongSymbol
+      - String
 attribute_defaults:
   - name: BusType
     value:
@@ -307,139 +317,138 @@ attribute_defaults:
   - name: SystemEnvVarLongSymbol
     value:
       String: ""
-attribute_values:
+attribute_values_node:
   - name: SystemNodeLongSymbol
+    node_name: NN123456789012345678901234567890
     value:
-      NetworkNode:
-        - NN123456789012345678901234567890
-        - String: NN123456789012345678901234567890123
+      String: NN123456789012345678901234567890123
   - name: SystemNodeLongSymbol
+    node_name: N12345678901234567890123456_0000
     value:
-      NetworkNode:
-        - N12345678901234567890123456_0000
-        - String: N123456789012345678901234567890123
+      String: N123456789012345678901234567890123
   - name: SystemNodeLongSymbol
+    node_name: N12345678901234567890123456_0001
     value:
-      NetworkNode:
-        - N12345678901234567890123456_0001
-        - String: N12345678901234567890123456789012
+      String: N12345678901234567890123456789012
+attribute_values_message:
   - name: SystemMessageLongSymbol
+    message_id:
+      Standard: 9
     value:
-      MessageDefinition:
-        - Standard: 9
-        - String: SS12345678901234567890123458789012345
+      String: SS12345678901234567890123458789012345
   - name: SystemMessageLongSymbol
+    message_id:
+      Standard: 8
     value:
-      MessageDefinition:
-        - Standard: 8
-        - String: SS1234567890123456789012345778901
+      String: SS1234567890123456789012345778901
   - name: SystemMessageLongSymbol
+    message_id:
+      Standard: 7
     value:
-      MessageDefinition:
-        - Standard: 7
-        - String: SS1234567890123456789012345878901234
+      String: SS1234567890123456789012345878901234
   - name: SystemMessageLongSymbol
+    message_id:
+      Standard: 5
     value:
-      MessageDefinition:
-        - Standard: 5
-        - String: SS12345678901234567890123456789012
+      String: SS12345678901234567890123456789012
   - name: SystemMessageLongSymbol
+    message_id:
+      Standard: 4
     value:
-      MessageDefinition:
-        - Standard: 4
-        - String: S12345678901234567890123456789012
+      String: S12345678901234567890123456789012
   - name: SystemMessageLongSymbol
+    message_id:
+      Standard: 0
     value:
-      MessageDefinition:
-        - Standard: 0
-        - String: M123456789012345678901234567890123
+      String: M123456789012345678901234567890123
   - name: SystemMessageLongSymbol
+    message_id:
+      Standard: 2
     value:
-      MessageDefinition:
-        - Standard: 2
-        - String: M12345678901234567890123456789012
+      String: M12345678901234567890123456789012
   - name: SystemMessageLongSymbol
+    message_id:
+      Standard: 3
     value:
-      MessageDefinition:
-        - Standard: 3
-        - String: MM12345678901234567890123456789012
+      String: MM12345678901234567890123456789012
+attribute_values_signal:
   - name: SystemSignalLongSymbol
+    message_id:
+      Standard: 4
+    signal_name: SS123456789012345678901234567890
     value:
-      Signal:
-        - Standard: 4
-        - SS123456789012345678901234567890
-        - String: SS12345678901234567890123456789012
+      String: SS12345678901234567890123456789012
   - name: SystemSignalLongSymbol
+    message_id:
+      Standard: 0
+    signal_name: SSS12345678901234567890123456789
     value:
-      Signal:
-        - Standard: 0
-        - SSS12345678901234567890123456789
-        - String: SSS12345678901234567890123456789012
+      String: SSS12345678901234567890123456789012
   - name: SystemSignalLongSymbol
+    message_id:
+      Standard: 1
+    signal_name: SS1234567890123456789012345_0000
     value:
-      Signal:
-        - Standard: 1
-        - SS1234567890123456789012345_0000
-        - String: SS12345678901234567890123456789012332
+      String: SS12345678901234567890123456789012332
   - name: SystemSignalLongSymbol
+    message_id:
+      Standard: 1
+    signal_name: SS1234567890123456789012345_0001
     value:
-      Signal:
-        - Standard: 1
-        - SS1234567890123456789012345_0001
-        - String: SS1234567890123456789012345678901233
+      String: SS1234567890123456789012345678901233
   - name: SystemSignalLongSymbol
+    message_id:
+      Standard: 1
+    signal_name: SS1234567890123456789012345_0002
     value:
-      Signal:
-        - Standard: 1
-        - SS1234567890123456789012345_0002
-        - String: SS12345678901234567890123456789012
+      String: SS12345678901234567890123456789012
   - name: SystemSignalLongSymbol
+    message_id:
+      Standard: 1
+    signal_name: S12345678901234567890123456_0000
     value:
-      Signal:
-        - Standard: 1
-        - S12345678901234567890123456_0000
-        - String: S123456789012345678901234567890123
+      String: S123456789012345678901234567890123
   - name: SystemSignalLongSymbol
+    message_id:
+      Standard: 2
+    signal_name: SS1234567890123456789012345_0003
     value:
-      Signal:
-        - Standard: 2
-        - SS1234567890123456789012345_0003
-        - String: SS12345678901234567890123456789012dw
+      String: SS12345678901234567890123456789012dw
   - name: SystemSignalLongSymbol
+    message_id:
+      Standard: 2
+    signal_name: SS1234567890123456789012345_0004
     value:
-      Signal:
-        - Standard: 2
-        - SS1234567890123456789012345_0004
-        - String: SS12345678901234567890123456789012
+      String: SS12345678901234567890123456789012
   - name: SystemSignalLongSymbol
+    message_id:
+      Standard: 2
+    signal_name: S12345678901234567890123456_0001
     value:
-      Signal:
-        - Standard: 2
-        - S12345678901234567890123456_0001
-        - String: S12345678901234567890123456789012
+      String: S12345678901234567890123456789012
   - name: SystemSignalLongSymbol
+    message_id:
+      Standard: 2
+    signal_name: S12345678901234567890123456_0002
     value:
-      Signal:
-        - Standard: 2
-        - S12345678901234567890123456_0002
-        - String: S123456789012345678901234567890123
+      String: S123456789012345678901234567890123
   - name: SystemSignalLongSymbol
+    message_id:
+      Standard: 3
+    signal_name: SSS123456789012345678901234_0000
     value:
-      Signal:
-        - Standard: 3
-        - SSS123456789012345678901234_0000
-        - String: SSS12345678901234567890123456789012
+      String: SSS12345678901234567890123456789012
   - name: SystemSignalLongSymbol
+    message_id:
+      Standard: 3
+    signal_name: SS1234567890123456789012345_0005
     value:
-      Signal:
-        - Standard: 3
-        - SS1234567890123456789012345_0005
-        - String: SS1234567890123456789012345678901233
+      String: SS1234567890123456789012345678901233
+attribute_values_env:
   - name: SystemEnvVarLongSymbol
+    variable_name: E12345678901234567890123456_0000
     value:
-      EnvVariable:
-        - E12345678901234567890123456_0000
-        - String: E12345678901234567890123456789012
+      String: E12345678901234567890123456789012
 signal_groups:
   - message_id:
       Standard: 3

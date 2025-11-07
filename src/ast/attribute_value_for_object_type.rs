@@ -6,7 +6,7 @@ use crate::DbcError;
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-pub enum AttributeValuedForObjectType {
+pub(crate) enum AttributeValueForObjectType {
     Raw(AttributeValue),
     NetworkNode(String, AttributeValue),
     MessageDefinition(MessageId, Option<AttributeValue>),
@@ -14,7 +14,7 @@ pub enum AttributeValuedForObjectType {
     EnvVariable(String, AttributeValue),
 }
 
-impl TryFrom<Pairs<'_, Rule>> for AttributeValuedForObjectType {
+impl TryFrom<Pairs<'_, Rule>> for AttributeValueForObjectType {
     type Error = DbcError;
 
     fn try_from(mut value: Pairs<Rule>) -> Result<Self, Self::Error> {
@@ -25,27 +25,27 @@ impl TryFrom<Pairs<'_, Rule>> for AttributeValuedForObjectType {
         }
 
         if matches!(&pair.as_rule(), Rule::quoted_str | Rule::number) {
-            return Ok(AttributeValuedForObjectType::Raw(pair.try_into()?));
+            return Ok(AttributeValueForObjectType::Raw(pair.try_into()?));
         }
 
         let rule = pair.as_rule();
         let mut pairs = pair.into_inner();
 
         let res = match rule {
-            Rule::node_var_val => AttributeValuedForObjectType::NetworkNode(
+            Rule::node_var_val => AttributeValueForObjectType::NetworkNode(
                 next_string(&mut pairs, Rule::node_name)?,
                 next(&mut pairs)?.try_into()?,
             ),
-            Rule::msg_var_val => AttributeValuedForObjectType::MessageDefinition(
+            Rule::msg_var_val => AttributeValueForObjectType::MessageDefinition(
                 next_rule(&mut pairs, Rule::message_id)?.try_into()?,
                 Some(next(&mut pairs)?.try_into()?),
             ),
-            Rule::signal_var => AttributeValuedForObjectType::Signal(
+            Rule::signal_var => AttributeValueForObjectType::Signal(
                 next_rule(&mut pairs, Rule::message_id)?.try_into()?,
                 next_string(&mut pairs, Rule::ident)?,
                 next(&mut pairs)?.try_into()?,
             ),
-            Rule::env_var_val => AttributeValuedForObjectType::EnvVariable(
+            Rule::env_var_val => AttributeValueForObjectType::EnvVariable(
                 next_string(&mut pairs, Rule::env_var_name)?,
                 next(&mut pairs)?.try_into()?,
             ),

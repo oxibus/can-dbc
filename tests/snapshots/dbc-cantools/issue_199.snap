@@ -487,28 +487,34 @@ messages:
         receivers:
           - NEO
 attribute_definitions:
-  - Plain: "\"UseGMParameterIDs\" INT 0 0"
-  - Plain: "\"ProtocolType\" STRING"
-  - Plain: "\"BusType\" STRING"
+  - Plain:
+      - UseGMParameterIDs
+      - Int:
+          - Uint: 0
+          - Uint: 0
+  - Plain:
+      - ProtocolType
+      - String
+  - Plain:
+      - BusType
+      - String
 attribute_defaults:
   - name: UseGMParameterIDs
     value:
-      Double: 1
+      Uint: 1
   - name: ProtocolType
     value:
       String: GMLAN
   - name: BusType
     value:
       String: ""
-attribute_values:
+attribute_values_database:
   - name: BusType
     value:
-      Raw:
-        String: CAN
+      String: CAN
   - name: ProtocolType
     value:
-      Raw:
-        String: GMLAN
+      String: GMLAN
 value_descriptions:
   - Signal:
       message_id:

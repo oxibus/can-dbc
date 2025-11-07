@@ -33,45 +33,50 @@ new_symbols:
   - SG_MUL_VAL_
 bit_timing: []
 nodes:
-  - TheNode
+  - COM
 messages:
   - id:
-      Standard: 1234
-    name: INV2EventMsg1
-    size: 8
+      Standard: 1
+    name: CONTROL
+    size: 7
     transmitter:
-      NodeName: Inv2
+      NodeName: COM
     signals:
-      - name: TheSignal
+      - name: state
         multiplexer_indicator: Plain
         start_bit: 0
         size: 8
         byte_order: LittleEndian
-        value_type: Signed
+        value_type: Unsigned
         factor: 1
         offset: 0
         min: 0
-        max: 0
-        unit: ""
+        max: 100
+        unit: "%"
         receivers:
           - Vector__XXX
 attribute_definitions:
   - Message:
-      - GenMsgSendType
-      - String
-  - Message:
       - GenMsgCycleTime
       - Int:
           - Uint: 0
-          - Uint: 100
-attribute_values_message:
-  - name: GenMsgSendType
-    message_id:
-      Standard: 1234
-    value:
-      String: Event
+          - Uint: 65535
+relation_attribute_definitions:
+  - name: MsgProject
+    value_spec: "\"MsgProject\" ENUM  \"A\",\"B\",\"C\""
+attribute_defaults:
   - name: GenMsgCycleTime
-    message_id:
-      Standard: 1234
     value:
       Uint: 0
+relation_attribute_defaults:
+  - name: MsgProject
+    value:
+      String: A
+value_descriptions:
+  - Signal:
+      message_id:
+        Standard: 1
+      name: state
+      value_descriptions:
+        - id: 255
+          description: Invalid

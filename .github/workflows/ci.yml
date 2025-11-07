@@ -14,7 +14,12 @@ defaults:
 jobs:
   test:
     name: Test
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        # FIXME: add windows-latest when justfile is fixed
+        os: [ ubuntu-latest, macos-latest ]
     steps:
       - uses: actions/checkout@v5
         with: { submodules: 'recursive' }

@@ -1682,114 +1682,138 @@ comments:
       name: P_RA
       comment: Brake pressure on the rear axle.
 attribute_definitions:
-  - Message: "\"GenMsgCycleTime\" INT 1 3000"
-  - Message: "\"VFrameFormat\" ENUM  \"StandardCAN\",\"ExtendedCAN\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"StandardCAN_FD\",\"ExtendedCAN_FD\""
-  - Plain: "\"BusType\" STRING"
+  - Message:
+      - GenMsgCycleTime
+      - Int:
+          - Uint: 1
+          - Uint: 3000
+  - Message:
+      - VFrameFormat
+      - Enum:
+          - StandardCAN
+          - ExtendedCAN
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - StandardCAN_FD
+          - ExtendedCAN_FD
+  - Plain:
+      - BusType
+      - String
 attribute_defaults:
   - name: GenMsgCycleTime
     value:
-      Double: 10
+      Uint: 10
   - name: VFrameFormat
     value:
       String: ""
   - name: BusType
     value:
       String: CAN
-attribute_values:
+attribute_values_database:
   - name: BusType
     value:
-      Raw:
-        String: CAN
+      String: CAN
+attribute_values_message:
   - name: VFrameFormat
+    message_id:
+      Standard: 835
     value:
-      MessageDefinition:
-        - Standard: 835
-        - Double: 0
+      Uint: 0
   - name: VFrameFormat
+    message_id:
+      Standard: 320
     value:
-      MessageDefinition:
-        - Standard: 320
-        - Double: 0
+      Uint: 0
   - name: VFrameFormat
+    message_id:
+      Standard: 321
     value:
-      MessageDefinition:
-        - Standard: 321
-        - Double: 0
+      Uint: 0
   - name: VFrameFormat
+    message_id:
+      Standard: 322
     value:
-      MessageDefinition:
-        - Standard: 322
-        - Double: 0
+      Uint: 0
   - name: VFrameFormat
+    message_id:
+      Standard: 323
     value:
-      MessageDefinition:
-        - Standard: 323
-        - Double: 0
+      Uint: 0
   - name: VFrameFormat
+    message_id:
+      Standard: 117
     value:
-      MessageDefinition:
-        - Standard: 117
-        - Double: 0
+      Uint: 0
   - name: VFrameFormat
+    message_id:
+      Standard: 112
     value:
-      MessageDefinition:
-        - Standard: 112
-        - Double: 0
+      Uint: 0
   - name: VFrameFormat
+    message_id:
+      Standard: 128
     value:
-      MessageDefinition:
-        - Standard: 128
-        - Double: 0
+      Uint: 0
   - name: VFrameFormat
+    message_id:
+      Standard: 1398
     value:
-      MessageDefinition:
-        - Standard: 1398
-        - Double: 0
+      Uint: 0
   - name: VFrameFormat
+    message_id:
+      Standard: 586
     value:
-      MessageDefinition:
-        - Standard: 586
-        - Double: 0
+      Uint: 0
   - name: VFrameFormat
+    message_id:
+      Standard: 588
     value:
-      MessageDefinition:
-        - Standard: 588
-        - Double: 0
+      Uint: 0
   - name: VFrameFormat
+    message_id:
+      Standard: 832
     value:
-      MessageDefinition:
-        - Standard: 832
-        - Double: 0
+      Uint: 0
   - name: VFrameFormat
+    message_id:
+      Standard: 833
     value:
-      MessageDefinition:
-        - Standard: 833
-        - Double: 0
+      Uint: 0
   - name: VFrameFormat
+    message_id:
+      Standard: 834
     value:
-      MessageDefinition:
-        - Standard: 834
-        - Double: 0
+      Uint: 0
   - name: VFrameFormat
+    message_id:
+      Standard: 1345
     value:
-      MessageDefinition:
-        - Standard: 1345
-        - Double: 0
+      Uint: 0
   - name: VFrameFormat
+    message_id:
+      Standard: 1346
     value:
-      MessageDefinition:
-        - Standard: 1346
-        - Double: 0
+      Uint: 0
   - name: VFrameFormat
+    message_id:
+      Standard: 1376
     value:
-      MessageDefinition:
-        - Standard: 1376
-        - Double: 0
+      Uint: 0
   - name: VFrameFormat
+    message_id:
+      Standard: 1472
     value:
-      MessageDefinition:
-        - Standard: 1472
-        - Double: 0
+      Uint: 0
 value_descriptions:
   - Signal:
       message_id:

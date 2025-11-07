@@ -353,57 +353,66 @@ comments:
         Standard: 100
       comment: Sync message used to synchronize the controllers
 attribute_definitions:
-  - Plain: "\"BusType\" STRING"
-  - Message: "\"GenMsgCycleTime\" INT 0 0"
-  - Signal: "\"FieldType\" STRING"
+  - Plain:
+      - BusType
+      - String
+  - Message:
+      - GenMsgCycleTime
+      - Int:
+          - Uint: 0
+          - Uint: 0
+  - Signal:
+      - FieldType
+      - String
 attribute_defaults:
   - name: BusType
     value:
       String: CAN
   - name: GenMsgCycleTime
     value:
-      Double: 0
+      Uint: 0
   - name: FieldType
     value:
       String: ""
-attribute_values:
+attribute_values_message:
   - name: GenMsgCycleTime
+    message_id:
+      Standard: 100
     value:
-      MessageDefinition:
-        - Standard: 100
-        - Double: 1000
+      Uint: 1000
+  - name: GenMsgCycleTime
+    message_id:
+      Standard: 500
+    value:
+      Uint: 100
+  - name: GenMsgCycleTime
+    message_id:
+      Standard: 101
+    value:
+      Uint: 100
+  - name: GenMsgCycleTime
+    message_id:
+      Standard: 400
+    value:
+      Uint: 100
+  - name: GenMsgCycleTime
+    message_id:
+      Standard: 200
+    value:
+      Uint: 100
+attribute_values_signal:
   - name: FieldType
+    message_id:
+      Standard: 100
+    signal_name: DRIVER_HEARTBEAT_cmd
     value:
-      Signal:
-        - Standard: 100
-        - DRIVER_HEARTBEAT_cmd
-        - String: DRIVER_HEARTBEAT_cmd
-  - name: GenMsgCycleTime
-    value:
-      MessageDefinition:
-        - Standard: 500
-        - Double: 100
+      String: DRIVER_HEARTBEAT_cmd
   - name: FieldType
+    message_id:
+      Standard: 500
+    signal_name: IO_DEBUG_test_enum
     value:
-      Signal:
-        - Standard: 500
-        - IO_DEBUG_test_enum
-        - String: IO_DEBUG_test_enum
-  - name: GenMsgCycleTime
-    value:
-      MessageDefinition:
-        - Standard: 101
-        - Double: 100
-  - name: GenMsgCycleTime
-    value:
-      MessageDefinition:
-        - Standard: 400
-        - Double: 100
-  - name: GenMsgCycleTime
-    value:
-      MessageDefinition:
-        - Standard: 200
-        - Double: 100
+      String: IO_DEBUG_test_enum
 value_descriptions:
   - Signal:
       message_id:
