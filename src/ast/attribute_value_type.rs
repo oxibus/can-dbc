@@ -1,6 +1,6 @@
 use can_dbc_pest::{Pair, Rule};
 
-use crate::parser::{inner_str, next_rule};
+use crate::parser::{expect_empty, inner_str, next_rule};
 use crate::{DbcError, DbcResult, NumericValue};
 
 #[derive(Clone, Debug, PartialEq)]
@@ -23,6 +23,7 @@ impl TryFrom<Pair<'_, Rule>> for AttributeValueType {
                 let mut pairs = pair.into_inner();
                 let min = next_rule(&mut pairs, Rule::minimum)?.as_str().parse()?;
                 let max = next_rule(&mut pairs, Rule::maximum)?.as_str().parse()?;
+                expect_empty(&pairs)?;
                 match rule {
                     Rule::attribute_type_int => AttributeValueType::Int(min, max),
                     Rule::attribute_type_hex => AttributeValueType::Hex(min, max),
