@@ -62,8 +62,8 @@ attribute_definitions:
   - Message:
       - GenMsgCycleTime
       - Int:
-          - 0
-          - 100
+          - Uint: 0
+          - Uint: 100
 attribute_values_message:
   - name: GenMsgSendType
     message_id:

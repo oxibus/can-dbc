@@ -1,6 +1,5 @@
 ---
 source: tests/snapshots.rs
-assertion_line: 152
 ---
 version: ""
 new_symbols:
@@ -60,8 +59,8 @@ attribute_definitions:
   - Message:
       - GenMsgCycleTime
       - Int:
-          - 0
-          - 65535
+          - Uint: 0
+          - Uint: 65535
 relation_attribute_definitions:
   - name: MsgProject
     value_spec: "\"MsgProject\" ENUM  \"A\",\"B\",\"C\""

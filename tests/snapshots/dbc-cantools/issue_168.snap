@@ -1,6 +1,5 @@
 ---
 source: tests/snapshots.rs
-assertion_line: 152
 ---
 version: "2.0"
 new_symbols:
@@ -211,21 +210,21 @@ attribute_definitions:
   - Plain:
       - Baudrate
       - Int:
-          - 0
-          - 1000000
+          - Uint: 0
+          - Uint: 1000000
   - Plain:
       - AFloat
       - Float:
-          - 0
-          - 100
+          - Uint: 0
+          - Uint: 100
   - Plain:
       - BusType
       - String
   - Node:
       - FOO
       - Int:
-          - 0
-          - 100
+          - Uint: 0
+          - Uint: 100
   - Node:
       - BAR
       - String
@@ -254,8 +253,8 @@ attribute_definitions:
   - Message:
       - GenMsgCycleTime
       - Int:
-          - 0
-          - 1000
+          - Uint: 0
+          - Uint: 1000
 relation_attribute_definitions:
   - name: AFloat2
     value_spec: "\"AFloat2\" FLOAT 0 65535"

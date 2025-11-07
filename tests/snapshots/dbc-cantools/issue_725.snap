@@ -71,8 +71,8 @@ attribute_definitions:
   - Signal:
       - GenSigStartValue
       - Int:
-          - -2147483648
-          - 2147483647
+          - Int: -2147483648
+          - Uint: 2147483647
 attribute_defaults:
   - name: MultiplexExtEnabled
     value:

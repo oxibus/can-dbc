@@ -359,8 +359,8 @@ attribute_definitions:
   - Message:
       - GenMsgCycleTime
       - Int:
-          - 0
-          - 0
+          - Uint: 0
+          - Uint: 0
   - Signal:
       - FieldType
       - String

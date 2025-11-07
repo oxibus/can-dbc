@@ -1,6 +1,5 @@
 ---
 source: tests/snapshots.rs
-assertion_line: 143
 ---
 version: ""
 new_symbols:
@@ -78,8 +77,8 @@ attribute_definitions:
   - Message:
       - GenMsgCycleTime
       - Int:
-          - 0
-          - 65535
+          - Uint: 0
+          - Uint: 65535
 attribute_defaults:
   - name: BusType
     value:

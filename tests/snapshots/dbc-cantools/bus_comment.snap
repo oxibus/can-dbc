@@ -236,13 +236,13 @@ attribute_definitions:
   - Signal:
       - GenSigInactiveValue
       - Int:
-          - 0
-          - 0
+          - Uint: 0
+          - Uint: 0
   - Message:
       - GenMsgCycleTime
       - Int:
-          - 0
-          - 0
+          - Uint: 0
+          - Uint: 0
   - Message:
       - GenMsgSendType
       - Enum:
@@ -258,8 +258,8 @@ attribute_definitions:
   - Node:
       - NmStationAddress
       - Hex:
-          - 0
-          - 0
+          - Uint: 0
+          - Uint: 0
   - Plain:
       - DBName
       - String

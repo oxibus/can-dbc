@@ -145,33 +145,33 @@ attribute_definitions:
   - Message:
       - GenMsgFastOnStart
       - Int:
-          - 0
-          - 100000
+          - Uint: 0
+          - Uint: 100000
   - Signal:
       - GenSigInactiveValue
       - Int:
-          - 0
-          - 0
+          - Uint: 0
+          - Uint: 0
   - Message:
       - GenMsgCycleTimeFast
       - Int:
-          - 0
-          - 3600000
+          - Uint: 0
+          - Uint: 3600000
   - Message:
       - GenMsgNrOfRepetition
       - Int:
-          - 0
-          - 1000000
+          - Uint: 0
+          - Uint: 1000000
   - Signal:
       - GenSigStartValue
       - Int:
-          - 0
-          - 10000
+          - Uint: 0
+          - Uint: 10000
   - Message:
       - GenMsgDelayTime
       - Int:
-          - 0
-          - 1000
+          - Uint: 0
+          - Uint: 1000
   - Message:
       - GenMsgILSupport
       - Enum:
@@ -180,8 +180,8 @@ attribute_definitions:
   - Message:
       - GenMsgStartDelayTime
       - Int:
-          - 0
-          - 100000
+          - Uint: 0
+          - Uint: 100000
   - Node:
       - NodeLayerModules
       - String
@@ -191,53 +191,53 @@ attribute_definitions:
   - Node:
       - NmJ1939SystemInstance
       - Int:
-          - 0
-          - 15
+          - Uint: 0
+          - Uint: 15
   - Node:
       - NmJ1939System
       - Int:
-          - 0
-          - 127
+          - Uint: 0
+          - Uint: 127
   - Node:
       - NmJ1939ManufacturerCode
       - Int:
-          - 0
-          - 2047
+          - Uint: 0
+          - Uint: 2047
   - Node:
       - NmJ1939IndustryGroup
       - Int:
-          - 0
-          - 7
+          - Uint: 0
+          - Uint: 7
   - Node:
       - NmJ1939IdentityNumber
       - Int:
-          - 0
-          - 2097151
+          - Uint: 0
+          - Uint: 2097151
   - Node:
       - NmJ1939FunctionInstance
       - Int:
-          - 0
-          - 7
+          - Uint: 0
+          - Uint: 7
   - Node:
       - NmJ1939Function
       - Int:
-          - 0
-          - 255
+          - Uint: 0
+          - Uint: 255
   - Node:
       - NmJ1939ECUInstance
       - Int:
-          - 0
-          - 3
+          - Uint: 0
+          - Uint: 3
   - Node:
       - NmJ1939AAC
       - Int:
-          - 0
-          - 1
+          - Uint: 0
+          - Uint: 1
   - Node:
       - NmStationAddress
       - Int:
-          - 0
-          - 255
+          - Uint: 0
+          - Uint: 255
   - Message:
       - GenMsgSendType
       - Enum:
@@ -253,18 +253,18 @@ attribute_definitions:
   - Message:
       - GenMsgRequestable
       - Int:
-          - 0
-          - 1
+          - Uint: 0
+          - Uint: 1
   - Message:
       - GenMsgCycleTime
       - Int:
-          - 0
-          - 3600000
+          - Uint: 0
+          - Uint: 3600000
   - Signal:
       - SPN
       - Int:
-          - 0
-          - 524287
+          - Uint: 0
+          - Uint: 524287
   - Plain:
       - DBName
       - String

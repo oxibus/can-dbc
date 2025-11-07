@@ -1,14 +1,14 @@
 use can_dbc_pest::{Pair, Rule};
 
-use crate::parser::{inner_str, next_rule, parse_float, parse_int};
-use crate::{DbcError, DbcResult};
+use crate::parser::{inner_str, next_rule};
+use crate::{DbcError, DbcResult, NumericValue};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum AttributeValueType {
-    Int(i64, i64),
-    Hex(i64, i64),
-    Float(f64, f64),
+    Int(NumericValue, NumericValue),
+    Hex(NumericValue, NumericValue),
+    Float(NumericValue, NumericValue),
     String,
     Enum(Vec<String>),
 }
@@ -19,21 +19,16 @@ impl TryFrom<Pair<'_, Rule>> for AttributeValueType {
     fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
         let rule = pair.as_rule();
         Ok(match rule {
-            Rule::attribute_type_int | Rule::attribute_type_hex => {
+            Rule::attribute_type_int | Rule::attribute_type_hex | Rule::attribute_type_float => {
                 let mut pairs = pair.into_inner();
-                let min = parse_int(&next_rule(&mut pairs, Rule::minimum)?)?;
-                let max = parse_int(&next_rule(&mut pairs, Rule::maximum)?)?;
-                if rule == Rule::attribute_type_int {
-                    AttributeValueType::Int(min, max)
-                } else {
-                    AttributeValueType::Hex(min, max)
+                let min = next_rule(&mut pairs, Rule::minimum)?.as_str().parse()?;
+                let max = next_rule(&mut pairs, Rule::maximum)?.as_str().parse()?;
+                match rule {
+                    Rule::attribute_type_int => AttributeValueType::Int(min, max),
+                    Rule::attribute_type_hex => AttributeValueType::Hex(min, max),
+                    Rule::attribute_type_float => AttributeValueType::Float(min, max),
+                    _ => unreachable!(),
                 }
-            }
-            Rule::attribute_type_float => {
-                let mut pairs = pair.into_inner();
-                let min = parse_float(&next_rule(&mut pairs, Rule::minimum)?)?;
-                let max = parse_float(&next_rule(&mut pairs, Rule::maximum)?)?;
-                AttributeValueType::Float(min, max)
             }
             Rule::attribute_type_string => AttributeValueType::String,
             Rule::attribute_type_enum => {

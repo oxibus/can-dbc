@@ -130,23 +130,23 @@ attribute_definitions:
   - Node:
       - CANoeJitterMax
       - Int:
-          - 0
-          - 0
+          - Uint: 0
+          - Uint: 0
   - Node:
       - CANoeJitterMin
       - Int:
-          - 0
-          - 0
+          - Uint: 0
+          - Uint: 0
   - Node:
       - CANoeDrift
       - Int:
-          - 0
-          - 0
+          - Uint: 0
+          - Uint: 0
   - Node:
       - CANoeStartDelay
       - Int:
-          - 0
-          - 0
+          - Uint: 0
+          - Uint: 0
   - Message:
       - VFrameFormat
       - Enum:

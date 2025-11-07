@@ -73,13 +73,13 @@ attribute_definitions:
   - Signal:
       - GenSigStartValue
       - Int:
-          - -2147483648
-          - 2147483647
+          - Int: -2147483648
+          - Uint: 2147483647
   - Message:
       - GenMsgCycleTime
       - Int:
-          - 0
-          - 65535
+          - Uint: 0
+          - Uint: 65535
 attribute_defaults:
   - name: GenSigStartValue
     value:

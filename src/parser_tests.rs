@@ -639,7 +639,7 @@ BA_DEF_ BU_ "BuDef1BO" INT 0 1000000;
     let val = test_into::<AttributeDefinition>(&pair);
     let exp = AttributeDefinition::Node(
         "BuDef1BO".to_string(),
-        AttributeValueType::Int(0, 1_000_000),
+        AttributeValueType::Int(NumericValue::Uint(0), NumericValue::Uint(1_000_000)),
     );
     assert_eq!(val, exp);
 }
@@ -653,7 +653,7 @@ BA_DEF_ SG_ "SgDef1BO" INT 0 1000000;
     let val = test_into::<AttributeDefinition>(&pair);
     let exp = AttributeDefinition::Signal(
         "SgDef1BO".to_string(),
-        AttributeValueType::Int(0, 1_000_000),
+        AttributeValueType::Int(NumericValue::Uint(0), NumericValue::Uint(1_000_000)),
     );
     assert_eq!(val, exp);
 }

@@ -115,8 +115,8 @@ attribute_definitions:
   - Message:
       - GenMsgCycleTime
       - Int:
-          - 0
-          - 65535
+          - Uint: 0
+          - Uint: 65535
 attribute_defaults:
   - name: GenMsgCycleTime
     value:

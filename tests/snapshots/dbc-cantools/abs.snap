@@ -1685,8 +1685,8 @@ attribute_definitions:
   - Message:
       - GenMsgCycleTime
       - Int:
-          - 1
-          - 3000
+          - Uint: 1
+          - Uint: 3000
   - Message:
       - VFrameFormat
       - Enum:

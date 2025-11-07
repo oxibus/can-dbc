@@ -104,8 +104,8 @@ attribute_definitions:
   - Node:
       - TheNodeAttribute
       - Int:
-          - Uint: 50
-          - Uint: 150
+          - Double: -9223372036854780000
+          - Double: 18446744073709600000
   - Node:
       - NodeLayerModules
       - String

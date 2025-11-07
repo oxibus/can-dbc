@@ -49,6 +49,8 @@ pub enum DbcError {
     UnknownMultiplexIndicator(String),
     #[error("Unknown rule: {0:?}")]
     UnknownRule(Rule),
+    #[error("Invalid numeric value: '{0}'")]
+    InvalidNumericValue(String),
 }
 
 impl From<PestError<Rule>> for DbcError {

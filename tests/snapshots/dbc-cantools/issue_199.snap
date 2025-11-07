@@ -1,6 +1,5 @@
 ---
 source: tests/snapshots.rs
-assertion_line: 143
 ---
 version: ""
 new_symbols:
@@ -491,8 +490,8 @@ attribute_definitions:
   - Plain:
       - UseGMParameterIDs
       - Int:
-          - 0
-          - 0
+          - Uint: 0
+          - Uint: 0
   - Plain:
       - ProtocolType
       - String
