@@ -317,39 +317,185 @@ messages:
         receivers:
           - Vector__XXX
 attribute_definitions:
-  - Message: "\"TpJ1939VarDlc\" ENUM  \"No\",\"Yes\""
-  - Signal: "\"SigType\" ENUM  \"Default\",\"Range\",\"RangeSigned\",\"ASCII\",\"Discrete\",\"Control\",\"ReferencePGN\",\"DTC\",\"StringDelimiter\",\"StringLength\",\"StringLengthControl\",\"MessageCounter\",\"MessageChecksum\""
-  - Signal: "\"GenSigEVName\" STRING"
-  - Signal: "\"GenSigILSupport\" ENUM  \"No\",\"Yes\""
-  - Signal: "\"GenSigSendType\" ENUM  \"Cyclic\",\"OnWrite\",\"OnWriteWithRepetition\",\"OnChange\",\"OnChangeWithRepetition\",\"IfActive\",\"IfActiveWithRepetition\",\"NoSigSendType\""
-  - Message: "\"GenMsgFastOnStart\" INT 0 100000"
-  - Signal: "\"GenSigInactiveValue\" INT 0 0"
-  - Message: "\"GenMsgCycleTimeFast\" INT 0 3600000"
-  - Message: "\"GenMsgNrOfRepetition\" INT 0 1000000"
-  - Signal: "\"GenSigStartValue\" INT 0 2147483647"
-  - Message: "\"GenMsgDelayTime\" INT 0 1000"
-  - Message: "\"GenMsgILSupport\" ENUM  \"No\",\"Yes\""
-  - Message: "\"GenMsgStartDelayTime\" INT 0 100000"
-  - Node: "\"NodeLayerModules\" STRING"
-  - Node: "\"ECU\" STRING"
-  - Node: "\"NmJ1939SystemInstance\" INT 0 15"
-  - Node: "\"NmJ1939System\" INT 0 127"
-  - Node: "\"NmJ1939ManufacturerCode\" INT 0 2047"
-  - Node: "\"NmJ1939IndustryGroup\" INT 0 7"
-  - Node: "\"NmJ1939IdentityNumber\" INT 0 2097151"
-  - Node: "\"NmJ1939FunctionInstance\" INT 0 7"
-  - Node: "\"NmJ1939Function\" INT 0 255"
-  - Node: "\"NmJ1939ECUInstance\" INT 0 3"
-  - Node: "\"NmJ1939AAC\" INT 0 1"
-  - Node: "\"NmStationAddress\" INT 0 255"
-  - Message: "\"GenMsgSendType\" ENUM  \"cyclic\",\"NotUsed\",\"IfActive\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"noMsgSendType\""
-  - Message: "\"GenMsgRequestable\" INT 0 1"
-  - Message: "\"GenMsgCycleTime\" INT 0 3600000"
-  - Signal: "\"SPN\" INT 0 524287"
-  - Plain: "\"DBName\" STRING"
-  - Plain: "\"BusType\" STRING"
-  - Plain: "\"ProtocolType\" STRING"
-  - Message: "\"VFrameFormat\" ENUM  \"StandardCAN\",\"ExtendedCAN\",\"reserved\",\"J1939PG\""
+  - Message:
+      - TpJ1939VarDlc
+      - Enum:
+          - "No"
+          - "Yes"
+  - Signal:
+      - SigType
+      - Enum:
+          - Default
+          - Range
+          - RangeSigned
+          - ASCII
+          - Discrete
+          - Control
+          - ReferencePGN
+          - DTC
+          - StringDelimiter
+          - StringLength
+          - StringLengthControl
+          - MessageCounter
+          - MessageChecksum
+  - Signal:
+      - GenSigEVName
+      - String
+  - Signal:
+      - GenSigILSupport
+      - Enum:
+          - "No"
+          - "Yes"
+  - Signal:
+      - GenSigSendType
+      - Enum:
+          - Cyclic
+          - OnWrite
+          - OnWriteWithRepetition
+          - OnChange
+          - OnChangeWithRepetition
+          - IfActive
+          - IfActiveWithRepetition
+          - NoSigSendType
+  - Message:
+      - GenMsgFastOnStart
+      - Int:
+          - Uint: 0
+          - Uint: 100000
+  - Signal:
+      - GenSigInactiveValue
+      - Int:
+          - Uint: 0
+          - Uint: 0
+  - Message:
+      - GenMsgCycleTimeFast
+      - Int:
+          - Uint: 0
+          - Uint: 3600000
+  - Message:
+      - GenMsgNrOfRepetition
+      - Int:
+          - Uint: 0
+          - Uint: 1000000
+  - Signal:
+      - GenSigStartValue
+      - Int:
+          - Uint: 0
+          - Uint: 2147483647
+  - Message:
+      - GenMsgDelayTime
+      - Int:
+          - Uint: 0
+          - Uint: 1000
+  - Message:
+      - GenMsgILSupport
+      - Enum:
+          - "No"
+          - "Yes"
+  - Message:
+      - GenMsgStartDelayTime
+      - Int:
+          - Uint: 0
+          - Uint: 100000
+  - Node:
+      - NodeLayerModules
+      - String
+  - Node:
+      - ECU
+      - String
+  - Node:
+      - NmJ1939SystemInstance
+      - Int:
+          - Uint: 0
+          - Uint: 15
+  - Node:
+      - NmJ1939System
+      - Int:
+          - Uint: 0
+          - Uint: 127
+  - Node:
+      - NmJ1939ManufacturerCode
+      - Int:
+          - Uint: 0
+          - Uint: 2047
+  - Node:
+      - NmJ1939IndustryGroup
+      - Int:
+          - Uint: 0
+          - Uint: 7
+  - Node:
+      - NmJ1939IdentityNumber
+      - Int:
+          - Uint: 0
+          - Uint: 2097151
+  - Node:
+      - NmJ1939FunctionInstance
+      - Int:
+          - Uint: 0
+          - Uint: 7
+  - Node:
+      - NmJ1939Function
+      - Int:
+          - Uint: 0
+          - Uint: 255
+  - Node:
+      - NmJ1939ECUInstance
+      - Int:
+          - Uint: 0
+          - Uint: 3
+  - Node:
+      - NmJ1939AAC
+      - Int:
+          - Uint: 0
+          - Uint: 1
+  - Node:
+      - NmStationAddress
+      - Int:
+          - Uint: 0
+          - Uint: 255
+  - Message:
+      - GenMsgSendType
+      - Enum:
+          - cyclic
+          - NotUsed
+          - IfActive
+          - NotUsed
+          - NotUsed
+          - NotUsed
+          - NotUsed
+          - NotUsed
+          - noMsgSendType
+  - Message:
+      - GenMsgRequestable
+      - Int:
+          - Uint: 0
+          - Uint: 1
+  - Message:
+      - GenMsgCycleTime
+      - Int:
+          - Uint: 0
+          - Uint: 3600000
+  - Signal:
+      - SPN
+      - Int:
+          - Uint: 0
+          - Uint: 524287
+  - Plain:
+      - DBName
+      - String
+  - Plain:
+      - BusType
+      - String
+  - Plain:
+      - ProtocolType
+      - String
+  - Message:
+      - VFrameFormat
+      - Enum:
+          - StandardCAN
+          - ExtendedCAN
+          - reserved
+          - J1939PG
 attribute_defaults:
   - name: TpJ1939VarDlc
     value:

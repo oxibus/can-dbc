@@ -70,8 +70,16 @@ comments:
         Standard: 496
       comment: Example message
 attribute_definitions:
-  - Signal: "\"GenSigStartValue\" INT -2147483648 2147483647"
-  - Message: "\"GenMsgCycleTime\" INT 0 65535"
+  - Signal:
+      - GenSigStartValue
+      - Int:
+          - Int: -2147483648
+          - Uint: 2147483647
+  - Message:
+      - GenMsgCycleTime
+      - Int:
+          - Uint: 0
+          - Uint: 65535
 attribute_defaults:
   - name: GenSigStartValue
     value:

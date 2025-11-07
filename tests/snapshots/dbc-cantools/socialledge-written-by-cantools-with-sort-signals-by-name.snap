@@ -353,9 +353,17 @@ comments:
         Standard: 100
       comment: Sync message used to synchronize the controllers
 attribute_definitions:
-  - Plain: "\"BusType\" STRING"
-  - Message: "\"GenMsgCycleTime\" INT 0 0"
-  - Signal: "\"FieldType\" STRING"
+  - Plain:
+      - BusType
+      - String
+  - Message:
+      - GenMsgCycleTime
+      - Int:
+          - Uint: 0
+          - Uint: 0
+  - Signal:
+      - FieldType
+      - String
 attribute_defaults:
   - name: BusType
     value:

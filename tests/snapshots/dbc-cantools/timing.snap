@@ -77,8 +77,25 @@ messages:
         receivers:
           - Receiver
 attribute_definitions:
-  - Message: "\"GenMsgSendType\" ENUM  \"Cyclic\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"IfActive\",\"NoMsgSendType\",\"NotUsed\",\"vector_leerstring\""
-  - Message: "\"GenMsgCycleTime\" INT 0 50000"
+  - Message:
+      - GenMsgSendType
+      - Enum:
+          - Cyclic
+          - NotUsed
+          - NotUsed
+          - NotUsed
+          - NotUsed
+          - NotUsed
+          - NotUsed
+          - IfActive
+          - NoMsgSendType
+          - NotUsed
+          - vector_leerstring
+  - Message:
+      - GenMsgCycleTime
+      - Int:
+          - Uint: 0
+          - Uint: 50000
 attribute_defaults:
   - name: GenMsgSendType
     value:

@@ -1,6 +1,5 @@
 ---
 source: tests/snapshots.rs
-assertion_line: 152
 ---
 version: "2.0"
 new_symbols:
@@ -205,15 +204,57 @@ comments:
       name: Bar
       comment: Bar.
 attribute_definitions:
-  - Plain: "\"DBName\" STRING"
-  - Plain: "\"Baudrate\" INT 0 1000000"
-  - Plain: "\"AFloat\" FLOAT 0 100"
-  - Plain: "\"BusType\" STRING"
-  - Node: "\"FOO\" INT 0 100"
-  - Node: "\"BAR\" STRING"
-  - Message: "\"VFrameFormat\" ENUM  \"StandardCAN\",\"ExtendedCAN\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"StandardCAN_FD\",\"ExtendedCAN_FD\""
-  - Message: "\"GenMsgStartValue\" STRING"
-  - Message: "\"GenMsgCycleTime\" INT 0 1000"
+  - Plain:
+      - DBName
+      - String
+  - Plain:
+      - Baudrate
+      - Int:
+          - Uint: 0
+          - Uint: 1000000
+  - Plain:
+      - AFloat
+      - Float:
+          - Uint: 0
+          - Uint: 100
+  - Plain:
+      - BusType
+      - String
+  - Node:
+      - FOO
+      - Int:
+          - Uint: 0
+          - Uint: 100
+  - Node:
+      - BAR
+      - String
+  - Message:
+      - VFrameFormat
+      - Enum:
+          - StandardCAN
+          - ExtendedCAN
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - StandardCAN_FD
+          - ExtendedCAN_FD
+  - Message:
+      - GenMsgStartValue
+      - String
+  - Message:
+      - GenMsgCycleTime
+      - Int:
+          - Uint: 0
+          - Uint: 1000
 relation_attribute_definitions:
   - name: AFloat2
     value_spec: "\"AFloat2\" FLOAT 0 65535"

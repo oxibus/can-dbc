@@ -89,10 +89,38 @@ comments:
         Extended: 496
       comment: Example message used as template in MotoHawk models.
 attribute_definitions:
-  - Message: "\"GenMsgCycleTime\" INT 0 65535"
-  - Plain: "\"BusType\" STRING"
-  - Message: "\"VFrameFormat\" ENUM  \"StandardCAN\",\"ExtendedCAN\",\"reserved\",\"J1939PG\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"StandardCAN_FD\",\"ExtendedCAN_FD\""
-  - Message: "\"CANFD_BRS\" ENUM  \"0\",\"1\""
+  - Message:
+      - GenMsgCycleTime
+      - Int:
+          - Uint: 0
+          - Uint: 65535
+  - Plain:
+      - BusType
+      - String
+  - Message:
+      - VFrameFormat
+      - Enum:
+          - StandardCAN
+          - ExtendedCAN
+          - reserved
+          - J1939PG
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - StandardCAN_FD
+          - ExtendedCAN_FD
+  - Message:
+      - CANFD_BRS
+      - Enum:
+          - "0"
+          - "1"
 attribute_defaults:
   - name: GenMsgCycleTime
     value:

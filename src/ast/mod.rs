@@ -1,4 +1,3 @@
-// Re-export all types from individual files
 mod access_node;
 mod access_type;
 mod attr_default;
@@ -25,6 +24,7 @@ mod message_id;
 mod message_transmitter;
 mod multiplex_indicator;
 mod node;
+mod numeric_value;
 mod signal;
 mod signal_attribute_value;
 mod signal_extended_value_type;
@@ -67,6 +67,7 @@ pub use message_id::*;
 pub use message_transmitter::*;
 pub use multiplex_indicator::*;
 pub use node::*;
+pub use numeric_value::*;
 pub use signal::*;
 pub use signal_attribute_value::*;
 pub use signal_extended_value_type::*;

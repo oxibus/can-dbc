@@ -215,14 +215,57 @@ comments:
       name: Multiplexor
       comment: Defines data content for response messages.
 attribute_definitions:
-  - Message: "\"VFrameFormat\" ENUM  \"StandardCAN\",\"ExtendedCAN\",\"reserved\",\"J1939PG\""
-  - Signal: "\"GenSigSendType\" ENUM  \"Cyclic\",\"OnWrite\",\"OnWriteWithRepetition\",\"OnChange\",\"OnChangeWithRepetition\",\"IfActive\",\"IfActiveWithRepetition\",\"NoSigSendType\""
-  - Signal: "\"GenSigInactiveValue\" INT 0 0"
-  - Message: "\"GenMsgCycleTime\" INT 0 0"
-  - Message: "\"GenMsgSendType\" ENUM  \"Cyclic\",\"not_used\",\"not_used\",\"not_used\",\"not_used\",\"Cyclic\",\"not_used\",\"IfActive\",\"NoMsgSendType\""
-  - Node: "\"NmStationAddress\" HEX 0 0"
-  - Plain: "\"DBName\" STRING"
-  - Plain: "\"BusType\" STRING"
+  - Message:
+      - VFrameFormat
+      - Enum:
+          - StandardCAN
+          - ExtendedCAN
+          - reserved
+          - J1939PG
+  - Signal:
+      - GenSigSendType
+      - Enum:
+          - Cyclic
+          - OnWrite
+          - OnWriteWithRepetition
+          - OnChange
+          - OnChangeWithRepetition
+          - IfActive
+          - IfActiveWithRepetition
+          - NoSigSendType
+  - Signal:
+      - GenSigInactiveValue
+      - Int:
+          - Uint: 0
+          - Uint: 0
+  - Message:
+      - GenMsgCycleTime
+      - Int:
+          - Uint: 0
+          - Uint: 0
+  - Message:
+      - GenMsgSendType
+      - Enum:
+          - Cyclic
+          - not_used
+          - not_used
+          - not_used
+          - not_used
+          - Cyclic
+          - not_used
+          - IfActive
+          - NoMsgSendType
+  - Node:
+      - NmStationAddress
+      - Hex:
+          - Uint: 0
+          - Uint: 0
+  - Plain:
+      - DBName
+      - String
+  - Plain:
+      - BusType
+      - String
 attribute_defaults:
   - name: VFrameFormat
     value:

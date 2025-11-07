@@ -1,6 +1,5 @@
 ---
 source: tests/snapshots.rs
-assertion_line: 143
 ---
 version: ""
 bit_timing: []
@@ -126,7 +125,11 @@ messages:
         receivers:
           - Test
 attribute_definitions:
-  - Message: "\"VFrameFormat\" INT 0 3"
+  - Message:
+      - VFrameFormat
+      - Int:
+          - Uint: 0
+          - Uint: 3
 attribute_defaults:
   - name: VFrameFormat
     value:

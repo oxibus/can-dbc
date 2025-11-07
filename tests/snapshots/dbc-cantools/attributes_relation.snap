@@ -1,6 +1,5 @@
 ---
 source: tests/snapshots.rs
-assertion_line: 152
 ---
 version: ""
 new_symbols:
@@ -82,10 +81,25 @@ comments:
       name: ECU1
       comment: First ECU
 attribute_definitions:
-  - Signal: "\"GenSigInactiveValue\" INT 0 65535"
-  - Message: "\"MsgProject\" ENUM  \"A\",\"B\",\"C\""
-  - Plain: "\"BusType\" STRING"
-  - Message: "\"GenMsgCycleTime\" INT 0 65535"
+  - Signal:
+      - GenSigInactiveValue
+      - Int:
+          - Uint: 0
+          - Uint: 65535
+  - Message:
+      - MsgProject
+      - Enum:
+          - A
+          - B
+          - C
+  - Plain:
+      - BusType
+      - String
+  - Message:
+      - GenMsgCycleTime
+      - Int:
+          - Uint: 0
+          - Uint: 65535
 relation_attribute_definitions:
   - name: SigFirstTimeoutTime
     value_spec: "\"SigFirstTimeoutTime\" INT 0 65535"

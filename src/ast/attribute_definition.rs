@@ -1,20 +1,18 @@
-use can_dbc_pest::{Pair, Pairs, Rule};
+use can_dbc_pest::{Pair, Rule};
 
-use crate::parser::{validated_inner, DbcError};
-use crate::DbcResult;
+use crate::parser::{
+    expect_empty, inner_str, next, next_optional_rule, next_rule, validated_inner, DbcError,
+};
+use crate::AttributeValueType;
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum AttributeDefinition {
-    // TODO add properties
-    Message(String),
-    // TODO add properties
-    Node(String),
-    // TODO add properties
-    Signal(String),
-    EnvironmentVariable(String),
-    // TODO figure out name
-    Plain(String),
+    Message(String, AttributeValueType),
+    Node(String, AttributeValueType),
+    Signal(String, AttributeValueType),
+    EnvironmentVariable(String, AttributeValueType),
+    Plain(String, AttributeValueType),
 }
 
 impl TryFrom<Pair<'_, Rule>> for AttributeDefinition {
@@ -22,42 +20,24 @@ impl TryFrom<Pair<'_, Rule>> for AttributeDefinition {
 
     /// Parse attribute definition: `BA_DEF_ [object_type] attribute_name attribute_type [min max];`
     fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
-        let inner_pairs = validated_inner(value, Rule::attr_def)?;
-        let (definition_string, object_type) = parse_obj_type_vals(inner_pairs)?;
+        let mut pairs = validated_inner(value, Rule::attr_def)?;
 
-        Ok(match object_type {
-            "SG_" => Self::Signal(definition_string),
-            "BO_" => Self::Message(definition_string),
-            "BU_" => Self::Node(definition_string),
-            "EV_" => Self::EnvironmentVariable(definition_string),
-            _ => Self::Plain(definition_string),
+        let object_type = if let Some(v) = next_optional_rule(&mut pairs, Rule::object_type) {
+            v.as_str().to_string()
+        } else {
+            String::new()
+        };
+
+        let name = inner_str(next_rule(&mut pairs, Rule::attribute_name)?);
+        let value = next(&mut pairs)?.try_into()?;
+        expect_empty(&pairs)?;
+
+        Ok(match object_type.as_str() {
+            "SG_" => Self::Signal(name, value),
+            "BO_" => Self::Message(name, value),
+            "BU_" => Self::Node(name, value),
+            "EV_" => Self::EnvironmentVariable(name, value),
+            _ => Self::Plain(name, value),
         })
     }
-}
-
-pub(crate) fn parse_obj_type_vals(inner_pairs: Pairs<'_, Rule>) -> DbcResult<(String, &str)> {
-    let mut definition_string = String::new();
-    let mut object_type = "";
-
-    // Process all pairs
-    for pair in inner_pairs {
-        match pair.as_rule() {
-            Rule::object_type => {
-                object_type = pair.as_str();
-            }
-            Rule::attribute_name
-            | Rule::attribute_type_int
-            | Rule::attribute_type_hex
-            | Rule::attribute_type_float
-            | Rule::attribute_type_string
-            | Rule::attribute_type_enum => {
-                if !definition_string.is_empty() {
-                    definition_string.push(' ');
-                }
-                definition_string.push_str(pair.as_str());
-            }
-            v => return Err(DbcError::UnknownRule(v)),
-        }
-    }
-    Ok((definition_string, object_type))
 }

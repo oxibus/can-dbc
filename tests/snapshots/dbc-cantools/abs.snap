@@ -1682,9 +1682,33 @@ comments:
       name: P_RA
       comment: Brake pressure on the rear axle.
 attribute_definitions:
-  - Message: "\"GenMsgCycleTime\" INT 1 3000"
-  - Message: "\"VFrameFormat\" ENUM  \"StandardCAN\",\"ExtendedCAN\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"reserved\",\"StandardCAN_FD\",\"ExtendedCAN_FD\""
-  - Plain: "\"BusType\" STRING"
+  - Message:
+      - GenMsgCycleTime
+      - Int:
+          - Uint: 1
+          - Uint: 3000
+  - Message:
+      - VFrameFormat
+      - Enum:
+          - StandardCAN
+          - ExtendedCAN
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - reserved
+          - StandardCAN_FD
+          - ExtendedCAN_FD
+  - Plain:
+      - BusType
+      - String
 attribute_defaults:
   - name: GenMsgCycleTime
     value:

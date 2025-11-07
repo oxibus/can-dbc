@@ -625,7 +625,8 @@ BA_DEF_ BO_  "GenMsgSendType" STRING ;
 "#;
     let pair = parse(def.trim_start(), Rule::attr_def).unwrap();
     let val = test_into::<AttributeDefinition>(&pair);
-    let exp = AttributeDefinition::Message(r#""GenMsgSendType" STRING"#.to_string());
+    let exp =
+        AttributeDefinition::Message("GenMsgSendType".to_string(), AttributeValueType::String);
     assert_eq!(val, exp);
 }
 
@@ -636,7 +637,10 @@ BA_DEF_ BU_ "BuDef1BO" INT 0 1000000;
 "#;
     let pair = parse(def.trim_start(), Rule::attr_def).unwrap();
     let val = test_into::<AttributeDefinition>(&pair);
-    let exp = AttributeDefinition::Node(r#""BuDef1BO" INT 0 1000000"#.to_string());
+    let exp = AttributeDefinition::Node(
+        "BuDef1BO".to_string(),
+        AttributeValueType::Int(NumericValue::Uint(0), NumericValue::Uint(1_000_000)),
+    );
     assert_eq!(val, exp);
 }
 
@@ -647,7 +651,10 @@ BA_DEF_ SG_ "SgDef1BO" INT 0 1000000;
 "#;
     let pair = parse(def.trim_start(), Rule::attr_def).unwrap();
     let val = test_into::<AttributeDefinition>(&pair);
-    let exp = AttributeDefinition::Signal(r#""SgDef1BO" INT 0 1000000"#.to_string());
+    let exp = AttributeDefinition::Signal(
+        "SgDef1BO".to_string(),
+        AttributeValueType::Int(NumericValue::Uint(0), NumericValue::Uint(1_000_000)),
+    );
     assert_eq!(val, exp);
 }
 

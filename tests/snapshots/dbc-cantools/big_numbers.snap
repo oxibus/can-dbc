@@ -78,29 +78,135 @@ comments:
       name: TheNode
       comment: TheNodeComment
 attribute_definitions:
-  - Signal: "\"TheSignalStringAttribute\" STRING"
-  - Plain: "\"TheNetworkAttribute\" INT 0 100"
-  - Message: "\"TheUnusedAttributeDefinitionWithoutDefault\" HEX 0 8"
-  - Message: "\"TheHexAttribute\" HEX 0 8"
-  - Message: "\"TheFloatAttribute\" FLOAT 5 87"
-  - Node: "\"TheNodeAttribute\" INT -9.22337203685478E+018 1.84467440737096E+019"
-  - Node: "\"NodeLayerModules\" STRING"
-  - Message: "\"GenMsgStartDelayTime\" INT 0 65535"
-  - Signal: "\"NWM-WakeupAllowed\" ENUM  \"No\",\"Yes\""
-  - Message: "\"NmMessage\" ENUM  \"no\",\"yes\""
-  - Message: "\"GenMsgILSupport\" ENUM  \"No\",\"Yes\""
-  - Node: "\"NmNode\" ENUM  \"no\",\"yes\""
-  - Node: "\"NmStationAddress\" INT 0 63"
-  - Plain: "\"NmBaseAddress\" HEX 1024 1087"
-  - Message: "\"GenMsgCycleTimeFast\" INT 0 50000"
-  - Plain: "\"BusType\" STRING"
-  - Message: "\"GenMsgCycleTime\" INT 0 50000"
-  - Message: "\"GenMsgDelayTime\" INT 0 1000"
-  - Message: "\"GenMsgNrOfRepetition\" INT 0 999999"
-  - Message: "\"GenMsgSendType\" ENUM  \"Cyclic\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"IfActive\",\"NoMsgSendType\",\"NotUsed\",\"vector_leerstring\""
-  - Signal: "\"GenSigInactiveValue\" INT 0 100000"
-  - Signal: "\"GenSigSendType\" ENUM  \"Cyclic\",\"OnWrite\",\"OnWriteWithRepetition\",\"OnChange\",\"OnChangeWithRepetition\",\"IfActive\",\"IfActiveWithRepetition\",\"NoSigSendType\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"NotUsed\",\"NotUsed\""
-  - Signal: "\"GenSigStartValue\" FLOAT 0 100000000000"
+  - Signal:
+      - TheSignalStringAttribute
+      - String
+  - Plain:
+      - TheNetworkAttribute
+      - Int:
+          - Uint: 0
+          - Uint: 100
+  - Message:
+      - TheUnusedAttributeDefinitionWithoutDefault
+      - Hex:
+          - Uint: 0
+          - Uint: 8
+  - Message:
+      - TheHexAttribute
+      - Hex:
+          - Uint: 0
+          - Uint: 8
+  - Message:
+      - TheFloatAttribute
+      - Float:
+          - Uint: 5
+          - Uint: 87
+  - Node:
+      - TheNodeAttribute
+      - Int:
+          - Double: -9223372036854780000
+          - Double: 18446744073709600000
+  - Node:
+      - NodeLayerModules
+      - String
+  - Message:
+      - GenMsgStartDelayTime
+      - Int:
+          - Uint: 0
+          - Uint: 65535
+  - Signal:
+      - NWM-WakeupAllowed
+      - Enum:
+          - "No"
+          - "Yes"
+  - Message:
+      - NmMessage
+      - Enum:
+          - "no"
+          - "yes"
+  - Message:
+      - GenMsgILSupport
+      - Enum:
+          - "No"
+          - "Yes"
+  - Node:
+      - NmNode
+      - Enum:
+          - "no"
+          - "yes"
+  - Node:
+      - NmStationAddress
+      - Int:
+          - Uint: 0
+          - Uint: 63
+  - Plain:
+      - NmBaseAddress
+      - Hex:
+          - Uint: 1024
+          - Uint: 1087
+  - Message:
+      - GenMsgCycleTimeFast
+      - Int:
+          - Uint: 0
+          - Uint: 50000
+  - Plain:
+      - BusType
+      - String
+  - Message:
+      - GenMsgCycleTime
+      - Int:
+          - Uint: 0
+          - Uint: 50000
+  - Message:
+      - GenMsgDelayTime
+      - Int:
+          - Uint: 0
+          - Uint: 1000
+  - Message:
+      - GenMsgNrOfRepetition
+      - Int:
+          - Uint: 0
+          - Uint: 999999
+  - Message:
+      - GenMsgSendType
+      - Enum:
+          - Cyclic
+          - NotUsed
+          - NotUsed
+          - NotUsed
+          - NotUsed
+          - NotUsed
+          - NotUsed
+          - IfActive
+          - NoMsgSendType
+          - NotUsed
+          - vector_leerstring
+  - Signal:
+      - GenSigInactiveValue
+      - Int:
+          - Uint: 0
+          - Uint: 100000
+  - Signal:
+      - GenSigSendType
+      - Enum:
+          - Cyclic
+          - OnWrite
+          - OnWriteWithRepetition
+          - OnChange
+          - OnChangeWithRepetition
+          - IfActive
+          - IfActiveWithRepetition
+          - NoSigSendType
+          - NotUsed
+          - NotUsed
+          - NotUsed
+          - NotUsed
+          - NotUsed
+  - Signal:
+      - GenSigStartValue
+      - Float:
+          - Uint: 0
+          - Uint: 100000000000
 attribute_defaults:
   - name: TheSignalStringAttribute
     value:

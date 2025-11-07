@@ -1,6 +1,5 @@
 ---
 source: tests/snapshots.rs
-assertion_line: 143
 ---
 version: ""
 new_symbols:
@@ -192,8 +191,14 @@ messages:
         receivers:
           - Vector__XXX
 attribute_definitions:
-  - Plain: "\"BusType\" STRING"
-  - Message: "\"GenMsgCycleTime\" INT 0 65535"
+  - Plain:
+      - BusType
+      - String
+  - Message:
+      - GenMsgCycleTime
+      - Int:
+          - Uint: 0
+          - Uint: 65535
 attribute_defaults:
   - name: BusType
     value:
