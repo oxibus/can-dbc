@@ -256,12 +256,19 @@ attribute_definitions:
           - Uint: 0
           - Uint: 1000
 relation_attribute_definitions:
-  - name: AFloat2
-    value_spec: "\"AFloat2\" FLOAT 0 65535"
-  - name: GenSigTimeoutTime
-    value_spec: "\"GenSigTimeoutTime\" INT 0 65535"
-  - name: GenSigRespComment
-    value_spec: "\"GenSigRespComment\" STRING"
+  - Signal:
+      - AFloat2
+      - Float:
+          - Uint: 0
+          - Uint: 65535
+  - Signal:
+      - GenSigTimeoutTime
+      - Int:
+          - Uint: 0
+          - Uint: 65535
+  - Signal:
+      - GenSigRespComment
+      - String
 attribute_defaults:
   - name: DBName
     value:

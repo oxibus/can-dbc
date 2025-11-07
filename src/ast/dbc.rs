@@ -10,10 +10,7 @@ use crate::ast::{
     ValueDescription, ValueTable, Version,
 };
 use crate::parser::{collect_all, DbcError, DbcResult};
-use crate::{
-    AttributeDefinitionForRelation, AttributeValue, AttributeValueForObjectType,
-    AttributeValueForRelation,
-};
+use crate::{AttributeValue, AttributeValueForObjectType, AttributeValueForRelation};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -47,7 +44,7 @@ pub struct Dbc {
     #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
     pub attribute_definitions: Vec<AttributeDefinition>,
     #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
-    pub relation_attribute_definitions: Vec<AttributeDefinitionForRelation>,
+    pub relation_attribute_definitions: Vec<AttributeDefinition>,
     // undefined
     // sigtype_attr_list: SigtypeAttrList,
     #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]

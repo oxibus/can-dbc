@@ -154,7 +154,7 @@ fn report_test_result(
                 }
                 Err(e) => {
                     let file_name = format!("!error___{file_name}");
-                    assert_debug_snapshot!(file_name, e);
+                    assert_debug_snapshot!(file_name, e.to_string());
                 }
             }
         }
