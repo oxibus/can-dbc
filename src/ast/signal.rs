@@ -35,6 +35,7 @@ impl TryFrom<Pair<'_, Rule>> for Signal {
     fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
         let mut pairs = validated_inner(value, Rule::signal)?;
 
+        next_rule(&mut pairs, Rule::signal_nl_ident)?; // skip
         let name = next_string(&mut pairs, Rule::signal_name)?;
         let multiplexer_indicator =
             if let Some(v) = next_optional_rule(&mut pairs, Rule::multiplexer_indicator) {
