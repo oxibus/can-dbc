@@ -25,6 +25,8 @@ pub enum DbcError {
     ExpectedEmpty(Rule),
     #[error("Expected rule: {0:?}, found: {1:?}")]
     ExpectedRule(Rule, Rule),
+    #[error("Expected one of these rules: {0:?}, found: {1:?}")]
+    ExpectedOneOfRules(Vec<Rule>, Rule),
     #[error("Expected a quoted string or a number, found: {0:?}")]
     ExpectedStrNumber(Rule),
     #[error("Invalid Float value: '{0}'")]

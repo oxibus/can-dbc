@@ -62,8 +62,12 @@ attribute_definitions:
           - Uint: 0
           - Uint: 65535
 relation_attribute_definitions:
-  - name: MsgProject
-    value_spec: "\"MsgProject\" ENUM  \"A\",\"B\",\"C\""
+  - Message:
+      - MsgProject
+      - Enum:
+          - A
+          - B
+          - C
 attribute_defaults:
   - name: GenMsgCycleTime
     value:
