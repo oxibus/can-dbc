@@ -1,8 +1,6 @@
 use can_dbc_pest::{Pair, Rule};
 
-use crate::parser::{
-    expect_empty, inner_str, next, next_optional_rule, next_rule, validated_inner, DbcError,
-};
+use crate::parser::{expect_empty, inner_str, next, next_optional_rule, next_rule, DbcError};
 use crate::AttributeValueType;
 
 #[derive(Clone, Debug, PartialEq)]
@@ -19,10 +17,18 @@ impl TryFrom<Pair<'_, Rule>> for AttributeDefinition {
     type Error = DbcError;
 
     /// Parse attribute definition: `BA_DEF_ [object_type] attribute_name attribute_type [min max];`
-    fn try_from(value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
-        let mut pairs = validated_inner(value, Rule::attr_def)?;
-
-        let object_type = if let Some(v) = next_optional_rule(&mut pairs, Rule::object_type) {
+    fn try_from(pair: Pair<'_, Rule>) -> Result<Self, Self::Error> {
+        let rule = pair.as_rule();
+        let expected = match rule {
+            Rule::attr_def => Rule::object_type,
+            Rule::ba_def_rel => Rule::rel_object_type,
+            v => Err(DbcError::ExpectedOneOfRules(
+                vec![Rule::attr_def, Rule::ba_def_rel],
+                v,
+            ))?,
+        };
+        let mut pairs = pair.into_inner();
+        let object_type = if let Some(v) = next_optional_rule(&mut pairs, expected) {
             v.as_str().to_string()
         } else {
             String::new()
@@ -33,10 +39,10 @@ impl TryFrom<Pair<'_, Rule>> for AttributeDefinition {
         expect_empty(&pairs)?;
 
         Ok(match object_type.as_str() {
-            "SG_" => Self::Signal(name, value),
-            "BO_" => Self::Message(name, value),
+            "SG_" | "BU_SG_REL_" => Self::Signal(name, value),
+            "BO_" | "BU_BO_REL_" => Self::Message(name, value),
             "BU_" => Self::Node(name, value),
-            "EV_" => Self::EnvironmentVariable(name, value),
+            "EV_" | "BU_EV_REL_" => Self::EnvironmentVariable(name, value),
             _ => Self::Plain(name, value),
         })
     }
