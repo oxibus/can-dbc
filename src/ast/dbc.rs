@@ -265,7 +265,6 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
     let mut nodes = vec![];
     let mut value_tables = vec![];
     let mut messages: Vec<Message> = vec![];
-    let mut signals = vec![]; // Store signals with their message index
     let mut message_transmitters = vec![];
     let mut environment_variables = vec![];
     let mut environment_variable_data = vec![];
@@ -284,7 +283,6 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
     let mut signal_groups = vec![];
     let mut signal_extended_value_type_list = vec![];
     let mut extended_multiplex = vec![];
-    let mut current_message_index = None;
 
     for pair in DbcParser::parse(Rule::file, buffer)? {
         if !matches!(pair.as_rule(), Rule::file) {
@@ -307,18 +305,7 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
                     }
                 }
                 Rule::nodes => nodes = collect_all::<Node>(&mut pairs.into_inner())?,
-                Rule::message => {
-                    messages.push(pairs.try_into()?);
-                    current_message_index = Some(messages.len() - 1);
-                }
-                Rule::signal => {
-                    // TODO: consider modifying pest grammar to directly associate signals with messages
-                    if let Some(msg_idx) = current_message_index {
-                        signals.push((msg_idx, pairs.try_into()?));
-                    } else {
-                        return Err(DbcError::SignalWithoutMessage);
-                    }
-                }
+                Rule::message => messages.push(pairs.try_into()?),
                 Rule::comment => comments.push(pairs.try_into()?),
                 Rule::attr_def => attribute_definitions.push(pairs.try_into()?),
                 Rule::ba_def_rel => relation_attribute_definitions.push(pairs.try_into()?),
@@ -394,13 +381,6 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
                 }
                 other => panic!("Unexpected rule in DBC file: {other:?}"),
             }
-        }
-    }
-
-    // Associate signals with their messages using index-based association
-    for (msg_idx, signal) in signals {
-        if msg_idx < messages.len() {
-            messages[msg_idx].signals.push(signal);
         }
     }
 

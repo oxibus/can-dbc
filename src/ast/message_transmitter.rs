@@ -23,3 +23,32 @@ impl TryFrom<Pair<'_, Rule>> for MessageTransmitter {
         })
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::test_helpers::*;
+
+    #[test]
+    fn message_transmitters_test() {
+        let def = "
+BO_TX_BU_ 12345 : XZY,ABC;
+";
+        let exp = MessageTransmitter {
+            message_id: MessageId::Standard(12345),
+            transmitter: vec![
+                Transmitter::NodeName("XZY".to_string()),
+                Transmitter::NodeName("ABC".to_string()),
+            ],
+        };
+        let val = test_into::<MessageTransmitter>(def.trim_start(), Rule::message_transmitter);
+        assert_eq!(val, exp);
+
+        // Same as above, but without space before the colon
+        let def = "
+BO_TX_BU_ 12345 :XZY,ABC;
+";
+        let val = test_into::<MessageTransmitter>(def.trim_start(), Rule::message_transmitter);
+        assert_eq!(val, exp);
+    }
+}
