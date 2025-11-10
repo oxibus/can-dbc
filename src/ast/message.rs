@@ -2,7 +2,7 @@ use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{MessageId, Signal, Transmitter};
 use crate::parser::{
-    expect_empty, next_rule, next_string, parse_next_uint, single_inner, validated_inner,
+    collect_expected, next_rule, next_string, parse_next_uint, single_inner, validated_inner,
 };
 use crate::DbcError;
 
@@ -32,21 +32,77 @@ impl TryFrom<Pair<'_, Rule>> for Message {
         let id = single_inner(msg_var_pair, Rule::message_id)?.try_into()?;
         let name = next_string(&mut pairs, Rule::message_name)?;
         let size = parse_next_uint(&mut pairs, Rule::message_size)?;
-        let transmitter = next_string(&mut pairs, Rule::transmitter)?;
-        expect_empty(&pairs)?;
 
+        let transmitter = next_string(&mut pairs, Rule::transmitter)?;
         let transmitter = if matches!(transmitter.as_str(), "Vector__XXX" | "VectorXXX" | "") {
             Transmitter::VectorXXX
         } else {
             Transmitter::NodeName(transmitter)
         };
 
+        let signals = collect_expected(&mut pairs, Rule::signal)?;
+
         Ok(Self {
             id,
             name,
             size,
             transmitter,
-            signals: Vec::new(), // Signals will be parsed separately and associated later
+            signals,
         })
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::ast::{ByteOrder, MultiplexIndicator, ValueType};
+    use crate::test_helpers::*;
+
+    #[test]
+    fn message_definition_test() {
+        let def = r#"
+BO_ 1 MCA_A1: 6 MFA
+ SG_ ABC_1 : 9|2@1+ (1,0) [0|0] "x" XYZ_OUS
+ SG_ BasL2 : 3|2@0- (1,0) [0|0] "x" DFA_FUS
+"#;
+
+        let exp = Message {
+            id: MessageId::Standard(1),
+            name: "MCA_A1".to_string(),
+            size: 6,
+            transmitter: Transmitter::NodeName("MFA".to_string()),
+            signals: vec![
+                Signal {
+                    name: "ABC_1".to_string(),
+                    start_bit: 9,
+                    size: 2,
+                    byte_order: ByteOrder::LittleEndian,
+                    value_type: ValueType::Unsigned,
+                    factor: 1.0,
+                    offset: 0.0,
+                    min: 0.0,
+                    max: 0.0,
+                    unit: "x".to_string(),
+                    multiplexer_indicator: MultiplexIndicator::Plain,
+                    receivers: vec!["XYZ_OUS".to_string()],
+                },
+                Signal {
+                    name: "BasL2".to_string(),
+                    start_bit: 3,
+                    size: 2,
+                    byte_order: ByteOrder::BigEndian,
+                    value_type: ValueType::Signed,
+                    factor: 1.0,
+                    offset: 0.0,
+                    min: 0.0,
+                    max: 0.0,
+                    unit: "x".to_string(),
+                    multiplexer_indicator: MultiplexIndicator::Plain,
+                    receivers: vec!["DFA_FUS".to_string()],
+                },
+            ],
+        };
+        let val = test_into::<Message>(def.trim_start(), Rule::message);
+        assert_eq!(val, exp);
     }
 }

@@ -26,3 +26,26 @@ impl TryFrom<Pair<'_, Rule>> for SignalExtendedValueTypeList {
         Ok(value)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::ast::SignalExtendedValueType;
+    use crate::test_helpers::*;
+
+    #[test]
+    fn sig_val_type_test() {
+        let def = "
+SIG_VALTYPE_ 2000 Signal_8 : 1;
+";
+        let exp = SignalExtendedValueTypeList {
+            message_id: MessageId::Standard(2000),
+            signal_name: "Signal_8".to_string(),
+            signal_extended_value_type: SignalExtendedValueType::IEEEfloat32Bit,
+        };
+
+        let val =
+            test_into::<SignalExtendedValueTypeList>(def.trim_start(), Rule::signal_value_type);
+        assert_eq!(val, exp);
+    }
+}

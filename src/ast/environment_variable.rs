@@ -80,3 +80,29 @@ impl TryFrom<Pair<'_, Rule>> for EnvironmentVariable {
         })
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::test_helpers::*;
+
+    #[test]
+    fn environment_variable_test() {
+        let def = r#"
+EV_ IUV: 0 [-22|20] "mm" 3 7 DUMMY_NODE_VECTOR0 VECTOR_XXX;
+"#;
+        let exp = EnvironmentVariable {
+            name: "IUV".to_string(),
+            typ: EnvType::Integer,
+            min: -22,
+            max: 20,
+            unit: "mm".to_string(),
+            initial_value: 3,
+            ev_id: 7,
+            access_type: AccessType::DummyNodeVector0,
+            access_nodes: vec![AccessNode::Name("VECTOR_XXX".to_string())],
+        };
+        let val = test_into::<EnvironmentVariable>(def.trim_start(), Rule::environment_variable);
+        assert_eq!(val, exp);
+    }
+}
