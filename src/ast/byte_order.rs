@@ -20,3 +20,18 @@ impl TryFrom<Pair<'_, Rule>> for ByteOrder {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::test_helpers::*;
+
+    #[test]
+    fn byte_order_test() {
+        let val = test_into::<ByteOrder>("0", Rule::big_endian);
+        assert_eq!(val, ByteOrder::BigEndian);
+
+        let val = test_into::<ByteOrder>("1", Rule::little_endian);
+        assert_eq!(val, ByteOrder::LittleEndian);
+    }
+}

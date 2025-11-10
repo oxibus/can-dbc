@@ -20,3 +20,22 @@ impl TryFrom<Pair<'_, Rule>> for ValDescription {
         Ok(Self { id, description })
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::test_helpers::*;
+
+    #[test]
+    fn value_description_test() {
+        let def = r#"
+2 "ABC"
+"#;
+        let exp = ValDescription {
+            id: 2,
+            description: "ABC".to_string(),
+        };
+        let val = test_into::<ValDescription>(def.trim_start(), Rule::table_value_description);
+        assert_eq!(val, exp);
+    }
+}

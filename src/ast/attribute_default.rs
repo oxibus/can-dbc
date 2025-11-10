@@ -27,3 +27,23 @@ impl TryFrom<Pair<'_, Rule>> for AttributeDefault {
         Ok(Self { name, value })
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::ast::AttributeValue;
+    use crate::test_helpers::*;
+
+    #[test]
+    fn attribute_default_test() {
+        let def = r#"
+BA_DEF_DEF_  "ZUV" "OAL";
+"#;
+        let exp = AttributeDefault {
+            name: "ZUV".to_string(),
+            value: AttributeValue::String("OAL".to_string()),
+        };
+        let val = test_into::<AttributeDefault>(def.trim_start(), Rule::ba_def_def);
+        assert_eq!(val, exp);
+    }
+}

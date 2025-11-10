@@ -20,3 +20,18 @@ impl TryFrom<Pair<'_, Rule>> for ValueType {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::test_helpers::*;
+
+    #[test]
+    fn value_type_test() {
+        let val = test_into::<ValueType>("-", Rule::signed_type);
+        assert_eq!(val, ValueType::Signed);
+
+        let val = test_into::<ValueType>("+", Rule::unsigned_type);
+        assert_eq!(val, ValueType::Unsigned);
+    }
+}
