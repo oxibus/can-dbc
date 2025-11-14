@@ -7,6 +7,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [8.0.0](https://github.com/oxibus/can-dbc/compare/v7.0.0...v8.0.0) - 2025-11-14
+
+### Added
+
+- use AttributeDefinition for BA_DEF_REL_ ([#67](https://github.com/oxibus/can-dbc/pull/67))
+- [**breaking**] parse attribute definition parts ([#22](https://github.com/oxibus/can-dbc/pull/22))
+- implement rel parsing ([#64](https://github.com/oxibus/can-dbc/pull/64))
+- skip serializing empty vectors in various structs ([#55](https://github.com/oxibus/can-dbc/pull/55))
+
+### Fixed
+
+- fix Windows CI ([#69](https://github.com/oxibus/can-dbc/pull/69))
+- fix failing tests ([#66](https://github.com/oxibus/can-dbc/pull/66))
+- [**breaking**] change EnvType variants: 0-int, 1-float, 2-string ([#61](https://github.com/oxibus/can-dbc/pull/61))
+- [**breaking**] trim whitespace from attribute definitions ([#58](https://github.com/oxibus/can-dbc/pull/58))
+- correctly feature gate default features ([#53](https://github.com/oxibus/can-dbc/pull/53))
+
+### Other
+
+- update parser library reference from nom to Pest
+- simplify signal parsing ([#68](https://github.com/oxibus/can-dbc/pull/68))
+- split the attribute_values per type ([#63](https://github.com/oxibus/can-dbc/pull/63))
+- Try to parse all attributes as integer first ([#65](https://github.com/oxibus/can-dbc/pull/65))
+- [**breaking**] clearer errors, stricter integer types, and API tweaks ([#62](https://github.com/oxibus/can-dbc/pull/62))
+- migrate to can-dbc-pest lexer, parse many new types, parse many new .dbc tests ([#48](https://github.com/oxibus/can-dbc/pull/48))
+- [**breaking**] remove getters because all fields are public ([#60](https://github.com/oxibus/can-dbc/pull/60))
+- make all fields `pub` and move structs/enums to individual ast/* files ([#59](https://github.com/oxibus/can-dbc/pull/59)) ([#59](https://github.com/oxibus/can-dbc/pull/59))
+- rework testing framework ([#57](https://github.com/oxibus/can-dbc/pull/57))
+- [**breaking**] remove deprecated `from_str` method from `Dbc` implementation ([#50](https://github.com/oxibus/can-dbc/pull/50))
+- [**breaking**] change Node to hold a single string, i.e. `nodes: Vec<Node>` ([#54](https://github.com/oxibus/can-dbc/pull/54))
+- move tests to separate files ([#52](https://github.com/oxibus/can-dbc/pull/52))
+- reorganize tests ([#49](https://github.com/oxibus/can-dbc/pull/49))
+
 ## [7.0.0](https://github.com/oxibus/can-dbc/compare/v6.0.0...v7.0.0) - 2025-10-19
 
 **NOTE**: `can-dbc` has moved to the [OxiBUS](https://github.com/oxibus) GitHub org - a community developing Rust code with focus on communication in automotive and related spaces. If you are maintaining an open source Rust project in this area, consider joining us - it is always easier to maintain projects together!
