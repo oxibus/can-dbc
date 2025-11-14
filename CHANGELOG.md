@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [8.0.0](https://github.com/oxibus/can-dbc/compare/v7.0.0...v8.0.0) - 2025-11-14
 
+Migrate to Pest-based parser, allowing us to parse far greater variety of the .dbc files. Add support for REL parsing.
+
 ### Added
 
 - use AttributeDefinition for BA_DEF_REL_ ([#67](https://github.com/oxibus/can-dbc/pull/67))
