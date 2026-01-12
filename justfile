@@ -112,11 +112,7 @@ get-msrv package=main_crate:  (get-crate-field 'rust_version' package)
 
 # Find the minimum supported Rust version (MSRV) using cargo-msrv extension, and update Cargo.toml
 msrv:  (cargo-install 'cargo-msrv')
-    if [ ! -f Cargo.lock.bak ]; then  mv Cargo.lock Cargo.lock.bak ; fi
-    cp Cargo.lock.msrv Cargo.lock
-    cargo msrv find --write-msrv --all-features
-    rm Cargo.lock
-    mv Cargo.lock.bak Cargo.lock
+    cargo msrv find --write-msrv --all-features -- {{just}} ci-test-msrv
 
 # Initialize Cargo.lock file with minimal versions of dependencies.
 msrv-init:  (cargo-install 'cargo-minimal-versions')
