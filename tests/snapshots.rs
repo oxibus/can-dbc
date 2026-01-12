@@ -163,15 +163,15 @@ fn report_test_result(result: Result<Dbc, DbcError>, test: &Test) {
                 with_settings! {
                     { snapshot_path => snapshot_path },
                     { assert_yaml_snapshot!(test.file_name(false), result); }
-                } // else ignore successful results when not snapshotting
-            }
+                }
+            } // else ignore successful results when not snapshotting
         }
         Err(e) => {
             if let Some(snapshot_path) = test.snapshot_path(true) {
                 with_settings! {
                     { snapshot_path => snapshot_path },
                     { assert_debug_snapshot!(test.file_name(true), e.to_string()); }
-                } // else ignore successful results when not snapshotting
+                }
             }
         }
     }

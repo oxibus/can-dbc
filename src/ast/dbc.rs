@@ -297,7 +297,7 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
                 }
                 Rule::bit_timing => {
                     let inner_pairs = pairs.into_inner();
-                    if inner_pairs.len() == 0 {
+                    if inner_pairs.is_empty() {
                         bit_timing = Some(vec![]);
                     } else {
                         // For now, just return empty vec since bit-timing parsing is not implemented
