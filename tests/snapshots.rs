@@ -150,8 +150,9 @@ fn parse_one_file([path]: [&Path; 1]) {
     let buffer = fs::read(path).unwrap();
     let buffer = test.decode(&buffer);
     let result = Dbc::try_from(buffer.as_ref());
+    let is_err = result.is_err();
 
-    if let Some(snapshot_path) = test.snapshot_path(result.is_err()) {
+    if let Some(snapshot_path) = test.snapshot_path(is_err) {
         with_settings! {
             {
                 omit_expression => true,
@@ -160,8 +161,8 @@ fn parse_one_file([path]: [&Path; 1]) {
             },
             {
                 match result {
-                    Ok(v) => assert_yaml_snapshot!(test.file_name(false), v),
-                    Err(e) => assert_debug_snapshot!(test.file_name(true), e.to_string()),
+                    Ok(v) => assert_yaml_snapshot!(test.file_name(is_err), v),
+                    Err(e) => assert_debug_snapshot!(test.file_name(is_err), e.to_string()),
                 }
             }
         }
