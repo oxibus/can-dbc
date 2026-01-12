@@ -296,13 +296,9 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
                     new_symbols.extend(symbols);
                 }
                 Rule::bit_timing => {
-                    let inner_pairs = pairs.into_inner();
-                    if inner_pairs.len() == 0 {
-                        bit_timing = Some(vec![]);
-                    } else {
-                        // For now, just return empty vec since bit-timing parsing is not implemented
-                        bit_timing = Some(vec![]);
-                    }
+                    let _inner_pairs = pairs.into_inner();
+                    // For now, just return empty vec since bit-timing parsing is not implemented
+                    bit_timing = Some(vec![]);
                 }
                 Rule::nodes => nodes = collect_all::<Node>(&mut pairs.into_inner())?,
                 Rule::message => messages.push(pairs.try_into()?),

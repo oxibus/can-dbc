@@ -1,5 +1,7 @@
+**/*.bak
 **/*.rs.bk
 *.pdb
+.envrc
 .idea/
 .vscode/
 debug/

@@ -1,13 +1,14 @@
 [package]
 name = "can-dbc"
 version = "8.0.0"
-license = "MIT OR Apache-2.0"
 description = "A parser for the DBC format. The DBC format is used to exchange CAN network data."
-repository = "https://github.com/oxibus/can-dbc"
 authors = ["marcelbuesing <buesing.marcel@googlemail.com>"]
-keywords = ["dbc", "can", "automotive", "ecu"]
 categories = ["embedded", "no-std", "encoding", "parsing"]
 edition = "2021"
+exclude = ["/tests/*"]
+keywords = ["dbc", "can", "automotive", "ecu"]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/oxibus/can-dbc"
 rust-version = "1.81"
 
 [[example]]

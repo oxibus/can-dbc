@@ -3,6 +3,7 @@
 exclude: |
   (?x)^(
       .+\.(dbc|DBC)
+    | .+/snapshots/.*
     | docs/diagram\.svg
   )$
 
