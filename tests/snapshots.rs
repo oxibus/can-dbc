@@ -5,7 +5,7 @@ use std::io::{Error, ErrorKind};
 use std::path::{Path, PathBuf};
 use std::{env, fs};
 
-use can_dbc::{decode_cp1252, Dbc, DbcError};
+use can_dbc::{decode_cp1252, Dbc};
 use insta::{assert_debug_snapshot, assert_yaml_snapshot, with_settings};
 #[cfg(windows)]
 use path_slash::PathBufExt;
@@ -149,30 +149,23 @@ fn parse_one_file([path]: [&Path; 1]) {
     let test = get_test_info(path);
     let buffer = fs::read(path).unwrap();
     let buffer = test.decode(&buffer);
+    let result = Dbc::try_from(buffer.as_ref());
 
-    with_settings! {
-        { omit_expression => true, prepend_module_to_snapshot => false },
-        { report_test_result(Dbc::try_from(buffer.as_ref()), &test); }
-    }
-}
-
-fn report_test_result(result: Result<Dbc, DbcError>, test: &Test) {
-    match result {
-        Ok(result) => {
-            if let Some(snapshot_path) = test.snapshot_path(false) {
-                with_settings! {
-                    { snapshot_path => snapshot_path },
-                    { assert_yaml_snapshot!(test.file_name(false), result); }
-                }
-            } // else ignore successful results when not snapshotting
-        }
-        Err(e) => {
-            if let Some(snapshot_path) = test.snapshot_path(true) {
-                with_settings! {
-                    { snapshot_path => snapshot_path },
-                    { assert_debug_snapshot!(test.file_name(true), e.to_string()); }
+    if let Some(snapshot_path) = test.snapshot_path(result.is_err()) {
+        with_settings! {
+            {
+                omit_expression => true,
+                prepend_module_to_snapshot => false,
+                snapshot_path => snapshot_path,
+            },
+            {
+                match result {
+                    Ok(v) => assert_yaml_snapshot!(test.file_name(false), v),
+                    Err(e) => assert_debug_snapshot!(test.file_name(true), e.to_string()),
                 }
             }
         }
+    } else if let Err(e) = result {
+        panic!("Failed to parse {}.dbc: {e:#?}", test.file_name);
     }
 }
