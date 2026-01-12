@@ -1,35 +1,36 @@
 #!/usr/bin/env just --justfile
 
+# Define the name of the main crate based on the directory name
 main_crate := file_name(justfile_directory())
-packages := '--workspace'  # All crates in the workspace
-features := '--all-features'  # Enable all features
-targets := '--all-targets'  # For all targets (lib, bin, tests, examples, benches)
+# How to call the current just executable. Note that just_executable() may have `\` in Windows paths, so we need to quote it.
+just := quote(just_executable())
+# cargo-binstall needs a workaround due to caching when used in CI
+binstall_args := if env('CI', '') != '' {'--no-confirm --no-track --disable-telemetry'} else {''}
 
 # if running in CI, treat warnings as errors by setting RUSTFLAGS and RUSTDOCFLAGS to '-D warnings' unless they are already set
 # Use `CI=true just ci-test` to run the same tests as in GitHub CI.
 # Use `just env-info` to see the current values of RUSTFLAGS and RUSTDOCFLAGS
 ci_mode := if env('CI', '') != '' {'1'} else {''}
-# cargo-binstall needs a workaround due to caching
-# ci_mode might be manually set by user, so re-check the env var
-binstall_args := if env('CI', '') != '' {'--no-confirm --no-track --disable-telemetry'} else {''}
 export RUSTFLAGS := env('RUSTFLAGS', if ci_mode == '1' {'-D warnings'} else {''})
 export RUSTDOCFLAGS := env('RUSTDOCFLAGS', if ci_mode == '1' {'-D warnings'} else {''})
 export RUST_BACKTRACE := env('RUST_BACKTRACE', if ci_mode == '1' {'1'} else {'0'})
 
 @_default:
-    {{quote(just_executable())}} --list
+    {{just}} --list
 
 # Run integration tests and save its output as the new expected output
 bless *args:  (cargo-install 'cargo-insta')
-    cargo insta test --accept --unreferenced=delete {{features}} {{args}}
+    cargo insta test --accept --include-ignored --unreferenced=delete --all-features {{args}}
 
-bless-all:  (cargo-install 'cargo-insta')
+# Generate all snapshots again, including forced (.gitignore-d) ones
+bless-all:
     rm -rf tests/snapshots
-    FORCE_INSTA=1 {{quote(just_executable())}} bless
+    rm -rf tests/snapshots-forced
+    FORCE_INSTA=1 {{just}} bless
 
 # Build the project
 build:
-    cargo build {{packages}} {{features}} {{targets}}
+    cargo build --workspace --all-features --all-targets
 
 build-diagram:
     @echo "Generating docs/diagram.svg using Mermaid CLI. Make sure you have it:"
@@ -38,8 +39,8 @@ build-diagram:
 
 # Quick compile without building a binary
 check:
-    cargo check {{packages}} {{features}} {{targets}}
-    cargo check {{packages}} --no-default-features {{targets}}
+    cargo check --workspace --all-features --all-targets
+    cargo check --workspace --no-default-features --all-targets
 
 # Generate code coverage report to upload to codecov.io
 ci-coverage: env-info && \
@@ -51,7 +52,12 @@ ci-coverage: env-info && \
 ci-test: env-info test-fmt check clippy test test-doc deny && assert-git-is-clean
 
 # Run minimal subset of tests to ensure compatibility with MSRV
-ci-test-msrv: env-info check test
+ci-test-msrv:
+    if [ ! -f Cargo.lock.bak ]; then  mv Cargo.lock Cargo.lock.bak ; fi
+    cp Cargo.lock.msrv Cargo.lock
+    {{just}} env-info check test
+    rm Cargo.lock
+    mv Cargo.lock.bak Cargo.lock
 
 # Clean all build artifacts
 clean:
@@ -60,24 +66,24 @@ clean:
 
 # Run cargo clippy to lint the code
 clippy *args:
-    cargo clippy {{packages}} {{features}} {{targets}} {{args}}
+    cargo clippy --workspace --all-features --all-targets {{args}}
 
 # Generate code coverage report. Will install `cargo llvm-cov` if missing.
 coverage *args='--no-clean --open':  (cargo-install 'cargo-llvm-cov')
-    cargo llvm-cov {{packages}} {{features}} {{targets}} --include-build-script {{args}}
+    cargo llvm-cov --workspace --all-features --all-targets --include-build-script {{args}}
 
 deny *args='check': (cargo-install 'cargo-deny')
     cargo deny {{args}}
 
 # Build and open code documentation
 docs *args='--open':
-    DOCS_RS=1 cargo doc --no-deps {{args}} {{packages}} {{features}}
+    DOCS_RS=1 cargo doc --no-deps {{args}} --workspace --all-features
 
 # Print environment info
 env-info:
     @echo "Running for '{{main_crate}}' crate {{if ci_mode == '1' {'in CI mode'} else {'in dev mode'} }} on {{os()}} / {{arch()}}"
     @echo "PWD {{justfile_directory()}}"
-    {{quote(just_executable())}} --version
+    {{just}} --version
     rustc --version
     cargo --version
     rustup --version
@@ -97,7 +103,7 @@ fmt:
         cargo fmt --all
     fi
 
-# Get any package's field from the metadata
+# Get a package field from the metadata
 get-crate-field field package=main_crate:  (assert-cmd 'jq')
     cargo metadata --format-version 1 | jq -e -r '.packages | map(select(.name == "{{package}}")) | first | .{{field}} // error("Field \"{{field}}\" is missing in Cargo.toml for package {{package}}")'
 
@@ -106,7 +112,23 @@ get-msrv package=main_crate:  (get-crate-field 'rust_version' package)
 
 # Find the minimum supported Rust version (MSRV) using cargo-msrv extension, and update Cargo.toml
 msrv:  (cargo-install 'cargo-msrv')
-    cargo msrv find --write-msrv --ignore-lockfile {{features}}
+    if [ ! -f Cargo.lock.bak ]; then  mv Cargo.lock Cargo.lock.bak ; fi
+    cp Cargo.lock.msrv Cargo.lock
+    cargo msrv find --write-msrv --all-features
+    rm Cargo.lock
+    mv Cargo.lock.bak Cargo.lock
+
+# Initialize Cargo.lock file with minimal versions of dependencies.
+msrv-init:  (cargo-install 'cargo-minimal-versions')
+    rm -f Cargo.lock.msrv Cargo.lock
+    @if ! cargo minimal-versions check --workspace ; then \
+        echo "ERROR: Could not generate minimal Cargo.lock.msrv" ;\
+        echo "       fix the lock file with 'cargo update ... --precise ...'" ;\
+        echo "       make sure it passes 'just check' " ;\
+        echo "       once done, rename Cargo.lock to Cargo.lock.msrv" ;\
+        exit 1 ;\
+    fi
+    mv Cargo.lock Cargo.lock.msrv
 
 # Run cargo-release
 release *args='':  (cargo-install 'release-plz')
@@ -114,12 +136,16 @@ release *args='':  (cargo-install 'release-plz')
 
 # Check semver compatibility with prior published version. Install it with `cargo install cargo-semver-checks`
 semver *args:  (cargo-install 'cargo-semver-checks')
-    cargo semver-checks {{features}} {{args}}
+    cargo semver-checks --all-features {{args}}
 
 # Run all unit and integration tests
 test:
-    cargo test {{packages}} {{features}} {{targets}}
-    cargo test --doc {{packages}} {{features}}
+    cargo test --workspace --all-features --all-targets
+    cargo test --doc --workspace --all-features
+
+# Run all tests with insta forced mode - generating ignored snapshots
+test-all:
+    FORCE_INSTA=1 {{just}} test
 
 # Test documentation generation
 test-doc:  (docs '')
@@ -128,9 +154,9 @@ test-doc:  (docs '')
 test-fmt:
     cargo fmt --all -- --check
 
-# Find unused dependencies. Install it with `cargo install cargo-udeps`
+# Find unused dependencies. Uses `cargo-udeps`
 udeps:  (cargo-install 'cargo-udeps')
-    cargo +nightly udeps {{packages}} {{features}} {{targets}}
+    cargo +nightly udeps --workspace --all-features --all-targets
 
 # Update all dependencies, including breaking changes. Requires nightly toolchain (install with `rustup install nightly`)
 update:
@@ -149,11 +175,11 @@ assert-cmd command:
 [private]
 assert-git-is-clean:
     @if [ -n "$(git status --untracked-files --porcelain)" ]; then \
-      >&2 echo "ERROR: git repo is no longer clean. Make sure compilation and tests artifacts are in the .gitignore, and no repo files are modified." ;\
-      >&2 echo "######### git status ##########" ;\
-      git status ;\
-      git --no-pager diff ;\
-      exit 1 ;\
+        >&2 echo "ERROR: git repo is no longer clean. Make sure compilation and tests artifacts are in the .gitignore, and no repo files are modified." ;\
+        >&2 echo "######### git status ##########" ;\
+        git status ;\
+        git --no-pager diff ;\
+        exit 1 ;\
     fi
 
 # Check if a certain Cargo command is installed, and install it if needed
