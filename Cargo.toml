@@ -25,14 +25,14 @@ serde = ["dep:serde"]
 with-serde = ["serde"]
 
 [dependencies]
-can-dbc-pest = "0.7.1"
+can-dbc-pest = "0.7.2"
 encoding_rs = { version = "0.8", optional = true }
 serde = { version = "1.0", features = ["derive"], optional = true }
 thiserror = "2.0.17"
 
 [dev-dependencies]
 clap = { version = "4.5.0", features = ["cargo", "derive"] }
-codegen = "0.2"  # Used in README code block
+codegen = "0.3"  # Used in README code block
 insta = { version = "1.39", features = ["yaml"] }
 test_each_file = "0.3.6"
 

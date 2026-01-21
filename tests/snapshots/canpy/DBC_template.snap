@@ -1,0 +1,345 @@
+---
+source: tests/snapshots.rs
+---
+version: "1.0"
+new_symbols:
+  - NS_DESC_
+  - CM_
+  - BA_DEF_
+  - BA_
+  - VAL_
+  - CAT_DEF_
+  - CAT_
+  - FILTER
+  - BA_DEF_DEF_
+  - EV_DATA_
+  - ENVVAR_DATA_
+  - SGTYPE_
+  - SGTYPE_VAL_
+  - BA_DEF_SGTYPE_
+  - BA_SGTYPE_
+  - SIG_TYPE_REF_
+  - VAL_TABLE_
+  - SIG_GROUP_
+  - SIG_VALTYPE_
+  - SIGTYPE_VALTYPE_
+  - BO_TX_BU_
+  - BA_DEF_REL_
+  - BA_REL_
+  - BA_DEF_DEF_REL_
+  - BU_SG_REL_
+  - BU_EV_REL_
+  - BU_BO_REL_
+  - SG_MUL_VAL_
+bit_timing: []
+nodes:
+  - Node2
+  - Node1
+  - Node0
+value_tables:
+  - name: Value0
+    descriptions:
+      - id: 2
+        description: Value2
+      - id: 1
+        description: Value1
+      - id: 0
+        description: Value0
+  - name: Numbers
+    descriptions:
+      - id: 3
+        description: Three
+      - id: 2
+        description: Two
+      - id: 1
+        description: One
+      - id: 0
+        description: Zero
+messages:
+  - id:
+      Extended: 4321
+    name: CANMultiplexed
+    size: 2
+    transmitter:
+      NodeName: Node0
+    signals:
+      - name: Value1
+        multiplexer_indicator:
+          MultiplexedSignal: 1
+        start_bit: 8
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Node1
+      - name: Value0
+        multiplexer_indicator:
+          MultiplexedSignal: 0
+        start_bit: 8
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Node0
+      - name: Multiplexer
+        multiplexer_indicator: Multiplexor
+        start_bit: 0
+        size: 8
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Node0
+  - id:
+      Standard: 1234
+    name: CANMessage
+    size: 8
+    transmitter:
+      NodeName: Node0
+    signals:
+      - name: Signal1
+        multiplexer_indicator: Plain
+        start_bit: 32
+        size: 32
+        byte_order: LittleEndian
+        value_type: Unsigned
+        factor: 100
+        offset: 0
+        min: 0
+        max: 100
+        unit: "%"
+        receivers:
+          - Node1
+          - Node2
+      - name: Signal0
+        multiplexer_indicator: Plain
+        start_bit: 0
+        size: 32
+        byte_order: LittleEndian
+        value_type: Signed
+        factor: 1
+        offset: 0
+        min: 0
+        max: 0
+        unit: ""
+        receivers:
+          - Node1
+          - Node2
+environment_variables:
+  - name: UnrestrictedEnvVar
+    typ: Integer
+    min: 0
+    max: 0
+    unit: Nm
+    initial_value: 0
+    ev_id: 1
+    access_type: DummyNodeVector0
+    access_nodes:
+      - Name: Node0
+  - name: RWEnvVar_wData
+    typ: Integer
+    min: 0
+    max: 1234
+    unit: ""
+    initial_value: 60
+    ev_id: 2
+    access_type: DummyNodeVector3
+    access_nodes:
+      - Name: Node2
+  - name: WriteOnlyEnvVar
+    typ: Float
+    min: 0
+    max: 1234
+    unit: ""
+    initial_value: 60
+    ev_id: 3
+    access_type: DummyNodeVector2
+    access_nodes:
+      - Name: Node2
+  - name: ReadOnlyEnvVar
+    typ: Integer
+    min: 0
+    max: 100
+    unit: MPH
+    initial_value: 20
+    ev_id: 4
+    access_type: DummyNodeVector1
+    access_nodes:
+      - Name: Node2
+environment_variable_data:
+  - env_var_name: RWEnvVar_wData
+    data_size: 10
+comments:
+  - Plain:
+      comment: DBC Template with single line description
+  - Node:
+      name: Node0
+      comment: The 0th Node
+  - Message:
+      id:
+        Extended: 4321
+      comment: Multiplexed CAN-Message
+  - Signal:
+      message_id:
+        Standard: 1234
+      name: Signal0
+      comment: First signal in this message
+  - EnvVar:
+      name: RWEnvVar_wData
+      comment: This a comment for an environment variable
+  - EnvVar:
+      name: WriteOnlyEnvVar
+      comment: This a comment for an environment variable
+  - EnvVar:
+      name: ReadOnlyEnvVar
+      comment: This a comment for an environment variable
+attribute_definitions:
+  - EnvironmentVariable:
+      - RWEnvVar_wData_Val
+      - Int:
+          - Uint: 0
+          - Uint: 10
+  - EnvironmentVariable:
+      - GlobalEnvVar_Val
+      - Hex:
+          - Uint: 256
+          - Uint: 320
+  - Signal:
+      - SGEnumAttribute
+      - Enum:
+          - Val0
+          - Val1
+          - Val2
+  - Node:
+      - BUIntAttribute
+      - Int:
+          - Uint: 0
+          - Uint: 100
+  - Message:
+      - BOStringAttribute
+      - String
+  - Plain:
+      - FloatAttribute
+      - Float:
+          - Uint: 0
+          - Double: 50.5
+relation_attribute_definitions:
+  - EnvironmentVariable:
+      - ControlUnitEnvVarAttr
+      - String
+attribute_defaults:
+  - name: RWEnvVar_wData_Val
+    value:
+      Uint: 5
+  - name: GlobalEnvVar_Val
+    value:
+      Uint: 288
+  - name: SGEnumAttribute
+    value:
+      String: Val0
+  - name: BUIntAttribute
+    value:
+      Uint: 50
+  - name: BOStringAttribute
+    value:
+      String: String
+  - name: FloatAttribute
+    value:
+      Double: 25.25
+relation_attribute_defaults:
+  - name: ControlUnitEnvVarAttr
+    value:
+      String: MyVar
+attribute_values_database:
+  - name: FloatAttribute
+    value:
+      Double: 45.9
+attribute_values_node:
+  - name: BUIntAttribute
+    node_name: Node0
+    value:
+      Uint: 100
+attribute_values_message:
+  - name: BOStringAttribute
+    message_id:
+      Standard: 1234
+    value:
+      String: MessageAttribute
+attribute_values_signal:
+  - name: SGEnumAttribute
+    message_id:
+      Standard: 1234
+    signal_name: Signal0
+    value:
+      Uint: 2
+attribute_values_env:
+  - name: RWEnvVar_wData_Val
+    variable_name: RWEnvVar_wData
+    value:
+      Uint: 3
+value_descriptions:
+  - Signal:
+      message_id:
+        Extended: 4321
+      name: Value1
+      value_descriptions:
+        - id: 3
+          description: Three
+        - id: 2
+          description: Two
+        - id: 1
+          description: One
+        - id: 0
+          description: Zero
+  - Signal:
+      message_id:
+        Extended: 4321
+      name: Value0
+      value_descriptions:
+        - id: 2
+          description: Value2
+        - id: 1
+          description: Value1
+        - id: 0
+          description: Value0
+  - EnvironmentVariable:
+      name: RWEnvVar_wData
+      value_descriptions:
+        - id: 2
+          description: Value2
+        - id: 1
+          description: Value1
+        - id: 0
+          description: Value0
+  - EnvironmentVariable:
+      name: WriteOnlyEnvVar
+      value_descriptions:
+        - id: 2
+          description: Value2
+        - id: 1
+          description: Value1
+        - id: 0
+          description: Value0
+  - EnvironmentVariable:
+      name: ReadOnlyEnvVar
+      value_descriptions:
+        - id: 2
+          description: Value2
+        - id: 1
+          description: Value1
+        - id: 0
+          description: Value0
