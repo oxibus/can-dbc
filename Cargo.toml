@@ -9,7 +9,7 @@ exclude = ["/tests/*"]
 keywords = ["dbc", "can", "automotive", "ecu"]
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/oxibus/can-dbc"
-rust-version = "1.81"
+rust-version = "1.85"
 
 [[example]]
 name = "file_parser"
