@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [8.0.1](https://github.com/oxibus/can-dbc/compare/v8.0.0...v8.0.1) - 2026-01-22
+
+### Other
+
+- update tests, dependencies, MSRV 1.85 ([#73](https://github.com/oxibus/can-dbc/pull/73))
+- [pre-commit.ci] pre-commit autoupdate ([#72](https://github.com/oxibus/can-dbc/pull/72))
+- improve MSRV and snapshot testing ([#70](https://github.com/oxibus/can-dbc/pull/70))
+- minor justfile fix
+
 ## [8.0.0](https://github.com/oxibus/can-dbc/compare/v7.0.0...v8.0.0) - 2025-11-14
 
 Migrate to Pest-based parser, allowing us to parse far greater variety of the .dbc files. Add support for REL parsing.
