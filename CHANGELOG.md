@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [8.1.0](https://github.com/oxibus/can-dbc/compare/v8.0.1...v8.1.0) - 2026-01-23
+
+### Added
+
+- add Eq and Hash derive for many types ([#74](https://github.com/oxibus/can-dbc/pull/74))
+
 ## [8.0.1](https://github.com/oxibus/can-dbc/compare/v8.0.0...v8.0.1) - 2026-01-22
 
 ### Other
