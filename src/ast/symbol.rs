@@ -2,7 +2,7 @@ use can_dbc_pest::{Pair, Rule};
 
 use crate::parser::{validated, DbcError};
 
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Symbol(pub String);
 

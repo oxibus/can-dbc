@@ -2,7 +2,7 @@ use std::str;
 
 use crate::parser::DbcError;
 
-#[derive(Copy, Clone, Debug, PartialEq)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum MultiplexIndicator {
     /// Multiplexor switch

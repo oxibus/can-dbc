@@ -4,7 +4,7 @@ use crate::parser::{validated, DbcError};
 
 // TODO: consider merging with AccessNode
 
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Transmitter {
     /// node transmitting the message

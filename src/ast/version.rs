@@ -5,7 +5,7 @@ use crate::parser::{inner_str, single_inner, validated, DbcError};
 /// Version identifier of the DBC file.
 ///
 /// Format: `VERSION "<VersionIdentifier>"`
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Debug, Default, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Version(pub String);
 

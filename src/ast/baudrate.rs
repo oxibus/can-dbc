@@ -3,7 +3,7 @@ use can_dbc_pest::{Pair, Rule};
 use crate::parser::DbcError;
 
 /// Baudrate of network in KBit/s
-#[derive(Copy, Clone, Debug, PartialEq)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Baudrate(pub u64);
 

@@ -3,7 +3,7 @@ use can_dbc_pest::Rule;
 use crate::DbcError;
 
 /// `env_var_type = '0' | '1' | '2' ; (* 0=integer, 1=float, 2=string *)`
-#[derive(Copy, Clone, Debug, PartialEq)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum EnvType {
     Integer,

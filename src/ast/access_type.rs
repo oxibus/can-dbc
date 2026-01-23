@@ -3,7 +3,7 @@ use can_dbc_pest::{Pair, Rule};
 use crate::parser::{parse_uint, single_inner, validated};
 use crate::DbcError;
 
-#[derive(Copy, Clone, Debug, PartialEq)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum AccessType {
     DummyNodeVector0,
