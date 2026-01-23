@@ -2,7 +2,7 @@ use can_dbc_pest::{Pair, Rule};
 
 use crate::DbcError;
 
-#[derive(Copy, Clone, Debug, PartialEq)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ByteOrder {
     LittleEndian,

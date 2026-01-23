@@ -2,7 +2,7 @@ use can_dbc_pest::{Pair, Rule};
 
 use crate::parser::{expect_empty, parse_next_inner_str, parse_next_int, validated_inner};
 
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct ValDescription {
     pub id: i64,

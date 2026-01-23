@@ -1,6 +1,6 @@
 use crate::ast::MessageId;
 
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct SignalTypeRef {
     pub message_id: MessageId,

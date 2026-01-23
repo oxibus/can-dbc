@@ -3,7 +3,7 @@ use can_dbc_pest::{Pair, Rule};
 use crate::parser::{validated, DbcError};
 
 /// CAN network nodes, names must be unique
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Node(pub String);
 

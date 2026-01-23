@@ -5,7 +5,7 @@ use crate::DbcError;
 
 /// CAN id in header of CAN frame.
 /// Must be unique in DBC file.
-#[derive(Copy, Clone, Debug, PartialEq)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum MessageId {
     Standard(u16),
