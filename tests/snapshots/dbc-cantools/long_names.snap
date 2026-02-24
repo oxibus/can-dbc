@@ -77,8 +77,10 @@ messages:
         value_type: Signed
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - Vector__XXX
@@ -96,8 +98,10 @@ messages:
         value_type: Signed
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - Vector__XXX
@@ -116,8 +120,10 @@ messages:
         value_type: Signed
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - Vector__XXX
@@ -129,8 +135,10 @@ messages:
         value_type: Signed
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - Vector__XXX
@@ -142,8 +150,10 @@ messages:
         value_type: Signed
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - N12345678901234567890123456_0000
@@ -155,8 +165,10 @@ messages:
         value_type: Signed
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - Vector__XXX
@@ -168,8 +180,10 @@ messages:
         value_type: Signed
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - Vector__XXX
@@ -188,8 +202,10 @@ messages:
         value_type: Signed
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - Vector__XXX
@@ -201,8 +217,10 @@ messages:
         value_type: Signed
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - Vector__XXX
@@ -214,8 +232,10 @@ messages:
         value_type: Signed
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - Vector__XXX
@@ -227,8 +247,10 @@ messages:
         value_type: Signed
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - Vector__XXX
@@ -246,8 +268,10 @@ messages:
         value_type: Signed
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - Vector__XXX
@@ -259,8 +283,10 @@ messages:
         value_type: Signed
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - Vector__XXX

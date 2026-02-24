@@ -50,8 +50,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 32767
+        min:
+          Uint: 0
+        max:
+          Uint: 32767
         unit: ""
         receivers:
           - E1
@@ -63,8 +65,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 1
+        min:
+          Uint: 0
+        max:
+          Uint: 1
         unit: ""
         receivers:
           - E1
@@ -76,8 +80,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 32767
+        min:
+          Uint: 0
+        max:
+          Uint: 32767
         unit: ""
         receivers:
           - E1
@@ -89,8 +95,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 1
+        min:
+          Uint: 0
+        max:
+          Uint: 1
         unit: ""
         receivers:
           - E1
@@ -109,8 +117,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 1
+        min:
+          Uint: 0
+        max:
+          Uint: 1
         unit: ""
         receivers:
           - E1
@@ -122,8 +132,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 32767
+        min:
+          Uint: 0
+        max:
+          Uint: 32767
         unit: ""
         receivers:
           - E1
@@ -135,8 +147,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 1
+        min:
+          Uint: 0
+        max:
+          Uint: 1
         unit: ""
         receivers:
           - E1
@@ -148,8 +162,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 32767
+        min:
+          Uint: 0
+        max:
+          Uint: 32767
         unit: ""
         receivers:
           - E1
@@ -168,8 +184,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 15
+        min:
+          Uint: 0
+        max:
+          Uint: 15
         unit: ""
         receivers:
           - E1
@@ -181,8 +199,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 15
+        min:
+          Uint: 0
+        max:
+          Uint: 15
         unit: ""
         receivers:
           - E1
@@ -194,8 +214,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 15
+        min:
+          Uint: 0
+        max:
+          Uint: 15
         unit: ""
         receivers:
           - E1
@@ -214,8 +236,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 18446744073709552000
+        min:
+          Uint: 0
+        max:
+          Uint: 18446744073709551615
         unit: ""
         receivers:
           - E1
@@ -234,8 +258,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 18446744073709552000
+        min:
+          Uint: 0
+        max:
+          Uint: 18446744073709551615
         unit: ""
         receivers:
           - E1

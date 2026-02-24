@@ -51,8 +51,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 100
+        min:
+          Uint: 0
+        max:
+          Uint: 100
         unit: ""
         receivers:
           - ECU2
