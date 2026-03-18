@@ -77,8 +77,10 @@ mod tests {
     fn extended_message_id_raw() {
         let id = MessageId::Extended(2);
         assert_eq!(id.raw(), 2 | 1 << 31);
-        let id = MessageId::Extended(2 ^ 29);
-        assert_eq!(id.raw(), 2 ^ 29 | 1 << 31);
+
+        // test with all 29 bits set
+        let id = MessageId::Extended(0x1FFF_FFFF);
+        assert_eq!(id.raw(), 0x1FFF_FFFF | 1 << 31);
     }
 
     #[test]
