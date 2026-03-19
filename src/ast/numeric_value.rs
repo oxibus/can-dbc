@@ -2,7 +2,7 @@ use std::str::FromStr;
 
 use crate::DbcError;
 
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum NumericValue {
     Uint(u64),
