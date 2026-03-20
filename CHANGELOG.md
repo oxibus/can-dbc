@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [9.0.0](https://github.com/oxibus/can-dbc/compare/v8.1.0...v9.0.0) - 2026-03-20
+
+### Fixed
+
+- parse signal min/max as `NumericValue` ([#76](https://github.com/oxibus/can-dbc/pull/76))
+- ast/message_id: use 0x1FFF_FFFF (1<<29 - 1) instead of 2^29 in test ([#77](https://github.com/oxibus/can-dbc/pull/77))
+
 ## [8.1.0](https://github.com/oxibus/can-dbc/compare/v8.0.1...v8.1.0) - 2026-01-23
 
 ### Added
