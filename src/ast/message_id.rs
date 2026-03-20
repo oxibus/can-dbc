@@ -80,7 +80,7 @@ mod tests {
 
         // test with all 29 bits set
         let id = MessageId::Extended(0x1FFF_FFFF);
-        assert_eq!(id.raw(), 0x1FFF_FFFF | 1 << 31);
+        assert_eq!(id.raw(), 0b10011111_11111111_11111111_11111111);
     }
 
     #[test]
