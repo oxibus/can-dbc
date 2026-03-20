@@ -74,6 +74,7 @@ mod tests {
     use crate::MessageId;
 
     #[test]
+    #[expect(clippy::unreadable_literal)]
     fn extended_message_id_raw() {
         let id = MessageId::Extended(2);
         assert_eq!(id.raw(), 2 | 1 << 31);
