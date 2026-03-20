@@ -56,7 +56,8 @@ impl TryFrom<Pair<'_, Rule>> for Message {
 mod tests {
     use super::*;
     use crate::ast::{ByteOrder, MultiplexIndicator, ValueType};
-    use crate::{test_helpers::*, NumericValue};
+    use crate::test_helpers::*;
+    use crate::NumericValue;
 
     #[test]
     fn message_definition_test() {
