@@ -51,8 +51,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 250
+        min:
+          Uint: 0
+        max:
+          Uint: 250
         unit: ""
         receivers:
           - Node2

@@ -1,8 +1,8 @@
 use can_dbc_pest::{Pair, Rule};
 
-use crate::ast::{ByteOrder, MultiplexIndicator, ValueType};
+use crate::ast::{ByteOrder, MultiplexIndicator, NumericValue, ValueType};
 use crate::parser::{
-    collect_strings, next, next_optional_rule, next_rule, next_string, parse_min_max_float,
+    collect_strings, next, next_optional_rule, next_rule, next_string, parse_min_max_numeric,
     parse_next_float, parse_next_inner_str, parse_next_uint, validated_inner,
 };
 use crate::DbcError;
@@ -21,8 +21,8 @@ pub struct Signal {
     pub value_type: ValueType,
     pub factor: f64,
     pub offset: f64,
-    pub min: f64,
-    pub max: f64,
+    pub min: NumericValue,
+    pub max: NumericValue,
     pub unit: String,
     #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
     pub receivers: Vec<String>,
@@ -49,7 +49,7 @@ impl TryFrom<Pair<'_, Rule>> for Signal {
         let value_type = next(&mut pairs)?.try_into()?;
         let factor = parse_next_float(&mut pairs, Rule::factor)?;
         let offset = parse_next_float(&mut pairs, Rule::offset)?;
-        let (min, max) = parse_min_max_float(next_rule(&mut pairs, Rule::min_max)?)?;
+        let (min, max) = parse_min_max_numeric(next_rule(&mut pairs, Rule::min_max)?)?;
         let unit = parse_next_inner_str(&mut pairs, Rule::unit)?;
         let receivers = collect_strings(&mut pairs, Rule::node_name)?;
 
@@ -89,8 +89,8 @@ mod tests {
             value_type: ValueType::Signed,
             factor: 1.0,
             offset: 0.0,
-            min: 0.0,
-            max: 0.0,
+            min: NumericValue::Uint(0),
+            max: NumericValue::Uint(0),
             unit: "x".to_string(),
             multiplexer_indicator: MultiplexIndicator::Plain,
             receivers: vec!["UFA".to_string()],
@@ -112,8 +112,8 @@ mod tests {
             value_type: ValueType::Signed,
             factor: 1.0,
             offset: 0.0,
-            min: 0.0,
-            max: 0.0,
+            min: NumericValue::Uint(0),
+            max: NumericValue::Uint(0),
             unit: "x".to_string(),
             multiplexer_indicator: MultiplexIndicator::Plain,
             receivers: vec!["DFA_FUS".to_string()],

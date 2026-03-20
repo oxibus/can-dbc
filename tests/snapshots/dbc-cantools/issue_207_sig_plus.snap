@@ -47,8 +47,10 @@ messages:
         value_type: Signed
         factor: 1
         offset: -128
-        min: -128
-        max: 127
+        min:
+          Int: -128
+        max:
+          Uint: 127
         unit: ""
         receivers:
           - Vector__XXX
@@ -60,8 +62,10 @@ messages:
         value_type: Signed
         factor: 1
         offset: -128
-        min: -128
-        max: 127
+        min:
+          Int: -128
+        max:
+          Uint: 127
         unit: ""
         receivers:
           - Vector__XXX

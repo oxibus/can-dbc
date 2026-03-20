@@ -74,8 +74,10 @@ messages:
         value_type: Unsigned
         factor: 0.015625
         offset: 0
-        min: 0
-        max: 100
+        min:
+          Uint: 0
+        max:
+          Uint: 100
         unit: m/s
         receivers:
           - Vector__XXX
@@ -87,8 +89,10 @@ messages:
         value_type: Unsigned
         factor: 0.015625
         offset: 0
-        min: 0
-        max: 100
+        min:
+          Uint: 0
+        max:
+          Uint: 100
         unit: m/s
         receivers:
           - Vector__XXX
@@ -100,8 +104,10 @@ messages:
         value_type: Unsigned
         factor: 0.015625
         offset: 0
-        min: 0
-        max: 100
+        min:
+          Uint: 0
+        max:
+          Uint: 100
         unit: m/s
         receivers:
           - Vector__XXX
@@ -113,8 +119,10 @@ messages:
         value_type: Unsigned
         factor: 0.015625
         offset: 0
-        min: 0
-        max: 100
+        min:
+          Uint: 0
+        max:
+          Uint: 100
         unit: m/s
         receivers:
           - Vector__XXX
@@ -163,8 +171,10 @@ messages:
         value_type: Unsigned
         factor: 0.005
         offset: -163.84
-        min: -163.84
-        max: 163.83
+        min:
+          Double: -163.84
+        max:
+          Double: 163.83
         unit: °/s
         receivers:
           - ABS
@@ -176,8 +186,10 @@ messages:
         value_type: Unsigned
         factor: 0.000127465
         offset: -4.1768
-        min: -4.1768
-        max: 4.1765
+        min:
+          Double: -4.1768
+        max:
+          Double: 4.1765
         unit: g
         receivers:
           - ABS
@@ -196,8 +208,10 @@ messages:
         value_type: Unsigned
         factor: 0.005
         offset: -163.84
-        min: -163.84
-        max: 163.835
+        min:
+          Double: -163.84
+        max:
+          Double: 163.835
         unit: °/s
         receivers:
           - ABS
@@ -209,8 +223,10 @@ messages:
         value_type: Unsigned
         factor: 0.000127465
         offset: -4.1768
-        min: -4.1768
-        max: 4.1765
+        min:
+          Double: -4.1768
+        max:
+          Double: 4.1765
         unit: g
         receivers:
           - ABS
@@ -229,8 +245,10 @@ messages:
         value_type: Unsigned
         factor: 0.000127465
         offset: -4.1768
-        min: -4.1768
-        max: 4.1765
+        min:
+          Double: -4.1768
+        max:
+          Double: 4.1765
         unit: g
         receivers:
           - ABS
@@ -249,8 +267,10 @@ messages:
         value_type: Unsigned
         factor: 0.015625
         offset: 0
-        min: 0
-        max: 100
+        min:
+          Uint: 0
+        max:
+          Uint: 100
         unit: m/s
         receivers:
           - Vector__XXX
@@ -262,8 +282,10 @@ messages:
         value_type: Unsigned
         factor: 0.015625
         offset: 0
-        min: 0
-        max: 100
+        min:
+          Uint: 0
+        max:
+          Uint: 100
         unit: m/s
         receivers:
           - Vector__XXX
@@ -275,8 +297,10 @@ messages:
         value_type: Unsigned
         factor: 0.015625
         offset: 0
-        min: 0
-        max: 100
+        min:
+          Uint: 0
+        max:
+          Uint: 100
         unit: m/s
         receivers:
           - Vector__XXX
@@ -288,8 +312,10 @@ messages:
         value_type: Unsigned
         factor: 0.015625
         offset: 0
-        min: 0
-        max: 100
+        min:
+          Uint: 0
+        max:
+          Uint: 100
         unit: m/s
         receivers:
           - Vector__XXX
@@ -307,8 +333,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 11
+        min:
+          Uint: 0
+        max:
+          Uint: 11
         unit: ""
         receivers:
           - ABS
@@ -333,8 +361,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: "-"
         receivers:
           - Vector__XXX
@@ -353,8 +383,10 @@ messages:
         value_type: Unsigned
         factor: 0.05
         offset: 0
-        min: 0
-        max: 10
+        min:
+          Uint: 0
+        max:
+          Uint: 10
         unit: cm3
         receivers:
           - Vector__XXX
@@ -366,8 +398,10 @@ messages:
         value_type: Unsigned
         factor: 0.05
         offset: 0
-        min: 0
-        max: 10
+        min:
+          Uint: 0
+        max:
+          Uint: 10
         unit: cm3
         receivers:
           - Vector__XXX
@@ -379,8 +413,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 32
+        min:
+          Uint: 0
+        max:
+          Uint: 32
         unit: ""
         receivers:
           - Vector__XXX
@@ -392,8 +428,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 32
+        min:
+          Uint: 0
+        max:
+          Uint: 32
         unit: ""
         receivers:
           - Vector__XXX
@@ -405,8 +443,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 32
+        min:
+          Uint: 0
+        max:
+          Uint: 32
         unit: ""
         receivers:
           - Vector__XXX
@@ -418,8 +458,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 32
+        min:
+          Uint: 0
+        max:
+          Uint: 32
         unit: ""
         receivers:
           - Vector__XXX
@@ -438,8 +480,10 @@ messages:
         value_type: Unsigned
         factor: 0.00012742
         offset: -4.1768
-        min: -4.1768
-        max: 4.1736697
+        min:
+          Double: -4.1768
+        max:
+          Double: 4.1736697
         unit: g
         receivers:
           - Vector__XXX
@@ -451,8 +495,10 @@ messages:
         value_type: Unsigned
         factor: 0.00012742
         offset: -4.1768
-        min: -4.1768
-        max: 4.1765
+        min:
+          Double: -4.1768
+        max:
+          Double: 4.1765
         unit: g
         receivers:
           - Vector__XXX
@@ -464,8 +510,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 63
+        min:
+          Uint: 0
+        max:
+          Uint: 63
         unit: ""
         receivers:
           - Vector__XXX
@@ -477,8 +525,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 63
+        min:
+          Uint: 0
+        max:
+          Uint: 63
         unit: ""
         receivers:
           - Vector__XXX
@@ -490,8 +540,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 15
+        min:
+          Uint: 0
+        max:
+          Uint: 15
         unit: ""
         receivers:
           - Vector__XXX
@@ -510,8 +562,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ""
         receivers:
           - Vector__XXX
@@ -524,8 +578,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ""
         receivers:
           - Vector__XXX
@@ -538,8 +594,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ""
         receivers:
           - Vector__XXX
@@ -552,8 +610,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ""
         receivers:
           - Vector__XXX
@@ -566,8 +626,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ""
         receivers:
           - Vector__XXX
@@ -580,8 +642,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ""
         receivers:
           - Vector__XXX
@@ -594,8 +658,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ""
         receivers:
           - Vector__XXX
@@ -608,8 +674,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ASCII
         receivers:
           - Vector__XXX
@@ -622,8 +690,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ASCII
         receivers:
           - Vector__XXX
@@ -636,8 +706,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ASCII
         receivers:
           - Vector__XXX
@@ -650,8 +722,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ASCII
         receivers:
           - Vector__XXX
@@ -664,8 +738,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ASCII
         receivers:
           - Vector__XXX
@@ -678,8 +754,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ASCII
         receivers:
           - Vector__XXX
@@ -692,8 +770,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ASCII
         receivers:
           - Vector__XXX
@@ -706,8 +786,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ASCII
         receivers:
           - Vector__XXX
@@ -720,8 +802,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ASCII
         receivers:
           - Vector__XXX
@@ -734,8 +818,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ASCII
         receivers:
           - Vector__XXX
@@ -748,8 +834,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ASCII
         receivers:
           - Vector__XXX
@@ -762,8 +850,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ASCII
         receivers:
           - Vector__XXX
@@ -776,8 +866,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ASCII
         receivers:
           - Vector__XXX
@@ -790,8 +882,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ASCII
         receivers:
           - Vector__XXX
@@ -804,8 +898,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ASCII
         receivers:
           - Vector__XXX
@@ -818,8 +914,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ASCII
         receivers:
           - Vector__XXX
@@ -832,8 +930,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ASCII
         receivers:
           - Vector__XXX
@@ -846,8 +946,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ASCII
         receivers:
           - Vector__XXX
@@ -860,8 +962,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ASCII
         receivers:
           - Vector__XXX
@@ -874,8 +978,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ASCII
         receivers:
           - Vector__XXX
@@ -888,8 +994,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ASCII
         receivers:
           - Vector__XXX
@@ -902,8 +1010,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 99
+        min:
+          Uint: 0
+        max:
+          Uint: 99
         unit: ""
         receivers:
           - Vector__XXX
@@ -916,8 +1026,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 1
-        max: 12
+        min:
+          Uint: 1
+        max:
+          Uint: 12
         unit: ""
         receivers:
           - Vector__XXX
@@ -930,8 +1042,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 1
-        max: 31
+        min:
+          Uint: 1
+        max:
+          Uint: 31
         unit: ""
         receivers:
           - Vector__XXX
@@ -944,8 +1058,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 24
+        min:
+          Uint: 0
+        max:
+          Uint: 24
         unit: ""
         receivers:
           - Vector__XXX
@@ -958,8 +1074,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 59
+        min:
+          Uint: 0
+        max:
+          Uint: 59
         unit: ""
         receivers:
           - Vector__XXX
@@ -972,8 +1090,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 59
+        min:
+          Uint: 0
+        max:
+          Uint: 59
         unit: ""
         receivers:
           - Vector__XXX
@@ -986,8 +1106,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ""
         receivers:
           - Vector__XXX
@@ -1000,8 +1122,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 99
+        min:
+          Uint: 0
+        max:
+          Uint: 99
         unit: ""
         receivers:
           - Vector__XXX
@@ -1014,8 +1138,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 1
-        max: 12
+        min:
+          Uint: 1
+        max:
+          Uint: 12
         unit: ""
         receivers:
           - Vector__XXX
@@ -1028,8 +1154,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 1
-        max: 31
+        min:
+          Uint: 1
+        max:
+          Uint: 31
         unit: ""
         receivers:
           - Vector__XXX
@@ -1042,8 +1170,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 99999
+        min:
+          Uint: 0
+        max:
+          Uint: 99999
         unit: ""
         receivers:
           - Vector__XXX
@@ -1062,8 +1192,10 @@ messages:
         value_type: Unsigned
         factor: 0.1
         offset: 0
-        min: 0
-        max: 100
+        min:
+          Uint: 0
+        max:
+          Uint: 100
         unit: Bar
         receivers:
           - Vector__XXX
@@ -1075,8 +1207,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 100
+        min:
+          Uint: 0
+        max:
+          Uint: 100
         unit: Bar
         receivers:
           - Vector__XXX
@@ -1088,8 +1222,10 @@ messages:
         value_type: Unsigned
         factor: 0.1
         offset: 0
-        min: 0
-        max: 100
+        min:
+          Uint: 0
+        max:
+          Uint: 100
         unit: "%"
         receivers:
           - Vector__XXX
@@ -1101,8 +1237,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 100
+        min:
+          Uint: 0
+        max:
+          Uint: 100
         unit: "%"
         receivers:
           - Vector__XXX
@@ -1121,8 +1259,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 1
-        max: 12
+        min:
+          Uint: 1
+        max:
+          Uint: 12
         unit: ""
         receivers:
           - Vector__XXX
@@ -1134,8 +1274,10 @@ messages:
         value_type: Signed
         factor: 0.01526
         offset: 0
-        min: -42.5
-        max: 425
+        min:
+          Double: -42.5
+        max:
+          Uint: 425
         unit: bar
         receivers:
           - Vector__XXX
@@ -1147,8 +1289,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 1
+        min:
+          Uint: 0
+        max:
+          Uint: 1
         unit: ""
         receivers:
           - Vector__XXX
@@ -1160,8 +1304,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 3
+        min:
+          Uint: 0
+        max:
+          Uint: 3
         unit: ""
         receivers:
           - Vector__XXX
@@ -1173,8 +1319,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 1
+        min:
+          Uint: 0
+        max:
+          Uint: 1
         unit: ""
         receivers:
           - Vector__XXX
@@ -1186,8 +1334,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 1
+        min:
+          Uint: 0
+        max:
+          Uint: 1
         unit: ""
         receivers:
           - Vector__XXX
@@ -1199,8 +1349,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 1
+        min:
+          Uint: 0
+        max:
+          Uint: 1
         unit: ""
         receivers:
           - Vector__XXX
@@ -1212,8 +1364,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 1
+        min:
+          Uint: 0
+        max:
+          Uint: 1
         unit: ""
         receivers:
           - Vector__XXX
@@ -1225,8 +1379,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 3
+        min:
+          Uint: 0
+        max:
+          Uint: 3
         unit: ""
         receivers:
           - Vector__XXX
@@ -1238,8 +1394,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 3
+        min:
+          Uint: 0
+        max:
+          Uint: 3
         unit: ""
         receivers:
           - Vector__XXX
@@ -1251,8 +1409,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 3
+        min:
+          Uint: 0
+        max:
+          Uint: 3
         unit: ""
         receivers:
           - Vector__XXX
@@ -1264,8 +1424,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 3
+        min:
+          Uint: 0
+        max:
+          Uint: 3
         unit: ""
         receivers:
           - Vector__XXX
@@ -1277,8 +1439,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 1
+        min:
+          Uint: 0
+        max:
+          Uint: 1
         unit: ""
         receivers:
           - Vector__XXX
@@ -1290,8 +1454,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 1
+        min:
+          Uint: 0
+        max:
+          Uint: 1
         unit: ""
         receivers:
           - Vector__XXX
@@ -1303,8 +1469,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 1
+        min:
+          Uint: 0
+        max:
+          Uint: 1
         unit: ""
         receivers:
           - Vector__XXX
@@ -1316,8 +1484,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 1
+        min:
+          Uint: 0
+        max:
+          Uint: 1
         unit: ""
         receivers:
           - Vector__XXX
@@ -1329,8 +1499,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 1
+        min:
+          Uint: 0
+        max:
+          Uint: 1
         unit: ""
         receivers:
           - Vector__XXX
@@ -1342,8 +1514,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 1
+        min:
+          Uint: 0
+        max:
+          Uint: 1
         unit: ""
         receivers:
           - Vector__XXX
@@ -1355,8 +1529,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 3
+        min:
+          Uint: 0
+        max:
+          Uint: 3
         unit: ""
         receivers:
           - Vector__XXX
@@ -1368,8 +1544,10 @@ messages:
         value_type: Signed
         factor: 0.01526
         offset: 0
-        min: -42.5
-        max: 425
+        min:
+          Double: -42.5
+        max:
+          Uint: 425
         unit: bar
         receivers:
           - Vector__XXX

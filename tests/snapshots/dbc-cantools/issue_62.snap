@@ -47,8 +47,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - Vector__XXX
@@ -60,8 +62,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - Vector__XXX
@@ -73,8 +77,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - Vector__XXX
@@ -86,8 +92,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - Vector__XXX
@@ -99,8 +107,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - Vector__XXX
@@ -112,8 +122,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 64255
+        min:
+          Uint: 0
+        max:
+          Uint: 64255
         unit: Nm
         receivers:
           - Vector__XXX
@@ -125,8 +137,10 @@ messages:
         value_type: Unsigned
         factor: 2
         offset: 0
-        min: 0
-        max: 128510
+        min:
+          Uint: 0
+        max:
+          Uint: 128510
         unit: kg
         receivers:
           - Vector__XXX
@@ -138,8 +152,10 @@ messages:
         value_type: Unsigned
         factor: 8
         offset: 0
-        min: 0
-        max: 2000
+        min:
+          Uint: 0
+        max:
+          Uint: 2000
         unit: kPa
         receivers:
           - Vector__XXX
@@ -151,8 +167,10 @@ messages:
         value_type: Unsigned
         factor: 8
         offset: 0
-        min: 0
-        max: 2000
+        min:
+          Uint: 0
+        max:
+          Uint: 2000
         unit: kPa
         receivers:
           - Vector__XXX
@@ -164,8 +182,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 7
+        min:
+          Uint: 0
+        max:
+          Uint: 7
         unit: ""
         receivers:
           - Vector__XXX
@@ -177,8 +197,10 @@ messages:
         value_type: Unsigned
         factor: 0.1
         offset: 0
-        min: 0
-        max: 6425.5
+        min:
+          Uint: 0
+        max:
+          Double: 6425.5
         unit: Pa/s
         receivers:
           - Vector__XXX
@@ -190,8 +212,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 3
+        min:
+          Uint: 0
+        max:
+          Uint: 3
         unit: ""
         receivers:
           - Vector__XXX
@@ -203,8 +227,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 3
+        min:
+          Uint: 0
+        max:
+          Uint: 3
         unit: ""
         receivers:
           - Vector__XXX
@@ -216,8 +242,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 3
+        min:
+          Uint: 0
+        max:
+          Uint: 3
         unit: ""
         receivers:
           - Vector__XXX
@@ -229,8 +257,10 @@ messages:
         value_type: Unsigned
         factor: 0.03125
         offset: -273
-        min: -273
-        max: 1734.96875
+        min:
+          Int: -273
+        max:
+          Double: 1734.96875
         unit: deg C
         receivers:
           - Vector__XXX
@@ -242,8 +272,10 @@ messages:
         value_type: Unsigned
         factor: 4
         offset: 0
-        min: 0
-        max: 1000
+        min:
+          Uint: 0
+        max:
+          Uint: 1000
         unit: kPa
         receivers:
           - Vector__XXX
@@ -255,8 +287,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 3
+        min:
+          Uint: 0
+        max:
+          Uint: 3
         unit: ""
         receivers:
           - Vector__XXX
@@ -268,8 +302,10 @@ messages:
         value_type: Unsigned
         factor: 0.125
         offset: 0
-        min: 0
-        max: 8031.875
+        min:
+          Uint: 0
+        max:
+          Double: 8031.875
         unit: rpm
         receivers:
           - Vector__XXX

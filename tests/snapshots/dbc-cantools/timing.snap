@@ -51,8 +51,10 @@ messages:
         value_type: Signed
         factor: 0.01
         offset: 250
-        min: 229.53
-        max: 270.47
+        min:
+          Double: 229.53
+        max:
+          Double: 270.47
         unit: degK
         receivers:
           - Receiver
@@ -71,8 +73,10 @@ messages:
         value_type: Signed
         factor: 0.01
         offset: 250
-        min: 229.53
-        max: 270.47
+        min:
+          Double: 229.53
+        max:
+          Double: 270.47
         unit: degK
         receivers:
           - Receiver

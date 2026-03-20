@@ -54,8 +54,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - SENSOR
@@ -75,8 +77,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - DBG
@@ -88,8 +92,10 @@ messages:
         value_type: Unsigned
         factor: 0.5
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - DBG
@@ -101,8 +107,10 @@ messages:
         value_type: Signed
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - DBG
@@ -114,8 +122,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - DBG
@@ -134,8 +144,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 9
+        min:
+          Uint: 0
+        max:
+          Uint: 9
         unit: ""
         receivers:
           - MOTOR
@@ -147,8 +159,10 @@ messages:
         value_type: Signed
         factor: 1
         offset: -5
-        min: -5
-        max: 5
+        min:
+          Int: -5
+        max:
+          Uint: 5
         unit: ""
         receivers:
           - MOTOR
@@ -167,8 +181,10 @@ messages:
         value_type: Unsigned
         factor: 0.001
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: kph
         receivers:
           - DRIVER
@@ -181,8 +197,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - DRIVER
@@ -202,8 +220,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - DRIVER
@@ -217,8 +237,10 @@ messages:
         value_type: Unsigned
         factor: 0.1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - DRIVER
@@ -232,8 +254,10 @@ messages:
         value_type: Unsigned
         factor: 0.1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - DRIVER
@@ -246,8 +270,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - DRIVER
@@ -261,8 +287,10 @@ messages:
         value_type: Unsigned
         factor: 0.1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - DBG
@@ -275,8 +303,10 @@ messages:
         value_type: Unsigned
         factor: 0.1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - DBG
@@ -289,8 +319,10 @@ messages:
         value_type: Unsigned
         factor: 0.1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - DBG
@@ -303,8 +335,10 @@ messages:
         value_type: Unsigned
         factor: 0.1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - DBG
@@ -317,8 +351,10 @@ messages:
         value_type: Unsigned
         factor: 0.1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - DRIVER
@@ -332,8 +368,10 @@ messages:
         value_type: Unsigned
         factor: 0.1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - DRIVER

@@ -72,8 +72,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - Node1
@@ -86,8 +88,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - Node0
@@ -99,8 +103,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - Node0
@@ -119,8 +125,10 @@ messages:
         value_type: Unsigned
         factor: 100
         offset: 0
-        min: 0
-        max: 100
+        min:
+          Uint: 0
+        max:
+          Uint: 100
         unit: "%"
         receivers:
           - Node1
@@ -133,8 +141,10 @@ messages:
         value_type: Signed
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - Node1

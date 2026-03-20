@@ -60,8 +60,10 @@ messages:
         value_type: Signed
         factor: 0.01
         offset: 250
-        min: 229.53
-        max: 270.47
+        min:
+          Double: 229.53
+        max:
+          Double: 270.47
         unit: degK
         receivers:
           - BAR
@@ -73,8 +75,10 @@ messages:
         value_type: Signed
         factor: 0.1
         offset: 0
-        min: 0
-        max: 5
+        min:
+          Uint: 0
+        max:
+          Uint: 5
         unit: m
         receivers:
           - FOO
@@ -93,8 +97,10 @@ messages:
         value_type: Signed
         factor: 1
         offset: 0
-        min: 0
-        max: 10
+        min:
+          Uint: 0
+        max:
+          Uint: 10
         unit: ""
         receivers:
           - BAR
@@ -106,8 +112,10 @@ messages:
         value_type: Signed
         factor: 1
         offset: 0
-        min: 0
-        max: 8
+        min:
+          Uint: 0
+        max:
+          Uint: 8
         unit: ""
         receivers:
           - BAR
@@ -126,8 +134,10 @@ messages:
         value_type: Signed
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - FUM
@@ -146,8 +156,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - FUM
@@ -159,8 +171,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - Vector__XXX
@@ -179,8 +193,10 @@ messages:
         value_type: Signed
         factor: 1
         offset: 0
-        min: 0
-        max: 1
+        min:
+          Uint: 0
+        max:
+          Uint: 1
         unit: ""
         receivers:
           - BAR

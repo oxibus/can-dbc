@@ -52,8 +52,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ""
         receivers:
           - Actuator
@@ -65,8 +67,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 15
+        min:
+          Uint: 0
+        max:
+          Uint: 15
         unit: ""
         receivers:
           - Actuator
@@ -78,8 +82,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 3
+        min:
+          Uint: 0
+        max:
+          Uint: 3
         unit: ""
         receivers:
           - Actuator
@@ -91,8 +97,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 3
+        min:
+          Uint: 0
+        max:
+          Uint: 3
         unit: ""
         receivers:
           - Actuator
@@ -104,8 +112,10 @@ messages:
         value_type: Signed
         factor: 0.0154286
         offset: 0
-        min: -450
-        max: 450
+        min:
+          Int: -450
+        max:
+          Uint: 450
         unit: deg
         receivers:
           - Actuator
@@ -117,8 +127,10 @@ messages:
         value_type: Signed
         factor: 0.0166667
         offset: 0
-        min: -8
-        max: 8
+        min:
+          Int: -8
+        max:
+          Uint: 8
         unit: N*m
         receivers:
           - Actuator
@@ -130,8 +142,10 @@ messages:
         value_type: Unsigned
         factor: 0.186666
         offset: 0
-        min: 0
-        max: 8
+        min:
+          Uint: 0
+        max:
+          Uint: 8
         unit: N*m
         receivers:
           - Actuator
@@ -150,8 +164,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ""
         receivers:
           - Actuator
@@ -163,8 +179,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 15
+        min:
+          Uint: 0
+        max:
+          Uint: 15
         unit: ""
         receivers:
           - Actuator
@@ -176,8 +194,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - Actuator
@@ -189,8 +209,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 0
+        min:
+          Uint: 0
+        max:
+          Uint: 0
         unit: ""
         receivers:
           - Actuator
@@ -209,8 +231,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ""
         receivers:
           - Driver
@@ -223,8 +247,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 15
+        min:
+          Uint: 0
+        max:
+          Uint: 15
         unit: ""
         receivers:
           - Driver
@@ -236,8 +262,10 @@ messages:
         value_type: Signed
         factor: 0.015625
         offset: 0
-        min: -8
-        max: 8
+        min:
+          Int: -8
+        max:
+          Uint: 8
         unit: N*m
         receivers:
           - Driver
@@ -249,8 +277,10 @@ messages:
         value_type: Unsigned
         factor: 0.125
         offset: 0
-        min: 0
-        max: 8
+        min:
+          Uint: 0
+        max:
+          Uint: 8
         unit: N*m
         receivers:
           - Driver
@@ -269,8 +299,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ""
         receivers:
           - Driver
@@ -282,8 +314,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 15
+        min:
+          Uint: 0
+        max:
+          Uint: 15
         unit: ""
         receivers:
           - Driver
@@ -295,8 +329,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: -60
-        min: -60
-        max: 195
+        min:
+          Int: -60
+        max:
+          Uint: 195
         unit: C
         receivers:
           - Driver
@@ -315,8 +351,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 255
+        min:
+          Uint: 0
+        max:
+          Uint: 255
         unit: ""
         receivers:
           - Driver
@@ -328,8 +366,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 15
+        min:
+          Uint: 0
+        max:
+          Uint: 15
         unit: ""
         receivers:
           - Driver
@@ -341,8 +381,10 @@ messages:
         value_type: Signed
         factor: 0.01
         offset: 0
-        min: -20
-        max: 20
+        min:
+          Int: -20
+        max:
+          Uint: 20
         unit: N*m
         receivers:
           - Driver

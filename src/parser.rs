@@ -4,6 +4,8 @@
 
 use can_dbc_pest::{Error as PestError, Pair, Pairs, Rule};
 
+use crate::ast::NumericValue;
+
 pub type DbcResult<T> = Result<T, DbcError>;
 
 /// A helper function to decode cp1252 bytes, as DBC files are often encoded in cp1252.
@@ -232,12 +234,17 @@ pub(crate) fn parse_min_max_int(pair: Pair<Rule>) -> DbcResult<(i64, i64)> {
     Ok((min_val, max_val))
 }
 
-/// Helper to parse min/max values from a `min_max` rule as floats
-pub(crate) fn parse_min_max_float(pair: Pair<Rule>) -> DbcResult<(f64, f64)> {
+/// Helper to parse min/max values from a `min_max` rule as `NumericValue`
+/// This preserves the exact value without precision loss for large integers like 2**64
+pub(crate) fn parse_min_max_numeric(pair: Pair<Rule>) -> DbcResult<(NumericValue, NumericValue)> {
     let mut pairs = pair.into_inner();
 
-    let min_val = parse_next_float(&mut pairs, Rule::minimum)?;
-    let max_val = parse_next_float(&mut pairs, Rule::maximum)?;
+    let min_val = next_rule(&mut pairs, Rule::minimum)?
+        .as_str()
+        .parse::<NumericValue>()?;
+    let max_val = next_rule(&mut pairs, Rule::maximum)?
+        .as_str()
+        .parse::<NumericValue>()?;
     expect_empty(&pairs).expect("pest grammar ensures no extra items");
 
     Ok((min_val, max_val))

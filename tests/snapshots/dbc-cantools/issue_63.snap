@@ -47,8 +47,10 @@ messages:
         value_type: Unsigned
         factor: 0.1
         offset: 0
-        min: 0
-        max: 6425.5
+        min:
+          Uint: 0
+        max:
+          Double: 6425.5
         unit: ohm
         receivers:
           - Vector__XXX
@@ -60,8 +62,10 @@ messages:
         value_type: Unsigned
         factor: 250
         offset: 0
-        min: 0
-        max: 62500
+        min:
+          Uint: 0
+        max:
+          Uint: 62500
         unit: kohm
         receivers:
           - Vector__XXX
@@ -73,8 +77,10 @@ messages:
         value_type: Unsigned
         factor: 0.03125
         offset: -273
-        min: -273
-        max: 1734.96875
+        min:
+          Int: -273
+        max:
+          Double: 1734.96875
         unit: ï¿½C
         receivers:
           - Vector__XXX
@@ -86,8 +92,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 250
+        min:
+          Uint: 0
+        max:
+          Uint: 250
         unit: ""
         receivers:
           - Vector__XXX
@@ -99,8 +107,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 3
+        min:
+          Uint: 0
+        max:
+          Uint: 3
         unit: ""
         receivers:
           - Vector__XXX
@@ -112,8 +122,10 @@ messages:
         value_type: Unsigned
         factor: 1
         offset: 0
-        min: 0
-        max: 15
+        min:
+          Uint: 0
+        max:
+          Uint: 15
         unit: ""
         receivers:
           - Vector__XXX
