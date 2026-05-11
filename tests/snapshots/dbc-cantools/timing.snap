@@ -40,8 +40,7 @@ messages:
       Standard: 1
     name: Foo
     size: 8
-    transmitter:
-      NodeName: Sender
+    transmitter: Sender
     signals:
       - name: Foo
         multiplexer_indicator: Plain
@@ -62,8 +61,7 @@ messages:
       Standard: 2
     name: Bar
     size: 8
-    transmitter:
-      NodeName: Sender
+    transmitter: Sender
     signals:
       - name: Foo
         multiplexer_indicator: Plain

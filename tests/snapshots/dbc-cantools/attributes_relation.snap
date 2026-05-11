@@ -40,8 +40,7 @@ messages:
       Standard: 83
     name: Message_2
     size: 8
-    transmitter:
-      NodeName: ECU2
+    transmitter: ECU2
     signals:
       - name: signal_2
         multiplexer_indicator: Plain
@@ -62,8 +61,7 @@ messages:
       Standard: 82
     name: Message_1
     size: 8
-    transmitter:
-      NodeName: ECU1
+    transmitter: ECU1
     signals:
       - name: signal_1
         multiplexer_indicator: Plain

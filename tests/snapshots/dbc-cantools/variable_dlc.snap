@@ -10,8 +10,7 @@ messages:
       Extended: 16711936
     name: TestMessage1
     size: 3
-    transmitter:
-      NodeName: Test
+    transmitter: Test
     signals:
       - name: Signal1
         multiplexer_indicator: Plain
@@ -62,8 +61,7 @@ messages:
       Extended: 16712192
     name: TestMessage2
     size: 10
-    transmitter:
-      NodeName: Test
+    transmitter: Test
     signals:
       - name: Signal4
         multiplexer_indicator: Plain

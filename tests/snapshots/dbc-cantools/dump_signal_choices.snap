@@ -31,8 +31,7 @@ messages:
       Standard: 1024
     name: Message0
     size: 8
-    transmitter:
-      NodeName: Node0
+    transmitter: Node0
     signals:
       - name: FooSignal
         multiplexer_indicator: Plain
@@ -47,8 +46,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: BarSignal
         multiplexer_indicator: Plain
         start_bit: 2
@@ -62,8 +59,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
 value_descriptions:
   - Signal:
       message_id:

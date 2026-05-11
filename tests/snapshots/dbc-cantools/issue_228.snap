@@ -39,7 +39,7 @@ messages:
       Standard: 1
     name: SGMsg
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: dupsig
         multiplexer_indicator: Plain
@@ -54,8 +54,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: SG2
         multiplexer_indicator: Plain
         start_bit: 8
@@ -69,8 +67,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: SG1
         multiplexer_indicator: Plain
         start_bit: 0
@@ -84,13 +80,11 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
   - id:
       Standard: 0
     name: NormalMsg
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: Sig_2
         multiplexer_indicator: Plain
@@ -105,8 +99,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Sig_1
         multiplexer_indicator: Plain
         start_bit: 0
@@ -120,8 +112,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
 attribute_definitions:
   - Plain:
       - BusType

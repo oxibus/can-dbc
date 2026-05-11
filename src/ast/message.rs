@@ -1,8 +1,9 @@
 use can_dbc_pest::{Pair, Rule};
 
-use crate::ast::{MessageId, Signal, Transmitter};
+use crate::ast::{MessageId, Signal};
 use crate::parser::{
-    collect_expected, next_rule, next_string, parse_next_uint, single_inner, validated_inner,
+    collect_expected, next_rule, next_string, node_name_or_none, parse_next_uint, single_inner,
+    validated_inner,
 };
 use crate::DbcError;
 
@@ -15,7 +16,7 @@ pub struct Message {
     pub id: MessageId,
     pub name: String,
     pub size: u64,
-    pub transmitter: Transmitter,
+    pub transmitter: Option<String>,
     #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
     pub signals: Vec<Signal>,
 }
@@ -33,12 +34,7 @@ impl TryFrom<Pair<'_, Rule>> for Message {
         let name = next_string(&mut pairs, Rule::message_name)?;
         let size = parse_next_uint(&mut pairs, Rule::message_size)?;
 
-        let transmitter = next_string(&mut pairs, Rule::transmitter)?;
-        let transmitter = if matches!(transmitter.as_str(), "Vector__XXX" | "VectorXXX" | "") {
-            Transmitter::VectorXXX
-        } else {
-            Transmitter::NodeName(transmitter)
-        };
+        let transmitter = node_name_or_none(next_string(&mut pairs, Rule::transmitter)?);
 
         let signals = collect_expected(&mut pairs, Rule::signal)?;
 
@@ -71,7 +67,7 @@ BO_ 1 MCA_A1: 6 MFA
             id: MessageId::Standard(1),
             name: "MCA_A1".to_string(),
             size: 6,
-            transmitter: Transmitter::NodeName("MFA".to_string()),
+            transmitter: Some("MFA".to_string()),
             signals: vec![
                 Signal {
                     name: "ABC_1".to_string(),
@@ -118,7 +114,7 @@ BO_ 1 MCA_A1: 6 MFA
             id: MessageId::Standard(1),
             name: "MCA_A1".to_string(),
             size: 6,
-            transmitter: Transmitter::NodeName("MFA".to_string()),
+            transmitter: Some("MFA".to_string()),
             signals: vec![
                 Signal {
                     name: "uint".to_string(),
@@ -152,5 +148,12 @@ BO_ 1 MCA_A1: 6 MFA
         };
         let val = test_into::<Message>(def.trim_start(), Rule::message);
         assert_eq!(val, exp);
+    }
+
+    #[test]
+    fn vector_placeholder_transmitter_test() {
+        let def = "BO_ 1 MCA_A1: 6 Vector__XXX";
+        let val = test_into::<Message>(def, Rule::message);
+        assert_eq!(val.transmitter, None);
     }
 }

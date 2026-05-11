@@ -55,7 +55,7 @@ messages:
       Standard: 0
     name: Message1
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: Signal1
         multiplexer_indicator: Plain
@@ -70,8 +70,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
 attribute_definitions:
   - Plain:
       - BusType

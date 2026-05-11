@@ -47,8 +47,7 @@ messages:
       Standard: 496
     name: ExampleMessage
     size: 2
-    transmitter:
-      NodeName: PCM1
+    transmitter: PCM1
     signals:
       - name: Temperature
         multiplexer_indicator: Plain

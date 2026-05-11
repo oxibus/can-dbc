@@ -42,32 +42,32 @@ messages:
       Standard: 9
     name: SS123456789012345678901234587890
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
   - id:
       Standard: 8
     name: SS1234567890123456789012345_0000
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
   - id:
       Standard: 7
     name: SS1234567890123456789012345_0001
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
   - id:
       Standard: 6
     name: SS123456789012345678901234577890
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
   - id:
       Standard: 5
     name: SS123456789012345678901234567890
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
   - id:
       Standard: 4
     name: S1234567890123456789012345678901
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: SS123456789012345678901234567890
         multiplexer_indicator: Plain
@@ -82,13 +82,11 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
   - id:
       Standard: 0
     name: M12345678901234567890123456_0000
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: SSS12345678901234567890123456789
         multiplexer_indicator: Plain
@@ -103,14 +101,11 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
   - id:
       Standard: 1
     name: M1234567890123456789012345678901
     size: 8
-    transmitter:
-      NodeName: N1234567890123456789012345678901
+    transmitter: N1234567890123456789012345678901
     signals:
       - name: SS1234567890123456789012345_0000
         multiplexer_indicator: Plain
@@ -125,8 +120,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: SS1234567890123456789012345_0001
         multiplexer_indicator: Plain
         start_bit: 24
@@ -140,8 +133,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: SS1234567890123456789012345_0002
         multiplexer_indicator: Plain
         start_bit: 16
@@ -170,8 +161,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: S1234567890123456789012345678901
         multiplexer_indicator: Plain
         start_bit: 0
@@ -185,14 +174,11 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
   - id:
       Standard: 2
     name: M12345678901234567890123456_0001
     size: 8
-    transmitter:
-      NodeName: N12345678901234567890123456_0001
+    transmitter: N12345678901234567890123456_0001
     signals:
       - name: SS1234567890123456789012345_0003
         multiplexer_indicator: Plain
@@ -207,8 +193,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: SS1234567890123456789012345_0004
         multiplexer_indicator: Plain
         start_bit: 16
@@ -222,8 +206,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: S12345678901234567890123456_0001
         multiplexer_indicator: Plain
         start_bit: 8
@@ -237,8 +219,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: S12345678901234567890123456_0002
         multiplexer_indicator: Plain
         start_bit: 0
@@ -252,13 +232,11 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
   - id:
       Standard: 3
     name: MM123456789012345678901234567890
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: SSS123456789012345678901234_0000
         multiplexer_indicator: Plain
@@ -273,8 +251,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: SS1234567890123456789012345_0005
         multiplexer_indicator: Plain
         start_bit: 0
@@ -288,8 +264,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
 environment_variables:
   - name: E12345678901234567890123456_0000
     typ: Integer
@@ -299,8 +273,6 @@ environment_variables:
     initial_value: 0
     ev_id: 1
     access_type: DummyNodeVector0
-    access_nodes:
-      - Name: Vector__XXX
   - name: E1234567890123456789012345678901
     typ: Integer
     min: 0
@@ -309,8 +281,6 @@ environment_variables:
     initial_value: 0
     ev_id: 2
     access_type: DummyNodeVector0
-    access_nodes:
-      - Name: Vector__XXX
 attribute_definitions:
   - Plain:
       - BusType

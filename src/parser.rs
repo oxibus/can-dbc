@@ -164,6 +164,22 @@ pub(crate) fn collect_strings(iter: &mut Pairs<Rule>, expected: Rule) -> DbcResu
     .collect()
 }
 
+pub(crate) fn is_vector_placeholder(value: &str) -> bool {
+    matches!(value, "" | "Vector__XXX" | "VectorXXX" | "VECTOR__XXX")
+}
+
+pub(crate) fn node_name_or_none(value: String) -> Option<String> {
+    if is_vector_placeholder(&value) {
+        None
+    } else {
+        Some(value)
+    }
+}
+
+pub(crate) fn collect_node_names(iter: &mut Pairs<Rule>, expected: Rule) -> DbcResult<Vec<String>> {
+    collect_strings(iter, expected).map(|v| v.into_iter().filter_map(node_name_or_none).collect())
+}
+
 /// Helper function to ensure the iterator is empty (no more items)
 pub(crate) fn expect_empty(iter: &Pairs<Rule>) -> DbcResult<()> {
     iter.peek()

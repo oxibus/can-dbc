@@ -11,11 +11,9 @@ messages:
       Standard: 1024
     name: Message1
     size: 5
-    transmitter:
-      NodeName: TestNode
+    transmitter: TestNode
   - id:
       Standard: 1025
     name: Message2
     size: 0
-    transmitter:
-      NodeName: TestNode
+    transmitter: TestNode

@@ -39,8 +39,7 @@ messages:
       Standard: 1
     name: msg_now_short
     size: 8
-    transmitter:
-      NodeName: node_now_short
+    transmitter: node_now_short
     signals:
       - name: sig_now_short
         multiplexer_indicator: Plain
@@ -55,8 +54,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
 comments:
   - Node:
       name: node_now_short
