@@ -37,7 +37,7 @@ messages:
       Extended: 1193046
     name: Message1
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: BIT_F
         multiplexer_indicator:
@@ -53,8 +53,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: BIT_H
         multiplexer_indicator:
           MultiplexedSignal: 24
@@ -69,8 +67,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: BIT_B
         multiplexer_indicator:
           MultiplexedSignal: 24
@@ -85,8 +81,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: BIT_D
         multiplexer_indicator:
           MultiplexedSignal: 24
@@ -101,8 +95,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: BIT_E
         multiplexer_indicator:
           MultiplexedSignal: 24
@@ -117,8 +109,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: BIT_K
         multiplexer_indicator:
           MultiplexedSignal: 24
@@ -133,8 +123,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: BIT_A
         multiplexer_indicator:
           MultiplexedSignal: 24
@@ -149,8 +137,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: BIT_L
         multiplexer_indicator:
           MultiplexedSignal: 8
@@ -165,8 +151,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: BIT_G
         multiplexer_indicator:
           MultiplexedSignal: 8
@@ -181,8 +165,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: BIT_C
         multiplexer_indicator:
           MultiplexedSignal: 8
@@ -197,8 +179,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: BIT_J
         multiplexer_indicator:
           MultiplexedSignal: 8
@@ -213,8 +193,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Multiplexor
         multiplexer_indicator: Multiplexor
         start_bit: 2
@@ -228,8 +206,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
 comments:
   - Signal:
       message_id:

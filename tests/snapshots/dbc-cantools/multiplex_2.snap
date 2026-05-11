@@ -37,7 +37,7 @@ messages:
       Extended: 201522942
     name: Shared
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: S2
         multiplexer_indicator:
@@ -53,8 +53,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: S1
         multiplexer_indicator:
           MultiplexedSignal: 1
@@ -69,8 +67,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: S0
         multiplexer_indicator: Multiplexor
         start_bit: 0
@@ -84,13 +80,11 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
   - id:
       Extended: 201457406
     name: Normal
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: S2
         multiplexer_indicator:
@@ -106,8 +100,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: S1
         multiplexer_indicator:
           MultiplexedSignal: 0
@@ -122,8 +114,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: S0
         multiplexer_indicator: Multiplexor
         start_bit: 0
@@ -137,13 +127,11 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
   - id:
       Extended: 201391870
     name: Extended
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: S8
         multiplexer_indicator:
@@ -159,8 +147,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: S7
         multiplexer_indicator:
           MultiplexedSignal: 1
@@ -175,8 +161,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: S6
         multiplexer_indicator: Multiplexor
         start_bit: 32
@@ -190,8 +174,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: S5
         multiplexer_indicator:
           MultiplexedSignal: 1
@@ -206,8 +188,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: S4
         multiplexer_indicator:
           MultiplexedSignal: 2
@@ -222,8 +202,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: S3
         multiplexer_indicator:
           MultiplexedSignal: 0
@@ -238,8 +216,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: S2
         multiplexer_indicator:
           MultiplexedSignal: 0
@@ -254,8 +230,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: S1
         multiplexer_indicator:
           MultiplexorAndMultiplexedSignal: 0
@@ -270,8 +244,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: S0
         multiplexer_indicator: Multiplexor
         start_bit: 0
@@ -285,13 +257,11 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
   - id:
       Extended: 201588478
     name: ExtendedTypes
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: S9
         multiplexer_indicator:
@@ -307,8 +277,6 @@ messages:
         max:
           Uint: 1235
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: S10
         multiplexer_indicator:
           MultiplexedSignal: 0
@@ -323,8 +291,6 @@ messages:
         max:
           Double: 340000000000000000000000000000000000000
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: S0
         multiplexer_indicator:
           MultiplexorAndMultiplexedSignal: 3
@@ -339,8 +305,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: S11
         multiplexer_indicator: Multiplexor
         start_bit: 0
@@ -354,8 +318,6 @@ messages:
         max:
           Uint: 6
         unit: ""
-        receivers:
-          - Vector__XXX
 attribute_definitions:
   - Message:
       - TpJ1939VarDlc

@@ -40,8 +40,7 @@ messages:
       Standard: 1
     name: TestMessage
     size: 1
-    transmitter:
-      NodeName: Node1
+    transmitter: Node1
     signals:
       - name: Signal1
         multiplexer_indicator: Plain

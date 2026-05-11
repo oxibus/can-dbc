@@ -39,5 +39,4 @@ messages:
       Standard: 2
     name: M1
     size: 8
-    transmitter:
-      NodeName: FOO
+    transmitter: FOO

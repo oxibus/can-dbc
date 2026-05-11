@@ -37,7 +37,7 @@ messages:
       Extended: 0
     name: VECTOR__INDEPENDENT_SIG_MSG
     size: 0
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: NumberOfMembersInWorkingSet
         multiplexer_indicator: Plain
@@ -52,8 +52,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: SourceAddress
         multiplexer_indicator: Plain
         start_bit: 0
@@ -67,8 +65,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: NncntnuslyMonitoredSystemsStatus
         multiplexer_indicator: Plain
         start_bit: 0
@@ -82,8 +78,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: NncntnslyMonitoredSystemsSupport
         multiplexer_indicator: Plain
         start_bit: 0
@@ -97,8 +91,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: CntnslyMntrdSystmsSupport_Status
         multiplexer_indicator: Plain
         start_bit: 0
@@ -112,8 +104,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: AETCTorqueValue
         multiplexer_indicator: Plain
         start_bit: 0
@@ -127,8 +117,6 @@ messages:
         max:
           Uint: 64255
         unit: Nm
-        receivers:
-          - Vector__XXX
       - name: TrailerWeight
         multiplexer_indicator: Plain
         start_bit: 0
@@ -142,8 +130,6 @@ messages:
         max:
           Uint: 128510
         unit: kg
-        receivers:
-          - Vector__XXX
       - name: ReferenceTirePressSetting
         multiplexer_indicator: Plain
         start_bit: 0
@@ -157,8 +143,6 @@ messages:
         max:
           Uint: 2000
         unit: kPa
-        receivers:
-          - Vector__XXX
       - name: ReferenceTirePress
         multiplexer_indicator: Plain
         start_bit: 0
@@ -172,8 +156,6 @@ messages:
         max:
           Uint: 2000
         unit: kPa
-        receivers:
-          - Vector__XXX
       - name: TirePressThresholdDetection
         multiplexer_indicator: Plain
         start_bit: 0
@@ -187,8 +169,6 @@ messages:
         max:
           Uint: 7
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: TireAirLeakageRate
         multiplexer_indicator: Plain
         start_bit: 0
@@ -202,8 +182,6 @@ messages:
         max:
           Double: 6425.5
         unit: Pa/s
-        receivers:
-          - Vector__XXX
       - name: CTIWheelEndElectricalFault
         multiplexer_indicator: Plain
         start_bit: 0
@@ -217,8 +195,6 @@ messages:
         max:
           Uint: 3
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: CTITireStatus
         multiplexer_indicator: Plain
         start_bit: 0
@@ -232,8 +208,6 @@ messages:
         max:
           Uint: 3
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: CTIWheelSensorStatus
         multiplexer_indicator: Plain
         start_bit: 0
@@ -247,8 +221,6 @@ messages:
         max:
           Uint: 3
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: TireTemp
         multiplexer_indicator: Plain
         start_bit: 0
@@ -262,8 +234,6 @@ messages:
         max:
           Double: 1734.96875
         unit: deg C
-        receivers:
-          - Vector__XXX
       - name: TirePress
         multiplexer_indicator: Plain
         start_bit: 0
@@ -277,8 +247,6 @@ messages:
         max:
           Uint: 1000
         unit: kPa
-        receivers:
-          - Vector__XXX
       - name: EngTurningGearEngaged
         multiplexer_indicator: Plain
         start_bit: 0
@@ -292,8 +260,6 @@ messages:
         max:
           Uint: 3
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: AETCSpeedValue
         multiplexer_indicator: Plain
         start_bit: 0
@@ -307,5 +273,3 @@ messages:
         max:
           Double: 8031.875
         unit: rpm
-        receivers:
-          - Vector__XXX

@@ -60,8 +60,7 @@ messages:
       Extended: 4321
     name: CANMultiplexed
     size: 2
-    transmitter:
-      NodeName: Node0
+    transmitter: Node0
     signals:
       - name: Value1
         multiplexer_indicator:
@@ -114,8 +113,7 @@ messages:
       Standard: 1234
     name: CANMessage
     size: 8
-    transmitter:
-      NodeName: Node0
+    transmitter: Node0
     signals:
       - name: Signal1
         multiplexer_indicator: Plain
@@ -159,7 +157,7 @@ environment_variables:
     ev_id: 1
     access_type: DummyNodeVector0
     access_nodes:
-      - Name: Node0
+      - Node0
   - name: RWEnvVar_wData
     typ: Integer
     min: 0
@@ -169,7 +167,7 @@ environment_variables:
     ev_id: 2
     access_type: DummyNodeVector3
     access_nodes:
-      - Name: Node2
+      - Node2
   - name: WriteOnlyEnvVar
     typ: Float
     min: 0
@@ -179,7 +177,7 @@ environment_variables:
     ev_id: 3
     access_type: DummyNodeVector2
     access_nodes:
-      - Name: Node2
+      - Node2
   - name: ReadOnlyEnvVar
     typ: Integer
     min: 0
@@ -189,7 +187,7 @@ environment_variables:
     ev_id: 4
     access_type: DummyNodeVector1
     access_nodes:
-      - Name: Node2
+      - Node2
 environment_variable_data:
   - env_var_name: RWEnvVar_wData
     data_size: 10

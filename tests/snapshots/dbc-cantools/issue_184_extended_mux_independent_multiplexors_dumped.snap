@@ -37,7 +37,7 @@ messages:
       Extended: 2
     name: ext_MUX_indep_multiplexors
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: muxed_B_1
         multiplexer_indicator:
@@ -53,8 +53,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: muxed_B_2
         multiplexer_indicator:
           MultiplexedSignal: 2
@@ -69,8 +67,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MUX_B
         multiplexer_indicator: Multiplexor
         start_bit: 16
@@ -84,8 +80,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: muxed_A_0
         multiplexer_indicator:
           MultiplexedSignal: 0
@@ -100,8 +94,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: muxed_A_1
         multiplexer_indicator:
           MultiplexedSignal: 1
@@ -116,8 +108,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MUX_A
         multiplexer_indicator: Multiplexor
         start_bit: 0
@@ -131,8 +121,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
 attribute_definitions:
   - Signal:
       - SigType

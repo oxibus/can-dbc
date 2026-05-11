@@ -1,14 +1,14 @@
 use can_dbc_pest::{Pair, Rule};
 
-use crate::ast::{MessageId, Transmitter};
-use crate::parser::{collect_expected, next_rule, validated_inner, DbcError};
+use crate::ast::MessageId;
+use crate::parser::{collect_node_names, next_rule, validated_inner, DbcError};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct MessageTransmitter {
     pub message_id: MessageId,
     #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
-    pub transmitter: Vec<Transmitter>,
+    pub transmitter: Vec<String>,
 }
 
 impl TryFrom<Pair<'_, Rule>> for MessageTransmitter {
@@ -19,7 +19,7 @@ impl TryFrom<Pair<'_, Rule>> for MessageTransmitter {
 
         Ok(Self {
             message_id: next_rule(&mut pairs, Rule::message_id)?.try_into()?,
-            transmitter: collect_expected(&mut pairs, Rule::transmitter)?,
+            transmitter: collect_node_names(&mut pairs, Rule::transmitter)?,
         })
     }
 }
@@ -36,10 +36,7 @@ BO_TX_BU_ 12345 : XZY,ABC;
 ";
         let exp = MessageTransmitter {
             message_id: MessageId::Standard(12345),
-            transmitter: vec![
-                Transmitter::NodeName("XZY".to_string()),
-                Transmitter::NodeName("ABC".to_string()),
-            ],
+            transmitter: vec!["XZY".to_string(), "ABC".to_string()],
         };
         let val = test_into::<MessageTransmitter>(def.trim_start(), Rule::message_transmitter);
         assert_eq!(val, exp);
@@ -50,5 +47,11 @@ BO_TX_BU_ 12345 :XZY,ABC;
 ";
         let val = test_into::<MessageTransmitter>(def.trim_start(), Rule::message_transmitter);
         assert_eq!(val, exp);
+
+        let def = "
+BO_TX_BU_ 12345 : Vector__XXX;
+";
+        let val = test_into::<MessageTransmitter>(def.trim_start(), Rule::message_transmitter);
+        assert_eq!(val.transmitter, Vec::<String>::new());
     }
 }

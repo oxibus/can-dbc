@@ -40,8 +40,7 @@ messages:
       Standard: 496
     name: ExampleMessage
     size: 8
-    transmitter:
-      NodeName: PCM1
+    transmitter: PCM1
     signals:
       - name: Temperature
         multiplexer_indicator: Plain
@@ -72,8 +71,6 @@ messages:
         max:
           Uint: 5
         unit: m
-        receivers:
-          - Vector__XXX
       - name: Enable
         multiplexer_indicator: Plain
         start_bit: 7
@@ -87,8 +84,6 @@ messages:
         max:
           Uint: 0
         unit: "-"
-        receivers:
-          - Vector__XXX
 comments:
   - Message:
       id:

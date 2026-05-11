@@ -10,7 +10,7 @@ messages:
       Standard: 0
     name: Test_input
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: Test_input_Mux
         multiplexer_indicator: Multiplexor
@@ -25,8 +25,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Var1
         multiplexer_indicator:
           MultiplexedSignal: 0
@@ -41,8 +39,6 @@ messages:
         max:
           Uint: 65535
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Var2
         multiplexer_indicator:
           MultiplexedSignal: 1
@@ -57,8 +53,6 @@ messages:
         max:
           Uint: 65535
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Var3
         multiplexer_indicator:
           MultiplexedSignal: 2
@@ -73,8 +67,6 @@ messages:
         max:
           Uint: 65535
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Var4
         multiplexer_indicator:
           MultiplexedSignal: 3
@@ -89,13 +81,11 @@ messages:
         max:
           Uint: 65535
         unit: ""
-        receivers:
-          - Vector__XXX
   - id:
       Standard: 1
     name: Test_output
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: Test_output_Mux
         multiplexer_indicator: Multiplexor
@@ -110,8 +100,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Var5
         multiplexer_indicator:
           MultiplexedSignal: 0
@@ -126,8 +114,6 @@ messages:
         max:
           Uint: 65535
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Var6
         multiplexer_indicator:
           MultiplexedSignal: 1
@@ -142,8 +128,6 @@ messages:
         max:
           Uint: 65535
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Var7
         multiplexer_indicator:
           MultiplexedSignal: 2
@@ -158,8 +142,6 @@ messages:
         max:
           Uint: 65535
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Var8
         multiplexer_indicator:
           MultiplexedSignal: 3
@@ -174,8 +156,6 @@ messages:
         max:
           Uint: 65535
         unit: ""
-        receivers:
-          - Vector__XXX
 attribute_definitions:
   - Plain:
       - BusType

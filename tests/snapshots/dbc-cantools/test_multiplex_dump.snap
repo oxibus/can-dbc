@@ -37,7 +37,7 @@ messages:
       Standard: 256
     name: MuxedFrame
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: UnmultiplexedSig
         multiplexer_indicator: Plain
@@ -52,8 +52,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MultiplexedSig
         multiplexer_indicator:
           MultiplexedSignal: 42
@@ -68,8 +66,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MultiplexorSig
         multiplexer_indicator: Multiplexor
         start_bit: 0
@@ -83,8 +79,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
 attribute_definitions:
   - Plain:
       - BusType

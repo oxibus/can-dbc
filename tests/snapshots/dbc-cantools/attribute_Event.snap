@@ -39,8 +39,7 @@ messages:
       Standard: 1234
     name: INV2EventMsg1
     size: 8
-    transmitter:
-      NodeName: Inv2
+    transmitter: Inv2
     signals:
       - name: TheSignal
         multiplexer_indicator: Plain
@@ -55,8 +54,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
 attribute_definitions:
   - Message:
       - GenMsgSendType

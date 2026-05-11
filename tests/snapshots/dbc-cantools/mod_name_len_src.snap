@@ -39,8 +39,7 @@ messages:
       Standard: 1
     name: Msg_will_be_shortened_3456789_12
     size: 8
-    transmitter:
-      NodeName: Node_will_be_shortened_456789_12
+    transmitter: Node_will_be_shortened_456789_12
     signals:
       - name: Sig_will_be_shortened_3456789_12
         multiplexer_indicator: Plain
@@ -55,8 +54,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
 comments:
   - Node:
       name: Node_will_be_shortened_456789_12

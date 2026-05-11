@@ -85,8 +85,7 @@ messages:
       Extended: 536870911
     name: DriverDoorStatus
     size: 1
-    transmitter:
-      NodeName: GMLAN
+    transmitter: GMLAN
     signals:
       - name: DriverDoorOpened
         multiplexer_indicator: Plain
@@ -107,8 +106,7 @@ messages:
       Standard: 0
     name: Chime
     size: 5
-    transmitter:
-      NodeName: NEO
+    transmitter: NEO
     signals:
       - name: ChimeType
         multiplexer_indicator: Plain
@@ -189,8 +187,7 @@ messages:
       Standard: 49152
     name: BlinkerStatus
     size: 5
-    transmitter:
-      NodeName: GMLAN
+    transmitter: GMLAN
     signals:
       - name: RightBlinker
         multiplexer_indicator: Plain
@@ -241,8 +238,7 @@ messages:
       Standard: 0
     name: SteeringWheelAngle
     size: 8
-    transmitter:
-      NodeName: GMLAN
+    transmitter: GMLAN
     signals:
       - name: SteeringWheelAngle
         multiplexer_indicator: Plain
@@ -263,8 +259,7 @@ messages:
       Standard: 49152
     name: GearShifter
     size: 8
-    transmitter:
-      NodeName: GMLAN
+    transmitter: GMLAN
     signals:
       - name: GearShifter
         multiplexer_indicator: Plain
@@ -285,8 +280,7 @@ messages:
       Standard: 40960
     name: GasPedalRegenCruise
     size: 8
-    transmitter:
-      NodeName: GMLAN
+    transmitter: GMLAN
     signals:
       - name: CruiseControlActive
         multiplexer_indicator: Plain
@@ -355,8 +349,7 @@ messages:
       Standard: 0
     name: BrakePedal
     size: 2
-    transmitter:
-      NodeName: GMLAN
+    transmitter: GMLAN
     signals:
       - name: BrakeLevel
         multiplexer_indicator: Plain
@@ -392,8 +385,7 @@ messages:
       Standard: 32768
     name: WheelSpeed
     size: 8
-    transmitter:
-      NodeName: GMLAN
+    transmitter: GMLAN
     signals:
       - name: WheelSpeedFL
         multiplexer_indicator: Plain
@@ -459,8 +451,7 @@ messages:
       Standard: 0
     name: VehicleSpeed
     size: 8
-    transmitter:
-      NodeName: GMLAN
+    transmitter: GMLAN
     signals:
       - name: VehicleSpeed1
         multiplexer_indicator: Plain
@@ -496,8 +487,7 @@ messages:
       Standard: 32768
     name: CruiseButtons
     size: 3
-    transmitter:
-      NodeName: GMLAN
+    transmitter: GMLAN
     signals:
       - name: CruiseButtons
         multiplexer_indicator: Plain
@@ -518,8 +508,7 @@ messages:
       Standard: 24576
     name: CruiseButtons2
     size: 1
-    transmitter:
-      NodeName: GMLAN
+    transmitter: GMLAN
     signals:
       - name: LKAGapButton
         multiplexer_indicator: Plain

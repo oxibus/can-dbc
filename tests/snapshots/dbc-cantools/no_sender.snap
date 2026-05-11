@@ -37,7 +37,7 @@ messages:
       Standard: 472
     name: Foo
     size: 1
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: signal_without_sender
         multiplexer_indicator: Plain
@@ -52,8 +52,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
 comments:
   - Message:
       id:

@@ -39,8 +39,7 @@ messages:
       Standard: 546
     name: EMV_Stati
     size: 8
-    transmitter:
-      NodeName: EMV_Statusmeldungen
+    transmitter: EMV_Statusmeldungen
     signals:
       - name: EMV_Aktion_Status_5
         multiplexer_indicator: Plain
@@ -55,8 +54,6 @@ messages:
         max:
           Uint: 1
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: EMV_Aktion_Status_4
         multiplexer_indicator: Plain
         start_bit: 3
@@ -70,8 +67,6 @@ messages:
         max:
           Uint: 1
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: EMV_Aktion_Status_3
         multiplexer_indicator: Plain
         start_bit: 2
@@ -100,8 +95,6 @@ messages:
         max:
           Uint: 1
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: EMV_Aktion_Status_1
         multiplexer_indicator: Plain
         start_bit: 5
@@ -115,8 +108,6 @@ messages:
         max:
           Uint: 1
         unit: ""
-        receivers:
-          - Vector__XXX
 environment_variables:
   - name: EMC_TrdPower
     typ: Float
@@ -126,8 +117,6 @@ environment_variables:
     initial_value: 0
     ev_id: 1
     access_type: DummyNodeVector0
-    access_nodes:
-      - Name: Vector__XXX
   - name: EMC_Modulation
     typ: Integer
     min: 0
@@ -136,8 +125,6 @@ environment_variables:
     initial_value: 0
     ev_id: 2
     access_type: DummyNodeVector0
-    access_nodes:
-      - Name: Vector__XXX
   - name: EMC_NoGoInfo
     typ: Integer
     min: 0
@@ -146,8 +133,6 @@ environment_variables:
     initial_value: 0
     ev_id: 3
     access_type: DummyNodeVector0
-    access_nodes:
-      - Name: Vector__XXX
   - name: EMC_Test_Stop
     typ: Integer
     min: 0
@@ -156,8 +141,6 @@ environment_variables:
     initial_value: 0
     ev_id: 4
     access_type: DummyNodeVector0
-    access_nodes:
-      - Name: Vector__XXX
   - name: EMC_Test_Start
     typ: Integer
     min: 0
@@ -166,8 +149,6 @@ environment_variables:
     initial_value: 0
     ev_id: 5
     access_type: DummyNodeVector0
-    access_nodes:
-      - Name: Vector__XXX
   - name: EMC_Test_Clear
     typ: Integer
     min: 0
@@ -176,8 +157,6 @@ environment_variables:
     initial_value: 0
     ev_id: 6
     access_type: DummyNodeVector0
-    access_nodes:
-      - Name: Vector__XXX
   - name: EMC_Synchronisation
     typ: Integer
     min: 0
@@ -186,8 +165,6 @@ environment_variables:
     initial_value: 0
     ev_id: 7
     access_type: DummyNodeVector0
-    access_nodes:
-      - Name: Vector__XXX
   - name: EMC_Polarisation
     typ: Integer
     min: 0
@@ -196,8 +173,6 @@ environment_variables:
     initial_value: 0
     ev_id: 8
     access_type: DummyNodeVector0
-    access_nodes:
-      - Name: Vector__XXX
   - name: EMC_NoGo
     typ: Integer
     min: 0
@@ -206,8 +181,6 @@ environment_variables:
     initial_value: 0
     ev_id: 9
     access_type: DummyNodeVector0
-    access_nodes:
-      - Name: Vector__XXX
   - name: EMC_Frequency
     typ: Float
     min: 0
@@ -216,8 +189,6 @@ environment_variables:
     initial_value: 0
     ev_id: 10
     access_type: DummyNodeVector0
-    access_nodes:
-      - Name: Vector__XXX
   - name: EMC_TestLevel
     typ: Float
     min: 0
@@ -226,8 +197,6 @@ environment_variables:
     initial_value: 0
     ev_id: 11
     access_type: DummyNodeVector0
-    access_nodes:
-      - Name: Vector__XXX
   - name: EMC_Azimuth
     typ: Float
     min: -180
@@ -236,8 +205,6 @@ environment_variables:
     initial_value: 0
     ev_id: 12
     access_type: DummyNodeVector0
-    access_nodes:
-      - Name: Vector__XXX
   - name: EMC_Action_5
     typ: Integer
     min: 0
@@ -246,8 +213,6 @@ environment_variables:
     initial_value: 0
     ev_id: 13
     access_type: DummyNodeVector0
-    access_nodes:
-      - Name: Vector__XXX
   - name: EMC_Action_4
     typ: Integer
     min: 0
@@ -256,8 +221,6 @@ environment_variables:
     initial_value: 0
     ev_id: 14
     access_type: DummyNodeVector0
-    access_nodes:
-      - Name: Vector__XXX
   - name: EMC_Action_3
     typ: Integer
     min: 0
@@ -266,8 +229,6 @@ environment_variables:
     initial_value: 0
     ev_id: 15
     access_type: DummyNodeVector0
-    access_nodes:
-      - Name: Vector__XXX
   - name: EMC_Action_2
     typ: Integer
     min: 0
@@ -276,8 +237,6 @@ environment_variables:
     initial_value: 0
     ev_id: 16
     access_type: DummyNodeVector0
-    access_nodes:
-      - Name: Vector__XXX
   - name: EMC_Action_1
     typ: Integer
     min: 0
@@ -286,8 +245,6 @@ environment_variables:
     initial_value: 0
     ev_id: 17
     access_type: DummyNodeVector0
-    access_nodes:
-      - Name: Vector__XXX
 comments:
   - EnvVar:
       name: EMC_Azimuth

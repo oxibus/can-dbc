@@ -39,7 +39,7 @@ messages:
       Extended: 57
     name: TheMessage
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: TheSignal
         multiplexer_indicator: Plain
@@ -54,13 +54,11 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
   - id:
       Standard: 42
     name: TheOtherMessage
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: TheSignal
         multiplexer_indicator: Plain
@@ -75,8 +73,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
 comments:
   - Node:
       name: TheNode

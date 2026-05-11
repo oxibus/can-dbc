@@ -39,8 +39,7 @@ messages:
       Standard: 1
     name: MSG0
     size: 8
-    transmitter:
-      NodeName: E1
+    transmitter: E1
     signals:
       - name: A
         multiplexer_indicator: Plain
@@ -106,8 +105,7 @@ messages:
       Standard: 2
     name: MSG1
     size: 8
-    transmitter:
-      NodeName: E1
+    transmitter: E1
     signals:
       - name: E
         multiplexer_indicator: Plain
@@ -173,8 +171,7 @@ messages:
       Standard: 3
     name: MSG2
     size: 8
-    transmitter:
-      NodeName: E1
+    transmitter: E1
     signals:
       - name: I
         multiplexer_indicator: Plain
@@ -225,8 +222,7 @@ messages:
       Standard: 4
     name: MSG3
     size: 8
-    transmitter:
-      NodeName: E1
+    transmitter: E1
     signals:
       - name: L
         multiplexer_indicator: Plain
@@ -247,8 +243,7 @@ messages:
       Standard: 5
     name: MSG4
     size: 8
-    transmitter:
-      NodeName: E1
+    transmitter: E1
     signals:
       - name: M
         multiplexer_indicator: Plain

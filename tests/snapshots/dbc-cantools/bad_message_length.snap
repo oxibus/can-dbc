@@ -37,7 +37,7 @@ messages:
       Standard: 1
     name: Message1
     size: 1
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: Signal1
         multiplexer_indicator: Plain
@@ -52,5 +52,3 @@ messages:
         max:
           Uint: 1
         unit: ""
-        receivers:
-          - Vector__XXX

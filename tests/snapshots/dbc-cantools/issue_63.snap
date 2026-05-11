@@ -37,7 +37,7 @@ messages:
       Extended: 419204094
     name: AFT1PSI2
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: HtrRes
         multiplexer_indicator: Plain
@@ -52,8 +52,6 @@ messages:
         max:
           Double: 6425.5
         unit: ohm
-        receivers:
-          - Vector__XXX
       - name: MaxRes
         multiplexer_indicator: Plain
         start_bit: 32
@@ -67,8 +65,6 @@ messages:
         max:
           Uint: 62500
         unit: kohm
-        receivers:
-          - Vector__XXX
       - name: Temp
         multiplexer_indicator: Plain
         start_bit: 16
@@ -82,8 +78,6 @@ messages:
         max:
           Double: 1734.96875
         unit: ï¿½C
-        receivers:
-          - Vector__XXX
       - name: RegenFailedCount
         multiplexer_indicator: Plain
         start_bit: 8
@@ -97,8 +91,6 @@ messages:
         max:
           Uint: 250
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: PwrSupply
         multiplexer_indicator: Plain
         start_bit: 4
@@ -112,8 +104,6 @@ messages:
         max:
           Uint: 3
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: DetectionStatus
         multiplexer_indicator: Plain
         start_bit: 0
@@ -127,5 +117,3 @@ messages:
         max:
           Uint: 15
         unit: ""
-        receivers:
-          - Vector__XXX

@@ -43,7 +43,7 @@ erDiagram
 
     MessageTransmitter {
         message_id MessageId
-        transmitter[] Transmitter[NodeName-VectorXXX]
+        transmitter[] str
     }
 
     MultiplexIndicator {
@@ -106,7 +106,7 @@ erDiagram
         id MessageId
         name str
         size u64
-        transmitter Transmitter[NodeName-VectorXXX]
+        transmitter Option[str]
         signals[] Signal
     }
 
@@ -119,7 +119,7 @@ erDiagram
         initial_value f64
         ev_id i64
         access_type AccessType[DummyNodeVector-0-1-2-3]
-        access_nodes[] AccessNode[VectorXXX-Name(String)]
+        access_nodes[] str
     }
 
     AttributeDefinition {

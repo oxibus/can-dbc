@@ -43,8 +43,7 @@ messages:
       Standard: 100
     name: DRIVER_HEARTBEAT
     size: 1
-    transmitter:
-      NodeName: DRIVER
+    transmitter: DRIVER
     signals:
       - name: DRIVER_HEARTBEAT_cmd
         multiplexer_indicator: Plain
@@ -66,8 +65,7 @@ messages:
       Standard: 500
     name: IO_DEBUG
     size: 4
-    transmitter:
-      NodeName: IO
+    transmitter: IO
     signals:
       - name: IO_DEBUG_test_unsigned
         multiplexer_indicator: Plain
@@ -133,8 +131,7 @@ messages:
       Standard: 101
     name: MOTOR_CMD
     size: 1
-    transmitter:
-      NodeName: DRIVER
+    transmitter: DRIVER
     signals:
       - name: MOTOR_CMD_steer
         multiplexer_indicator: Plain
@@ -170,8 +167,7 @@ messages:
       Standard: 400
     name: MOTOR_STATUS
     size: 3
-    transmitter:
-      NodeName: MOTOR
+    transmitter: MOTOR
     signals:
       - name: MOTOR_STATUS_wheel_error
         multiplexer_indicator: Plain
@@ -209,8 +205,7 @@ messages:
       Standard: 200
     name: SENSOR_SONARS
     size: 8
-    transmitter:
-      NodeName: SENSOR
+    transmitter: SENSOR
     signals:
       - name: SENSOR_SONARS_mux
         multiplexer_indicator: Multiplexor

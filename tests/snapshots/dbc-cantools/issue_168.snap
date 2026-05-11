@@ -49,8 +49,7 @@ messages:
       Extended: 74544
     name: Foo
     size: 8
-    transmitter:
-      NodeName: FOO
+    transmitter: FOO
     signals:
       - name: Foo
         multiplexer_indicator: Plain
@@ -86,8 +85,7 @@ messages:
       Extended: 74545
     name: Fum
     size: 5
-    transmitter:
-      NodeName: FOO
+    transmitter: FOO
     signals:
       - name: Fum
         multiplexer_indicator: Plain
@@ -123,8 +121,7 @@ messages:
       Extended: 74546
     name: Bar
     size: 4
-    transmitter:
-      NodeName: FOO
+    transmitter: FOO
     signals:
       - name: Binary32
         multiplexer_indicator: Plain
@@ -145,8 +142,7 @@ messages:
       Extended: 74547
     name: CanFd
     size: 64
-    transmitter:
-      NodeName: FOO
+    transmitter: FOO
     signals:
       - name: Fie
         multiplexer_indicator: Plain
@@ -176,14 +172,11 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
   - id:
       Standard: 780
     name: FOOBAR
     size: 8
-    transmitter:
-      NodeName: FIE
+    transmitter: FIE
     signals:
       - name: ACC_02_CRC
         multiplexer_indicator: Plain
@@ -204,8 +197,8 @@ message_transmitters:
   - message_id:
       Extended: 74546
     transmitter:
-      - NodeName: FOO
-      - NodeName: BAR
+      - FOO
+      - BAR
 comments:
   - Node:
       name: BAR

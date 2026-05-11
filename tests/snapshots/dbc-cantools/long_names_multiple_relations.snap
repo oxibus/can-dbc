@@ -59,7 +59,7 @@ messages:
       Standard: 85
     name: Msg_Long_Name_56789_123456789_12
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: rx_twice_11111111111111111111111
         multiplexer_indicator: Plain
@@ -74,8 +74,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: rx_twice_short
         multiplexer_indicator: Plain
         start_bit: 16
@@ -89,8 +87,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Sig_used_twice_efgh_abcdefghi_ab
         multiplexer_indicator: Plain
         start_bit: 0
@@ -104,14 +100,11 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
   - id:
       Standard: 6
     name: TX_twice
     size: 2
-    transmitter:
-      NodeName: Node_6789_123456789_123456789_12
+    transmitter: Node_6789_123456789_123456789_12
     signals:
       - name: rx_twice_long_yyyyyyyyyyyyyyyyyy
         multiplexer_indicator: Plain
@@ -149,8 +142,7 @@ messages:
       Standard: 5
     name: RX_TX_1
     size: 8
-    transmitter:
-      NodeName: Node_6789_123456789_123456789_12
+    transmitter: Node_6789_123456789_123456789_12
     signals:
       - name: Sig_used_twice_efgh_abcdefg_0000
         multiplexer_indicator: Plain
@@ -165,23 +157,21 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
   - id:
       Standard: 4
     name: MSG_CASE_TEST
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
   - id:
       Standard: 3
     name: msg_case_test
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
   - id:
       Standard: 2
     name: Msg_with_value_table_sigs
     size: 3
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: Sig_with_short_val_table
         multiplexer_indicator: Plain
@@ -196,8 +186,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Sig_with_long_val_table_2
         multiplexer_indicator: Plain
         start_bit: 8
@@ -211,8 +199,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Sig_with_long_val_table_1
         multiplexer_indicator: Plain
         start_bit: 0
@@ -226,13 +212,11 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
   - id:
       Standard: 1
     name: Msg_Long_Name_56789_1234567_0000
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: rx_twice_11111111111111111111111
         multiplexer_indicator: Plain
@@ -247,8 +231,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Sig_used_twice_efgh_abcdefg_0001
         multiplexer_indicator: Plain
         start_bit: 0
@@ -262,13 +244,11 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
   - id:
       Standard: 0
     name: Msg_Long_Name_56789_1234567_0001
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: rx_twice_short
         multiplexer_indicator: Plain
@@ -283,8 +263,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Sig_used_twice_efgh_abcdefg_0002
         multiplexer_indicator: Plain
         start_bit: 0
@@ -298,14 +276,12 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
 message_transmitters:
   - message_id:
       Standard: 6
     transmitter:
-      - NodeName: Node_6789_123456789_123456789_12
-      - NodeName: Sender_2_aaaaaaaaaaaaaaaaaaaaaaa
+      - Node_6789_123456789_123456789_12
+      - Sender_2_aaaaaaaaaaaaaaaaaaaaaaa
 attribute_definitions:
   - Signal:
       - GenSigSendType

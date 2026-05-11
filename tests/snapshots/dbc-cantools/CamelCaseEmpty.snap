@@ -11,5 +11,4 @@ messages:
       Standard: 1024
     name: Message1
     size: 5
-    transmitter:
-      NodeName: TestNode
+    transmitter: TestNode

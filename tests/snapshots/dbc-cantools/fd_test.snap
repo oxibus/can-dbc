@@ -37,7 +37,7 @@ messages:
       Extended: 3
     name: TestMsg_Ex
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: TestSig_Copy_1
         multiplexer_indicator: Plain
@@ -52,13 +52,11 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
   - id:
       Standard: 2
     name: TestMsg_Std
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: TestSig_Copy_3
         multiplexer_indicator: Plain
@@ -73,13 +71,11 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
   - id:
       Standard: 1
     name: TestMsg_FDStd
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: TestSig_Copy_2
         multiplexer_indicator: Plain
@@ -94,13 +90,11 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
   - id:
       Extended: 0
     name: TestMsg_FDEx
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: TestSig
         multiplexer_indicator: Plain
@@ -115,8 +109,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
 attribute_definitions:
   - Message:
       - CANFD_BRS

@@ -39,8 +39,7 @@ messages:
       Standard: 0
     name: dummy_msg
     size: 8
-    transmitter:
-      NodeName: dummy_node
+    transmitter: dummy_node
 attribute_definitions:
   - Signal:
       - GenSigSendType
