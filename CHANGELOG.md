@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [9.1.0](https://github.com/oxibus/can-dbc/compare/v9.0.0...v9.1.0) - 2026-05-11
+
+### Added
+
+- support multiple access nodes ([#79](https://github.com/oxibus/can-dbc/pull/79))
+
 ## [9.0.0](https://github.com/oxibus/can-dbc/compare/v8.1.0...v9.0.0) - 2026-03-20
 
 ### Fixed
