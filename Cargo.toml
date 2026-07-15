@@ -1,6 +1,6 @@
 [package]
 name = "can-dbc"
-version = "9.1.0"
+version = "10.0.0"
 description = "A parser for the DBC format. The DBC format is used to exchange CAN network data."
 authors = ["marcelbuesing <buesing.marcel@googlemail.com>"]
 repository = "https://github.com/oxibus/can-dbc"

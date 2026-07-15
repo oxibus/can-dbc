@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [10.0.0](https://github.com/oxibus/can-dbc/compare/v9.1.0...v10.0.0) - 2026-07-15
+
+### Added
+
+- simplify access_nodes and transmitters ([#81](https://github.com/oxibus/can-dbc/pull/81))
+
+### Other
+
+- update clippy, just, and other org settings ([#85](https://github.com/oxibus/can-dbc/pull/85))
+- Add DBC attribute lookup methods ([#83](https://github.com/oxibus/can-dbc/pull/83))
+
 ## [9.1.0](https://github.com/oxibus/can-dbc/compare/v9.0.0...v9.1.0) - 2026-05-11
 
 ### Added
