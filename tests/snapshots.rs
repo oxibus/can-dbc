@@ -89,12 +89,12 @@ impl Test {
 /// function for a test file path
 fn get_test_info(path: &Path) -> Test {
     let path_str = path.display().to_string();
-    let parent = path.parent().unwrap();
+    let parent = path.parent().expect("path has no parent");
     for item in TEST_DIRS {
         // Ensure slashes are there for easier matching
         // Note that all slashes are in Linux style, automatically converted on Windows
         let test_root = format!("/{}/", item.test_root);
-        let mut path_dir = parent.to_str().unwrap().to_string();
+        let mut path_dir = parent.to_str().expect("path is not utf8").to_string();
         if !path_dir.ends_with('/') {
             path_dir.push('/');
         }
@@ -108,7 +108,11 @@ fn get_test_info(path: &Path) -> Test {
             PathBuf::from_slash(&path_dir).to_str().unwrap().to_string(),
         );
         if let Some(pos) = path_dir.find(&test_root) {
-            let file_name = path.file_stem().unwrap().to_string_lossy().to_string();
+            let file_name = path
+                .file_stem()
+                .expect("path has no file stem")
+                .to_string_lossy()
+                .to_string();
             let path = PathBuf::from(&path_dir[pos + test_root.len()..]);
             return Test::new(item, path, file_name);
         }
@@ -147,7 +151,7 @@ Make sure git submodules are up to date by running
 /// Parse a single DBC file and assert a snapshot of the result.
 fn parse_one_file([path]: [&Path; 1]) {
     let test = get_test_info(path);
-    let buffer = fs::read(path).unwrap();
+    let buffer = fs::read(path).expect("Failed to read DBC file");
     let buffer = test.decode(&buffer);
     let result = Dbc::try_from(buffer.as_ref());
     let is_err = result.is_err();

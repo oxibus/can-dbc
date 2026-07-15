@@ -1,2 +1,10 @@
+allow-mixed-uninlined-format-args = false
 allow-unwrap-in-tests = true
 avoid-breaking-exported-api = false
+
+disallowed-methods = [
+    "alloc::boxed::Box::leak",
+    "alloc::vec::Vec::leak",
+    "std::boxed::Box::leak",
+    "std::vec::Vec::leak",
+]

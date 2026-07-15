@@ -40,3 +40,8 @@ repos:
         entry: sh -c "cargo fmt --all"
         language: rust
         pass_filenames: false
+
+  - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
+    rev: 3.6.1
+    hooks:
+      - id: editorconfig-checker

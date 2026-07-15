@@ -3,12 +3,12 @@ name = "can-dbc"
 version = "9.1.0"
 description = "A parser for the DBC format. The DBC format is used to exchange CAN network data."
 authors = ["marcelbuesing <buesing.marcel@googlemail.com>"]
-categories = ["embedded", "no-std", "encoding", "parsing"]
-edition = "2021"
-exclude = ["/tests/*"]
-keywords = ["dbc", "can", "automotive", "ecu"]
-license = "MIT OR Apache-2.0"
 repository = "https://github.com/oxibus/can-dbc"
+exclude = ["/tests/*"]
+edition = "2021"
+license = "MIT OR Apache-2.0"
+keywords = ["dbc", "can", "automotive", "ecu"]
+categories = ["embedded", "no-std", "encoding", "parsing"]
 rust-version = "1.85"
 
 [[example]]
@@ -44,6 +44,12 @@ unsafe_code = "forbid"
 unused_qualifications = "warn"
 
 [lints.clippy]
+# Restrictions
+disallowed_methods = "deny"
+panic_in_result_fn = "warn"
+todo = "warn"
+unwrap_used = "warn"
+# Pedantics without being too noisy
 cargo = { level = "warn", priority = -1 }
 pedantic = { level = "warn", priority = -1 }
 # Verified allows

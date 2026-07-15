@@ -12,6 +12,8 @@ impl TryFrom<Pair<'_, Rule>> for Baudrate {
 
     /// Parse bit timing: `BS_: [baud_rate : BTR1 , BTR2 ]`
     fn try_from(_value: Pair<'_, Rule>) -> Result<Self, Self::Error> {
-        todo!("Bit timing parsing not implemented yet");
+        Err(DbcError::NotImplemented(
+            "Bit timing parsing not implemented yet",
+        ))
     }
 }

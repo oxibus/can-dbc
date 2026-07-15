@@ -88,7 +88,7 @@ pub(crate) fn next_optional_rule<'a>(
 ) -> Option<Pair<'a, Rule>> {
     if let Some(pair) = iter.peek() {
         if pair.as_rule() == expected {
-            return Some(iter.next().unwrap());
+            return iter.next();
         }
     }
     None
