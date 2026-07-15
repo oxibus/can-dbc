@@ -1,15 +1,13 @@
 #![doc = include_str!("../README.md")]
 
-mod ast;
-mod parser;
+// Re-export of `can_dbc_pest::encodings` to simplify usage
+#[cfg(feature = "encodings")]
+pub use can_dbc_pest::{decode_cp1252, encodings};
 
-// Re-export all types from the ast module
+mod ast;
 pub use ast::*;
-// Re-export of `encoding_rs` as encodings to simplify usage
-#[cfg(feature = "encodings")]
-pub use encoding_rs as encodings;
-#[cfg(feature = "encodings")]
-pub use parser::decode_cp1252;
+
+mod parser;
 pub use parser::{DbcError, DbcResult};
 
 #[cfg(test)]

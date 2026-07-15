@@ -314,7 +314,7 @@ impl<'a> TryFrom<&'a str> for Dbc {
     }
 }
 
-#[allow(clippy::too_many_lines)] // FIXME: refactor
+#[expect(clippy::too_many_lines)] // FIXME: refactor
 pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
     let mut version = Version::default();
     let mut new_symbols = vec![];
@@ -432,7 +432,7 @@ pub(crate) fn dbc(buffer: &str) -> DbcResult<Dbc> {
                 Rule::EOI => {
                     // ignore
                 }
-                other => panic!("Unexpected rule in DBC file: {other:?}"),
+                other => Err(DbcError::UnknownRule(other))?,
             }
         }
     }

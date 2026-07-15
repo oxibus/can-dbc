@@ -1,18 +1,18 @@
 #!/usr/bin/env just --justfile
 
-# Define the name of the main crate based on the directory name
-main_crate := file_name(justfile_directory())
+main_crate := 'can-dbc'
 # How to call the current just executable. Note that just_executable() may have `\` in Windows paths, so we need to quote it.
 just := quote(just_executable())
 # cargo-binstall needs a workaround due to caching when used in CI
 binstall_args := if env('CI', '') != '' {'--no-confirm --no-track --disable-telemetry'} else {''}
+# location of the coverage output, used by CI
+coverage_lcov := 'target/llvm-cov/lcov.info'
 
-# if running in CI, treat warnings as errors by setting RUSTFLAGS and RUSTDOCFLAGS to '-D warnings' unless they are already set
+# if running in CI, treat warnings as errors by setting CARGO_BUILD_WARNINGS to 'deny' unless it is already set
 # Use `CI=true just ci-test` to run the same tests as in GitHub CI.
-# Use `just env-info` to see the current values of RUSTFLAGS and RUSTDOCFLAGS
+# Use `just env-info` to see the current value of CARGO_BUILD_WARNINGS
 ci_mode := if env('CI', '') != '' {'1'} else {''}
-export RUSTFLAGS := env('RUSTFLAGS', if ci_mode == '1' {'-D warnings'} else {''})
-export RUSTDOCFLAGS := env('RUSTDOCFLAGS', if ci_mode == '1' {'-D warnings'} else {''})
+export CARGO_BUILD_WARNINGS := env('CARGO_BUILD_WARNINGS', if ci_mode == '1' {'deny'} else {'warn'})
 export RUST_BACKTRACE := env('RUST_BACKTRACE', if ci_mode == '1' {'1'} else {'0'})
 
 @_default:
@@ -42,22 +42,23 @@ check:
     cargo check --workspace --all-features --all-targets
     cargo check --workspace --no-default-features --all-targets
 
-# Generate code coverage report to upload to codecov.io
+# Generate LCOV coverage report for CI to upload to codecov.io
 ci-coverage: env-info && \
-            (coverage '--codecov --output-path target/llvm-cov/codecov.info')
-    # ATTENTION: the full file path above is used in the CI workflow
-    mkdir -p target/llvm-cov
+        (_coverage '--lcov' '--output-path' quote(coverage_lcov))
+    rm -rf {{quote(parent_directory(coverage_lcov))}}
+    mkdir -p {{quote(parent_directory(coverage_lcov))}}
 
 # Run all tests as expected by CI
 ci-test: env-info test-fmt check clippy test test-doc deny && assert-git-is-clean
 
-# Run minimal subset of tests to ensure compatibility with MSRV
+# Compile default features with minimal dependencies on the configured MSRV
 ci-test-msrv:
-    if [ ! -f Cargo.lock.bak ]; then  mv Cargo.lock Cargo.lock.bak ; fi
-    cp Cargo.lock.msrv Cargo.lock
-    {{just}} env-info check test
-    rm Cargo.lock
-    mv Cargo.lock.bak Cargo.lock
+    {{just}} ci_mode=0 env-info _check-msrv-default
+    {{just}} assert-git-is-clean
+
+# Set toolchain and run ci-test-msrv
+ci-test-msrv-with-toolchain:
+    RUSTUP_TOOLCHAIN="$({{just}} get-msrv)" {{just}} ci-test-msrv
 
 # Clean all build artifacts
 clean:
@@ -68,9 +69,14 @@ clean:
 clippy *args:
     cargo clippy --workspace --all-features --all-targets {{args}}
 
-# Generate code coverage report. Will install `cargo llvm-cov` if missing.
-coverage *args='--no-clean --open':  (cargo-install 'cargo-llvm-cov')
-    cargo llvm-cov --workspace --all-features --all-targets --include-build-script {{args}}
+# Generate and open the HTML coverage report
+coverage:  (_coverage '--open')
+
+# Clean, collect, and aggregate coverage using the requested report arguments
+_coverage *report_args:  (cargo-install 'cargo-llvm-cov')
+    cargo llvm-cov clean --workspace
+    cargo llvm-cov --no-report --workspace --all-features --all-targets
+    cargo llvm-cov report --include-build-script {{report_args}}
 
 deny *args='check': (cargo-install 'cargo-deny')
     cargo deny {{args}}
@@ -87,8 +93,7 @@ env-info:
     rustc --version
     cargo --version
     rustup --version
-    @echo "RUSTFLAGS='$RUSTFLAGS'"
-    @echo "RUSTDOCFLAGS='$RUSTDOCFLAGS'"
+    @echo "CARGO_BUILD_WARNINGS='$CARGO_BUILD_WARNINGS'"
     @echo "RUST_BACKTRACE='$RUST_BACKTRACE'"
 
 # Reformat all code `cargo fmt`. If nightly is available, use it for better results
@@ -103,28 +108,31 @@ fmt:
         cargo fmt --all
     fi
 
+# Reformat all Cargo.toml files using cargo-sort
+fmt-toml *args:  (cargo-install 'cargo-sort')
+    cargo sort --workspace --grouped {{args}}
+
 # Get a package field from the metadata
 get-crate-field field package=main_crate:  (assert-cmd 'jq')
-    cargo metadata --format-version 1 | jq -e -r '.packages | map(select(.name == "{{package}}")) | first | .{{field}} // error("Field \"{{field}}\" is missing in Cargo.toml for package {{package}}")'
+    @cargo metadata --no-deps --format-version 1 | jq -e -r '.packages | map(select(.name == "{{package}}")) | first | .{{field}} // error("Field \"{{field}}\" is missing in Cargo.toml for package {{package}}")'
 
 # Get the minimum supported Rust version (MSRV) for the crate
 get-msrv package=main_crate:  (get-crate-field 'rust_version' package)
 
-# Find the minimum supported Rust version (MSRV) using cargo-msrv extension, and update Cargo.toml
+# Find the minimum supported Rust version (MSRV), update Cargo.toml, and test minimal dependencies
 msrv:  (cargo-install 'cargo-msrv')
-    cargo msrv find --write-msrv --all-features -- {{just}} ci-test-msrv
+    cargo msrv find --write-msrv --ignore-lockfile -- {{just}} _check-msrv-default
 
-# Initialize Cargo.lock file with minimal versions of dependencies.
-msrv-init:  (cargo-install 'cargo-minimal-versions')
-    rm -f Cargo.lock.msrv Cargo.lock
-    @if ! cargo minimal-versions check --workspace ; then \
-        echo "ERROR: Could not generate minimal Cargo.lock.msrv" ;\
-        echo "       fix the lock file with 'cargo update ... --precise ...'" ;\
-        echo "       make sure it passes 'just check' " ;\
-        echo "       once done, rename Cargo.lock to Cargo.lock.msrv" ;\
-        exit 1 ;\
-    fi
-    mv Cargo.lock Cargo.lock.msrv
+# Compile the crate's default features using a dynamically generated minimal Cargo.lock
+_check-msrv-default:  (cargo-install 'cargo-minimal-versions') (cargo-install 'cargo-hack')
+    #!/usr/bin/env bash
+    set -euo pipefail
+    # cargo-msrv probes with rustup, but nested cargo subcommands may otherwise
+    # fall back to the default Cargo and emit flags unsupported by the candidate rustc.
+    toolchain="$(rustc --version | cut -d' ' -f2)"
+    export RUSTUP_TOOLCHAIN="$toolchain"
+    export CARGO="$(rustup which --toolchain "$toolchain" cargo)"
+    cargo minimal-versions check --direct --package {{main_crate}}
 
 # Run cargo-release
 release *args='':  (cargo-install 'release-plz')
@@ -134,7 +142,7 @@ release *args='':  (cargo-install 'release-plz')
 semver *args:  (cargo-install 'cargo-semver-checks')
     cargo semver-checks --all-features {{args}}
 
-# Run all unit and integration tests
+# Run all tests
 test:
     cargo test --workspace --all-features --all-targets
     cargo test --doc --workspace --all-features
@@ -147,7 +155,7 @@ test-all:
 test-doc:  (docs '')
 
 # Test code formatting
-test-fmt:
+test-fmt: && (fmt-toml '--check' '--check-format')
     cargo fmt --all -- --check
 
 # Find unused dependencies. Uses `cargo-udeps`
@@ -183,6 +191,7 @@ assert-git-is-clean:
 cargo-install $COMMAND $INSTALL_CMD='' *args='':
     #!/usr/bin/env bash
     set -euo pipefail
+    unset CARGO_BUILD_WARNINGS
     if ! command -v $COMMAND > /dev/null; then
         echo "$COMMAND could not be found. Installing..."
         if ! command -v cargo-binstall > /dev/null; then
@@ -191,7 +200,7 @@ cargo-install $COMMAND $INSTALL_CMD='' *args='':
             { set +x; } 2>/dev/null
         else
             set -x
-            cargo binstall ${INSTALL_CMD:-$COMMAND} {{binstall_args}} --locked {{args}}
+            cargo binstall ${INSTALL_CMD:-$COMMAND} {{binstall_args}} --locked
             { set +x; } 2>/dev/null
         fi
     fi

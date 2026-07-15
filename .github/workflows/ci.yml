@@ -19,7 +19,7 @@ jobs:
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with: { submodules: 'recursive' }
       - if: github.event_name != 'release' && github.event_name != 'workflow_dispatch'
         uses: Swatinem/rust-cache@v2
@@ -31,38 +31,40 @@ jobs:
     name: Test MSRV
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with: { submodules: 'recursive' }
       - if: github.event_name != 'release' && github.event_name != 'workflow_dispatch'
         uses: Swatinem/rust-cache@v2
       - uses: taiki-e/install-action@v2
-        with: { tool: 'just' }
+        with: { tool: 'just,cargo-binstall,cargo-minimal-versions,cargo-hack' }
       - name: Read MSRV
         id: msrv
         run: echo "value=$(just get-msrv)" >> $GITHUB_OUTPUT
+      - name: Install nightly Rust for minimal dependency resolution
+        uses: dtolnay/rust-toolchain@stable
+        with: { toolchain: nightly }
       - name: Install MSRV Rust ${{ steps.msrv.outputs.value }}
         uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: ${{ steps.msrv.outputs.value }}
-      - run: just ci_mode=0 ci-test-msrv  # Ignore warnings in MSRV
+      - run: just ci-test-msrv
 
   coverage:
     name: Code Coverage
     if: github.event_name != 'release'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with: { submodules: 'recursive' }
       - uses: Swatinem/rust-cache@v2
       - uses: taiki-e/install-action@v2
         with: { tool: 'just,cargo-llvm-cov' }
-      - name: Generate code coverage
-        run: just ci-coverage
+      - run: just ci-coverage
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: target/llvm-cov/codecov.info
+          files: target/llvm-cov/lcov.info
 
   # This job checks if any of the previous jobs failed or were canceled.
   # This approach also allows some jobs to be skipped if they are not needed.
@@ -94,7 +96,7 @@ jobs:
       group: release-plz-${{ github.ref }}
       cancel-in-progress: false
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with: { fetch-depth: 0 }
       - uses: dtolnay/rust-toolchain@stable
       - name: Publish to crates.io if crate's version is newer

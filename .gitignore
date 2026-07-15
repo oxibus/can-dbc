@@ -1,14 +1,20 @@
 **/*.bak
 **/*.rs.bk
+*.iml
 *.pdb
+.DS_Store
 .envrc
 .idea/
 .vscode/
+codecov
+codecov.SHA256SUM*
 debug/
+flamegraph*.svg
+perf.data*
 target/
 temp/
 tmp/
 venv/
 
-# This is a library, no lock
+# This is a library, so the lock file is not committed.
 Cargo.lock

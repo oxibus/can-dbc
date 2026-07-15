@@ -50,7 +50,7 @@ impl TryFrom<u32> for MessageId {
             // FIXME: this code seems more correct, but breaks existing tests
             // let v = u16::try_from(value)
             //     .map_err(|_| DbcError::MessageIdOutOfRange(u64::from(value)))?;
-            #[allow(clippy::cast_possible_truncation)]
+            #[expect(clippy::cast_possible_truncation)]
             let v = value as u16;
 
             Self::Standard(v)
