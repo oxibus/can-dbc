@@ -4,12 +4,12 @@ version = "9.1.0"
 description = "A parser for the DBC format. The DBC format is used to exchange CAN network data."
 authors = ["marcelbuesing <buesing.marcel@googlemail.com>"]
 repository = "https://github.com/oxibus/can-dbc"
-exclude = ["/tests/*"]
 edition = "2021"
+exclude = ["/tests/*"]
 license = "MIT OR Apache-2.0"
 keywords = ["dbc", "can", "automotive", "ecu"]
 categories = ["embedded", "no-std", "encoding", "parsing"]
-rust-version = "1.85"
+rust-version = "1.83"
 
 [[example]]
 name = "file_parser"
@@ -26,8 +26,8 @@ with-serde = ["serde"]
 
 [dependencies]
 can-dbc-pest = "0.8.0"
-encoding_rs = { version = "0.8", optional = true }
-serde = { version = "1.0", features = ["derive"], optional = true }
+encoding_rs = { version = "0.8.35", optional = true }
+serde = { version = "1.0.200", features = ["derive"], optional = true }
 thiserror = "2.0.17"
 
 [dev-dependencies]
