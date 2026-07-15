@@ -247,6 +247,63 @@ impl Dbc {
             Ok(None)
         }
     }
+
+    /// Lookup an assigned message-level (`BO_`) attribute value.
+    #[must_use]
+    pub fn message_attribute(&self, message_id: MessageId, name: &str) -> Option<&AttributeValue> {
+        self.attribute_values_message
+            .iter()
+            .find(|a| a.message_id == message_id && a.name == name)
+            .map(|a| &a.value)
+    }
+
+    /// Lookup an assigned signal-level (`SG_`) attribute value.
+    #[must_use]
+    pub fn signal_attribute(
+        &self,
+        message_id: MessageId,
+        signal_name: &str,
+        name: &str,
+    ) -> Option<&AttributeValue> {
+        self.attribute_values_signal
+            .iter()
+            .find(|a| a.message_id == message_id && a.signal_name == signal_name && a.name == name)
+            .map(|a| &a.value)
+    }
+
+    /// Lookup an attribute's default value (`BA_DEF_DEF_`).
+    #[must_use]
+    pub fn attribute_default(&self, name: &str) -> Option<&AttributeValue> {
+        self.attribute_defaults
+            .iter()
+            .find(|d| d.name == name)
+            .map(|d| &d.value)
+    }
+
+    /// Lookup a message-level attribute value.
+    /// Falls back to the default `BA_DEF_DEF_` if a value is not defined.
+    #[must_use]
+    pub fn resolved_message_attribute(
+        &self,
+        message_id: MessageId,
+        name: &str,
+    ) -> Option<&AttributeValue> {
+        self.message_attribute(message_id, name)
+            .or_else(|| self.attribute_default(name))
+    }
+
+    /// Lookup a signal-level attribute value.
+    /// Falls back to the default `BA_DEF_DEF_` if a value is not defined.
+    #[must_use]
+    pub fn resolved_signal_attribute(
+        &self,
+        message_id: MessageId,
+        signal_name: &str,
+        name: &str,
+    ) -> Option<&AttributeValue> {
+        self.signal_attribute(message_id, signal_name, name)
+            .or_else(|| self.attribute_default(name))
+    }
 }
 
 impl<'a> TryFrom<&'a str> for Dbc {

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- add DBC attribute lookup methods: `message_attribute`, `signal_attribute`, `attribute_default`, `resolved_message_attribute` and `resolved_signal_attribute`
+
 ## [9.1.0](https://github.com/oxibus/can-dbc/compare/v9.0.0...v9.1.0) - 2026-05-11
 
 ### Added
