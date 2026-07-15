@@ -63,8 +63,7 @@ messages:
       Standard: 835
     name: BREMSE_33
     size: 8
-    transmitter:
-      NodeName: ABS
+    transmitter: ABS
     signals:
       - name: whlspeed_FL
         multiplexer_indicator: Plain
@@ -79,8 +78,6 @@ messages:
         max:
           Uint: 100
         unit: m/s
-        receivers:
-          - Vector__XXX
       - name: whlspeed_FR
         multiplexer_indicator: Plain
         start_bit: 16
@@ -94,8 +91,6 @@ messages:
         max:
           Uint: 100
         unit: m/s
-        receivers:
-          - Vector__XXX
       - name: whlspeed_RL
         multiplexer_indicator: Plain
         start_bit: 32
@@ -109,8 +104,6 @@ messages:
         max:
           Uint: 100
         unit: m/s
-        receivers:
-          - Vector__XXX
       - name: whlspeed_RR
         multiplexer_indicator: Plain
         start_bit: 48
@@ -124,44 +117,36 @@ messages:
         max:
           Uint: 100
         unit: m/s
-        receivers:
-          - Vector__XXX
   - id:
       Standard: 320
     name: BREMSE_10
     size: 8
-    transmitter:
-      NodeName: ABS
+    transmitter: ABS
   - id:
       Standard: 321
     name: BREMSE_11
     size: 8
-    transmitter:
-      NodeName: ABS
+    transmitter: ABS
   - id:
       Standard: 322
     name: BREMSE_12
     size: 8
-    transmitter:
-      NodeName: ABS
+    transmitter: ABS
   - id:
       Standard: 323
     name: BREMSE_13
     size: 8
-    transmitter:
-      NodeName: ABS
+    transmitter: ABS
   - id:
       Standard: 117
     name: DRS_RX_ID0
     size: 8
-    transmitter:
-      NodeName: ABS
+    transmitter: ABS
   - id:
       Standard: 112
     name: MM5_10_TX1
     size: 8
-    transmitter:
-      NodeName: DRS_MM5_10
+    transmitter: DRS_MM5_10
     signals:
       - name: Yaw_Rate
         multiplexer_indicator: Plain
@@ -197,8 +182,7 @@ messages:
       Standard: 128
     name: MM5_10_TX2
     size: 8
-    transmitter:
-      NodeName: DRS_MM5_10
+    transmitter: DRS_MM5_10
     signals:
       - name: Roll_Rate
         multiplexer_indicator: Plain
@@ -234,8 +218,7 @@ messages:
       Standard: 1398
     name: MM5_10_TX3
     size: 8
-    transmitter:
-      NodeName: DRS_MM5_10
+    transmitter: DRS_MM5_10
     signals:
       - name: AZ
         multiplexer_indicator: Plain
@@ -256,8 +239,7 @@ messages:
       Standard: 586
     name: BREMSE_2
     size: 8
-    transmitter:
-      NodeName: ABS
+    transmitter: ABS
     signals:
       - name: whlspeed_FL_Bremse2
         multiplexer_indicator: Plain
@@ -272,8 +254,6 @@ messages:
         max:
           Uint: 100
         unit: m/s
-        receivers:
-          - Vector__XXX
       - name: whlspeed_FR_Bremse2
         multiplexer_indicator: Plain
         start_bit: 16
@@ -287,8 +267,6 @@ messages:
         max:
           Uint: 100
         unit: m/s
-        receivers:
-          - Vector__XXX
       - name: whlspeed_RL_Bremse2
         multiplexer_indicator: Plain
         start_bit: 32
@@ -302,8 +280,6 @@ messages:
         max:
           Uint: 100
         unit: m/s
-        receivers:
-          - Vector__XXX
       - name: whlspeed_RR_Bremse2
         multiplexer_indicator: Plain
         start_bit: 48
@@ -317,13 +293,11 @@ messages:
         max:
           Uint: 100
         unit: m/s
-        receivers:
-          - Vector__XXX
   - id:
       Standard: 588
     name: ABS_Switch
     size: 8
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: ABS_Switchposition
         multiplexer_indicator: Plain
@@ -344,14 +318,12 @@ messages:
       Standard: 832
     name: BREMSE_30
     size: 8
-    transmitter:
-      NodeName: ABS
+    transmitter: ABS
   - id:
       Standard: 833
     name: BREMSE_31
     size: 8
-    transmitter:
-      NodeName: ABS
+    transmitter: ABS
     signals:
       - name: Idle_Time
         multiplexer_indicator: Plain
@@ -366,14 +338,11 @@ messages:
         max:
           Uint: 0
         unit: "-"
-        receivers:
-          - Vector__XXX
   - id:
       Standard: 834
     name: BREMSE_32
     size: 8
-    transmitter:
-      NodeName: ABS
+    transmitter: ABS
     signals:
       - name: acc_FA
         multiplexer_indicator: Plain
@@ -388,8 +357,6 @@ messages:
         max:
           Uint: 10
         unit: cm3
-        receivers:
-          - Vector__XXX
       - name: acc_RA
         multiplexer_indicator: Plain
         start_bit: 8
@@ -403,8 +370,6 @@ messages:
         max:
           Uint: 10
         unit: cm3
-        receivers:
-          - Vector__XXX
       - name: WheelQuality_FL
         multiplexer_indicator: Plain
         start_bit: 32
@@ -418,8 +383,6 @@ messages:
         max:
           Uint: 32
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: WheelQuality_FR
         multiplexer_indicator: Plain
         start_bit: 40
@@ -433,8 +396,6 @@ messages:
         max:
           Uint: 32
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: WheelQuality_RL
         multiplexer_indicator: Plain
         start_bit: 48
@@ -448,8 +409,6 @@ messages:
         max:
           Uint: 32
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: WheelQuality_RR
         multiplexer_indicator: Plain
         start_bit: 56
@@ -463,14 +422,11 @@ messages:
         max:
           Uint: 32
         unit: ""
-        receivers:
-          - Vector__XXX
   - id:
       Standard: 1345
     name: BREMSE_51
     size: 8
-    transmitter:
-      NodeName: ABS
+    transmitter: ABS
     signals:
       - name: AX1_ABS_int
         multiplexer_indicator: Plain
@@ -485,8 +441,6 @@ messages:
         max:
           Double: 4.1736697
         unit: g
-        receivers:
-          - Vector__XXX
       - name: AY1_ABS_int
         multiplexer_indicator: Plain
         start_bit: 16
@@ -500,8 +454,6 @@ messages:
         max:
           Double: 4.1765
         unit: g
-        receivers:
-          - Vector__XXX
       - name: IF_variant
         multiplexer_indicator: Plain
         start_bit: 48
@@ -515,8 +467,6 @@ messages:
         max:
           Uint: 63
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: IF_revision
         multiplexer_indicator: Plain
         start_bit: 54
@@ -530,8 +480,6 @@ messages:
         max:
           Uint: 63
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: IF_chksum
         multiplexer_indicator: Plain
         start_bit: 60
@@ -545,14 +493,11 @@ messages:
         max:
           Uint: 15
         unit: ""
-        receivers:
-          - Vector__XXX
   - id:
       Standard: 1346
     name: BREMSE_52
     size: 8
-    transmitter:
-      NodeName: ABS
+    transmitter: ABS
     signals:
       - name: Mplx_SW_Info
         multiplexer_indicator: Multiplexor
@@ -567,8 +512,6 @@ messages:
         max:
           Uint: 255
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: SW_version_High_upper
         multiplexer_indicator:
           MultiplexedSignal: 1
@@ -583,8 +526,6 @@ messages:
         max:
           Uint: 255
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: SW_version_High_lower
         multiplexer_indicator:
           MultiplexedSignal: 1
@@ -599,8 +540,6 @@ messages:
         max:
           Uint: 255
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: SW_version_Mid_upper
         multiplexer_indicator:
           MultiplexedSignal: 1
@@ -615,8 +554,6 @@ messages:
         max:
           Uint: 255
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: SW_version_Mid_lower
         multiplexer_indicator:
           MultiplexedSignal: 1
@@ -631,8 +568,6 @@ messages:
         max:
           Uint: 255
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: SW_version_Low_upper
         multiplexer_indicator:
           MultiplexedSignal: 1
@@ -647,8 +582,6 @@ messages:
         max:
           Uint: 255
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: SW_version_Low_lower
         multiplexer_indicator:
           MultiplexedSignal: 1
@@ -663,8 +596,6 @@ messages:
         max:
           Uint: 255
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: BB_dig1
         multiplexer_indicator:
           MultiplexedSignal: 2
@@ -679,8 +610,6 @@ messages:
         max:
           Uint: 255
         unit: ASCII
-        receivers:
-          - Vector__XXX
       - name: BB_dig2
         multiplexer_indicator:
           MultiplexedSignal: 2
@@ -695,8 +624,6 @@ messages:
         max:
           Uint: 255
         unit: ASCII
-        receivers:
-          - Vector__XXX
       - name: BB_dig3
         multiplexer_indicator:
           MultiplexedSignal: 2
@@ -711,8 +638,6 @@ messages:
         max:
           Uint: 255
         unit: ASCII
-        receivers:
-          - Vector__XXX
       - name: BB_dig4
         multiplexer_indicator:
           MultiplexedSignal: 2
@@ -727,8 +652,6 @@ messages:
         max:
           Uint: 255
         unit: ASCII
-        receivers:
-          - Vector__XXX
       - name: BB_dig5
         multiplexer_indicator:
           MultiplexedSignal: 2
@@ -743,8 +666,6 @@ messages:
         max:
           Uint: 255
         unit: ASCII
-        receivers:
-          - Vector__XXX
       - name: BB_dig6
         multiplexer_indicator:
           MultiplexedSignal: 2
@@ -759,8 +680,6 @@ messages:
         max:
           Uint: 255
         unit: ASCII
-        receivers:
-          - Vector__XXX
       - name: BB_dig7
         multiplexer_indicator:
           MultiplexedSignal: 2
@@ -775,8 +694,6 @@ messages:
         max:
           Uint: 255
         unit: ASCII
-        receivers:
-          - Vector__XXX
       - name: Appl_Id_01
         multiplexer_indicator:
           MultiplexedSignal: 3
@@ -791,8 +708,6 @@ messages:
         max:
           Uint: 255
         unit: ASCII
-        receivers:
-          - Vector__XXX
       - name: Appl_Id_02
         multiplexer_indicator:
           MultiplexedSignal: 3
@@ -807,8 +722,6 @@ messages:
         max:
           Uint: 255
         unit: ASCII
-        receivers:
-          - Vector__XXX
       - name: Appl_Id_03
         multiplexer_indicator:
           MultiplexedSignal: 3
@@ -823,8 +736,6 @@ messages:
         max:
           Uint: 255
         unit: ASCII
-        receivers:
-          - Vector__XXX
       - name: Appl_Id_04
         multiplexer_indicator:
           MultiplexedSignal: 3
@@ -839,8 +750,6 @@ messages:
         max:
           Uint: 255
         unit: ASCII
-        receivers:
-          - Vector__XXX
       - name: Appl_Id_05
         multiplexer_indicator:
           MultiplexedSignal: 3
@@ -855,8 +764,6 @@ messages:
         max:
           Uint: 255
         unit: ASCII
-        receivers:
-          - Vector__XXX
       - name: Appl_Id_06
         multiplexer_indicator:
           MultiplexedSignal: 3
@@ -871,8 +778,6 @@ messages:
         max:
           Uint: 255
         unit: ASCII
-        receivers:
-          - Vector__XXX
       - name: Appl_Id_07
         multiplexer_indicator:
           MultiplexedSignal: 3
@@ -887,8 +792,6 @@ messages:
         max:
           Uint: 255
         unit: ASCII
-        receivers:
-          - Vector__XXX
       - name: Appl_Id_08
         multiplexer_indicator:
           MultiplexedSignal: 4
@@ -903,8 +806,6 @@ messages:
         max:
           Uint: 255
         unit: ASCII
-        receivers:
-          - Vector__XXX
       - name: Appl_Id_09
         multiplexer_indicator:
           MultiplexedSignal: 4
@@ -919,8 +820,6 @@ messages:
         max:
           Uint: 255
         unit: ASCII
-        receivers:
-          - Vector__XXX
       - name: Appl_Id_10
         multiplexer_indicator:
           MultiplexedSignal: 4
@@ -935,8 +834,6 @@ messages:
         max:
           Uint: 255
         unit: ASCII
-        receivers:
-          - Vector__XXX
       - name: Appl_Id_11
         multiplexer_indicator:
           MultiplexedSignal: 4
@@ -951,8 +848,6 @@ messages:
         max:
           Uint: 255
         unit: ASCII
-        receivers:
-          - Vector__XXX
       - name: Appl_Id_12
         multiplexer_indicator:
           MultiplexedSignal: 4
@@ -967,8 +862,6 @@ messages:
         max:
           Uint: 255
         unit: ASCII
-        receivers:
-          - Vector__XXX
       - name: Appl_Id_13
         multiplexer_indicator:
           MultiplexedSignal: 4
@@ -983,8 +876,6 @@ messages:
         max:
           Uint: 255
         unit: ASCII
-        receivers:
-          - Vector__XXX
       - name: Appl_Id_14
         multiplexer_indicator:
           MultiplexedSignal: 4
@@ -999,8 +890,6 @@ messages:
         max:
           Uint: 255
         unit: ASCII
-        receivers:
-          - Vector__XXX
       - name: Appl_date_01
         multiplexer_indicator:
           MultiplexedSignal: 5
@@ -1015,8 +904,6 @@ messages:
         max:
           Uint: 99
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Appl_date_02
         multiplexer_indicator:
           MultiplexedSignal: 5
@@ -1031,8 +918,6 @@ messages:
         max:
           Uint: 12
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Appl_date_03
         multiplexer_indicator:
           MultiplexedSignal: 5
@@ -1047,8 +932,6 @@ messages:
         max:
           Uint: 31
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Appl_date_04
         multiplexer_indicator:
           MultiplexedSignal: 5
@@ -1063,8 +946,6 @@ messages:
         max:
           Uint: 24
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Appl_date_05
         multiplexer_indicator:
           MultiplexedSignal: 5
@@ -1079,8 +960,6 @@ messages:
         max:
           Uint: 59
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Appl_date_06
         multiplexer_indicator:
           MultiplexedSignal: 5
@@ -1095,8 +974,6 @@ messages:
         max:
           Uint: 59
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: SW_CAN_ident
         multiplexer_indicator:
           MultiplexedSignal: 6
@@ -1111,8 +988,6 @@ messages:
         max:
           Uint: 255
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: HU_date_year
         multiplexer_indicator:
           MultiplexedSignal: 7
@@ -1127,8 +1002,6 @@ messages:
         max:
           Uint: 99
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: HU_date_month
         multiplexer_indicator:
           MultiplexedSignal: 7
@@ -1143,8 +1016,6 @@ messages:
         max:
           Uint: 12
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: HU_date_day
         multiplexer_indicator:
           MultiplexedSignal: 7
@@ -1159,8 +1030,6 @@ messages:
         max:
           Uint: 31
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Ecu_serial
         multiplexer_indicator:
           MultiplexedSignal: 7
@@ -1175,14 +1044,11 @@ messages:
         max:
           Uint: 99999
         unit: ""
-        receivers:
-          - Vector__XXX
   - id:
       Standard: 1376
     name: BREMSE_50
     size: 8
-    transmitter:
-      NodeName: ABS
+    transmitter: ABS
     signals:
       - name: Brake_bal_at50
         multiplexer_indicator: Plain
@@ -1197,8 +1063,6 @@ messages:
         max:
           Uint: 100
         unit: Bar
-        receivers:
-          - Vector__XXX
       - name: Brake_bal_at50_advice
         multiplexer_indicator: Plain
         start_bit: 32
@@ -1212,8 +1076,6 @@ messages:
         max:
           Uint: 100
         unit: Bar
-        receivers:
-          - Vector__XXX
       - name: Brake_bal_pct
         multiplexer_indicator: Plain
         start_bit: 40
@@ -1227,8 +1089,6 @@ messages:
         max:
           Uint: 100
         unit: "%"
-        receivers:
-          - Vector__XXX
       - name: Brake_bal_pct_advice
         multiplexer_indicator: Plain
         start_bit: 56
@@ -1242,14 +1102,11 @@ messages:
         max:
           Uint: 100
         unit: "%"
-        receivers:
-          - Vector__XXX
   - id:
       Standard: 1472
     name: BREMSE_53
     size: 8
-    transmitter:
-      NodeName: ABS
+    transmitter: ABS
     signals:
       - name: SwitchPosition
         multiplexer_indicator: Plain
@@ -1264,8 +1121,6 @@ messages:
         max:
           Uint: 12
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: P_FA
         multiplexer_indicator: Plain
         start_bit: 8
@@ -1279,8 +1134,6 @@ messages:
         max:
           Uint: 425
         unit: bar
-        receivers:
-          - Vector__XXX
       - name: BLS
         multiplexer_indicator: Plain
         start_bit: 24
@@ -1294,8 +1147,6 @@ messages:
         max:
           Uint: 1
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Bremse_53_cnt
         multiplexer_indicator: Plain
         start_bit: 26
@@ -1309,8 +1160,6 @@ messages:
         max:
           Uint: 3
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: ABS_Malfunction
         multiplexer_indicator: Plain
         start_bit: 28
@@ -1324,8 +1173,6 @@ messages:
         max:
           Uint: 1
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: ABS_Active
         multiplexer_indicator: Plain
         start_bit: 29
@@ -1339,8 +1186,6 @@ messages:
         max:
           Uint: 1
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: EBD_Lamp
         multiplexer_indicator: Plain
         start_bit: 30
@@ -1354,8 +1199,6 @@ messages:
         max:
           Uint: 1
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: ABS_Lamp
         multiplexer_indicator: Plain
         start_bit: 31
@@ -1369,8 +1212,6 @@ messages:
         max:
           Uint: 1
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Diag_FL
         multiplexer_indicator: Plain
         start_bit: 32
@@ -1384,8 +1225,6 @@ messages:
         max:
           Uint: 3
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Diag_FR
         multiplexer_indicator: Plain
         start_bit: 34
@@ -1399,8 +1238,6 @@ messages:
         max:
           Uint: 3
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Diag_RL
         multiplexer_indicator: Plain
         start_bit: 36
@@ -1414,8 +1251,6 @@ messages:
         max:
           Uint: 3
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Diag_RR
         multiplexer_indicator: Plain
         start_bit: 38
@@ -1429,8 +1264,6 @@ messages:
         max:
           Uint: 3
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Diag_ABSUnit
         multiplexer_indicator: Plain
         start_bit: 40
@@ -1444,8 +1277,6 @@ messages:
         max:
           Uint: 1
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Diag_FuseValve
         multiplexer_indicator: Plain
         start_bit: 41
@@ -1459,8 +1290,6 @@ messages:
         max:
           Uint: 1
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Diag_FusePump
         multiplexer_indicator: Plain
         start_bit: 42
@@ -1474,8 +1303,6 @@ messages:
         max:
           Uint: 1
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Diag_P_FA
         multiplexer_indicator: Plain
         start_bit: 43
@@ -1489,8 +1316,6 @@ messages:
         max:
           Uint: 1
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Diag_P_RA
         multiplexer_indicator: Plain
         start_bit: 44
@@ -1504,8 +1329,6 @@ messages:
         max:
           Uint: 1
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Diag_YRS
         multiplexer_indicator: Plain
         start_bit: 45
@@ -1519,8 +1342,6 @@ messages:
         max:
           Uint: 1
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: ABS_fault_info
         multiplexer_indicator: Plain
         start_bit: 46
@@ -1534,8 +1355,6 @@ messages:
         max:
           Uint: 3
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: P_RA
         multiplexer_indicator: Plain
         start_bit: 48
@@ -1549,8 +1368,6 @@ messages:
         max:
           Uint: 425
         unit: bar
-        receivers:
-          - Vector__XXX
 comments:
   - Plain:
       comment: Version 2.0

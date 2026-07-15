@@ -39,11 +39,9 @@ messages:
       Standard: 1
     name: M1
     size: 8
-    transmitter:
-      NodeName: FOO
+    transmitter: FOO
   - id:
       Standard: 2
     name: M2
     size: 8
-    transmitter:
-      NodeName: FOO
+    transmitter: FOO

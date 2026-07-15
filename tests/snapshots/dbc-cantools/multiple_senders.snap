@@ -42,8 +42,7 @@ messages:
       Standard: 1
     name: Bar
     size: 4
-    transmitter:
-      NodeName: FOO
+    transmitter: FOO
     signals:
       - name: Binary32
         multiplexer_indicator: Plain
@@ -64,9 +63,9 @@ message_transmitters:
   - message_id:
       Standard: 1
     transmitter:
-      - NodeName: FOO
-      - NodeName: BAR
-      - NodeName: FIE
+      - FOO
+      - BAR
+      - FIE
 attribute_definitions:
   - Message:
       - GenMsgCycleTime

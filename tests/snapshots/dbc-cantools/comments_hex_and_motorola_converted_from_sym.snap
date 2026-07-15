@@ -37,8 +37,7 @@ messages:
       Standard: 1568
     name: Msg1
     size: 2
-    transmitter:
-      NodeName: Peripherals
+    transmitter: Peripherals
     signals:
       - name: sig22
         multiplexer_indicator:
@@ -54,8 +53,6 @@ messages:
         max:
           Uint: 1
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: sig12
         multiplexer_indicator:
           MultiplexedSignal: 1
@@ -70,8 +67,6 @@ messages:
         max:
           Uint: 1
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: sig1
         multiplexer_indicator: Multiplexor
         start_bit: 7
@@ -85,14 +80,11 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
   - id:
       Standard: 1365
     name: Msg2
     size: 8
-    transmitter:
-      NodeName: ECU
+    transmitter: ECU
     signals:
       - name: Test7
         multiplexer_indicator: Plain
@@ -107,8 +99,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Test6
         multiplexer_indicator: Plain
         start_bit: 55
@@ -122,8 +112,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Test5
         multiplexer_indicator: Plain
         start_bit: 47
@@ -137,8 +125,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Test4
         multiplexer_indicator: Plain
         start_bit: 39
@@ -152,8 +138,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Test3
         multiplexer_indicator: Plain
         start_bit: 31
@@ -167,8 +151,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Test2
         multiplexer_indicator: Plain
         start_bit: 23
@@ -182,8 +164,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Test1
         multiplexer_indicator: Plain
         start_bit: 15
@@ -197,8 +177,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Test0
         multiplexer_indicator: Plain
         start_bit: 7
@@ -212,14 +190,12 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
 message_transmitters:
   - message_id:
       Standard: 1365
     transmitter:
-      - NodeName: ECU
-      - NodeName: Peripherals
+      - ECU
+      - Peripherals
 comments:
   - Signal:
       message_id:

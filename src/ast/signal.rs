@@ -2,7 +2,7 @@ use can_dbc_pest::{Pair, Rule};
 
 use crate::ast::{ByteOrder, MultiplexIndicator, NumericValue, ValueType};
 use crate::parser::{
-    collect_strings, next, next_optional_rule, next_rule, next_string, parse_min_max_numeric,
+    collect_node_names, next, next_optional_rule, next_rule, next_string, parse_min_max_numeric,
     parse_next_float, parse_next_inner_str, parse_next_uint, validated_inner,
 };
 use crate::DbcError;
@@ -51,7 +51,7 @@ impl TryFrom<Pair<'_, Rule>> for Signal {
         let offset = parse_next_float(&mut pairs, Rule::offset)?;
         let (min, max) = parse_min_max_numeric(next_rule(&mut pairs, Rule::min_max)?)?;
         let unit = parse_next_inner_str(&mut pairs, Rule::unit)?;
-        let receivers = collect_strings(&mut pairs, Rule::node_name)?;
+        let receivers = collect_node_names(&mut pairs, Rule::node_name)?;
 
         Ok(Self {
             name,
@@ -120,5 +120,14 @@ mod tests {
         };
         let val = test_into::<Signal>(def, Rule::signal);
         assert_eq!(val, exp);
+    }
+
+    #[test]
+    fn vector_placeholder_receiver_test() {
+        let def = r#"
+ SG_ NAME : 3|2@1- (1,0) [0|0] "x" Vector__XXX
+"#;
+        let val = test_into::<Signal>(def, Rule::signal);
+        assert_eq!(val.receivers, Vec::<String>::new());
     }
 }

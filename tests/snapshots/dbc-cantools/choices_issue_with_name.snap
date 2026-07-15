@@ -44,7 +44,7 @@ messages:
       Extended: 589824
     name: TestMessage
     size: 1
-    transmitter: VectorXXX
+    transmitter: ~
     signals:
       - name: SignalWithChoices
         multiplexer_indicator: Plain
@@ -59,8 +59,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
 attribute_definitions:
   - Plain:
       - BusType

@@ -40,8 +40,7 @@ messages:
       Extended: 355729921
     name: Message1
     size: 8
-    transmitter:
-      NodeName: Node1
+    transmitter: Node1
     signals:
       - name: Signal1
         multiplexer_indicator: Plain
@@ -62,8 +61,7 @@ messages:
       Extended: 368054274
     name: Message2
     size: 8
-    transmitter:
-      NodeName: Node2
+    transmitter: Node2
     signals:
       - name: Signal2
         multiplexer_indicator: Plain

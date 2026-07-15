@@ -41,8 +41,7 @@ messages:
       Standard: 250
     name: ControlCmd
     size: 7
-    transmitter:
-      NodeName: Driver
+    transmitter: Driver
     signals:
       - name: CRC8_CMD1
         multiplexer_indicator: Plain
@@ -153,8 +152,7 @@ messages:
       Standard: 251
     name: LimitsCmd
     size: 6
-    transmitter:
-      NodeName: Driver
+    transmitter: Driver
     signals:
       - name: CRC8_CMD2
         multiplexer_indicator: Plain
@@ -220,8 +218,7 @@ messages:
       Standard: 252
     name: ControlStatus
     size: 4
-    transmitter:
-      NodeName: Actuator
+    transmitter: Actuator
     signals:
       - name: CRC8_STAT1
         multiplexer_indicator: Plain
@@ -288,8 +285,7 @@ messages:
       Standard: 253
     name: SystemStatus
     size: 3
-    transmitter:
-      NodeName: Actuator
+    transmitter: Actuator
     signals:
       - name: CRC8_STAT2
         multiplexer_indicator: Plain
@@ -340,8 +336,7 @@ messages:
       Standard: 113
     name: TorqueSensorData
     size: 3
-    transmitter:
-      NodeName: Sensor
+    transmitter: Sensor
     signals:
       - name: CRC8_DATA1
         multiplexer_indicator: Plain

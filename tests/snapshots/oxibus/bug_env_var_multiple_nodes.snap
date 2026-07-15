@@ -20,6 +20,6 @@ environment_variables:
     ev_id: 1
     access_type: DummyNodeVector3
     access_nodes:
-      - Name: Node0
-      - Name: Node1
-      - Name: Node2
+      - Node0
+      - Node1
+      - Node2

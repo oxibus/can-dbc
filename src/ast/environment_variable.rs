@@ -1,8 +1,8 @@
 use can_dbc_pest::{Pair, Rule};
 
-use crate::ast::{AccessNode, AccessType, EnvType};
+use crate::ast::{AccessType, EnvType};
 use crate::parser::{
-    collect_expected, expect_empty, inner_str, next, next_optional_rule, next_rule, parse_int,
+    collect_node_names, expect_empty, inner_str, next, next_optional_rule, next_rule, parse_int,
     parse_min_max_int, single_inner_str, validated_inner, DbcError,
 };
 
@@ -18,7 +18,7 @@ pub struct EnvironmentVariable {
     pub ev_id: i64,
     pub access_type: AccessType,
     #[cfg_attr(feature = "serde", serde(skip_serializing_if = "Vec::is_empty"))]
-    pub access_nodes: Vec<AccessNode>,
+    pub access_nodes: Vec<String>,
 }
 
 impl TryFrom<Pair<'_, Rule>> for EnvironmentVariable {
@@ -62,8 +62,8 @@ impl TryFrom<Pair<'_, Rule>> for EnvironmentVariable {
         // 8) Required: access_type
         let access_type = next_rule(&mut pairs, Rule::access_type)?.try_into()?;
 
-        // 9) Remaining: zero or more node_name entries -> collect into AccessNode
-        let access_nodes = collect_expected::<AccessNode>(&mut pairs, Rule::node_name)?;
+        // 9) Remaining: zero or more node_name entries
+        let access_nodes = collect_node_names(&mut pairs, Rule::node_name)?;
 
         expect_empty(&pairs)?;
 
@@ -88,6 +88,10 @@ mod tests {
 
     #[test]
     fn environment_variable_test() {
+        // NOTE: "VECTOR_XXX" is not treated in a special way,
+        // unlike the "VECTOR__XXX".
+        // This might be a bug, but it is consistent with python and other tooling
+
         let def = r#"
 EV_ IUV: 0 [-22|20] "mm" 3 7 DUMMY_NODE_VECTOR0 VECTOR_XXX;
 "#;
@@ -100,9 +104,18 @@ EV_ IUV: 0 [-22|20] "mm" 3 7 DUMMY_NODE_VECTOR0 VECTOR_XXX;
             initial_value: 3,
             ev_id: 7,
             access_type: AccessType::DummyNodeVector0,
-            access_nodes: vec![AccessNode::Name("VECTOR_XXX".to_string())],
+            access_nodes: vec!["VECTOR_XXX".to_string()],
         };
         let val = test_into::<EnvironmentVariable>(def.trim_start(), Rule::environment_variable);
         assert_eq!(val, exp);
+    }
+
+    #[test]
+    fn vector_placeholder_access_node_test() {
+        let def = r#"
+EV_ IUV: 0 [-22|20] "mm" 3 7 DUMMY_NODE_VECTOR0 Vector__XXX;
+"#;
+        let val = test_into::<EnvironmentVariable>(def.trim_start(), Rule::environment_variable);
+        assert_eq!(val.access_nodes, Vec::<String>::new());
     }
 }

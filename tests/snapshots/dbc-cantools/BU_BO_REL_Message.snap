@@ -40,8 +40,7 @@ messages:
       Standard: 1
     name: message_1
     size: 7
-    transmitter:
-      NodeName: ECU1
+    transmitter: ECU1
     signals:
       - name: signal_1
         multiplexer_indicator: Plain

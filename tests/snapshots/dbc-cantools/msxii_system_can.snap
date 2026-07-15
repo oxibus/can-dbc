@@ -31,8 +31,7 @@ messages:
       Standard: 1025
     name: BATTERY_VT
     size: 6
-    transmitter:
-      NodeName: BMS
+    transmitter: BMS
     signals:
       - name: MODULE_TEMP_35
         multiplexer_indicator:
@@ -48,8 +47,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_34
         multiplexer_indicator:
           MultiplexedSignal: 34
@@ -64,8 +61,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_33
         multiplexer_indicator:
           MultiplexedSignal: 33
@@ -80,8 +75,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_32
         multiplexer_indicator:
           MultiplexedSignal: 32
@@ -96,8 +89,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_31
         multiplexer_indicator:
           MultiplexedSignal: 31
@@ -112,8 +103,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_30
         multiplexer_indicator:
           MultiplexedSignal: 30
@@ -128,8 +117,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_29
         multiplexer_indicator:
           MultiplexedSignal: 29
@@ -144,8 +131,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_28
         multiplexer_indicator:
           MultiplexedSignal: 28
@@ -160,8 +145,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_27
         multiplexer_indicator:
           MultiplexedSignal: 27
@@ -176,8 +159,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_26
         multiplexer_indicator:
           MultiplexedSignal: 26
@@ -192,8 +173,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_25
         multiplexer_indicator:
           MultiplexedSignal: 25
@@ -208,8 +187,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_24
         multiplexer_indicator:
           MultiplexedSignal: 24
@@ -224,8 +201,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_23
         multiplexer_indicator:
           MultiplexedSignal: 23
@@ -240,8 +215,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_22
         multiplexer_indicator:
           MultiplexedSignal: 22
@@ -256,8 +229,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_21
         multiplexer_indicator:
           MultiplexedSignal: 21
@@ -272,8 +243,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_20
         multiplexer_indicator:
           MultiplexedSignal: 20
@@ -288,8 +257,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_19
         multiplexer_indicator:
           MultiplexedSignal: 19
@@ -304,8 +271,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_18
         multiplexer_indicator:
           MultiplexedSignal: 18
@@ -320,8 +285,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_17
         multiplexer_indicator:
           MultiplexedSignal: 17
@@ -336,8 +299,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_16
         multiplexer_indicator:
           MultiplexedSignal: 16
@@ -352,8 +313,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_15
         multiplexer_indicator:
           MultiplexedSignal: 15
@@ -368,8 +327,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_14
         multiplexer_indicator:
           MultiplexedSignal: 14
@@ -384,8 +341,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_13
         multiplexer_indicator:
           MultiplexedSignal: 13
@@ -400,8 +355,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_12
         multiplexer_indicator:
           MultiplexedSignal: 12
@@ -416,8 +369,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_11
         multiplexer_indicator:
           MultiplexedSignal: 11
@@ -432,8 +383,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_10
         multiplexer_indicator:
           MultiplexedSignal: 10
@@ -448,8 +397,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_09
         multiplexer_indicator:
           MultiplexedSignal: 9
@@ -464,8 +411,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_08
         multiplexer_indicator:
           MultiplexedSignal: 8
@@ -480,8 +425,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_07
         multiplexer_indicator:
           MultiplexedSignal: 7
@@ -496,8 +439,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_06
         multiplexer_indicator:
           MultiplexedSignal: 6
@@ -512,8 +453,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_05
         multiplexer_indicator:
           MultiplexedSignal: 5
@@ -528,8 +467,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_04
         multiplexer_indicator:
           MultiplexedSignal: 4
@@ -544,8 +481,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_03
         multiplexer_indicator:
           MultiplexedSignal: 3
@@ -560,8 +495,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_02
         multiplexer_indicator:
           MultiplexedSignal: 2
@@ -576,8 +509,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_01
         multiplexer_indicator:
           MultiplexedSignal: 1
@@ -592,8 +523,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_TEMP_00
         multiplexer_indicator:
           MultiplexedSignal: 0
@@ -608,8 +537,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_35
         multiplexer_indicator:
           MultiplexedSignal: 35
@@ -624,8 +551,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_34
         multiplexer_indicator:
           MultiplexedSignal: 34
@@ -640,8 +565,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_33
         multiplexer_indicator:
           MultiplexedSignal: 33
@@ -656,8 +579,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_32
         multiplexer_indicator:
           MultiplexedSignal: 32
@@ -672,8 +593,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_31
         multiplexer_indicator:
           MultiplexedSignal: 31
@@ -688,8 +607,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_30
         multiplexer_indicator:
           MultiplexedSignal: 30
@@ -704,8 +621,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_29
         multiplexer_indicator:
           MultiplexedSignal: 29
@@ -720,8 +635,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_28
         multiplexer_indicator:
           MultiplexedSignal: 28
@@ -736,8 +649,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_27
         multiplexer_indicator:
           MultiplexedSignal: 27
@@ -752,8 +663,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_26
         multiplexer_indicator:
           MultiplexedSignal: 26
@@ -768,8 +677,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_25
         multiplexer_indicator:
           MultiplexedSignal: 25
@@ -784,8 +691,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_24
         multiplexer_indicator:
           MultiplexedSignal: 24
@@ -800,8 +705,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_23
         multiplexer_indicator:
           MultiplexedSignal: 23
@@ -816,8 +719,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_22
         multiplexer_indicator:
           MultiplexedSignal: 22
@@ -832,8 +733,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_21
         multiplexer_indicator:
           MultiplexedSignal: 21
@@ -848,8 +747,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_20
         multiplexer_indicator:
           MultiplexedSignal: 20
@@ -864,8 +761,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_19
         multiplexer_indicator:
           MultiplexedSignal: 19
@@ -880,8 +775,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_18
         multiplexer_indicator:
           MultiplexedSignal: 18
@@ -896,8 +789,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_17
         multiplexer_indicator:
           MultiplexedSignal: 17
@@ -912,8 +803,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_16
         multiplexer_indicator:
           MultiplexedSignal: 16
@@ -928,8 +817,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_15
         multiplexer_indicator:
           MultiplexedSignal: 15
@@ -944,8 +831,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_14
         multiplexer_indicator:
           MultiplexedSignal: 14
@@ -960,8 +845,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_13
         multiplexer_indicator:
           MultiplexedSignal: 13
@@ -976,8 +859,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_12
         multiplexer_indicator:
           MultiplexedSignal: 12
@@ -992,8 +873,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_11
         multiplexer_indicator:
           MultiplexedSignal: 11
@@ -1008,8 +887,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_10
         multiplexer_indicator:
           MultiplexedSignal: 10
@@ -1024,8 +901,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_09
         multiplexer_indicator:
           MultiplexedSignal: 9
@@ -1040,8 +915,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_08
         multiplexer_indicator:
           MultiplexedSignal: 8
@@ -1056,8 +929,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_07
         multiplexer_indicator:
           MultiplexedSignal: 7
@@ -1072,8 +943,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_06
         multiplexer_indicator:
           MultiplexedSignal: 6
@@ -1088,8 +957,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_05
         multiplexer_indicator:
           MultiplexedSignal: 5
@@ -1104,8 +971,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_04
         multiplexer_indicator:
           MultiplexedSignal: 4
@@ -1120,8 +985,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_03
         multiplexer_indicator:
           MultiplexedSignal: 3
@@ -1136,8 +999,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_02
         multiplexer_indicator:
           MultiplexedSignal: 2
@@ -1152,8 +1013,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_01
         multiplexer_indicator:
           MultiplexedSignal: 1
@@ -1168,8 +1027,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: MODULE_VOLTAGE_00
         multiplexer_indicator:
           MultiplexedSignal: 0
@@ -1184,8 +1041,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: BATTERY_VT_INDEX
         multiplexer_indicator: Multiplexor
         start_bit: 0
@@ -1199,5 +1054,3 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX

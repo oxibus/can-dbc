@@ -39,8 +39,7 @@ messages:
       Standard: 1024
     name: Message1
     size: 8
-    transmitter:
-      NodeName: TestNode
+    transmitter: TestNode
     signals:
       - name: Signal1
         multiplexer_indicator: Plain
@@ -55,14 +54,11 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
   - id:
       Standard: 1025
     name: Message2
     size: 8
-    transmitter:
-      NodeName: TestNode
+    transmitter: TestNode
     signals:
       - name: Signal2
         multiplexer_indicator: Plain
@@ -77,8 +73,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: Signal1
         multiplexer_indicator: Plain
         start_bit: 0
@@ -92,8 +86,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
 comments:
   - Node:
       name: TestNode

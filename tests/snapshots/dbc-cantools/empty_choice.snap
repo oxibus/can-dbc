@@ -46,8 +46,7 @@ messages:
       Standard: 10
     name: example_message
     size: 3
-    transmitter:
-      NodeName: tx_node
+    transmitter: tx_node
     signals:
       - name: no_choice
         multiplexer_indicator: Plain
@@ -62,8 +61,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: empty_choice
         multiplexer_indicator: Plain
         start_bit: 8
@@ -77,8 +74,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
       - name: non_empty_choice
         multiplexer_indicator: Plain
         start_bit: 0
@@ -92,8 +87,6 @@ messages:
         max:
           Uint: 0
         unit: ""
-        receivers:
-          - Vector__XXX
 attribute_definitions:
   - Plain:
       - BusType
