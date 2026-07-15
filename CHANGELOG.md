@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [11.0.0](https://github.com/oxibus/can-dbc/compare/v10.0.0...v11.0.0) - 2026-07-15
+
+### Other
+
+- [**breaking**] remove deprecated with-serde feature ([#86](https://github.com/oxibus/can-dbc/pull/86))
+
 ## [10.0.0](https://github.com/oxibus/can-dbc/compare/v9.1.0...v10.0.0) - 2026-07-15
 
 ### Added
