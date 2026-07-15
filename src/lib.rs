@@ -2,7 +2,7 @@
 
 // Re-export of `can_dbc_pest::encodings` to simplify usage
 #[cfg(feature = "encodings")]
-pub use can_dbc_pest::{encodings, decode_cp1252};
+pub use can_dbc_pest::{decode_cp1252, encodings};
 
 mod ast;
 pub use ast::*;
