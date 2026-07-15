@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- simplify access_nodes and transmitters ([#81](https://github.com/oxibus/can-dbc/pull/81))
+- [**breaking**] simplify access_nodes and transmitters ([#81](https://github.com/oxibus/can-dbc/pull/81))
 
 ### Other
 
