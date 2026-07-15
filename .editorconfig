@@ -11,7 +11,7 @@ trim_trailing_whitespace = true
 indent_size = 2
 
 [.gitmodules]
-indent_size = tab
+indent_style = tab
 
 [tests/snapshots*/**]
 trim_trailing_whitespace = unset
