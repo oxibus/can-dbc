@@ -1,4 +1,4 @@
-use can_dbc::{Dbc, MessageId, SignalExtendedValueType, ValDescription};
+use can_dbc::{AttributeValue, Dbc, MessageId, SignalExtendedValueType, ValDescription};
 
 const SAMPLE_DBC: &str = r#"
 VERSION "0.1"
@@ -64,9 +64,13 @@ CM_ SG_ 5 TestSigLittleUnsigned1 "asaklfjlsdfjlsdfgls
 =0943503450KFSDKFKDFKSDFKSDFNKCnvsdcvsvxkcv";
 
 BA_DEF_DEF_ "BusType" "AS";
+BA_DEF_DEF_ "GenMsgCycleTime" 0;
+BA_DEF_DEF_ "GenSigStartValue" 7;
 
 BA_ "Attr" BO_ 4358435 283;
 BA_ "Attr" BO_ 56949545 344;
+BA_ "GenMsgCycleTime" BO_ 1840 100;
+BA_ "GenSigStartValue" SG_ 1840 Signal_4 42;
 
 VAL_ 2000 Signal_3 255 "NOP";
 
@@ -185,4 +189,106 @@ fn lookup_multiplex_indicator_switch_none_when_missing() {
     let dbc_content = Dbc::try_from(SAMPLE_DBC).unwrap();
     let multiplexor_switch = dbc_content.message_multiplexor_switch(MessageId::Standard(1840));
     assert!(multiplexor_switch.unwrap().is_none());
+}
+
+#[test]
+fn lookup_message_attribute() {
+    let dbc_content = Dbc::try_from(SAMPLE_DBC).unwrap();
+    let value = dbc_content.message_attribute(MessageId::Standard(1840), "GenMsgCycleTime");
+    assert_eq!(value, Some(&AttributeValue::Uint(100)));
+}
+
+#[test]
+fn lookup_message_attribute_none_when_missing() {
+    let dbc_content = Dbc::try_from(SAMPLE_DBC).unwrap();
+    let value = dbc_content.message_attribute(MessageId::Standard(2000), "GenMsgCycleTime");
+    assert_eq!(value, None);
+}
+
+#[test]
+fn lookup_signal_attribute() {
+    let dbc_content = Dbc::try_from(SAMPLE_DBC).unwrap();
+    let value =
+        dbc_content.signal_attribute(MessageId::Standard(1840), "Signal_4", "GenSigStartValue");
+    assert_eq!(value, Some(&AttributeValue::Uint(42)));
+}
+
+#[test]
+fn lookup_signal_attribute_none_when_missing() {
+    let dbc_content = Dbc::try_from(SAMPLE_DBC).unwrap();
+    let value =
+        dbc_content.signal_attribute(MessageId::Standard(1840), "Signal_3", "GenSigStartValue");
+    assert_eq!(value, None);
+}
+
+#[test]
+fn lookup_attribute_default() {
+    let dbc_content = Dbc::try_from(SAMPLE_DBC).unwrap();
+    assert_eq!(
+        dbc_content.attribute_default("BusType"),
+        Some(&AttributeValue::String("AS".to_string()))
+    );
+    assert_eq!(
+        dbc_content.attribute_default("GenMsgCycleTime"),
+        Some(&AttributeValue::Uint(0))
+    );
+}
+
+#[test]
+fn lookup_attribute_default_none_when_missing() {
+    let dbc_content = Dbc::try_from(SAMPLE_DBC).unwrap();
+    assert_eq!(dbc_content.attribute_default("Nonexistent"), None);
+}
+
+#[test]
+fn resolved_message_attribute_uses_assigned_value() {
+    let dbc_content = Dbc::try_from(SAMPLE_DBC).unwrap();
+    let value =
+        dbc_content.resolved_message_attribute(MessageId::Standard(1840), "GenMsgCycleTime");
+    assert_eq!(value, Some(&AttributeValue::Uint(100)));
+}
+
+#[test]
+fn resolved_message_attribute_falls_back_to_default() {
+    let dbc_content = Dbc::try_from(SAMPLE_DBC).unwrap();
+    let value =
+        dbc_content.resolved_message_attribute(MessageId::Standard(2000), "GenMsgCycleTime");
+    assert_eq!(value, Some(&AttributeValue::Uint(0)));
+}
+
+#[test]
+fn resolved_message_attribute_none_when_no_value_and_no_default() {
+    let dbc_content = Dbc::try_from(SAMPLE_DBC).unwrap();
+    let value = dbc_content.resolved_message_attribute(MessageId::Standard(2000), "Nonexistent");
+    assert_eq!(value, None);
+}
+
+#[test]
+fn resolved_signal_attribute_uses_assigned_value() {
+    let dbc_content = Dbc::try_from(SAMPLE_DBC).unwrap();
+    let value = dbc_content.resolved_signal_attribute(
+        MessageId::Standard(1840),
+        "Signal_4",
+        "GenSigStartValue",
+    );
+    assert_eq!(value, Some(&AttributeValue::Uint(42)));
+}
+
+#[test]
+fn resolved_signal_attribute_falls_back_to_default() {
+    let dbc_content = Dbc::try_from(SAMPLE_DBC).unwrap();
+    let value = dbc_content.resolved_signal_attribute(
+        MessageId::Standard(1840),
+        "Signal_3",
+        "GenSigStartValue",
+    );
+    assert_eq!(value, Some(&AttributeValue::Uint(7)));
+}
+
+#[test]
+fn resolved_signal_attribute_none_when_no_value_and_no_default() {
+    let dbc_content = Dbc::try_from(SAMPLE_DBC).unwrap();
+    let value =
+        dbc_content.resolved_signal_attribute(MessageId::Standard(1840), "Signal_3", "Nonexistent");
+    assert_eq!(value, None);
 }
