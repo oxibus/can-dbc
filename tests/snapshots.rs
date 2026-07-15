@@ -103,9 +103,12 @@ fn get_test_info(path: &Path) -> Test {
         let (test_root, path_dir) = (
             PathBuf::from_slash(&test_root)
                 .to_str()
-                .unwrap()
+                .expect("test_root is not utf8")
                 .to_string(),
-            PathBuf::from_slash(&path_dir).to_str().unwrap().to_string(),
+            PathBuf::from_slash(&path_dir)
+                .to_str()
+                .expect("path_dir is not utf8")
+                .to_string(),
         );
         if let Some(pos) = path_dir.find(&test_root) {
             let file_name = path
