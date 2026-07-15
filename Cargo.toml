@@ -21,8 +21,6 @@ default = ["serde", "encodings"]
 # Support decoding from all standard encodings, e.g. cp1251 commonly used for dbc
 encodings = ["can-dbc-pest/encodings"]
 serde = ["dep:serde"]
-# This feature is deprecated per clippy::redundant_feature_names.  Use `serde` instead.
-with-serde = ["serde"]
 
 [dependencies]
 can-dbc-pest = "0.8.0"
@@ -52,7 +50,6 @@ unwrap_used = "warn"
 cargo = { level = "warn", priority = -1 }
 pedantic = { level = "warn", priority = -1 }
 # Verified allows
-redundant_feature_names = "allow"  # remove once with-serde feature is removed
 needless_doctest_main = "allow" # README code block contains main function
 missing_errors_doc = "allow"
 
