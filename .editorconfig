@@ -10,6 +10,9 @@ trim_trailing_whitespace = true
 [*.{yml,yaml}]
 indent_size = 2
 
+[.gitmodules]
+indent_size = tab
+
 [tests/snapshots*/**]
 trim_trailing_whitespace = unset
 insert_final_newline = unset

@@ -8,18 +8,6 @@ use crate::ast::NumericValue;
 
 pub type DbcResult<T> = Result<T, DbcError>;
 
-/// A helper function to decode cp1252 bytes, as DBC files are often encoded in cp1252.
-#[cfg(feature = "encodings")]
-#[must_use]
-pub fn decode_cp1252(bytes: &[u8]) -> Option<std::borrow::Cow<'_, str>> {
-    let (cow, _, had_errors) = crate::encodings::WINDOWS_1252.decode(bytes);
-    if had_errors {
-        None
-    } else {
-        Some(cow)
-    }
-}
-
 /// Error type for DBC parsing operations
 #[derive(Debug, Clone, PartialEq, thiserror::Error)]
 pub enum DbcError {

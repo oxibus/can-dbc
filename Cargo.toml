@@ -19,14 +19,13 @@ required-features = ["encodings"]
 [features]
 default = ["serde", "encodings"]
 # Support decoding from all standard encodings, e.g. cp1251 commonly used for dbc
-encodings = ["dep:encoding_rs"]
+encodings = ["can-dbc-pest/encodings"]
 serde = ["dep:serde"]
 # This feature is deprecated per clippy::redundant_feature_names.  Use `serde` instead.
 with-serde = ["serde"]
 
 [dependencies]
 can-dbc-pest = "0.8.0"
-encoding_rs = { version = "0.8.35", optional = true }
 serde = { version = "1.0.200", features = ["derive"], optional = true }
 thiserror = "2.0.17"
 
