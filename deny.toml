@@ -11,3 +11,13 @@ allow = [
     "MIT",
     "Unicode-3.0",
 ]
+
+# https://embarkstudios.github.io/cargo-deny/checks/bans/cfg.html
+[bans]
+# Fail on unexpected duplicate crate versions; allow known temporary ones via `skip`.
+multiple-versions = "deny"
+skip = [
+    # serde/thiserror use syn 3; pest (via can-dbc-pest), clap, and test_each_file still use syn 2.
+    # Remove once those crates migrate to syn 3.
+    { crate = "syn@2", reason = "waiting for pest/clap/test_each_file to migrate to syn 3" },
+]
