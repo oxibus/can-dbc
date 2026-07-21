@@ -16,10 +16,6 @@ name = "file_parser"
 path = "examples/file_parser.rs"
 required-features = ["encodings"]
 
-[[test]]
-name = "unit"
-path = "tests/unit/main.rs"
-
 [features]
 default = ["serde", "encodings"]
 # Support decoding from all standard encodings, e.g. cp1251 commonly used for dbc
@@ -56,6 +52,10 @@ pedantic = { level = "warn", priority = -1 }
 # Verified allows
 needless_doctest_main = "allow" # README code block contains main function
 missing_errors_doc = "allow"
+
+[[test]]
+name = "unit"
+path = "tests/unit/main.rs"
 
 #[patch.crates-io]
 #can-dbc-pest = { path = "../can-dbc-pest" }
