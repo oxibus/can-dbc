@@ -38,21 +38,21 @@ build-diagram:
     mmdc -i docs/diagram.mmd -o docs/diagram.svg
 
 # Quick compile without building a binary
-check:
+check: setup-submodules
     cargo check --workspace --all-features --all-targets
     cargo check --workspace --no-default-features --all-targets
 
 # Generate LCOV coverage report for CI to upload to codecov.io
-ci-coverage: env-info && \
+ci-coverage: setup-submodules env-info && \
         (_coverage '--lcov' '--output-path' quote(coverage_lcov))
     rm -rf {{quote(parent_directory(coverage_lcov))}}
     mkdir -p {{quote(parent_directory(coverage_lcov))}}
 
 # Run all tests as expected by CI
-ci-test: env-info test-fmt check clippy test test-doc deny && assert-git-is-clean
+ci-test: setup-submodules env-info test-fmt check clippy test test-doc deny && assert-git-is-clean
 
 # Compile default features with minimal dependencies on the configured MSRV
-ci-test-msrv:
+ci-test-msrv: setup-submodules
     {{just}} ci_mode=0 env-info _check-msrv-default
     {{just}} assert-git-is-clean
 
@@ -66,11 +66,11 @@ clean:
     rm -f Cargo.lock
 
 # Run cargo clippy to lint the code
-clippy *args:
+clippy *args: setup-submodules
     cargo clippy --workspace --all-features --all-targets {{args}}
 
 # Generate and open the HTML coverage report
-coverage:  (_coverage '--open')
+coverage: setup-submodules (_coverage '--open')
 
 # Clean, collect, and aggregate coverage using the requested report arguments
 _coverage *report_args:  (cargo-install 'cargo-llvm-cov')
@@ -142,8 +142,12 @@ release *args='':  (cargo-install 'release-plz')
 semver *args:  (cargo-install 'cargo-semver-checks')
     cargo semver-checks --all-features {{args}}
 
+# Initialize git submodules required for snapshot/fixture tests
+setup-submodules:
+    git submodule update --init --recursive
+
 # Run all tests
-test:
+test: setup-submodules
     cargo test --workspace --all-features --all-targets
     cargo test --doc --workspace --all-features
 

@@ -16,6 +16,10 @@ name = "file_parser"
 path = "examples/file_parser.rs"
 required-features = ["encodings"]
 
+[[test]]
+name = "unit"
+path = "tests/unit/main.rs"
+
 [features]
 default = ["serde", "encodings"]
 # Support decoding from all standard encodings, e.g. cp1251 commonly used for dbc

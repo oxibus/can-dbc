@@ -79,10 +79,7 @@ SIG_VALTYPE_ 2000 Signal_8 : 1;
 
 #[test]
 fn dbc_definition_test() {
-    match Dbc::try_from(SAMPLE_DBC) {
-        Ok(dbc_content) => println!("DBC Content{dbc_content:#?}"),
-        Err(e) => panic!("Failed to parse DBC: {e}"),
-    }
+    Dbc::try_from(SAMPLE_DBC).expect("SAMPLE_DBC should parse");
 }
 
 #[test]
