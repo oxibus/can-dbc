@@ -52,6 +52,12 @@ pedantic = { level = "warn", priority = -1 }
 # Verified allows
 needless_doctest_main = "allow" # README code block contains main function
 missing_errors_doc = "allow"
+# Transitive: serde/thiserror on syn 3, pest/clap/test_each_file still on syn 2
+multiple_crate_versions = "allow"
+
+[[test]]
+name = "unit"
+path = "tests/unit/main.rs"
 
 #[patch.crates-io]
 #can-dbc-pest = { path = "../can-dbc-pest" }

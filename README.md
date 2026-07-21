@@ -90,6 +90,24 @@ Test dbcs files were copied from the [cantools](https://github.com/eerimoq/canto
 * To run tests, use `just test`.
 * This project uses [insta](https://insta.rs) for snapshot testing. To update the snapshots run `just bless`
 
+### Git submodules
+
+Snapshot and fixture tests require Git submodules (`tests/fixtures/opendbc` and `tests/fixtures/shared-test-files`). Initialize them after cloning:
+
+```bash
+git submodule update --init --recursive
+# or:
+just setup-submodules
+```
+
+Or clone with submodules in one step:
+
+```bash
+git clone --recurse-submodules https://github.com/oxibus/can-dbc.git
+```
+
+Without these directories, `cargo test` / `cargo check --all-targets` fail at compile time because `test_each_path!` expects the fixture paths to exist. `just test`, `just check`, and `just ci-test` run `setup-submodules` automatically.
+
 ## License
 
 Licensed under either of
